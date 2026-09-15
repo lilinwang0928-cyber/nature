@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3-1 植物的運輸構造｜互動學習單</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:0 0 120px;font-weight:700;}
+  .sortrow select{flex:1 1 240px;}
+
+  table.pair{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.pair th,table.pair td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.pair th{background:#F3F7F2;width:190px;font-weight:700;}
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select{width:100%;}
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 第 3 章 · P.104–108</p>
+  <h1>3-1 植物的運輸構造</h1>
+</header>
+
+<div class="goal">
+  <h2>學完這一小節，你要能夠……</h2>
+  <ol>
+    <li>說出植物體內的運輸構造是什麼，以及它由哪些部分組成。</li>
+    <li>比較不同植物莖內維管束的排列方式，以及有沒有形成層。</li>
+    <li>說明多年生木本植物的年輪是怎麼產生的，並解釋環狀剝皮為什麼會讓樹木枯死。</li>
+  </ol>
+</div>
+
+<details class="brief" open>
+  <summary>學習重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li><b>植物的運輸構造是維管束</b>。維管束細胞形狀細長，上下相接形成管狀構造，可把物質運送到各處，並由根、莖延伸至葉。</li>
+    <li><b>木質部</b>運送水分和礦物質，分布在莖的維管束內側；細胞壁較厚，還有<b>支持植物體</b>的功能。</li>
+    <li><b>韌皮部</b>運送光合作用所製造的養分，分布在莖的維管束外側。</li>
+    <li><b>維管束延伸到葉中就叫葉脈</b>：木質部靠近上表皮側，韌皮部靠近下表皮側。葉脈分布可分為網狀脈和平行脈。</li>
+    <li><b>形成層</b>位於木質部和韌皮部之間，只有雙子葉植物才有。形成層行細胞分裂，向外增生新的韌皮部、向內增生新的木質部，使莖不斷加粗。</li>
+    <li><b>雙子葉植物</b>例如榕樹、向日葵：莖內維管束環狀排列、有形成層、葉脈為網狀脈。<b>單子葉植物</b>例如玉米、水稻：散生排列、沒有形成層、葉脈為平行脈。</li>
+    <li><b>樹幹的兩部分</b>：樹皮是樹幹的保護層，包含韌皮部及其外圍構造；木材由形成層內側的木質部細胞堆積而成。</li>
+    <li><b>年輪</b>是樹幹、樹枝橫切面上深淺對比的環紋，由木質部細胞的生長速度不同所造成。</li>
+    <li><b>春、夏溫暖多雨</b>時細胞生長快速、細胞較大，形成的木材顏色較淺；<b>秋、冬寒冷乾燥</b>時生長緩慢、細胞較小，顏色較深。</li>
+    <li>一深一淺合為一圈，代表樹木一歲。<b>溫帶地區四季分明</b>，木質部的深淺對比更明顯。</li>
+    <li><b>環狀剝皮</b>：剝除樹皮時會破壞韌皮部，葉片行光合作用製造的養分無法送到根部，根部缺乏養分而壞死，接著無法吸收水分，樹木就枯死。</li>
+    <li>溪頭有些柳杉的樹皮被松鼠啃食，造成柳杉樹枝死亡，就是這個道理。</li>
+    <li><b>樹木中心部分是老化的木質部</b>，所以有些樹齡較大的樹木即使樹幹中空，仍靠外側可運水的木質部存活。</li>
+    <li>由年輪可推論樹齡與氣候：淺色一圈顏色較淡、範圍較大，代表該年春夏雨量較多；深色一圈顏色較深，代表該年秋冬較寒冷。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、木質部、韌皮部還是形成層？</h2>
+  <p class="hint">十個敘述，各屬於維管束的哪一部分。</p>
+  <table class="pair" id="partTable"></table>
+  <div class="actions"><button class="act" id="partCheck" type="button">檢查</button></div>
+  <p class="fb" id="partFb"></p>
+</section>
+
+<section class="card">
+  <h2>二、雙子葉植物還是單子葉植物？</h2>
+  <p class="hint">排列方式、形成層、葉脈，三件事是一整組的。</p>
+  <table class="pair" id="leafTable"></table>
+  <div class="actions"><button class="act" id="leafCheck" type="button">檢查</button></div>
+  <p class="fb" id="leafFb"></p>
+</section>
+
+<section class="card">
+  <h2>三、年輪與環狀剝皮</h2>
+  <p class="hint">為什麼會有深淺環紋，以及剝掉一圈樹皮為何會要了樹的命。</p>
+  <table class="pair" id="ringTable"></table>
+  <div class="actions"><button class="act" id="ringCheck" type="button">檢查</button></div>
+  <p class="fb" id="ringFb"></p>
+</section>
+
+<section class="card">
+  <h2>四、練習題</h2>
+  <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
+  <div id="qs"></div>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>練習題答對</span><b id="score">0 / 22</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）3-1 植物的運輸構造 P.104–108 配套互動學習單。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-c3-1-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"c3-1", title:"3-1 植物的運輸構造", file:"bio1-c3-1.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = (q.type === "choice")
+      ? "(" + "ABCD".charAt(q.ans) + ") " + q.opts[q.ans]
+      : q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  function buildSelectTable(tableId, dataAttr, rows, options){
+    var table = document.getElementById(tableId);
+    rows.forEach(function(item){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = item.name;
+      var td = document.createElement("td");
+      var sel = document.createElement("select");
+      sel.dataset[dataAttr] = item.id;
+      var blank = document.createElement("option");
+      blank.value = ""; blank.textContent = "（請選擇）";
+      sel.appendChild(blank);
+      options.forEach(function(o){
+        var op = document.createElement("option");
+        op.value = o; op.textContent = o;
+        sel.appendChild(op);
+      });
+      var savedKey = dataAttr + "-" + item.id;
+      if (state.answers[savedKey]) sel.value = state.answers[savedKey];
+      sel.addEventListener("change", function(){
+        state.answers[savedKey] = sel.value;
+        store.write(state);
+        sel.classList.remove("ok","no");
+      });
+      td.appendChild(sel);
+      tr.appendChild(th);
+      tr.appendChild(td);
+      table.appendChild(tr);
+    });
+  }
+  function checkSelectTable(dataAttr, rows, fbId, allRight, hint){
+    var right = 0;
+    rows.forEach(function(item){
+      var sel = document.querySelector("select[data-" + dataAttr + '="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById(fbId);
+    fb.className = "fb show " + (right === rows.length ? "right" : "wrong");
+    fb.textContent = right === rows.length ? allRight
+      : "答對 " + right + " / " + rows.length + "。" + hint;
+  }
+
+  /* ── 一、維管束的三部分 ── */
+  var PARTS = ["木質部","韌皮部","形成層"];
+  var PROWS = [
+    { id:"p1", name:"運送水分和礦物質", ans:"木質部" },
+    { id:"p2", name:"運送光合作用所製造的養分", ans:"韌皮部" },
+    { id:"p3", name:"行細胞分裂，使莖不斷加粗", ans:"形成層" },
+    { id:"p4", name:"分布在莖的維管束內側", ans:"木質部" },
+    { id:"p5", name:"分布在莖的維管束外側", ans:"韌皮部" },
+    { id:"p6", name:"細胞壁較厚，有支持植物體的功能", ans:"木質部" },
+    { id:"p7", name:"在葉中靠近上表皮側", ans:"木質部" },
+    { id:"p8", name:"在葉中靠近下表皮側", ans:"韌皮部" },
+    { id:"p9", name:"環狀剝皮時被破壞的構造", ans:"韌皮部" },
+    { id:"p10", name:"木材由它的細胞堆積而成", ans:"木質部" }
+  ];
+  buildSelectTable("partTable", "p", PROWS, PARTS);
+  document.getElementById("partCheck").addEventListener("click", function(){
+    checkSelectTable("p", PROWS, "partFb",
+      "全對。內木外韌、中間夾形成層；木質部運水兼支撐，韌皮部運養分，形成層負責加粗。",
+      "先問「運的是水還是養分」，再看位置：內側是木質部、外側是韌皮部。只有形成層會分裂。");
+  });
+
+  /* ── 二、雙子葉或單子葉 ── */
+  var KINDS = ["雙子葉植物","單子葉植物"];
+  var LROWS = [
+    { id:"l1", name:"榕樹、向日葵", ans:"雙子葉植物" },
+    { id:"l2", name:"玉米、水稻", ans:"單子葉植物" },
+    { id:"l3", name:"莖內維管束呈環狀排列", ans:"雙子葉植物" },
+    { id:"l4", name:"莖內維管束呈散生排列", ans:"單子葉植物" },
+    { id:"l5", name:"具有形成層", ans:"雙子葉植物" },
+    { id:"l6", name:"沒有形成層", ans:"單子葉植物" },
+    { id:"l7", name:"葉脈為網狀脈", ans:"雙子葉植物" },
+    { id:"l8", name:"葉脈為平行脈", ans:"單子葉植物" },
+    { id:"l9", name:"莖能不斷加粗，會形成年輪", ans:"雙子葉植物" }
+  ];
+  buildSelectTable("leafTable", "l", LROWS, KINDS);
+  document.getElementById("leafCheck").addEventListener("click", function(){
+    checkSelectTable("l", LROWS, "leafFb",
+      "全對。這三件事是綁在一起的：環狀排列、有形成層、網狀脈，同屬雙子葉；也因為有形成層，才會加粗、才有年輪。",
+      "記一組代表：榕樹是雙子葉（環狀、有形成層、網狀脈），玉米是單子葉（散生、無形成層、平行脈）。");
+  });
+
+  /* ── 三、年輪與環狀剝皮 ── */
+  var RINGS = [
+    "生長快速、細胞較大，木材顏色較淺",
+    "生長緩慢、細胞較小，木材顏色較深",
+    "代表樹木一歲",
+    "韌皮部",
+    "根部缺乏養分而壞死",
+    "無法吸收水分，樹木枯死",
+    "中心雖是老化的木質部，外側仍有可運輸水分的木質部"
+  ];
+  var RROWS = [
+    { id:"r1", name:"春、夏（溫暖多雨）時的木質部細胞", ans:RINGS[0] },
+    { id:"r2", name:"秋、冬（寒冷乾燥）時的木質部細胞", ans:RINGS[1] },
+    { id:"r3", name:"一深一淺合為一圈", ans:RINGS[2] },
+    { id:"r4", name:"環狀剝皮直接破壞的構造", ans:RINGS[3] },
+    { id:"r5", name:"養分送不到根部之後", ans:RINGS[4] },
+    { id:"r6", name:"根部壞死之後", ans:RINGS[5] },
+    { id:"r7", name:"樹幹中空的神木仍能存活，因為", ans:RINGS[6] }
+  ];
+  buildSelectTable("ringTable", "r", RROWS, RINGS);
+  document.getElementById("ringCheck").addEventListener("click", function(){
+    checkSelectTable("r", RROWS, "ringFb",
+      "全對。環狀剝皮的死亡順序是：養分運送受阻→根細胞死亡→水分運送受阻→葉細胞死亡，四步缺一不可。",
+      "剝皮破壞的是外側的韌皮部（運養分），所以先出事的是根；根死了才輪到水分和葉子。");
+  });
+
+  /* ── 四、練習題 ── */
+  var QS = [
+    { id:"q1", tag:"焦點即時練", type:"choice",
+      text:"下列植物中，何者的維管束在莖中呈散生排列？",
+      opts:["水稻","向日葵","榕樹","鳳仙花"], ans:0,
+      why:"水稻是單子葉植物，維管束散生排列；其餘三種都是雙子葉植物，呈環狀排列。" },
+    { id:"q2", tag:"焦點即時練", type:"choice",
+      text:"以水稻的莖和向日葵的莖作比較，少了下列何種構造？",
+      opts:["維管束","木質部","韌皮部","形成層"], ans:3,
+      why:"單子葉植物沒有形成層，所以莖不會像雙子葉植物那樣不斷加粗。" },
+    { id:"q3", tag:"焦點即時練", type:"choice",
+      text:"為什麼榕樹的莖和樹幹可以不斷的加粗？",
+      opts:[
+        "因為榕樹的韌皮部不斷分裂",
+        "因為榕樹的木質部會不斷分裂",
+        "榕樹的形成層會一直分裂出木質部",
+        "榕樹的形成層會不斷分裂"
+      ], ans:3,
+      why:"形成層向外增生韌皮部、向內增生木質部，兩邊都長才使莖加粗，不是只長木質部。" },
+    { id:"q4", tag:"焦點即時練", type:"choice",
+      text:"關於榕樹莖內維管束的敘述，下列何者正確？",
+      opts:[
+        "形成層向外長出木質部",
+        "韌皮部向內長出形成層",
+        "維管束呈環狀排列",
+        "韌皮部可運輸養分和礦物質"
+      ], ans:2,
+      why:"榕樹是雙子葉植物，維管束環狀排列。形成層向外長韌皮部、向內長木質部；礦物質是由木質部運送的。" },
+    { id:"q5", tag:"焦點即時練", type:"fill",
+      text:"木材是由形成層內側的＿＿＿逐漸堆積形成。",
+      ans:["木質部"],
+      why:"木材就是堆積起來的木質部；樹的中心部分則是老化的木質部。" },
+    { id:"q6", tag:"焦點即時練", type:"fill",
+      text:"樹皮是指＿＿＿及其以外的部分。",
+      ans:["形成層"],
+      why:"樹皮包含形成層以外的構造，也就是韌皮部及其外圍，所以剝皮會破壞韌皮部。" },
+    { id:"q7", tag:"焦點即時練", type:"fill",
+      text:"年輪中顏色較深的部分是＿＿季所形成的。",
+      ans:["秋冬","秋、冬"],
+      why:"秋冬寒冷乾燥，木質部細胞生長緩慢、細胞較小，顏色就比較深。" },
+    { id:"q8", tag:"焦點即時練", type:"fill",
+      text:"年輪中顏色較淺的部分是＿＿季所形成的。",
+      ans:["春夏","春、夏"],
+      why:"春夏溫暖多雨，細胞生長快速、細胞較大，顏色比較淺。" },
+    { id:"q9", tag:"焦點即時練", type:"choice",
+      text:"多年生木本植物在何種生存環境下，莖中具有較明顯的年輪？",
+      opts:["溫暖多雨","四季分明","天寒地凍","四季如春"], ans:1,
+      why:"四季分明才會有明顯的生長快慢差異，深淺對比才清楚；四季如春或終年寒冷都做不出對比。" },
+    { id:"q10", tag:"焦點即時練", type:"choice",
+      text:"甲.葉細胞死亡　乙.根細胞死亡　丙.水分運送受阻　丁.養分運送受阻。若一棵榕樹因為莖遭環狀剝皮而導致死亡，則其發生的現象依序為何？",
+      opts:["甲乙丙丁","乙丙甲丁","丁丙乙甲","丁乙丙甲"], ans:3,
+      why:"剝皮先斷韌皮部，養分送不下去（丁），根缺養分而死（乙），沒有根就吸不到水（丙），最後葉細胞死亡（甲）。" },
+    { id:"q11", tag:"焦點即時練", type:"choice",
+      text:"下列哪一種植物不會形成年輪？",
+      opts:["紅檜","榕樹","松樹","玉米"], ans:3,
+      why:"玉米是單子葉植物，沒有形成層、莖不會逐年加粗，因此不會形成年輪。" },
+    { id:"q12", tag:"實力養成評量", type:"choice",
+      text:"關於維管束的敘述，下列何者錯誤？",
+      opts:[
+        "葉脈是分布在葉內的維管束",
+        "維管束中具有負責運輸物質的細胞",
+        "維管束是貫穿根、莖、葉的構造",
+        "玉米莖內維管束的排列方式呈環狀"
+      ], ans:3,
+      why:"玉米是單子葉植物，莖內維管束是散生排列，不是環狀。" },
+    { id:"q13", tag:"實力養成評量", type:"choice",
+      text:"小雯種番茄時每天澆水並灑一些礦物質肥料，則水及肥料是如何運送到植物體各處？",
+      opts:[
+        "水由韌皮部來運送、肥料由木質部來運送",
+        "水由形成層來運送、肥料由韌皮部來運送",
+        "水及肥料都由韌皮部來運送",
+        "水及肥料都由木質部來運送"
+      ], ans:3,
+      why:"木質部負責運送根部吸收的水分和礦物質，兩者走同一條路；韌皮部運的是葉子做出來的養分。" },
+    { id:"q14", tag:"實力養成評量", type:"choice",
+      text:"關於植物維管束的敘述，下列何者錯誤？",
+      opts:[
+        "所有的植物都有韌皮部、形成層及木質部",
+        "韌皮部可以輸送養分",
+        "形成層向外增生韌皮部細胞，向內增生木質部細胞",
+        "木質部可以輸送水分及礦物質"
+      ], ans:0,
+      why:"單子葉植物沒有形成層，所以「所有植物都有形成層」是錯的。" },
+    { id:"q15", tag:"實力養成評量", type:"choice",
+      text:"關於植物維管束組織的敘述，下列何者錯誤？",
+      opts:[
+        "年輪是由於韌皮部與木質部的細胞生長速率不等所造成",
+        "韌皮部是輸送養分的組織",
+        "木質部的細胞壁厚，有支持植物體的功能",
+        "木本植物的形成層可使莖加粗"
+      ], ans:0,
+      why:"年輪只和木質部有關，是木質部細胞在不同季節生長速率不同造成的，跟韌皮部無關。" },
+    { id:"q16", tag:"實力養成評量", type:"choice",
+      text:"樹木會出現年輪的原因為下列何者？",
+      opts:[
+        "木質部細胞生長速率及大小不同",
+        "讓人類易於估算樹齡",
+        "韌皮部和木質部的顏色不同",
+        "韌皮部的細胞生長速率不同"
+      ], ans:0,
+      why:"年輪是季節造成的生長差異所留下的紀錄；方便人類估算樹齡是結果，不是原因。" },
+    { id:"q17", tag:"實力養成評量", type:"choice",
+      text:"樹幹中空的神木仍舊生意盎然，其可以存活的原因為何？",
+      opts:[
+        "形成層可運送水分",
+        "樹皮可運送水分",
+        "老樹不必靠水分存活",
+        "仍具有可運輸水分的木質部"
+      ], ans:3,
+      why:"中空的是中心老化的木質部，外側新生的木質部仍能運水，所以樹還活得下去。" },
+    { id:"q18", tag:"實力養成評量", type:"choice",
+      text:"樹皮是指哪一構造及其以外的部分？",
+      opts:["木質部","形成層","韌皮部","年輪"], ans:1,
+      why:"樹皮＝形成層以外的部分，包含韌皮部及其外圍構造。" },
+    { id:"q19", tag:"實力養成評量", type:"choice",
+      text:"松鼠啃食樹皮，最後卻導致樹木死亡，則造成此結果最初的主要原因為何？",
+      opts:[
+        "根吸收的水分無法上升至葉",
+        "根製造的養分無法上升至葉",
+        "根細胞無法得到葉片行光合作用所產生的養分",
+        "缺口以上部位得不到養分"
+      ], ans:2,
+      why:"問的是「最初」的原因。啃掉樹皮先斷的是韌皮部，葉子做的養分下不到根，根才餓死；水分受阻是後來的事。" },
+    { id:"q20", tag:"實力養成評量", type:"choice",
+      text:"所謂的「木材」，主要是由下列哪一種細胞所構成？",
+      opts:[
+        "運送養分的細胞",
+        "運送水分的細胞",
+        "行光合作用的細胞",
+        "行細胞分裂的細胞"
+      ], ans:1,
+      why:"木材是堆積的木質部，而木質部就是運送水分的細胞；行細胞分裂的是形成層。" },
+    { id:"q21", tag:"歷屆經典題", type:"choice",
+      text:"研究員從榕樹樹皮表面的 X 點垂直鑽入樹幹中心，把取出的組織依主要功能標示為甲（運輸養分）、乙（運輸水分）、丙（細胞分裂）。比較此三者與 X 點間的距離，下列何者最合理？",
+      opts:["甲＜丙＜乙","甲＜乙＜丙","乙＜丙＜甲","乙＜甲＜丙"], ans:0,
+      why:"由外往內依序是韌皮部（運養分，甲）、形成層（細胞分裂，丙）、木質部（運水分，乙），所以離 X 點的距離是甲最近、乙最遠。" },
+    { id:"q22", tag:"歷屆經典題", type:"choice",
+      text:"松樹樹幹橫切面中有深淺相間的環帶，已知甲區為深色、乙區為淺色。下列敘述何者正確？",
+      opts:[
+        "甲區運送養分，乙區運送水分",
+        "甲區的細胞比乙區的小，生長也較快",
+        "甲、乙兩區都位於韌皮部中",
+        "乙區的細胞是在氣候溫暖、雨量豐富的季節生長"
+      ], ans:3,
+      why:"淺色的乙區是春夏形成的，當時溫暖多雨、細胞大而生長快。甲乙都在木質部、都運水；細胞小代表生長慢，不是快。" }
+  ];
+
+  var host = document.getElementById("qs");
+
+  QS.forEach(function(q, idx){
+    var box = document.createElement("div");
+    box.className = "q";
+    box.id = "box-" + q.id;
+
+    var head = document.createElement("p");
+    head.className = "qtext";
+    head.innerHTML = '<span class="qtag"></span> ';
+    head.querySelector(".qtag").textContent = q.tag;
+    head.appendChild(document.createTextNode(" " + (idx+1) + ". " + q.text));
+    box.appendChild(head);
+
+    if (q.type === "choice") {
+      var ul = document.createElement("ul");
+      ul.className = "opts";
+      q.opts.forEach(function(opt, i){
+        var li = document.createElement("li");
+        var lab = document.createElement("label");
+        var r = document.createElement("input");
+        r.type = "radio"; r.name = q.id; r.value = String(i);
+        if (state.answers[q.id] === String(i)) r.checked = true;
+        r.addEventListener("change", function(){
+          state.answers[q.id] = r.value; store.write(state);
+        });
+        lab.appendChild(r);
+        lab.appendChild(document.createTextNode("(" + "ABCD".charAt(i) + ") " + opt));
+        li.appendChild(lab);
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    } else {
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.size = 12;
+      inp.setAttribute("aria-label", "填答");
+      if (state.answers[q.id]) inp.value = state.answers[q.id];
+      inp.addEventListener("input", function(){
+        state.answers[q.id] = inp.value; store.write(state); inp.classList.remove("ok","no");
+      });
+      box.appendChild(inp);
+    }
+
+    var fb = document.createElement("p");
+    fb.className = "fb";
+    fb.id = "fb-" + q.id;
+    box.appendChild(fb);
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "act ghost";
+    btn.style.marginTop = "8px";
+    btn.textContent = "對答案";
+    btn.addEventListener("click", function(){ judge(q); updateScore(); });
+    box.appendChild(btn);
+
+    host.appendChild(box);
+  });
+
+  function isRight(q){
+    var v = state.answers[q.id];
+    if (v === undefined || v === "") return null;
+    if (q.type === "choice") return String(q.ans) === v;
+    var t = v.replace(/\s/g,"");
+    return q.ans.indexOf(t) > -1;
+  }
+
+  function judge(q){
+    var ok = isRight(q);
+    var fb = document.getElementById("fb-" + q.id);
+    if (ok === null) {
+      fb.className = "fb show wrong";
+      fb.textContent = "還沒作答。";
+      return;
+    }
+    logResult(q, ok);
+    fb.className = "fb show " + (ok ? "right" : "wrong");
+    var ansText = q.type === "choice"
+      ? "答案：(" + "ABCD".charAt(q.ans) + ")"
+      : "答案：" + q.ans[0];
+    fb.textContent = (ok ? "答對了。" : "再看一次。") + ansText + "　" + q.why;
+    if (q.type === "fill") {
+      var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+      inp.classList.toggle("ok", ok); inp.classList.toggle("no", !ok);
+    }
+  }
+
+  function updateScore(){
+    var right = 0;
+    QS.forEach(function(q){ if (isRight(q) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + QS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
+    else if (right >= 17) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else note.textContent = "先回上面三個練習區確認一次，再回來作答。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    QS.forEach(judge); updateScore();
+  });
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一份的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    QS.forEach(function(q){
+      var fb = document.getElementById("fb-" + q.id);
+      fb.className = "fb"; fb.textContent = "";
+      if (q.type === "choice") {
+        Array.prototype.forEach.call(document.getElementsByName(q.id), function(r){ r.checked = false; });
+      } else {
+        var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+        inp.value = ""; inp.classList.remove("ok","no");
+      }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("select[data-p], select[data-l], select[data-r]"), function(sel){
+      sel.value = ""; sel.classList.remove("ok","no");
+    });
+    ["partFb","leafFb","ringFb"].forEach(function(id){
+      document.getElementById(id).className = "fb";
+    });
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>

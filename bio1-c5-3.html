@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5-3 血糖的恆定｜互動學習單</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:0 0 120px;font-weight:700;}
+  .sortrow select{flex:1 1 240px;}
+
+  table.pair{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.pair th,table.pair td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.pair th{background:#F3F7F2;width:190px;font-weight:700;}
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select{width:100%;}
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 第 5 章 · P.198–201</p>
+  <h1>5-3 血糖的恆定</h1>
+</header>
+
+<div class="goal">
+  <h2>學完這一小節，你要能夠……</h2>
+  <ol>
+    <li>說出血糖是什麼、它的兩個來源與功能。</li>
+    <li>說明血糖濃度過高或過低分別會造成什麼影響。</li>
+    <li>說出三種影響血糖濃度的激素，以及它們作用的時機與方式。</li>
+  </ol>
+</div>
+
+<details class="brief" open>
+  <summary>學習重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li><b>血糖就是血液中所含的葡萄糖</b>。細胞行呼吸作用可將血糖分解產生能量，提供細胞所需。</li>
+    <li><b>血糖的兩個來源</b>：一是食物經消化作用後所分解、吸收的葡萄糖；二是肝臟中所儲存的<b>肝糖</b>經分解後形成的葡萄糖。</li>
+    <li><b>血糖濃度過低</b>時，細胞能利用的葡萄糖不足，會造成個體昏迷，甚至有生命危險。</li>
+    <li><b>血糖濃度過高</b>時，過多的葡萄糖會隨尿液排出，形成糖尿病。所以血糖太高太低都不好。</li>
+    <li>人在進食後，葡萄糖由<b>小腸絨毛</b>進入微血管，造成血糖濃度上升，此時會促進<b>胰島素</b>分泌。</li>
+    <li><b>胰島素的作用</b>：使葡萄糖快速進入細胞內供細胞利用，並把葡萄糖轉變成肝糖，儲存在肝臟或肌肉細胞中，結果是血糖濃度下降到正常範圍。</li>
+    <li>當血糖濃度太低時，身體會感到飢餓、引起食慾，同時<b>抑制胰島素分泌、促進升糖素分泌</b>。</li>
+    <li><b>升糖素的作用</b>：使肝臟內的肝糖轉變成葡萄糖，釋放到血液中，結果是血糖濃度上升到正常範圍。</li>
+    <li><b>腎上腺素</b>可促使心跳加快、血壓上升，並使肝糖分解成葡萄糖以增加血糖濃度，提供緊急狀況或運動時細胞所需的能量。</li>
+    <li><b>三種激素比較</b>：胰島素和升糖素都由胰島分泌，前者在血糖過高時分泌、降低血糖，後者在血糖過低時分泌、增加血糖；腎上腺素由腎上腺分泌，在緊急狀況或運動時分泌，也是增加血糖。</li>
+    <li><b>一天的血糖變化</b>：接近中午血糖下降而感到飢餓；進食後醣類消化成葡萄糖使血糖升高，胰島素分泌增加；在胰島素和升糖素共同作用下維持在正常範圍；運動時腎上腺素分泌增加，提高血糖以供應身體所需。</li>
+    <li><b>血糖的調節中樞在腦部，位於間腦的下視丘</b>，不是腦幹——這一點常被考。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、三種影響血糖的激素</h2>
+  <p class="hint">哪個腺體分泌、什麼時候分泌、怎麼作用。</p>
+  <table class="pair" id="hormTable"></table>
+  <div class="actions"><button class="act" id="hormCheck" type="button">檢查</button></div>
+  <p class="fb" id="hormFb"></p>
+</section>
+
+<section class="card">
+  <h2>二、這是血糖過高還是過低時的反應？</h2>
+  <p class="hint">兩條路線剛好對稱，一條把糖收起來，一條把糖放出來。</p>
+  <table class="pair" id="levelTable"></table>
+  <div class="actions"><button class="act" id="levelCheck" type="button">檢查</button></div>
+  <p class="fb" id="levelFb"></p>
+</section>
+
+<section class="card">
+  <h2>三、關鍵名詞對一對</h2>
+  <p class="hint">血糖、肝糖、糖尿病和調節中樞，別混在一起。</p>
+  <table class="pair" id="termTable"></table>
+  <div class="actions"><button class="act" id="termCheck" type="button">檢查</button></div>
+  <p class="fb" id="termFb"></p>
+</section>
+
+<section class="card">
+  <h2>四、練習題</h2>
+  <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
+  <div id="qs"></div>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>練習題答對</span><b id="score">0 / 19</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）5-3 血糖的恆定 P.198–201 配套互動學習單。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-c5-3-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"c5-3", title:"5-3 血糖的恆定", file:"bio1-c5-3.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = (q.type === "choice")
+      ? "(" + "ABCD".charAt(q.ans) + ") " + q.opts[q.ans]
+      : q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  function buildSelectTable(tableId, dataAttr, rows, options){
+    var table = document.getElementById(tableId);
+    rows.forEach(function(item){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = item.name;
+      var td = document.createElement("td");
+      var sel = document.createElement("select");
+      sel.dataset[dataAttr] = item.id;
+      var blank = document.createElement("option");
+      blank.value = ""; blank.textContent = "（請選擇）";
+      sel.appendChild(blank);
+      options.forEach(function(o){
+        var op = document.createElement("option");
+        op.value = o; op.textContent = o;
+        sel.appendChild(op);
+      });
+      var savedKey = dataAttr + "-" + item.id;
+      if (state.answers[savedKey]) sel.value = state.answers[savedKey];
+      sel.addEventListener("change", function(){
+        state.answers[savedKey] = sel.value;
+        store.write(state);
+        sel.classList.remove("ok","no");
+      });
+      td.appendChild(sel);
+      tr.appendChild(th);
+      tr.appendChild(td);
+      table.appendChild(tr);
+    });
+  }
+  function checkSelectTable(dataAttr, rows, fbId, allRight, hint){
+    var right = 0;
+    rows.forEach(function(item){
+      var sel = document.querySelector("select[data-" + dataAttr + '="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById(fbId);
+    fb.className = "fb show " + (right === rows.length ? "right" : "wrong");
+    fb.textContent = right === rows.length ? allRight
+      : "答對 " + right + " / " + rows.length + "。" + hint;
+  }
+
+  /* ── 一、三種激素 ── */
+  var HOR = ["胰島素","升糖素","腎上腺素"];
+  var HROWS = [
+    { id:"h1", name:"由胰島分泌，血糖濃度過高時分泌", ans:"胰島素" },
+    { id:"h2", name:"由胰島分泌，血糖濃度過低時分泌", ans:"升糖素" },
+    { id:"h3", name:"由腎上腺分泌，緊急狀況或運動時分泌", ans:"腎上腺素" },
+    { id:"h4", name:"降低血糖濃度", ans:"胰島素" },
+    { id:"h5", name:"使葡萄糖快速進入細胞內供細胞利用", ans:"胰島素" },
+    { id:"h6", name:"使葡萄糖轉變成肝糖，儲存在肝臟或肌肉細胞中", ans:"胰島素" },
+    { id:"h7", name:"使肝臟內的肝糖轉變成葡萄糖，釋放到血液中", ans:"升糖素" },
+    { id:"h8", name:"除了提高血糖，還促使心跳加快、血壓上升", ans:"腎上腺素" }
+  ];
+  buildSelectTable("hormTable", "h", HROWS, HOR);
+  document.getElementById("hormCheck").addEventListener("click", function(){
+    checkSelectTable("h", HROWS, "hormFb",
+      "全對。三種激素裡只有胰島素是降血糖的，升糖素和腎上腺素都是升血糖，差別在分泌的時機和腺體。",
+      "胰島素和升糖素同樣出自胰島，方向卻相反；腎上腺素則來自腎上腺，是緊急狀況才登場的那一個。");
+  });
+
+  /* ── 二、血糖過高或過低 ── */
+  var LV = ["血糖濃度過高時","血糖濃度過低時"];
+  var LROWS = [
+    { id:"l1", name:"進食後葡萄糖由小腸絨毛進入微血管", ans:LV[0] },
+    { id:"l2", name:"促進胰島素分泌", ans:LV[0] },
+    { id:"l3", name:"葡萄糖轉變成肝糖，儲存在肝臟或肌肉細胞中", ans:LV[0] },
+    { id:"l4", name:"抑制胰島素分泌", ans:LV[1] },
+    { id:"l5", name:"促進升糖素分泌", ans:LV[1] },
+    { id:"l6", name:"肝糖分解成葡萄糖，釋放到血液中", ans:LV[1] },
+    { id:"l7", name:"身體感到飢餓，引起食慾", ans:LV[1] }
+  ];
+  buildSelectTable("levelTable", "l", LROWS, LV);
+  document.getElementById("levelCheck").addEventListener("click", function(){
+    checkSelectTable("l", LROWS, "levelFb",
+      "全對。血糖高就「收」起來存成肝糖，血糖低就「放」出來變回葡萄糖，兩條路線完全對稱。",
+      "看糖的流向：往細胞和肝臟裡跑，是血糖太高；從肝臟放回血液，是血糖太低。");
+  });
+
+  /* ── 三、名詞 ── */
+  var TERM = [
+    "血糖",
+    "肝糖",
+    "個體昏迷，甚至有生命危險",
+    "糖尿病",
+    "間腦的下視丘"
+  ];
+  var TROWS = [
+    { id:"t1", name:"血液中所含的葡萄糖", ans:TERM[0] },
+    { id:"t2", name:"葡萄糖在肝臟或肌肉細胞中的儲存形式", ans:TERM[1] },
+    { id:"t3", name:"血糖濃度過低時可能造成的後果", ans:TERM[2] },
+    { id:"t4", name:"血糖濃度過高、過多葡萄糖隨尿液排出所形成的疾病", ans:TERM[3] },
+    { id:"t5", name:"血糖的調節中樞所在位置", ans:TERM[4] }
+  ];
+  buildSelectTable("termTable", "t", TROWS, TERM);
+  document.getElementById("termCheck").addEventListener("click", function(){
+    checkSelectTable("t", TROWS, "termFb",
+      "全對。特別注意最後一項：血糖的調節中樞在間腦的下視丘，不是腦幹；腦幹管的是心搏和呼吸。",
+      "血糖是在血液裡流動的形式，肝糖是存起來的形式；太高變糖尿病，太低會昏迷。");
+  });
+
+  /* ── 四、練習題 ── */
+  var QS = [
+    { id:"q1", tag:"焦點即時練", type:"fill",
+      text:"血糖是指血液中所含的＿＿＿。",
+      ans:["葡萄糖"],
+      why:"細胞行呼吸作用時，就是把血糖（葡萄糖）分解來產生能量。" },
+    { id:"q2", tag:"焦點即時練", type:"fill",
+      text:"人體血糖的來源之一，是食物經過＿＿作用後所分解、吸收的葡萄糖。",
+      ans:["消化","消化作用"],
+      why:"澱粉等醣類經消化作用分解成葡萄糖，再由小腸絨毛吸收進入血液。" },
+    { id:"q3", tag:"焦點即時練", type:"fill",
+      text:"承上題，另一個來源是肝臟中所儲存的＿＿經分解後所形成的葡萄糖。",
+      ans:["肝糖"],
+      why:"肝糖是葡萄糖的儲存形式，需要時再分解回葡萄糖釋放到血液中。" },
+    { id:"q4", tag:"焦點即時練", type:"choice",
+      text:"糖尿病患者血液中的何種物質濃度過高，而會隨尿液排出？",
+      opts:["葡萄糖","脂質","胺基酸","胰島素"], ans:0,
+      why:"血糖過高時，多餘的葡萄糖隨尿液排出，因此稱為糖尿病。" },
+    { id:"q5", tag:"焦點即時練", type:"choice",
+      text:"關於血糖的敘述，下列何者錯誤？",
+      opts:[
+        "攝食所獲得的養分，經消化作用分解為葡萄糖，可為血糖的來源",
+        "血糖是細胞行呼吸作用的主要原料",
+        "血糖只有在過高的時候會對人體造成危害",
+        "肝臟中儲存的肝糖分解後，可為血糖的來源"
+      ], ans:2,
+      why:"血糖過低時細胞能用的葡萄糖不足，會造成昏迷甚至有生命危險，所以太低一樣危險。" },
+    { id:"q6", tag:"好題示例", type:"choice",
+      text:"某健康受試者空腹 8 小時後，每 100 mL 血液中含 90 mg 葡萄糖。之後喝下一杯高濃度葡萄糖液，並每隔半小時測量血糖。有關他喝下葡萄糖液後到血糖濃度達到穩定前的變化，下列何者正確？",
+      opts:[
+        "血糖濃度不會有變動",
+        "血糖濃度會持續上升",
+        "血糖濃度會先降後升",
+        "血糖濃度會先升後降"
+      ], ans:3,
+      why:"葡萄糖容易被快速吸收，血糖先上升；上升後刺激胰島素分泌，把血糖降回正常值，所以是先升後降。" },
+    { id:"q7", tag:"焦點即時練", type:"fill",
+      text:"人在進食後，葡萄糖會經由小腸的＿＿進入微血管。",
+      ans:["絨毛"],
+      why:"小腸壁上的皺褶和絨毛增加吸收表面積，絨毛內有微血管網可吸收養分。" },
+    { id:"q8", tag:"焦點即時練", type:"fill",
+      text:"承上題，此時血糖濃度會＿＿。（填上升或下降）",
+      ans:["上升"],
+      why:"葡萄糖進入血液後血糖上升，接著刺激胰島素分泌把它降回來。" },
+    { id:"q9", tag:"焦點即時練", type:"fill",
+      text:"人體的血糖濃度升高時，會促進＿＿素分泌。",
+      ans:["胰島"],
+      why:"胰島素是唯一能降低血糖濃度的激素。" },
+    { id:"q10", tag:"焦點即時練", type:"fill",
+      text:"人體的血糖濃度太低時，會促進＿＿素分泌。",
+      ans:["升糖"],
+      why:"升糖素使肝糖分解成葡萄糖釋放到血液中，把血糖拉回正常範圍。" },
+    { id:"q11", tag:"焦點即時練", type:"choice",
+      text:"下列激素中，何者能促使肝糖分解為葡萄糖進入血液，使血糖濃度升高？",
+      opts:["腎上腺素","副甲狀腺素","胰島素","生長激素"], ans:0,
+      why:"腎上腺素和升糖素都能讓肝糖分解成葡萄糖；副甲狀腺素管的是鈣，胰島素則是降血糖。" },
+    { id:"q12", tag:"焦點即時練", type:"choice",
+      text:"甲.腎上腺素　乙.甲狀腺素　丙.胰島素　丁.升糖素　戊.雄性激素。人體血糖濃度的調節，主要與下列哪些激素相關？",
+      opts:["僅甲乙戊","僅甲丙丁","僅丙丁戊","僅乙戊"], ans:1,
+      why:"和血糖有關的是胰島素、升糖素和腎上腺素；甲狀腺素管代謝、雄性激素管第二性徵。" },
+    { id:"q13", tag:"實力養成評量", type:"choice",
+      text:"下列何種食物是人體內血糖的主要來源之一？",
+      opts:["澱粉","蛋白質","脂質","礦物質"], ans:0,
+      why:"澱粉屬於醣類，經消化分解成葡萄糖後成為血糖；蛋白質和脂質的分解產物不是葡萄糖。" },
+    { id:"q14", tag:"實力養成評量", type:"choice",
+      text:"某人因疾病造成胰臟失去分泌胰島素的功能，則他最可能會產生下列何種病症？",
+      opts:[
+        "血糖降低，尿中無糖",
+        "血糖降低，尿中有糖",
+        "血糖升高，尿中無糖",
+        "血糖升高，尿中有糖"
+      ], ans:3,
+      why:"沒有胰島素就無法降血糖，血糖長期過高，多餘的葡萄糖隨尿液排出，也就是糖尿病。" },
+    { id:"q15", tag:"實力養成評量", type:"choice",
+      text:"低血糖的血液流經何處，會使人體產生飢餓感？",
+      opts:["腦部","肝臟","胰臟","腎臟"], ans:0,
+      why:"血糖的調節中樞在腦部的間腦下視丘，飢餓感也是由腦部產生的。" },
+    { id:"q16", tag:"實力養成評量", type:"choice",
+      text:"正常人在飽餐後半小時內檢驗血液中的激素種類與濃度，所得資料為甲；激烈運動期間做同樣檢驗所得資料為乙。下列敘述何者正確？",
+      opts:[
+        "甲的胰島素濃度＞乙的胰島素濃度",
+        "甲的腎上腺素濃度＞乙的腎上腺素濃度",
+        "甲的升糖素濃度＞乙的升糖素濃度",
+        "甲的激素均來自腎上腺，乙的激素均來自胰島"
+      ], ans:0,
+      why:"飽餐後血糖高，胰島素分泌多；運動時則是腎上腺素和升糖素增加，所以只有胰島素是甲大於乙。" },
+    { id:"q17", tag:"實力養成評量", type:"choice",
+      text:"胰島素具有下列何種功能？",
+      opts:[
+        "促進肝糖分解為葡萄糖",
+        "促進葡萄糖合成肝糖",
+        "促進蛋白質分解為胺基酸",
+        "促進消化作用"
+      ], ans:1,
+      why:"胰島素把血中的葡萄糖收進細胞、轉成肝糖儲存，因此降低血糖；把肝糖分解回葡萄糖的是升糖素。" },
+    { id:"q18", tag:"實力養成評量", type:"choice",
+      text:"某人發生危急狀況時，血糖濃度先在甲時期上升、之後在乙時期下降。則下列推論何者不合理？",
+      opts:[
+        "甲時期應該是腎上腺素作用，使血糖濃度上升",
+        "乙時期可能是緊急事件解除，胰島素開始分泌使血糖濃度降低",
+        "乙時期血糖濃度下降，也可能是此人應付危急狀況時大量消耗血糖的結果",
+        "此人的血糖濃度升高後又下降，代表內分泌腺異常，無法維持穩定"
+      ], ans:3,
+      why:"升高後又降回來，正是恆定機制在正常運作的表現，不能因此判定內分泌腺異常。" },
+    { id:"q19", tag:"實力養成評量", type:"choice",
+      text:"正常人體內血糖濃度降低時，下列何者不會發生？",
+      opts:[
+        "細胞暫時停止進行呼吸作用",
+        "抑制胰島素分泌量",
+        "促使肝糖分解成葡萄糖",
+        "引起食慾並促使攝食"
+      ], ans:0,
+      why:"呼吸作用是細胞持續在進行的，不會因為血糖低就停止；其餘三項都是身體把血糖拉回正常的機制。" }
+  ];
+
+  var host = document.getElementById("qs");
+
+  QS.forEach(function(q, idx){
+    var box = document.createElement("div");
+    box.className = "q";
+    box.id = "box-" + q.id;
+
+    var head = document.createElement("p");
+    head.className = "qtext";
+    head.innerHTML = '<span class="qtag"></span> ';
+    head.querySelector(".qtag").textContent = q.tag;
+    head.appendChild(document.createTextNode(" " + (idx+1) + ". " + q.text));
+    box.appendChild(head);
+
+    if (q.type === "choice") {
+      var ul = document.createElement("ul");
+      ul.className = "opts";
+      q.opts.forEach(function(opt, i){
+        var li = document.createElement("li");
+        var lab = document.createElement("label");
+        var r = document.createElement("input");
+        r.type = "radio"; r.name = q.id; r.value = String(i);
+        if (state.answers[q.id] === String(i)) r.checked = true;
+        r.addEventListener("change", function(){
+          state.answers[q.id] = r.value; store.write(state);
+        });
+        lab.appendChild(r);
+        lab.appendChild(document.createTextNode("(" + "ABCD".charAt(i) + ") " + opt));
+        li.appendChild(lab);
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    } else {
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.size = 12;
+      inp.setAttribute("aria-label", "填答");
+      if (state.answers[q.id]) inp.value = state.answers[q.id];
+      inp.addEventListener("input", function(){
+        state.answers[q.id] = inp.value; store.write(state); inp.classList.remove("ok","no");
+      });
+      box.appendChild(inp);
+    }
+
+    var fb = document.createElement("p");
+    fb.className = "fb";
+    fb.id = "fb-" + q.id;
+    box.appendChild(fb);
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "act ghost";
+    btn.style.marginTop = "8px";
+    btn.textContent = "對答案";
+    btn.addEventListener("click", function(){ judge(q); updateScore(); });
+    box.appendChild(btn);
+
+    host.appendChild(box);
+  });
+
+  function isRight(q){
+    var v = state.answers[q.id];
+    if (v === undefined || v === "") return null;
+    if (q.type === "choice") return String(q.ans) === v;
+    var t = v.replace(/\s/g,"");
+    return q.ans.indexOf(t) > -1;
+  }
+
+  function judge(q){
+    var ok = isRight(q);
+    var fb = document.getElementById("fb-" + q.id);
+    if (ok === null) {
+      fb.className = "fb show wrong";
+      fb.textContent = "還沒作答。";
+      return;
+    }
+    logResult(q, ok);
+    fb.className = "fb show " + (ok ? "right" : "wrong");
+    var ansText = q.type === "choice"
+      ? "答案：(" + "ABCD".charAt(q.ans) + ")"
+      : "答案：" + q.ans[0];
+    fb.textContent = (ok ? "答對了。" : "再看一次。") + ansText + "　" + q.why;
+    if (q.type === "fill") {
+      var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+      inp.classList.toggle("ok", ok); inp.classList.toggle("no", !ok);
+    }
+  }
+
+  function updateScore(){
+    var right = 0;
+    QS.forEach(function(q){ if (isRight(q) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + QS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
+    else if (right >= 15) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else note.textContent = "先回上面三個練習區確認一次，再回來作答。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    QS.forEach(judge); updateScore();
+  });
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一份的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    QS.forEach(function(q){
+      var fb = document.getElementById("fb-" + q.id);
+      fb.className = "fb"; fb.textContent = "";
+      if (q.type === "choice") {
+        Array.prototype.forEach.call(document.getElementsByName(q.id), function(r){ r.checked = false; });
+      } else {
+        var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+        inp.value = ""; inp.classList.remove("ok","no");
+      }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("select[data-h], select[data-l], select[data-t]"), function(sel){
+      sel.value = ""; sel.classList.remove("ok","no");
+    });
+    ["hormFb","levelFb","termFb"].forEach(function(id){
+      document.getElementById(id).className = "fb";
+    });
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>

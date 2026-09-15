@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第 3 章 學習地圖｜互動填答</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:0 0 120px;font-weight:700;}
+  .sortrow select{flex:1 1 240px;}
+
+  table.pair{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.pair th,table.pair td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.pair th{background:#F3F7F2;width:190px;font-weight:700;}
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select{width:100%;}
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+
+  table.map{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.map th,table.map td{border:1px solid var(--rule-soft);padding:7px 9px;text-align:left;vertical-align:top;}
+  table.map th{background:#F3F7F2;font-weight:700;}
+  .mapline{margin:.5em 0;font-size:.96rem;}
+  .mapnote{font-size:.88rem;color:var(--ink-soft);margin:.4em 0 0;}
+  .bno{display:inline-block;color:var(--rose);font-weight:700;font-size:.8rem;margin-right:4px;}
+  input.blank{background:#FFFDF4;border-color:var(--amber);}
+  input.blank.ok{border-color:var(--leaf);background:#F1F7F0;}
+  input.blank.no{border-color:var(--rose);background:#FBF1F3;}
+  .chain{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.93rem;margin:.5em 0;}
+  .chain .node{border:1px solid var(--rule);border-radius:8px;padding:4px 10px;background:#F7FAF6;}
+  .chain .arrow{color:var(--ink-soft);}
+  .fbwrap .fb{margin:.4em 0 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 第 3 章 · P.130–131</p>
+  <h1>第 3 章 學習地圖</h1>
+</header>
+
+<div class="goal">
+  <h2>這一頁怎麼用</h2>
+  <ol>
+    <li>把整章串成一張圖，讀過去就等於複習了 3-1 到 3-4。</li>
+    <li>圖裡有十三個編號填答格（①～⑬），順序照講義排。</li>
+    <li>每一區填完按「對答案」，答錯的會收進總覽頁的錯題本。</li>
+  </ol>
+</div>
+
+<details class="brief" open>
+  <summary>全章重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li><b>Start</b>：運輸作用負責運送生物生長所需的養分，以及代謝作用產生的廢物。</li>
+    <li><b>植物的維管束</b>從根、莖一路延伸至葉。莖內的維管束有兩種排列：環狀排列的具有形成層，散生排列的不具形成層。</li>
+    <li>樹的老舊木質部逐漸堆積形成<b>木材</b>。春夏生長的木材細胞大、顏色淺，秋冬生長的木材細胞小、顏色深，深淺相間就形成年輪。</li>
+    <li><b>木質部</b>在莖的內側、葉的上方，運送水分和礦物質，方向是由下往上的單向運送。</li>
+    <li><b>韌皮部</b>在莖的外側、葉的下方，運送光合作用製造的養分，方向是由上而下、也可由下而上的雙向運送。</li>
+    <li><b>蒸散作用</b>是水分向上運輸的主要動力，水蒸氣由氣孔散失到外界。</li>
+    <li><b>人體的防禦作用有三道</b>：第一道是皮膜的阻隔，可阻擋或排除病原體；第二道是吞噬作用與發炎反應，由白血球吞噬病原體，並出現紅、熱、腫、痛的現象。</li>
+    <li><b>第三道是專一性防禦</b>：由白血球攻擊特定的病原體，而且具有記憶性。</li>
+    <li><b>疫苗</b>的原理是注射疫苗造成第一次防禦反應；當病原體真正入侵時，體內的防禦作用反應更快、效果較強。疫苗的重要性在於降低疾病的感染與擴散。</li>
+    <li><b>人體的循環系統</b>包含淋巴系統和心血管系統。</li>
+    <li><b>淋巴系統</b>由淋巴、淋巴結、淋巴管組成；淋巴來自組織液，淋巴結可過濾病原體、阻擋病原體蔓延。</li>
+    <li><b>心血管系統</b>由血液、血管和心臟組成。血液分為血漿和血球，血球包含紅血球、白血球和血小板。心搏造成脈搏，也是血液流動的動力來源。</li>
+    <li><b>三種血管</b>：動脈流出心臟、管壁最厚、血壓最高；微血管交換物質、管壁最薄、管腔最小；靜脈流回心臟、管腔最大、血壓最低。</li>
+    <li><b>體循環</b>：左心室、主動脈、小動脈、組織微血管、小靜脈、大靜脈、右心房。</li>
+    <li><b>肺循環</b>：右心室、肺動脈、肺部微血管、肺靜脈、左心房。</li>
+    <li><b>組織處的氣體交換</b>：氧氣由組織微血管擴散到組織細胞，二氧化碳由組織細胞擴散到血液中。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、3-1 植物的運輸構造／3-2 植物體內物質的運輸</h2>
+  <p class="hint">Start：運輸作用——運送生物生長所需的養分及代謝作用產生的廢物。</p>
+
+  <table class="map">
+    <tr><th style="width:34%">莖內維管束排列</th><td>散生排列（不具形成層）　／　<span class="bk" data-b="b1"></span>排列（具有形成層）</td></tr>
+    <tr><th>樹的老舊木質部</th><td>逐漸堆積形成 <span class="bk" data-b="b2"></span></td></tr>
+  </table>
+  <p class="mapnote">春夏生長的木材：細胞大，顏色淺。　秋冬生長的木材：細胞小，顏色深。</p>
+
+  <p class="hint" style="margin:1em 0 .2em;">構造及功能</p>
+  <table class="map">
+    <tr><th style="width:24%">　</th><th><span class="bk" data-b="b3"></span>部</th><th><span class="bk" data-b="b4"></span>部</th></tr>
+    <tr><td>分布</td><td>莖：位於內側<br>葉：位在上方</td><td>莖：位於外側<br>葉：位在下方</td></tr>
+    <tr><td>運輸物質</td><td>運送水分和礦物質</td><td>運送光合作用製造的養分</td></tr>
+    <tr><td>運輸方向</td><td>由下往上運送</td><td>由上而下，也可由下而上</td></tr>
+  </table>
+
+  <p class="mapline"><span class="bk" data-b="b5"></span> <b>作用</b>：水分向上運輸的主要動力，水蒸氣由氣孔散失。</p>
+
+  <div class="actions"><button class="act" data-check="a" type="button">對答案</button></div>
+  <div class="fbwrap" id="fb-a"></div>
+</section>
+
+<section class="card">
+  <h2>二、3-4 人體的防禦作用</h2>
+
+  <table class="map">
+    <tr><th style="width:34%">① 皮膜的阻隔</th><td>可阻擋或排除病原體</td></tr>
+    <tr><th>② 吞噬作用與 <span class="bk" data-b="b6"></span> 反應</th><td>由白血球吞噬病原體；紅、熱、腫、痛現象</td></tr>
+    <tr><th>③ <span class="bk" data-b="b7"></span> 性防禦</th><td>由白血球攻擊特定病原體；具有記憶性</td></tr>
+  </table>
+
+  <p class="hint" style="margin:1em 0 .2em;">疫苗</p>
+  <div class="chain">
+    <span class="node">注射疫苗</span><span class="arrow">▸</span>
+    <span class="node">造成第一次防禦反應</span><span class="arrow">▸</span>
+    <span class="node">當病原體入侵</span><span class="arrow">▸</span>
+    <span class="node">體內防禦作用反應更快、效果較強</span>
+  </div>
+  <p class="mapnote">重要性：降低疾病的感染與擴散。</p>
+
+  <div class="actions"><button class="act" data-check="b" type="button">對答案</button></div>
+  <div class="fbwrap" id="fb-b"></div>
+</section>
+
+<section class="card">
+  <h2>三、3-3 人體的循環系統</h2>
+
+  <table class="map">
+    <tr><th style="width:26%"><span class="bk" data-b="b8"></span> 系統</th><td>淋巴、淋巴結、淋巴管。淋巴由組織液而來；淋巴結可過濾病原體、阻擋病原體蔓延。</td></tr>
+    <tr><th><span class="bk" data-b="b9"></span> 系統</th><td>血液（血漿、血球——紅血球、白血球、血小板）、血管、<span class="bk" data-b="b10"></span>。</td></tr>
+  </table>
+  <p class="mapnote">心搏造成脈搏，是血液流動的動力來源。</p>
+
+  <table class="map">
+    <tr><th style="width:22%">項目</th><th>動脈</th><th>微血管</th><th>靜脈</th></tr>
+    <tr><td>功能</td><td>流出心臟</td><td>交換物質</td><td>流回心臟</td></tr>
+    <tr><td>管壁厚度</td><td>最厚</td><td>最薄</td><td>次之</td></tr>
+    <tr><td>管腔大小</td><td>次之</td><td>最小</td><td>最大</td></tr>
+    <tr><td>血壓高低</td><td>最高</td><td>次之</td><td>最低</td></tr>
+  </table>
+
+  <div class="actions"><button class="act" data-check="c" type="button">對答案</button></div>
+  <div class="fbwrap" id="fb-c"></div>
+</section>
+
+<section class="card">
+  <h2>四、人體的血液循環</h2>
+
+  <p class="mapline"><span class="bk" data-b="b11"></span> <b>循環</b>：</p>
+  <div class="chain">
+    <span class="node">左心室</span><span class="arrow">▸</span>
+    <span class="node">主動脈</span><span class="arrow">▸</span>
+    <span class="node">小動脈</span><span class="arrow">▸</span>
+    <span class="node">組織微血管</span><span class="arrow">▸</span>
+    <span class="node">小靜脈</span><span class="arrow">▸</span>
+    <span class="node">大靜脈</span><span class="arrow">▸</span>
+    <span class="node">右心房</span>
+  </div>
+
+  <p class="mapline"><span class="bk" data-b="b12"></span> <b>循環</b>：</p>
+  <div class="chain">
+    <span class="node">右心室</span><span class="arrow">▸</span>
+    <span class="node">肺動脈</span><span class="arrow">▸</span>
+    <span class="node">肺部微血管</span><span class="arrow">▸</span>
+    <span class="node">肺靜脈</span><span class="arrow">▸</span>
+    <span class="node">左心房</span>
+  </div>
+
+  <p class="hint" style="margin:1em 0 .2em;">組織處的氣體交換</p>
+  <table class="map">
+    <tr><th style="width:34%">組織微血管 → 組織細胞</th><td>擴散過去的是 <span class="bk" data-b="b13"></span></td></tr>
+    <tr><th>組織細胞 → 組織微血管</th><td>擴散過去的是二氧化碳</td></tr>
+  </table>
+  <p class="mapnote">組織微血管的血液也會滲出組織液，一部分流入淋巴系統。</p>
+
+  <div class="actions"><button class="act" data-check="d" type="button">對答案</button></div>
+  <div class="fbwrap" id="fb-d"></div>
+</section>
+
+<section class="card">
+  <h2>五、整張地圖一起對</h2>
+  <p class="hint">十三格填完後，可以一次檢查。</p>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>填答區答對</span><b id="score">0 / 13</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）第 3 章 學習地圖 P.130–131 配套互動填答頁。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-c3-map-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"c3-map", title:"第 3 章 學習地圖", file:"bio1-c3-map.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  var BLANKS = [
+    { id:"b1", no:"①", card:"a", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["環狀"],
+      text:"學習地圖①　莖內維管束具有形成層的是＿＿排列。",
+      why:"雙子葉植物是環狀排列、具有形成層；玉米、水稻等則是散生排列，沒有形成層，所以不會形成年輪。" },
+    { id:"b2", no:"②", card:"a", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["木材"],
+      text:"學習地圖②　樹的老舊木質部逐漸堆積形成＿＿。",
+      why:"木材由形成層內側的木質部堆積而成；樹皮則是指形成層及其以外的部分。" },
+    { id:"b3", no:"③", card:"a", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["木質"],
+      text:"學習地圖③　位於莖內側、運送水分和礦物質、方向由下往上的是＿＿部。",
+      why:"木質部運水單向向上，主要動力是蒸散作用。" },
+    { id:"b4", no:"④", card:"a", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["韌皮"],
+      text:"學習地圖④　位於莖外側、運送光合作用製造的養分、方向雙向的是＿＿部。",
+      why:"韌皮部運養分，可由上而下也可由下而上，是雙向運輸。" },
+    { id:"b5", no:"⑤", card:"a", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["蒸散","蒸散作用"],
+      text:"學習地圖⑤　水分向上運輸的主要動力是＿＿作用。",
+      why:"水分變成水蒸氣由氣孔散失，把木質部細管中的水往上拉，這就是蒸散作用。" },
+    { id:"b6", no:"⑥", card:"b", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["發炎"],
+      text:"學習地圖⑥　第二道防禦是吞噬作用與＿＿反應。",
+      why:"發炎反應會出現紅、熱、腫、痛，並促使白血球聚集吞噬病原體，屬於非專一性防禦。" },
+    { id:"b7", no:"⑦", card:"b", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["專一"],
+      text:"學習地圖⑦　第三道防禦是＿＿性防禦，由白血球攻擊特定病原體。",
+      why:"專一性防禦具有記憶性，疫苗就是利用這個原理發展出來的。" },
+    { id:"b8", no:"⑧", card:"c", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["淋巴"],
+      text:"學習地圖⑧　由淋巴、淋巴結、淋巴管組成的是＿＿系統。",
+      why:"淋巴系統維持血液組成的恆定，也是人體的防禦機制之一。" },
+    { id:"b9", no:"⑨", card:"c", tag:"學習地圖", type:"fill", width:"6em",
+      ans:["心血管"],
+      text:"學習地圖⑨　由血液、血管和心臟組成的是＿＿＿系統。",
+      why:"人體的循環系統包括心血管系統和淋巴系統兩大部分。" },
+    { id:"b10", no:"⑩", card:"c", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["心臟"],
+      text:"學習地圖⑩　心血管系統除了血液和血管，還包括＿＿。",
+      why:"心搏造成脈搏，心臟規律的收縮和舒張是血液在血管中流動的動力來源。" },
+    { id:"b11", no:"⑪", card:"d", tag:"學習地圖", type:"fill", width:"4em",
+      ans:["體"],
+      text:"學習地圖⑪　左心室→主動脈→小動脈→組織微血管→小靜脈→大靜脈→右心房，這是＿循環。",
+      why:"體循環是身體各部位（除肺以外）與心臟之間的血液循環，從左心室出發、回到右心房。" },
+    { id:"b12", no:"⑫", card:"d", tag:"學習地圖", type:"fill", width:"4em",
+      ans:["肺"],
+      text:"學習地圖⑫　右心室→肺動脈→肺部微血管→肺靜脈→左心房，這是＿循環。",
+      why:"肺循環是肺和心臟之間的血液循環，從右心室出發、回到左心房，目的是進行氣體交換。" },
+    { id:"b13", no:"⑬", card:"d", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["氧氣","氧"],
+      text:"學習地圖⑬　在組織處，由組織微血管擴散到組織細胞的氣體是＿＿。",
+      why:"血液的氧氣濃度較組織細胞高，所以氧氣擴散進細胞；細胞的二氧化碳濃度較高，則擴散進血液。" }
+  ];
+
+  var BY_ID = {};
+  BLANKS.forEach(function(b){ BY_ID[b.id] = b; });
+
+  Array.prototype.forEach.call(document.querySelectorAll("span.bk"), function(slot){
+    var b = BY_ID[slot.dataset.b];
+    if (!b) return;
+    var no = document.createElement("span");
+    no.className = "bno";
+    no.textContent = b.no;
+    var inp = document.createElement("input");
+    inp.type = "text";
+    inp.className = "blank";
+    inp.style.width = b.width;
+    inp.setAttribute("aria-label", "填答 " + b.no);
+    inp.dataset.b = b.id;
+    if (state.answers[b.id]) inp.value = state.answers[b.id];
+    inp.addEventListener("input", function(){
+      state.answers[b.id] = inp.value;
+      store.write(state);
+      inp.classList.remove("ok","no");
+    });
+    slot.appendChild(no);
+    slot.appendChild(inp);
+  });
+
+  function isRight(b){
+    var v = state.answers[b.id];
+    if (v === undefined || v === "") return null;
+    var t = v.replace(/\s/g,"");
+    return b.ans.indexOf(t) > -1;
+  }
+
+  function judge(b){
+    var ok = isRight(b);
+    var inp = document.querySelector('input.blank[data-b="' + b.id + '"]');
+    if (ok === null) {
+      inp.classList.remove("ok","no");
+      return { blank:b, ok:null };
+    }
+    logResult(b, ok);
+    inp.classList.toggle("ok", ok);
+    inp.classList.toggle("no", !ok);
+    return { blank:b, ok:ok };
+  }
+
+  function renderCard(card){
+    var wrap = document.getElementById("fb-" + card);
+    wrap.innerHTML = "";
+    BLANKS.filter(function(b){ return b.card === card; }).forEach(function(b){
+      var r = judge(b);
+      var p = document.createElement("p");
+      if (r.ok === null) {
+        p.className = "fb show wrong";
+        p.textContent = b.no + "　還沒作答。";
+      } else {
+        p.className = "fb show " + (r.ok ? "right" : "wrong");
+        p.textContent = b.no + "　" + (r.ok ? "答對了。" : "再看一次。")
+          + "答案：" + b.ans[0] + "　" + b.why;
+      }
+      wrap.appendChild(p);
+    });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll("button[data-check]"), function(btn){
+    btn.addEventListener("click", function(){
+      renderCard(btn.dataset.check);
+      updateScore();
+    });
+  });
+
+  function updateScore(){
+    var right = 0;
+    BLANKS.forEach(function(b){ if (isRight(b) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + BLANKS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === BLANKS.length) note.textContent = "整張地圖都填對了，這一章可以收工。";
+    else if (right >= 10) note.textContent = "大部分都記得了，錯的看一次解說再回頭填。";
+    else note.textContent = "先展開上面的「全章重點整理」讀一遍，再回來填。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    ["a","b","c","d"].forEach(renderCard);
+    updateScore();
+  });
+
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一頁的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    Array.prototype.forEach.call(document.querySelectorAll("input.blank"), function(inp){
+      inp.value = ""; inp.classList.remove("ok","no");
+    });
+    ["a","b","c","d"].forEach(function(card){
+      document.getElementById("fb-" + card).innerHTML = "";
+    });
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>

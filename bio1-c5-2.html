@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5-2 呼吸與氣體的恆定｜互動學習單</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:0 0 120px;font-weight:700;}
+  .sortrow select{flex:1 1 240px;}
+
+  table.pair{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.pair th,table.pair td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.pair th{background:#F3F7F2;width:190px;font-weight:700;}
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select{width:100%;}
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 第 5 章 · P.187–196（含實驗5-2）</p>
+  <h1>5-2 呼吸與氣體的恆定</h1>
+</header>
+
+<div class="goal">
+  <h2>學完這一小節，你要能夠……</h2>
+  <ol>
+    <li>寫出呼吸作用的反應式，並分辨呼吸作用與呼吸運動的不同。</li>
+    <li>說出各類生物的氣體交換構造，以及呼吸器官的三項共同特徵。</li>
+    <li>說明人體呼吸運動的機制，以及呼吸頻率受哪種氣體刺激調節。</li>
+  </ol>
+</div>
+
+<details class="brief" open>
+  <summary>學習重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li><b>呼吸作用</b>：細胞中的<b>粒線體</b>利用氧氣，將養分分解，產生二氧化碳、水及能量的過程。反應式是養分加氧氣，生成二氧化碳、水和能量。</li>
+    <li><b>呼吸作用和呼吸運動不一樣</b>：呼吸運動指的是呼氣和吸氣的動作，呼吸作用則是細胞為了產生能量所進行的一連串化學反應。</li>
+    <li><b>單細胞生物與構造簡單的小生物</b>，例如草履蟲、喇叭蟲、輪蟲，直接藉由擴散作用進行氣體交換。</li>
+    <li><b>各類動物的呼吸器官</b>：蚯蚓和兩生類成體可用皮膚；魚、蝦、貝類和兩生類幼體用鰓；爬蟲類、鳥類、哺乳類和兩生類成體用肺；昆蟲用氣管。</li>
+    <li><b>呼吸器官的三項共同特徵</b>：較大的表面積（分支、絲狀或褶狀突起）、有大量可攜帶氣體的血液或組織液流過（布滿微血管）、表面溼潤以利氣體溶解。</li>
+    <li><b>植物的氣體交換構造</b>：根的表皮細胞和土壤中的氣體交換；葉的氣孔、莖的皮孔和外界空氣交換。</li>
+    <li><b>人體的呼吸系統</b>由鼻腔、咽、喉、氣管、支氣管和肺組成。鼻腔中的<b>鼻毛</b>能濾出空氣中較大的灰塵；氣管壁上的<b>纖毛</b>朝外擺動，使異物排出。</li>
+    <li><b>肺</b>位於由肋骨和橫膈構成的密閉胸腔中，由許多肺泡組成，肺泡上布滿微血管。肺泡壁和微血管壁都很薄，氧氣和二氧化碳可經<b>擴散作用</b>交換。</li>
+    <li><b>吸氣時</b>：肋骨上舉、橫膈下降、胸腔體積擴大、胸腔壓力變小、肺脹大，外界空氣進入肺中。</li>
+    <li><b>呼氣時</b>：肋骨下降、橫膈上升、胸腔體積縮小、胸腔壓力變大、肺變小，肺內氣體排出體外。</li>
+    <li><b>呼吸運動的原理</b>：肺位於密閉的胸腔中，而且<b>肺沒有肌肉、無法自行收縮舒張</b>，靠的是胸腔的體積變化造成氣體進出。</li>
+    <li><b>呼吸運動的控制中樞在腦幹</b>，刺激因素是<b>血液中二氧化碳的濃度</b>。平靜狀態下每分鐘呼吸約 15 到 18 次。</li>
+    <li>激烈運動時身體產生較多二氧化碳，刺激呼吸控制中樞使呼吸變快。人可以意識性地憋氣，但不能無限制停止呼吸，因為二氧化碳濃度升高會刺激呼吸反射。</li>
+    <li><b>肺部的氣體交換</b>：氧氣由肺泡擴散到血液，二氧化碳由血液擴散到肺泡。<b>組織處的氣體交換</b>：氧氣由血液擴散到組織細胞，二氧化碳由組織細胞擴散到血液。</li>
+    <li><b>呼吸運動模型</b>：寶特瓶相當於胸腔，瓶內的氣球相當於肺，底部的氣球膜相當於橫膈。膠帶往下拉模擬吸氣，向上放回模擬呼氣。</li>
+    <li><b>氯化亞鈷試紙</b>乾燥時呈藍色，遇水變粉紅色，用來偵測水的存在。<b>澄清石灰水</b>遇二氧化碳會產生白色沉澱而變混濁。</li>
+    <li><b>實驗5-2 的結果</b>：人呼氣後試紙由藍變粉紅、石灰水由澄清變白色混濁；已萌芽綠豆（實驗組）使石灰水變混濁，乾燥綠豆（對照組）仍澄清，可見已萌芽綠豆的呼吸作用速率較快。</li>
+    <li>從漏斗加水到錐形瓶，是為了把<b>錐形瓶中的氣體擠入</b>試管的澄清石灰水內，不是為了補水或促進萌芽。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、這種生物靠什麼進行氣體交換？</h2>
+  <p class="hint">從單細胞到昆蟲、到植物，各有各的方式。</p>
+  <table class="pair" id="exTable"></table>
+  <div class="actions"><button class="act" id="exCheck" type="button">檢查</button></div>
+  <p class="fb" id="exFb"></p>
+</section>
+
+<section class="card">
+  <h2>二、吸氣還是呼氣？</h2>
+  <p class="hint">十個現象，包含呼吸運動模型的兩個操作。</p>
+  <table class="pair" id="moveTable"></table>
+  <div class="actions"><button class="act" id="moveCheck" type="button">檢查</button></div>
+  <p class="fb" id="moveFb"></p>
+</section>
+
+<section class="card">
+  <h2>三、氣體往哪個方向擴散？</h2>
+  <p class="hint">肺部和組織處剛好相反，這一格最容易記混。</p>
+  <table class="pair" id="gasTable"></table>
+  <div class="actions"><button class="act" id="gasCheck" type="button">檢查</button></div>
+  <p class="fb" id="gasFb"></p>
+</section>
+
+<section class="card">
+  <h2>四、呼吸運動模型與兩種試劑</h2>
+  <p class="hint">模型的三個部位分別模擬什麼，以及兩種試劑各測什麼。</p>
+  <table class="pair" id="modelTable"></table>
+  <div class="actions"><button class="act" id="modelCheck" type="button">檢查</button></div>
+  <p class="fb" id="modelFb"></p>
+</section>
+
+<section class="card">
+  <h2>五、練習題</h2>
+  <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
+  <div id="qs"></div>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>練習題答對</span><b id="score">0 / 34</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）5-2 呼吸與氣體的恆定 P.187–196 配套互動學習單。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-c5-2-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"c5-2", title:"5-2 呼吸與氣體的恆定", file:"bio1-c5-2.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = (q.type === "choice")
+      ? "(" + "ABCD".charAt(q.ans) + ") " + q.opts[q.ans]
+      : q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  function buildSelectTable(tableId, dataAttr, rows, options){
+    var table = document.getElementById(tableId);
+    rows.forEach(function(item){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = item.name;
+      var td = document.createElement("td");
+      var sel = document.createElement("select");
+      sel.dataset[dataAttr] = item.id;
+      var blank = document.createElement("option");
+      blank.value = ""; blank.textContent = "（請選擇）";
+      sel.appendChild(blank);
+      options.forEach(function(o){
+        var op = document.createElement("option");
+        op.value = o; op.textContent = o;
+        sel.appendChild(op);
+      });
+      var savedKey = dataAttr + "-" + item.id;
+      if (state.answers[savedKey]) sel.value = state.answers[savedKey];
+      sel.addEventListener("change", function(){
+        state.answers[savedKey] = sel.value;
+        store.write(state);
+        sel.classList.remove("ok","no");
+      });
+      td.appendChild(sel);
+      tr.appendChild(th);
+      tr.appendChild(td);
+      table.appendChild(tr);
+    });
+  }
+  function checkSelectTable(dataAttr, rows, fbId, allRight, hint){
+    var right = 0;
+    rows.forEach(function(item){
+      var sel = document.querySelector("select[data-" + dataAttr + '="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById(fbId);
+    fb.className = "fb show " + (right === rows.length ? "right" : "wrong");
+    fb.textContent = right === rows.length ? allRight
+      : "答對 " + right + " / " + rows.length + "。" + hint;
+  }
+
+  /* ── 一、氣體交換構造 ── */
+  var EXO = ["直接藉由擴散作用","皮膚","鰓","肺","氣管","根的表皮細胞","葉的氣孔與莖的皮孔"];
+  var EROWS = [
+    { id:"e1", name:"草履蟲、喇叭蟲、輪蟲", ans:EXO[0] },
+    { id:"e2", name:"蚯蚓、兩生類成體", ans:EXO[1] },
+    { id:"e3", name:"魚、蝦、貝類、兩生類幼體", ans:EXO[2] },
+    { id:"e4", name:"爬蟲類、鳥類、哺乳類", ans:EXO[3] },
+    { id:"e5", name:"昆蟲", ans:EXO[4] },
+    { id:"e6", name:"植物與土壤中的氣體交換", ans:EXO[5] },
+    { id:"e7", name:"植物與外界空氣的氣體交換", ans:EXO[6] }
+  ];
+  buildSelectTable("exTable", "e", EROWS, EXO);
+  document.getElementById("exCheck").addEventListener("click", function(){
+    checkSelectTable("e", EROWS, "exFb",
+      "全對。兩生類要分階段：幼體用鰓，成體可用皮膚也可用肺，是唯一跨兩格的一類。",
+      "構造越簡單越直接：小生物直接擴散，水中生物用鰓，陸生脊椎動物用肺，昆蟲則自成一格用氣管。");
+  });
+
+  /* ── 二、吸氣或呼氣 ── */
+  var MV = ["吸氣","呼氣"];
+  var MROWS = [
+    { id:"m1", name:"肋骨上舉", ans:"吸氣" },
+    { id:"m2", name:"肋骨下降", ans:"呼氣" },
+    { id:"m3", name:"橫膈下降", ans:"吸氣" },
+    { id:"m4", name:"橫膈上升", ans:"呼氣" },
+    { id:"m5", name:"胸腔體積擴大", ans:"吸氣" },
+    { id:"m6", name:"胸腔體積縮小", ans:"呼氣" },
+    { id:"m7", name:"胸腔壓力變小", ans:"吸氣" },
+    { id:"m8", name:"胸腔壓力變大", ans:"呼氣" },
+    { id:"m9", name:"呼吸運動模型：寶特瓶底部的膠帶往下拉", ans:"吸氣" },
+    { id:"m10", name:"呼吸運動模型：寶特瓶底部的膠帶向上放回", ans:"呼氣" }
+  ];
+  buildSelectTable("moveTable", "m", MROWS, MV);
+  document.getElementById("moveCheck").addEventListener("click", function(){
+    checkSelectTable("m", MROWS, "moveFb",
+      "全對。吸氣是「上舉、下降、變大、壓力變小」，呼氣整組相反；肺自己不會動，都是胸腔體積在帶。",
+      "記一句：吸氣時胸腔變大、壓力變小，空氣才進得來。橫膈是往下才變大，和肋骨往上是同一組動作。");
+  });
+
+  /* ── 三、氣體擴散方向 ── */
+  var GAS = [
+    "由肺泡擴散到血液",
+    "由血液擴散到肺泡",
+    "由血液擴散到組織細胞",
+    "由組織細胞擴散到血液"
+  ];
+  var XROWS = [
+    { id:"x1", name:"肺部的氧氣", ans:GAS[0] },
+    { id:"x2", name:"肺部的二氧化碳", ans:GAS[1] },
+    { id:"x3", name:"組織處的氧氣", ans:GAS[2] },
+    { id:"x4", name:"組織處的二氧化碳", ans:GAS[3] }
+  ];
+  buildSelectTable("gasTable", "x", XROWS, GAS);
+  document.getElementById("gasCheck").addEventListener("click", function(){
+    checkSelectTable("x", XROWS, "gasFb",
+      "全對。氧氣一路往「要用它的地方」走：肺泡→血液→組織細胞；二氧化碳則反過來，組織細胞→血液→肺泡。",
+      "都是由高濃度往低濃度擴散。肺泡的氧氣多、組織細胞的二氧化碳多，方向就定了。");
+  });
+
+  /* ── 四、模型與試劑 ── */
+  var MODS = ["相當於胸腔","相當於肺","相當於橫膈","氯化亞鈷試紙","澄清石灰水"];
+  var PROWS = [
+    { id:"p1", name:"呼吸運動模型中的寶特瓶", ans:MODS[0] },
+    { id:"p2", name:"呼吸運動模型中瓶內的氣球", ans:MODS[1] },
+    { id:"p3", name:"呼吸運動模型中底部的氣球膜", ans:MODS[2] },
+    { id:"p4", name:"乾燥時呈藍色，遇水變粉紅色", ans:MODS[3] },
+    { id:"p5", name:"遇二氧化碳產生白色沉澱而變混濁", ans:MODS[4] }
+  ];
+  buildSelectTable("modelTable", "p", PROWS, MODS);
+  document.getElementById("modelCheck").addEventListener("click", function(){
+    checkSelectTable("p", PROWS, "modelFb",
+      "全對。模型中會脹縮的氣球是肺，底部被拉的那張膜才是橫膈，整個瓶子則是胸腔。",
+      "試紙測水、石灰水測二氧化碳；要同時證明呼出的氣體含這兩樣，兩種試劑都得用上。");
+  });
+
+  /* ── 五、練習題 ── */
+  var QS = [
+    { id:"q1", tag:"焦點即時練", type:"fill",
+      text:"呼吸作用是指細胞利用＿＿，將養分分解產生二氧化碳、水及能量等的過程。",
+      ans:["氧氣"],
+      why:"呼吸作用在細胞的粒線體中進行，需要氧氣參與。" },
+    { id:"q2", tag:"焦點即時練", type:"fill",
+      text:"承上題，細胞利用氧氣分解的是＿＿。",
+      ans:["養分"],
+      why:"反應式是養分加氧氣，生成二氧化碳、水和能量。" },
+    { id:"q3", tag:"焦點即時練", type:"choice",
+      text:"關於動物呼吸器官所具有的共同特徵，下列敘述何者錯誤？",
+      opts:[
+        "具有溼潤的表面",
+        "微血管密布其表面",
+        "布滿能防止水分散失的角質層",
+        "常有分支或絲狀的突起"
+      ], ans:2,
+      why:"呼吸器官要溼潤才利於氣體溶解；角質層是用來防止水分散失的，反而不利氣體交換。" },
+    { id:"q4", tag:"焦點即時練", type:"choice",
+      text:"在肺部，氧氣的擴散方向為何？",
+      opts:["由肺泡擴散到血液","由血液擴散到肺泡"], ans:0,
+      why:"肺泡內的氧氣濃度較血液高，氧氣就由肺泡進入血液。" },
+    { id:"q5", tag:"焦點即時練", type:"choice",
+      text:"在肺部，二氧化碳的擴散方向為何？",
+      opts:["由肺泡擴散到血液","由血液擴散到肺泡"], ans:1,
+      why:"血液中的二氧化碳濃度較高，所以擴散進肺泡，再隨呼氣排出。" },
+    { id:"q6", tag:"焦點即時練", type:"choice",
+      text:"在肺部以外的身體組織，氧氣的擴散方向為何？",
+      opts:["由組織細胞擴散到血液","由血液擴散到組織細胞"], ans:1,
+      why:"組織細胞一直在消耗氧氣，濃度較低，所以氧氣由血液擴散進細胞。" },
+    { id:"q7", tag:"焦點即時練", type:"choice",
+      text:"在肺部以外的身體組織，二氧化碳的擴散方向為何？",
+      opts:["由組織細胞擴散到血液","由血液擴散到組織細胞"], ans:0,
+      why:"細胞行呼吸作用產生二氧化碳，濃度較高，所以擴散進血液由大靜脈帶回心臟。" },
+    { id:"q8", tag:"焦點即時練", type:"fill",
+      text:"呼吸運動的調節中樞是＿＿中的呼吸控制中樞。",
+      ans:["腦幹"],
+      why:"腦幹是生命中樞，心搏和呼吸的控制中樞都在這裡。" },
+    { id:"q9", tag:"焦點即時練", type:"fill",
+      text:"刺激呼吸控制中樞、調節呼吸速度的因子是血液中＿＿＿＿的濃度。",
+      ans:["二氧化碳"],
+      why:"是二氧化碳濃度升高在催促呼吸，而不是氧氣不足；所以人沒辦法一直憋氣。" },
+    { id:"q10", tag:"焦點即時練", type:"choice",
+      text:"關於利用寶特瓶製作的呼吸模型，下列哪一部分與人體呼吸系統的構造配對正確？",
+      opts:[
+        "寶特瓶內的氣球模擬橫膈",
+        "寶特瓶模擬人體的胸腔",
+        "寶特瓶底部的氣球膜模擬肺",
+        "整個寶特瓶相當於人體的肺"
+      ], ans:1,
+      why:"瓶子是胸腔、瓶內氣球是肺、底部的氣球膜才是橫膈，三者不要對調。" },
+    { id:"q11", tag:"焦點即時練", type:"choice",
+      text:"關於鼻腔中鼻毛的功用，下列敘述何者正確？",
+      opts:[
+        "沒有用處且不衛生，最好全部剪除",
+        "能過濾空氣中較大的灰塵",
+        "能產生規律擺動，使異物隨擺動排出",
+        "具嗅覺受器，可偵測空氣中的化學分子"
+      ], ans:1,
+      why:"會規律擺動排出異物的是氣管壁上的纖毛，不是鼻毛；鼻毛負責濾掉較大的灰塵。" },
+    { id:"q12", tag:"好題示例", type:"choice",
+      text:"人體呼氣時，橫膈位置會如何變化？又藍色氯化亞鈷試紙可檢測呼出氣體中的哪一種物質？",
+      opts:[
+        "橫膈下降；檢測水",
+        "橫膈下降；檢測二氧化碳",
+        "橫膈上升；檢測水",
+        "橫膈上升；檢測二氧化碳"
+      ], ans:2,
+      why:"呼氣時胸腔體積變小，橫膈上升、肋骨下降；藍色氯化亞鈷試紙遇水會變成粉紅色，測的是水而不是二氧化碳。" },
+    { id:"q13", tag:"實驗題", type:"choice",
+      text:"小雯將乾燥氯化亞鈷試紙放在鼻子前，呼氣幾次後，試紙將呈何種顏色？這是因為何種原因造成的？",
+      opts:[
+        "試紙呈粉紅色，因為呼出的氣體含有二氧化碳",
+        "試紙呈淡綠色，因為呼出的氣體含有氧氣",
+        "試紙呈淡藍色，因為呼出的氣體含有氮氣",
+        "試紙呈粉紅色，因為呼出的氣體含有水氣"
+      ], ans:3,
+      why:"氯化亞鈷試紙只對水起反應，由藍變粉紅代表呼出的氣體含有水氣。" },
+    { id:"q14", tag:"實驗題", type:"choice",
+      text:"甲.乾燥的氯化亞鈷試紙　乙.碘液　丙.本氏液　丁.澄清石灰水。如果要證實人體呼出的氣體中含有二氧化碳和水，應該選用下列哪兩種物質？",
+      opts:["甲乙","乙丙","丙丁","甲丁"], ans:3,
+      why:"試紙測水、澄清石灰水測二氧化碳；碘液測澱粉、本氏液測葡萄糖，都跟氣體無關。" },
+    { id:"q15", tag:"實驗題", type:"choice",
+      text:"在進行「植物呼出的氣體」實驗時，關於由漏斗倒入清水的目的，主要為下列何者？",
+      opts:[
+        "為了使綠豆加速萌芽",
+        "增加綠豆光合作用的效率",
+        "為了將錐形瓶中的氣體擠入試管中",
+        "讓水流入澄清石灰水中，補齊蒸發的水量"
+      ], ans:2,
+      why:"水占掉錐形瓶的空間，把瓶內的氣體推進試管的澄清石灰水裡，才能檢測。" },
+    { id:"q16", tag:"實力養成評量", type:"choice",
+      text:"動物組織與血管之間氣體交換的基本原理為何？",
+      opts:["大氣壓力","擴散作用","血液流動","肋骨與橫膈的運動"], ans:1,
+      why:"氧氣和二氧化碳都是由高濃度往低濃度擴散，不需要額外的力量推動。" },
+    { id:"q17", tag:"實力養成評量", type:"choice",
+      text:"動物攝入的食物中所含的能量，必須經過下列哪一種過程才能釋放出來？",
+      opts:["光合作用","呼吸作用","循環作用","排泄作用"], ans:1,
+      why:"呼吸作用把養分分解並釋放能量；光合作用則是把能量存進養分，方向相反。" },
+    { id:"q18", tag:"實力養成評量", type:"choice",
+      text:"校園中的椰子樹也會進行呼吸作用。下列有關其細胞進行「呼吸作用」的敘述，何者正確？",
+      opts:[
+        "利用氧氣，產生二氧化碳",
+        "利用二氧化碳，產生氧氣",
+        "只在白天利用二氧化碳，產生氧氣",
+        "只在白天利用氧氣，產生二氧化碳"
+      ], ans:0,
+      why:"植物的呼吸作用和動物一樣是耗氧產生二氧化碳，而且日夜都在進行；消耗二氧化碳的是光合作用。" },
+    { id:"q19", tag:"實力養成評量", type:"choice",
+      text:"關於動物呼吸器官所具有的共同特徵，下列敘述何者錯誤？",
+      opts:["布滿微血管","表面溼潤","布滿皮孔與氣孔","較大的表面積"], ans:2,
+      why:"皮孔和氣孔是植物的氣體交換構造，動物的呼吸器官不會有。" },
+    { id:"q20", tag:"實力養成評量", type:"choice",
+      text:"生物細胞利用氧氣進行呼吸作用，會產生什麼供給細胞活動所需？",
+      opts:["蛋白質","能量","二氧化碳","水"], ans:1,
+      why:"二氧化碳和水是廢物，真正供細胞使用的是釋放出來的能量。" },
+    { id:"q21", tag:"實力養成評量", type:"choice",
+      text:"關於呼吸作用的敘述，下列何者正確？",
+      opts:[
+        "鳥類、魚類和人類行呼吸作用時，所呼出的氣體不同",
+        "呼吸作用的目的在於分解養分以產生能量",
+        "植物行呼吸作用和光合作用所釋放的氣體相同",
+        "人類的呼吸作用僅發生在肺部"
+      ], ans:1,
+      why:"呼吸作用發生在全身每個細胞，不只在肺；各種動物呼出的都是二氧化碳；光合作用釋放的是氧氣，和呼吸作用不同。" },
+    { id:"q22", tag:"實力養成評量", type:"choice",
+      text:"甲.種子發芽時，呼吸作用較未發芽時旺盛　乙.植物進行呼吸作用時，消耗二氧化碳、產生氧氣　丙.呼吸作用是利用氧氣使養分分解，而產生能量。關於植物呼吸作用的敘述，哪些是正確的？",
+      opts:["甲乙","乙丙","甲丙","甲乙丙"], ans:2,
+      why:"乙說反了——消耗二氧化碳、產生氧氣的是光合作用。甲和丙都正確。" },
+    { id:"q23", tag:"實力養成評量", type:"choice",
+      text:"魚類利用鰓進行氣體交換時，甲為流入鰓前的水、乙為流出鰓後的水，則下列敘述何者正確？",
+      opts:[
+        "甲、乙的含氧量相同",
+        "甲、乙的含氧量都很高",
+        "甲的含氧量＜乙的含氧量",
+        "甲的含氧量＞乙的含氧量"
+      ], ans:3,
+      why:"水流經鰓時氧氣被魚吸收，所以流出去的水含氧量比流進來時低。" },
+    { id:"q24", tag:"實力養成評量", type:"choice",
+      text:"如果在魚的鰓上塗上一層奶油，不久後魚可能會死亡，其致死的主要原因為何？",
+      opts:[
+        "奶油無法獲得足夠的氧氣",
+        "細胞無法獲得足夠的氧氣",
+        "體內水分不足",
+        "細胞不能獲得二氧化碳"
+      ], ans:1,
+      why:"奶油擋住鰓，氣體無法擴散進來，全身細胞就得不到氧氣、無法行呼吸作用產生能量。" },
+    { id:"q25", tag:"實力養成評量", type:"choice",
+      text:"進行下列哪一項活動時，呼吸頻率應該最快？",
+      opts:["行禮","參加升旗典禮","散步","快跑一百公尺"], ans:3,
+      why:"運動越劇烈，產生的二氧化碳越多，刺激呼吸控制中樞使呼吸越快。" },
+    { id:"q26", tag:"實力養成評量", type:"choice",
+      text:"人體吸入氧氣時，空氣由鼻子進入肺所經過的途徑為下列何者？",
+      opts:[
+        "鼻腔→咽→喉→氣管→支氣管→肺",
+        "鼻腔→咽→喉→支氣管→氣管→肺",
+        "鼻腔→氣管→咽→喉→支氣管→肺",
+        "鼻腔→咽→氣管→喉→支氣管→肺"
+      ], ans:0,
+      why:"順序是鼻腔、咽、喉、氣管、支氣管、肺；氣管在前、支氣管在後，因為氣管會分支成支氣管。" },
+    { id:"q27", tag:"實力養成評量", type:"choice",
+      text:"比較植物與動物呼吸時所排出的氣體，下列敘述何者正確？",
+      opts:[
+        "植物與動物呼出的氣體都含有二氧化碳",
+        "植物只呼出氧氣，動物只呼出二氧化碳",
+        "植物只呼出二氧化碳，動物只呼出氧氣",
+        "植物與動物的呼吸均只呼出氧氣"
+      ], ans:0,
+      why:"呼吸作用不分動植物，產物都是二氧化碳和水；植物放出氧氣是光合作用的事。" },
+    { id:"q28", tag:"實力養成評量", type:"choice",
+      text:"正常狀態下，成人呼吸運動每分鐘約有幾次？",
+      opts:["15～18 次","25～40 次","70～80 次","90～110 次"], ans:0,
+      why:"平靜狀態下每分鐘約 15 到 18 次；七十幾次那個是心搏，不要記混。" },
+    { id:"q29", tag:"實力養成評量", type:"choice",
+      text:"人類可以完成呼氣與吸氣動作，最主要的原因為何？",
+      opts:[
+        "肺的肌肉自行收縮與舒張",
+        "胸腔的體積變化造成氣體進出",
+        "鼻子用力吸氣或呼氣以帶動氣流",
+        "氣管上纖毛的運動以帶動氣流"
+      ], ans:1,
+      why:"肺本身沒有肌肉、不能自己動；是肋骨和橫膈改變胸腔體積，才把空氣擠進擠出。" },
+    { id:"q30", tag:"實力養成評量", type:"choice",
+      text:"劇烈運動後呼吸會加快，這是因為血液中何種物質濃度的變化所致？",
+      opts:["血糖","水分","氧氣","二氧化碳"], ans:3,
+      why:"運動後細胞產生大量二氧化碳，血中濃度升高刺激腦幹的呼吸控制中樞，使呼吸變快。" },
+    { id:"q31", tag:"實力養成評量", type:"choice",
+      text:"人體呼吸運動的控制中樞位於下列何處？",
+      opts:["大腦","小腦","腦幹","脊髓"], ans:2,
+      why:"呼吸和心搏都屬於生命現象，控制中樞在腦幹。" },
+    { id:"q32", tag:"題組", type:"choice",
+      text:"婷婷測定植物種子呼出的氣體：甲錐形瓶裝已萌芽綠豆、乙錐形瓶裝乾燥綠豆，兩瓶各以橡皮管通入盛有澄清石灰水的試管。注入清水時，短時間內兩邊試管所產生的現象，下列何者正確？",
+      opts: [
+        "甲無氣泡產生，石灰水保持澄清",
+        "甲有氣泡產生，石灰水變混濁",
+        "乙無氣泡產生，石灰水保持澄清",
+        "乙有氣泡產生，石灰水變混濁"
+      ], ans:1,
+      why:"加水會把兩瓶的氣體都擠出來，所以甲、乙都有氣泡。但只有甲的氣體含較多二氧化碳，石灰水才會變混濁。" },
+    { id:"q33", tag:"歷屆經典題", type:"choice",
+      text:"聲帶位於喉部內，人體正常發聲時，氣流會由肺經過聲門排出。則此時呼吸運動的狀態應為下列何者？",
+      opts:[
+        "肋骨上舉、橫膈下降、胸腔變大",
+        "肋骨上舉、橫膈上升、胸腔變小",
+        "肋骨下降、橫膈上升、胸腔變小",
+        "肋骨下降、橫膈下降、胸腔變大"
+      ], ans:2,
+      why:"氣流由肺往外排，代表正在呼氣；呼氣時肋骨下降、橫膈上升、胸腔體積變小。" },
+    { id:"q34", tag:"歷屆經典題", type:"choice",
+      text:"小美用手指捏住鼻子閉氣，不久卻憋不住而放開手、大口呼吸起來，這是因為血液中下列哪種氣體含量增高所造成？",
+      opts:["氧氣","臭氧","甲烷","二氧化碳"], ans:3,
+      why:"刺激呼吸控制中樞的是二氧化碳濃度；濃度一高就會引發呼吸反射，強迫身體重新呼吸。" }
+  ];
+
+  var host = document.getElementById("qs");
+
+  QS.forEach(function(q, idx){
+    var box = document.createElement("div");
+    box.className = "q";
+    box.id = "box-" + q.id;
+
+    var head = document.createElement("p");
+    head.className = "qtext";
+    head.innerHTML = '<span class="qtag"></span> ';
+    head.querySelector(".qtag").textContent = q.tag;
+    head.appendChild(document.createTextNode(" " + (idx+1) + ". " + q.text));
+    box.appendChild(head);
+
+    if (q.type === "choice") {
+      var ul = document.createElement("ul");
+      ul.className = "opts";
+      q.opts.forEach(function(opt, i){
+        var li = document.createElement("li");
+        var lab = document.createElement("label");
+        var r = document.createElement("input");
+        r.type = "radio"; r.name = q.id; r.value = String(i);
+        if (state.answers[q.id] === String(i)) r.checked = true;
+        r.addEventListener("change", function(){
+          state.answers[q.id] = r.value; store.write(state);
+        });
+        lab.appendChild(r);
+        lab.appendChild(document.createTextNode("(" + "ABCD".charAt(i) + ") " + opt));
+        li.appendChild(lab);
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    } else {
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.size = 12;
+      inp.setAttribute("aria-label", "填答");
+      if (state.answers[q.id]) inp.value = state.answers[q.id];
+      inp.addEventListener("input", function(){
+        state.answers[q.id] = inp.value; store.write(state); inp.classList.remove("ok","no");
+      });
+      box.appendChild(inp);
+    }
+
+    var fb = document.createElement("p");
+    fb.className = "fb";
+    fb.id = "fb-" + q.id;
+    box.appendChild(fb);
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "act ghost";
+    btn.style.marginTop = "8px";
+    btn.textContent = "對答案";
+    btn.addEventListener("click", function(){ judge(q); updateScore(); });
+    box.appendChild(btn);
+
+    host.appendChild(box);
+  });
+
+  function isRight(q){
+    var v = state.answers[q.id];
+    if (v === undefined || v === "") return null;
+    if (q.type === "choice") return String(q.ans) === v;
+    var t = v.replace(/\s/g,"");
+    return q.ans.indexOf(t) > -1;
+  }
+
+  function judge(q){
+    var ok = isRight(q);
+    var fb = document.getElementById("fb-" + q.id);
+    if (ok === null) {
+      fb.className = "fb show wrong";
+      fb.textContent = "還沒作答。";
+      return;
+    }
+    logResult(q, ok);
+    fb.className = "fb show " + (ok ? "right" : "wrong");
+    var ansText = q.type === "choice"
+      ? "答案：(" + "ABCD".charAt(q.ans) + ")"
+      : "答案：" + q.ans[0];
+    fb.textContent = (ok ? "答對了。" : "再看一次。") + ansText + "　" + q.why;
+    if (q.type === "fill") {
+      var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+      inp.classList.toggle("ok", ok); inp.classList.toggle("no", !ok);
+    }
+  }
+
+  function updateScore(){
+    var right = 0;
+    QS.forEach(function(q){ if (isRight(q) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + QS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
+    else if (right >= 27) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else note.textContent = "先回上面四個練習區確認一次，再回來作答。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    QS.forEach(judge); updateScore();
+  });
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一份的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    QS.forEach(function(q){
+      var fb = document.getElementById("fb-" + q.id);
+      fb.className = "fb"; fb.textContent = "";
+      if (q.type === "choice") {
+        Array.prototype.forEach.call(document.getElementsByName(q.id), function(r){ r.checked = false; });
+      } else {
+        var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+        inp.value = ""; inp.classList.remove("ok","no");
+      }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("select[data-e], select[data-m], select[data-x], select[data-p]"), function(sel){
+      sel.value = ""; sel.classList.remove("ok","no");
+    });
+    ["exFb","moveFb","gasFb","modelFb"].forEach(function(id){
+      document.getElementById(id).className = "fb";
+    });
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>

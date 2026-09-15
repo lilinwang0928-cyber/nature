@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2-4 動物如何獲得養分｜互動學習單</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:0 0 120px;font-weight:700;}
+  .sortrow select{flex:1 1 240px;}
+
+  table.pair{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.pair th,table.pair td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.pair th{background:#F3F7F2;width:190px;font-weight:700;}
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select{width:100%;}
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+
+  .mapnote{font-size:.9rem;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 第 2 章 · P.89–91</p>
+  <h1>2-4 動物如何獲得養分</h1>
+</header>
+
+<div class="goal">
+  <h2>學完這一節，你要能夠……</h2>
+  <ol>
+    <li>比較水螅、蝴蝶、貓的攝食構造，並說出人類三種牙齒的功能。</li>
+    <li>說明消化作用的意義，以及三大養分分別被分解成什麼。</li>
+    <li>說出消化道各器官的功能，以及每種消化液作用的養分對象。</li>
+  </ol>
+</div>
+
+<p class="mapnote" style="background:#FFFDF4;border:1px solid var(--amber);border-radius:10px;padding:10px 14px;margin:0 0 20px;">
+  這一份目前依 P.89–91 製作。講義 P.92 以後的實力養成評量與題組還沒拍到，所以下方練習題只有兩題，之後補齊照片再追加。
+</p>
+
+<details class="brief" open>
+  <summary>學習重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li>動物所需的養分大多來自環境，由<b>攝食</b>進入體內。動物攝得養分的過程是<b>攝食、消化、吸收</b>三個階段。</li>
+    <li><b>消化作用</b>：攝食獲得的養分多為較大的分子，例如澱粉、蛋白質和脂質，無法直接通過細胞膜，必須先分解成較小的分子才能進入細胞被利用，這個轉變的過程就叫消化作用。</li>
+    <li><b>三大養分的分解產物</b>：澱粉分解成葡萄糖，蛋白質分解成胺基酸，脂質分解成脂肪酸和甘油。</li>
+    <li><b>攝食構造各不相同</b>：水螅利用觸手捕捉水中的小生物，蝴蝶利用管狀的口器吸食花蜜，貓利用口中的牙齒撕裂食物。</li>
+    <li><b>人類的三種牙齒</b>：門齒切斷食物，犬齒撕裂食物，臼齒磨碎食物。</li>
+    <li><b>消化構造依開口數目分兩類</b>：囊狀消化腔只有一個對外開口，例如水螅和水母；管狀消化道有前後兩個開口，例如人類和蚯蚓。</li>
+    <li>單細胞動物例如變形蟲和草履蟲，是把環境中的食物攝取進細胞內，經消化分解後再吸收利用。</li>
+    <li><b>人體的消化系統</b>包括消化道與消化腺。消化道管壁收縮可推進食物，並讓食物和消化液混合；消化腺分泌消化液，大部分消化液中含有消化酵素，可加速食物分解。</li>
+    <li><b>消化道</b>依序是口腔、咽、食道、胃、小腸、大腸和肛門。<b>消化腺</b>有唾腺、胃腺、肝臟、胰臟和腸腺。</li>
+    <li><b>口腔</b>：牙齒咬碎並咀嚼食物，舌頭使食物和唾液混合、幫助吞嚥；唾腺分泌唾液，可初步分解醣類中的澱粉。</li>
+    <li><b>胃</b>呈囊狀，可攪拌和暫時儲存食物。胃壁中的胃腺分泌胃液，胃液含<b>鹽酸</b>可殺菌並活化胃中酵素，含<b>酵素</b>受活化後可初步分解蛋白質。</li>
+    <li><b>小腸</b>是食物分解的主要場所，也吸收大部分養分和水分。小腸壁上有很多<b>皺褶和絨毛</b>，可增加吸收的表面積；絨毛內有微血管網，把養分送到全身。</li>
+    <li>膽汁與胰液藉由<b>導管</b>注入小腸中作用；小腸壁中的腸腺則分泌腸液。</li>
+    <li><b>膽汁由肝臟分泌</b>，先儲存在膽囊中，食物進入小腸時再經導管進入。膽汁<b>沒有消化酵素</b>，但能把脂質變成顆粒較小的脂肪球，也就是<b>乳化作用</b>，有利於脂質酵素進行分解。</li>
+    <li><b>大腸</b>吸收剩餘的水分和礦物質，並形成糞便；<b>肛門</b>負責排出糞便，稱為排遺。</li>
+    <li><b>蠕動</b>：食物進入食道時，食道壁受刺激開始收縮，呈現一張一縮的連續波動，把食物逐漸推擠到胃中。</li>
+    <li>除了胃黏膜能吸收少量的水、酒精及藥物，小腸吸收大部分養分和水分，大腸吸收部分水和鹽類之外，<b>其餘的消化道並沒有吸收功能</b>。</li>
+    <li><b>盲腸</b>位於右下腹部，是大腸的起點；盲腸上的指狀突起稱為<b>闌尾</b>，人類的闌尾沒有消化功能，食物掉入可能引起闌尾炎。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、牠用什麼吃東西？</h2>
+  <p class="hint">不同動物的攝食構造，以及人類三種牙齒的功能。</p>
+  <table class="pair" id="eatTable"></table>
+  <div class="actions"><button class="act" id="eatCheck" type="button">檢查</button></div>
+  <p class="fb" id="eatFb"></p>
+</section>
+
+<section class="card">
+  <h2>二、大分子被分解成什麼？</h2>
+  <p class="hint">消化作用把大分子養分轉變成小分子，才能通過細胞膜。</p>
+  <table class="pair" id="breakTable"></table>
+  <div class="actions"><button class="act" id="breakCheck" type="button">檢查</button></div>
+  <p class="fb" id="breakFb"></p>
+</section>
+
+<section class="card">
+  <h2>三、消化道各部位在做什麼？</h2>
+  <p class="hint">從口腔到肛門，選出每個器官的主要功能。</p>
+  <table class="pair" id="tractTable"></table>
+  <div class="actions"><button class="act" id="tractCheck" type="button">檢查</button></div>
+  <p class="fb" id="tractFb"></p>
+</section>
+
+<section class="card">
+  <h2>四、這種消化液能分解哪些養分？</h2>
+  <p class="hint">這一格最常考，尤其是膽汁和胰液的差別。</p>
+  <table class="pair" id="juiceTable"></table>
+  <div class="actions"><button class="act" id="juiceCheck" type="button">檢查</button></div>
+  <p class="fb" id="juiceFb"></p>
+</section>
+
+<section class="card">
+  <h2>五、練習題</h2>
+  <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
+  <div id="qs"></div>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>練習題答對</span><b id="score">0 / 2</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）2-4 動物如何獲得養分 P.89–91 配套互動學習單。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-c2-4-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  /* ── 共用錯題本 ── */
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"c2-4", title:"2-4 動物如何獲得養分", file:"bio1-c2-4.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = (q.type === "choice")
+      ? "(" + "ABCD".charAt(q.ans) + ") " + q.opts[q.ans]
+      : q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  /* ── 共用的下拉表格工具 ── */
+  function buildSelectTable(tableId, dataAttr, rows, options){
+    var table = document.getElementById(tableId);
+    rows.forEach(function(item){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = item.name;
+      var td = document.createElement("td");
+      var sel = document.createElement("select");
+      sel.dataset[dataAttr] = item.id;
+      var blank = document.createElement("option");
+      blank.value = ""; blank.textContent = "（請選擇）";
+      sel.appendChild(blank);
+      options.forEach(function(o){
+        var op = document.createElement("option");
+        op.value = o; op.textContent = o;
+        sel.appendChild(op);
+      });
+      var savedKey = dataAttr + "-" + item.id;
+      if (state.answers[savedKey]) sel.value = state.answers[savedKey];
+      sel.addEventListener("change", function(){
+        state.answers[savedKey] = sel.value;
+        store.write(state);
+        sel.classList.remove("ok","no");
+      });
+      td.appendChild(sel);
+      tr.appendChild(th);
+      tr.appendChild(td);
+      table.appendChild(tr);
+    });
+  }
+
+  function checkSelectTable(dataAttr, rows, fbId, allRight, hint){
+    var right = 0;
+    rows.forEach(function(item){
+      var sel = document.querySelector("select[data-" + dataAttr + '="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById(fbId);
+    fb.className = "fb show " + (right === rows.length ? "right" : "wrong");
+    fb.textContent = right === rows.length ? allRight
+      : "答對 " + right + " / " + rows.length + "。" + hint;
+  }
+
+  /* ── 一、攝食構造 ── */
+  var EATS = [
+    "利用觸手捕捉水中的小生物",
+    "利用管狀的口器吸食花蜜",
+    "利用口中的牙齒來撕裂食物",
+    "切斷食物",
+    "撕裂食物",
+    "磨碎食物"
+  ];
+  var EROWS = [
+    { id:"e1", name:"水螅", ans:EATS[0] },
+    { id:"e2", name:"蝴蝶", ans:EATS[1] },
+    { id:"e3", name:"貓", ans:EATS[2] },
+    { id:"e4", name:"人的門齒", ans:EATS[3] },
+    { id:"e5", name:"人的犬齒", ans:EATS[4] },
+    { id:"e6", name:"人的臼齒", ans:EATS[5] }
+  ];
+  buildSelectTable("eatTable", "e", EROWS, EATS);
+  document.getElementById("eatCheck").addEventListener("click", function(){
+    checkSelectTable("e", EROWS, "eatFb",
+      "全對。食物種類與來源不同，攝食構造也就不同；人的三種牙齒剛好分工成切、撕、磨。",
+      "貓和犬齒都是「撕」，門齒在最前面負責切斷，臼齒在最後面負責磨碎。");
+  });
+
+  /* ── 二、分解產物 ── */
+  var PRODS = ["葡萄糖","胺基酸","脂肪酸和甘油"];
+  var BROWS = [
+    { id:"b1", name:"澱粉", ans:PRODS[0] },
+    { id:"b2", name:"蛋白質", ans:PRODS[1] },
+    { id:"b3", name:"脂質", ans:PRODS[2] }
+  ];
+  buildSelectTable("breakTable", "b", BROWS, PRODS);
+  document.getElementById("breakCheck").addEventListener("click", function(){
+    checkSelectTable("b", BROWS, "breakFb",
+      "全對。這三組要背熟，後面談消化液作用對象時都會用到。",
+      "澱粉變葡萄糖、蛋白質變胺基酸、脂質變脂肪酸和甘油，只有脂質的產物是兩種。");
+  });
+
+  /* ── 三、消化道功能 ── */
+  var TRACTS = [
+    "牙齒咬碎並咀嚼食物，舌頭使食物和唾液混合",
+    "控制食物進入食道",
+    "以蠕動推進食物",
+    "呈囊狀，可攪拌和暫時儲存食物",
+    "食物分解的主要場所，吸收大部分養分和水分",
+    "吸收剩餘的水分和礦物質，並形成糞便",
+    "排出糞便（排遺）"
+  ];
+  var TROWS = [
+    { id:"t1", name:"口腔", ans:TRACTS[0] },
+    { id:"t2", name:"咽", ans:TRACTS[1] },
+    { id:"t3", name:"食道", ans:TRACTS[2] },
+    { id:"t4", name:"胃", ans:TRACTS[3] },
+    { id:"t5", name:"小腸", ans:TRACTS[4] },
+    { id:"t6", name:"大腸", ans:TRACTS[5] },
+    { id:"t7", name:"肛門", ans:TRACTS[6] }
+  ];
+  buildSelectTable("tractTable", "t", TROWS, TRACTS);
+  document.getElementById("tractCheck").addEventListener("click", function(){
+    checkSelectTable("t", TROWS, "tractFb",
+      "全對。真正有吸收功能的只有小腸（大部分）、大腸（部分水和鹽類）和胃黏膜（少量水、酒精及藥物），其餘都沒有。",
+      "照食物走的順序想一遍：口腔嚼、咽控制、食道推、胃儲存攪拌、小腸分解吸收、大腸收水成糞、肛門排出。");
+  });
+
+  /* ── 四、消化液作用對象 ── */
+  var TARGETS = [
+    "只分解醣類",
+    "只分解蛋白質",
+    "只作用於脂質，但不含消化酵素",
+    "醣類、蛋白質、脂質都能分解",
+    "分解醣類和蛋白質"
+  ];
+  var JROWS = [
+    { id:"j1", name:"唾液（唾腺）", ans:TARGETS[0] },
+    { id:"j2", name:"胃液（胃腺）", ans:TARGETS[1] },
+    { id:"j3", name:"膽汁（肝臟）", ans:TARGETS[2] },
+    { id:"j4", name:"胰液（胰臟）", ans:TARGETS[3] },
+    { id:"j5", name:"腸液（腸腺）", ans:TARGETS[4] }
+  ];
+  buildSelectTable("juiceTable", "j", JROWS, TARGETS);
+  document.getElementById("juiceCheck").addEventListener("click", function(){
+    checkSelectTable("j", JROWS, "juiceFb",
+      "全對。膽汁是唯一沒有消化酵素的消化液，它靠乳化作用把脂質變成小脂肪球；胰液則是唯一三大類通吃的。",
+      "唾液只管醣類、胃液只管蛋白質、膽汁只碰脂質（且無酵素）、胰液三種都行、腸液是醣類加蛋白質。");
+  });
+
+  /* ── 五、練習題 ── */
+  var QS = [
+    { id:"q1", tag:"焦點即時練", type:"fill",
+      text:"動物獲得養分的方式為＿＿。",
+      ans:["攝食"],
+      why:"動物所需的養分大多來自環境，由攝食進入體內；植物則是行光合作用自行製造。" },
+    { id:"q2", tag:"焦點即時練", type:"choice",
+      text:"動物獲取養分的過程大致可分為以下三個階段：甲.消化　乙.攝食　丙.吸收，正確的排列順序應為何？",
+      opts:["甲→乙→丙","乙→甲→丙","丙→甲→乙","乙→丙→甲"], ans:1,
+      why:"先攝食把食物吃進體內，再消化成小分子，最後才能被吸收利用。" }
+  ];
+
+  var host = document.getElementById("qs");
+
+  QS.forEach(function(q, idx){
+    var box = document.createElement("div");
+    box.className = "q";
+    box.id = "box-" + q.id;
+
+    var head = document.createElement("p");
+    head.className = "qtext";
+    head.innerHTML = '<span class="qtag"></span> ';
+    head.querySelector(".qtag").textContent = q.tag;
+    head.appendChild(document.createTextNode(" " + (idx+1) + ". " + q.text));
+    box.appendChild(head);
+
+    if (q.type === "choice") {
+      var ul = document.createElement("ul");
+      ul.className = "opts";
+      q.opts.forEach(function(opt, i){
+        var li = document.createElement("li");
+        var lab = document.createElement("label");
+        var r = document.createElement("input");
+        r.type = "radio"; r.name = q.id; r.value = String(i);
+        if (state.answers[q.id] === String(i)) r.checked = true;
+        r.addEventListener("change", function(){
+          state.answers[q.id] = r.value; store.write(state);
+        });
+        lab.appendChild(r);
+        lab.appendChild(document.createTextNode("(" + "ABCD".charAt(i) + ") " + opt));
+        li.appendChild(lab);
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    } else {
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.size = 12;
+      inp.setAttribute("aria-label", "填答");
+      if (state.answers[q.id]) inp.value = state.answers[q.id];
+      inp.addEventListener("input", function(){
+        state.answers[q.id] = inp.value; store.write(state); inp.classList.remove("ok","no");
+      });
+      box.appendChild(inp);
+    }
+
+    var fb = document.createElement("p");
+    fb.className = "fb";
+    fb.id = "fb-" + q.id;
+    box.appendChild(fb);
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "act ghost";
+    btn.style.marginTop = "8px";
+    btn.textContent = "對答案";
+    btn.addEventListener("click", function(){ judge(q); updateScore(); });
+    box.appendChild(btn);
+
+    host.appendChild(box);
+  });
+
+  function isRight(q){
+    var v = state.answers[q.id];
+    if (v === undefined || v === "") return null;
+    if (q.type === "choice") return String(q.ans) === v;
+    var t = v.replace(/\s/g,"");
+    return q.ans.indexOf(t) > -1;
+  }
+
+  function judge(q){
+    var ok = isRight(q);
+    var fb = document.getElementById("fb-" + q.id);
+    if (ok === null) {
+      fb.className = "fb show wrong";
+      fb.textContent = "還沒作答。";
+      return;
+    }
+    logResult(q, ok);
+    fb.className = "fb show " + (ok ? "right" : "wrong");
+    var ansText = q.type === "choice"
+      ? "答案：(" + "ABCD".charAt(q.ans) + ")"
+      : "答案：" + q.ans[0];
+    fb.textContent = (ok ? "答對了。" : "再看一次。") + ansText + "　" + q.why;
+    if (q.type === "fill") {
+      var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+      inp.classList.toggle("ok", ok); inp.classList.toggle("no", !ok);
+    }
+  }
+
+  function updateScore(){
+    var right = 0;
+    QS.forEach(function(q){ if (isRight(q) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + QS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === QS.length) note.textContent = "兩題都對了。上面四個練習區才是這一節的主戰場。";
+    else note.textContent = "先回上面四個練習區確認一次，再回來作答。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    QS.forEach(judge); updateScore();
+  });
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一份的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    QS.forEach(function(q){
+      var fb = document.getElementById("fb-" + q.id);
+      fb.className = "fb"; fb.textContent = "";
+      if (q.type === "choice") {
+        Array.prototype.forEach.call(document.getElementsByName(q.id), function(r){ r.checked = false; });
+      } else {
+        var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+        inp.value = ""; inp.classList.remove("ok","no");
+      }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("select[data-e], select[data-b], select[data-t], select[data-j]"), function(sel){
+      sel.value = ""; sel.classList.remove("ok","no");
+    });
+    ["eatFb","breakFb","tractFb","juiceFb"].forEach(function(id){
+      document.getElementById(id).className = "fb";
+    });
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>

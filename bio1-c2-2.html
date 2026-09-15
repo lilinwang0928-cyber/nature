@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2-2 酵素｜互動學習單</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:0 0 120px;font-weight:700;}
+  .sortrow select{flex:1 1 240px;}
+
+  table.pair{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.pair th,table.pair td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.pair th{background:#F3F7F2;width:190px;font-weight:700;}
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select{width:100%;}
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 第 2 章 · P.74–80（含實驗2-2）</p>
+  <h1>2-2 酵素</h1>
+</header>
+
+<div class="goal">
+  <h2>學完這一節，你要能夠……</h2>
+  <ol>
+    <li>說出酵素的主要組成成分，並舉出它的四項特性。</li>
+    <li>說明溫度與酸鹼性如何影響酵素的活性。</li>
+    <li>看懂實驗2-2 的變因設定，並解釋甲、乙兩試管為什麼顏色不同。</li>
+  </ol>
+</div>
+
+<details class="brief" open>
+  <summary>學習重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li><b>酵素又稱為酶</b>，是生物體內的一種催化劑，主要成分為<b>蛋白質</b>。催化劑能加快反應，但無法引發新的反應。</li>
+    <li>受酵素作用的物質稱為<b>受質</b>。</li>
+    <li><b>酵素的特性</b>：可改變反應速率、可重複使用、具有專一性。</li>
+    <li><b>專一性</b>：每種酵素只能催化特定的反應，當酵素與受質無法結合時就無法加速反應，如同拿錯鑰匙就打不開鎖一樣。</li>
+    <li>人類唾液中含有<b>澱粉酶</b>，作用對象是澱粉，可使澱粉快速分解成較小的物質，但遇到纖維素就無法發揮作用。</li>
+    <li>人類體內沒有分解纖維素的酵素，但草食性哺乳動物的消化管中有能分泌纖維素酶的微生物，所以牛吃草便能獲得所需的能量。</li>
+    <li><b>代謝作用</b>是生物體內分解作用與合成作用的合稱，每個反應過程都需要酵素參與。<b>分解作用</b>把大分子轉變成小分子，<b>合成作用</b>把小分子轉變成大分子。</li>
+    <li><b>溫度的影響</b>：在適宜的溫度範圍內，酵素的活性通常隨溫度升高而增高；過高的溫度反而會使酵素失去活性，而且無法回復。</li>
+    <li>蛋白質變性後無法回復，所以高溫破壞酵素是<b>不可逆</b>的。但<b>低溫</b>只是讓酵素暫時失去活性，溫度回升時仍可回復活性。</li>
+    <li>人體內大部分酵素的活性在<b>攝氏三十七度</b>左右最高，圖形是先升後降的形狀。</li>
+    <li><b>酸鹼性的影響</b>：不同的酵素適合作用的酸鹼性不同，在不適合的酸鹼性環境下，酵素將失去活性。胃內消化液的酵素在<b>酸性</b>環境中活性最大，小腸內消化液的酵素在<b>鹼性</b>環境中活性最大。</li>
+    <li>在相同條件下，產物的生成數量越多，代表酵素作用的速率越快，也就是酵素的活性越大。</li>
+    <li><b>實驗2-2 的變因</b>：操縱變因是溫度；控制變因是唾液的來源與量、澱粉液的濃度與量、本氏液的濃度與量；應變變因是唾液中酵素的活性，以相同時間內本氏液的顏色變化得知。</li>
+    <li><b>實驗2-2 的結果</b>：甲試管的唾液先隔水煮沸過，加本氏液隔水加熱後仍是淡藍色；乙試管的唾液置於室溫，加熱後變成橙紅色。</li>
+    <li>乙試管變色代表澱粉被酵素分解成糖；甲試管不變色代表沸水加熱已使酵素<b>失去活性</b>，無法分解澱粉。</li>
+    <li>最後把試管放進沸水中隔水加熱，是為了讓本氏液的作用速率加快。</li>
+    <li>當實驗的結論和假設不符時，必須<b>修正或重新提出假設</b>。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、分解作用還是合成作用？</h2>
+  <p class="hint">代謝作用分成兩類，判斷每個反應屬於哪一類。</p>
+  <div id="sorts"></div>
+  <div class="actions"><button class="act" id="sortCheck" type="button">檢查分類</button></div>
+  <p class="fb" id="sortFb"></p>
+</section>
+
+<section class="card">
+  <h2>二、這時候酵素的活性會怎樣？</h2>
+  <p class="hint">溫度與酸鹼性對酵素的影響，選出每一種情況的結果。</p>
+  <table class="pair" id="pairTable"></table>
+  <div class="actions"><button class="act" id="pairCheck" type="button">檢查</button></div>
+  <p class="fb" id="pairFb"></p>
+</section>
+
+<section class="card">
+  <h2>三、實驗2-2 的變因設定</h2>
+  <p class="hint">把實驗中的每一項歸到正確的變因類別。</p>
+  <table class="pair" id="varTable"></table>
+  <div class="actions"><button class="act" id="varCheck" type="button">檢查</button></div>
+  <p class="fb" id="varFb"></p>
+</section>
+
+<section class="card">
+  <h2>四、練習題</h2>
+  <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
+  <div id="qs"></div>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>練習題答對</span><b id="score">0 / 27</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）2-2 酵素 P.74–80 配套互動學習單。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-c2-2-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  /* ── 共用錯題本 ── */
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"c2-2", title:"2-2 酵素", file:"bio1-c2-2.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = (q.type === "choice")
+      ? "(" + "ABCD".charAt(q.ans) + ") " + q.opts[q.ans]
+      : q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  /* ── 一、分解或合成 ── */
+  var META = ["分解作用","合成作用"];
+  var SORTS = [
+    { id:"s1", name:"唾液中的酵素把澱粉分解成葡萄糖", ans:"分解作用" },
+    { id:"s2", name:"一分子麥芽糖形成兩分子葡萄糖", ans:"分解作用" },
+    { id:"s3", name:"蛋白質分解成胺基酸", ans:"分解作用" },
+    { id:"s4", name:"許多葡萄糖結合成澱粉", ans:"合成作用" },
+    { id:"s5", name:"許多胺基酸結合成蛋白質", ans:"合成作用" },
+    { id:"s6", name:"把較小的分子轉變成較大的分子", ans:"合成作用" }
+  ];
+
+  var sortHost = document.getElementById("sorts");
+  SORTS.forEach(function(item){
+    var row = document.createElement("div");
+    row.className = "sortrow";
+    var p = document.createElement("p");
+    p.style.flex = "1 1 220px";
+    p.textContent = item.name;
+    var sel = document.createElement("select");
+    sel.dataset.s = item.id;
+    var blank = document.createElement("option");
+    blank.value = ""; blank.textContent = "（請選擇）";
+    sel.appendChild(blank);
+    META.forEach(function(w){
+      var op = document.createElement("option");
+      op.value = w; op.textContent = w;
+      sel.appendChild(op);
+    });
+    if (state.answers["sort-" + item.id]) sel.value = state.answers["sort-" + item.id];
+    sel.addEventListener("change", function(){
+      state.answers["sort-" + item.id] = sel.value;
+      store.write(state);
+      sel.classList.remove("ok","no");
+    });
+    row.appendChild(p);
+    row.appendChild(sel);
+    sortHost.appendChild(row);
+  });
+
+  document.getElementById("sortCheck").addEventListener("click", function(){
+    var right = 0;
+    SORTS.forEach(function(item){
+      var sel = document.querySelector('select[data-s="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById("sortFb");
+    fb.className = "fb show " + (right === SORTS.length ? "right" : "wrong");
+    fb.textContent = right === SORTS.length
+      ? "全對。分解是大變小、合成是小變大，兩者合稱代謝作用，而且都需要酵素參與。"
+      : "答對 " + right + " / " + SORTS.length + "。只看分子變大還是變小：變小是分解，變大是合成。";
+  });
+
+  /* ── 共用的下拉表格工具 ── */
+  function buildSelectTable(tableId, dataAttr, rows, options){
+    var table = document.getElementById(tableId);
+    rows.forEach(function(item){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = item.name;
+      var td = document.createElement("td");
+      var sel = document.createElement("select");
+      sel.dataset[dataAttr] = item.id;
+      var blank = document.createElement("option");
+      blank.value = ""; blank.textContent = "（請選擇）";
+      sel.appendChild(blank);
+      options.forEach(function(o){
+        var op = document.createElement("option");
+        op.value = o; op.textContent = o;
+        sel.appendChild(op);
+      });
+      var savedKey = dataAttr + "-" + item.id;
+      if (state.answers[savedKey]) sel.value = state.answers[savedKey];
+      sel.addEventListener("change", function(){
+        state.answers[savedKey] = sel.value;
+        store.write(state);
+        sel.classList.remove("ok","no");
+      });
+      td.appendChild(sel);
+      tr.appendChild(th);
+      tr.appendChild(td);
+      table.appendChild(tr);
+    });
+  }
+
+  function checkSelectTable(dataAttr, rows, fbId, allRight, hint){
+    var right = 0;
+    rows.forEach(function(item){
+      var sel = document.querySelector("select[data-" + dataAttr + '="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById(fbId);
+    fb.className = "fb show " + (right === rows.length ? "right" : "wrong");
+    fb.textContent = right === rows.length ? allRight
+      : "答對 " + right + " / " + rows.length + "。" + hint;
+  }
+
+  /* ── 二、活性變化 ── */
+  var ACT = [
+    "活性最大（最適合的環境）",
+    "暫時失去活性，溫度回升後可回復",
+    "失去活性，且無法回復"
+  ];
+  var PAIRS = [
+    { id:"p1", name:"人體內大部分酵素處於 37℃", ans:ACT[0] },
+    { id:"p2", name:"把含酵素的食物放進冰箱低溫保存", ans:ACT[1] },
+    { id:"p3", name:"先把酵素加熱到超過承受範圍，再降回適宜溫度", ans:ACT[2] },
+    { id:"p4", name:"實驗2-2 中，唾液先在沸水中隔水加熱十分鐘", ans:ACT[2] },
+    { id:"p5", name:"胃內消化液的酵素處於酸性環境", ans:ACT[0] },
+    { id:"p6", name:"小腸內消化液的酵素處於鹼性環境", ans:ACT[0] },
+    { id:"p7", name:"口腔中的唾液隨食物進入胃的酸性環境", ans:ACT[2] }
+  ];
+
+  buildSelectTable("pairTable", "p", PAIRS, ACT);
+  document.getElementById("pairCheck").addEventListener("click", function(){
+    checkSelectTable("p", PAIRS, "pairFb",
+      "全對。關鍵差別在可不可逆：低溫只是暫停，高溫和不適合的酸鹼性會讓蛋白質變性，救不回來。",
+      "先問是溫度還是酸鹼性；再問是「太低」還是「太高／不適合」。太低可回復，太高不可逆。");
+  });
+
+  /* ── 三、變因設定 ── */
+  var VARS = ["操縱變因","控制變因","應變變因"];
+  var VROWS = [
+    { id:"v1", name:"溫度（唾液是否先煮沸）", ans:"操縱變因" },
+    { id:"v2", name:"唾液的來源與量", ans:"控制變因" },
+    { id:"v3", name:"澱粉液的濃度與量", ans:"控制變因" },
+    { id:"v4", name:"本氏液的濃度與量", ans:"控制變因" },
+    { id:"v5", name:"唾液中酵素的活性（以本氏液的顏色變化得知）", ans:"應變變因" }
+  ];
+
+  buildSelectTable("varTable", "v", VROWS, VARS);
+  document.getElementById("varCheck").addEventListener("click", function(){
+    checkSelectTable("v", VROWS, "varFb",
+      "全對。實驗只想知道溫度的影響，所以只有溫度可以不一樣，其餘都必須相同。",
+      "操縱變因是你故意改變的那一個，應變變因是你去測量的結果，其餘全部都要保持相同。");
+  });
+
+  /* ── 四、練習題 ── */
+  var QS = [
+    { id:"q1", tag:"焦點即時練", type:"fill",
+      text:"生物體內分解作用與合成作用合稱為＿＿作用。",
+      ans:["代謝","代謝作用"],
+      why:"代謝作用包含分解與合成兩類反應，每個反應都需要酵素參與。" },
+    { id:"q2", tag:"焦點即時練", type:"fill",
+      text:"一分子的麥芽糖（受質）經酵素作用後形成兩分子的葡萄糖（產物），這屬於＿＿作用。",
+      ans:["分解","分解作用"],
+      why:"一個大分子變成兩個小分子，屬於分解作用。" },
+    { id:"q3", tag:"焦點即時練", type:"choice",
+      text:"澱粉酶能加速澱粉分解，但無法加速纖維素分解，此為酵素的何種特性？",
+      opts:["專一性","耐熱性","雙效性","可重複性"], ans:0,
+      why:"每種酵素只能催化特定的反應，就像鑰匙只能開特定的鎖，這就是專一性。" },
+    { id:"q4", tag:"焦點即時練", type:"choice",
+      text:"關於酵素的敘述，下列何者錯誤？",
+      opts:["人類的唾液中含有酵素","代謝作用需要酵素的參與","酵素種類多，功能各異","酵素只能在生物體內作用"], ans:3,
+      why:"酵素在體外一樣可以作用，實驗2-2 就是在試管中進行的；市售的嫩精、消化酵素也是例子。" },
+    { id:"q5", tag:"好題示例", type:"choice",
+      text:"甲、乙、丙三支試管中分別裝入等量且濃度相同的溶液 X，再分別加入等量的葡萄糖液、澱粉液或水，混勻後靜置於適宜溫度，反應足夠時間後以碘液檢測。結果甲（X＋葡萄糖液）、乙（X＋澱粉液）、丙（X＋水）都呈黃褐色。判斷溶液 X 中最可能含有下列何種成分？",
+      opts:["澱粉","葡萄糖","分解澱粉的酵素","分解葡萄糖的酵素"], ans:2,
+      why:"碘液用於檢測澱粉。乙試管明明加了澱粉液，最後卻測不出澱粉，代表溶液 X 把澱粉分解掉了。" },
+    { id:"q6", tag:"焦點即時練", type:"fill",
+      text:"酵素的主要成分為＿＿＿，故容易受環境變化而影響其活性。",
+      ans:["蛋白質"],
+      why:"蛋白質變性後無法回復，所以高溫破壞酵素是不可逆的。" },
+    { id:"q7", tag:"焦點即時練", type:"fill",
+      text:"胃內消化液的酵素在＿性環境中活性最佳。（填酸或鹼）",
+      ans:["酸"],
+      why:"胃液含鹽酸，胃中的酵素在酸性環境活性最大；小腸內消化液的酵素則在鹼性環境活性最大。" },
+    { id:"q8", tag:"焦點即時練", type:"choice",
+      text:"冰箱內的食物比較不容易腐敗，原因之一是因為細菌分解食物的酵素受到何種因素影響而降低其活性？",
+      opts:["酸性","鹼性","溫度","光照強度"], ans:2,
+      why:"低溫使酵素暫時失去活性，細菌分解食物的速率變慢，食物就比較不容易腐敗。" },
+    { id:"q9", tag:"焦點即時練", type:"choice",
+      text:"若先將某酵素加熱至高於其承受範圍的溫度，再降溫至其適宜作用的溫度範圍，則酵素活性將如何？",
+      opts:["維持正常活性","失去活性","活性降低","活性不穩定"], ans:1,
+      why:"高溫使蛋白質變性，是不可逆反應，即使降回適宜溫度也回不來。" },
+    { id:"q10", tag:"好題示例", type:"choice",
+      text:"等量澱粉液分裝到四支試管並各加入等量澱粉酶，混勻後分別放置於 25℃、35℃、45℃、55℃ 反應，隨機標示甲、乙、丙、丁。已知澱粉酶約在 45℃ 活性最大、隨溫度降低而活性降低、55℃ 時無活性；而四支試管內澱粉濃度隨時間下降的幅度為丁最大、丙次之、乙再次之、甲最小。則各試管的環境溫度何者正確？",
+      opts:["甲：35℃","乙：25℃","丙：45℃","丁：55℃"], ans:1,
+      why:"澱粉濃度降越多代表分解越多、活性越高。丁活性最高為 45℃、丙 35℃、乙 25℃、甲活性最低為 55℃。" },
+    { id:"q11", tag:"實驗題", type:"choice",
+      text:"取發芽的小麥 5 公克並磨成漿狀，另加入 10 mL 的澱粉液混合均勻，靜置 1 小時後將碘液滴入而呈黃褐色，則此實驗結果可推測發芽的小麥中含有什麼物質？",
+      opts:["葡萄糖","澱粉酶","蛋白酶","脂質"], ans:1,
+      why:"加了澱粉液卻測不到澱粉，代表小麥中有能把澱粉分解掉的澱粉酶。" },
+    { id:"q12", tag:"實驗題", type:"choice",
+      text:"唾液對澱粉的影響實驗中，A 試管裝澱粉液＋唾液、B 試管裝澱粉液＋水，兩管各加入本氏液 3 mL 後隔水加熱。實驗步驟中添加本氏液的目的，是為了檢驗 A、B 兩試管中有無何種物質的存在？",
+      opts:["澱粉","唾液","葡萄糖","水"], ans:2,
+      why:"本氏液是用來檢測葡萄糖等醣類的；要檢測澱粉得用碘液。" },
+    { id:"q13", tag:"實驗題", type:"choice",
+      text:"承上題，本實驗使用隔水加熱的目的為何？",
+      opts:["使本氏液與葡萄糖反應","延長觀察時間","增加氣氛","可促進澱粉與本氏液作用"], ans:0,
+      why:"本氏液遇醣類必須加熱後才會有顏色變化，隔水加熱可以讓反應順利且均勻進行。" },
+    { id:"q14", tag:"實驗題", type:"choice",
+      text:"承上題，推測 A、B 兩試管的顏色變化情形為何？",
+      opts:["A、B 兩試管均會變色","A 試管變色，B 試管不變","A 試管不變，B 試管變色","A、B 兩試管均維持淡藍色"], ans:1,
+      why:"A 有唾液，澱粉被酵素分解成糖，本氏液會變色；B 只加水，沒有酵素、沒有糖，維持淡藍色。" },
+    { id:"q15", tag:"實力養成評量", type:"choice",
+      text:"代謝作用中，將較大分子轉變成較小分子的反應稱為什麼？",
+      opts:["分解作用","光合作用","物理作用","合成作用"], ans:0,
+      why:"大變小是分解作用，小變大是合成作用，兩者合稱代謝作用。" },
+    { id:"q16", tag:"實力養成評量", type:"choice",
+      text:"生物體中的酵素，可以分解養分，而酵素本身主要是由何者組成？",
+      opts:["蛋白質","脂質","醣類","維生素"], ans:0,
+      why:"酵素的主要成分是蛋白質，所以溫度與酸鹼性會影響它的活性。" },
+    { id:"q17", tag:"實力養成評量", type:"choice",
+      text:"小偉吃飯時，發現米飯咀嚼較久後會有甜味，這是因為米飯裡的哪一種養分受唾液中的酵素作用而分解？",
+      opts:["葡萄糖","澱粉","蛋白質","脂質"], ans:1,
+      why:"米飯的主要成分是澱粉，唾液中的澱粉酶把它分解成較小的醣類，所以嚐起來有甜味。" },
+    { id:"q18", tag:"實力養成評量", type:"choice",
+      text:"下列何者屬於代謝作用？",
+      opts:[
+        "唾液中的酵素將澱粉分解成葡萄糖",
+        "氧氣分子藉由擴散作用通過細胞膜",
+        "水分子透過滲透作用進入細胞內",
+        "胺基酸透過細胞膜上的通道蛋白進入細胞內"
+      ], ans:0,
+      why:"代謝作用是分解與合成的化學反應；後面三個都只是物質進出細胞，並沒有變成別的物質。" },
+    { id:"q19", tag:"實力養成評量", type:"choice",
+      text:"不同的酵素適合作用的酸鹼性不同，試問人體小腸內消化液作用最適宜的酸鹼性為何？",
+      opts:["酸、鹼性都可以","中性","鹼性","酸性"], ans:2,
+      why:"小腸內消化液的酵素在鹼性環境中活性最大；酸性環境是胃裡的酵素才適合。" },
+    { id:"q20", tag:"實力養成評量", type:"choice",
+      text:"口腔中的唾液隨著食物進入胃中，但因為酸鹼性的改變，唾液中的酵素將有何變化？",
+      opts:["持續保持活性","活性逐漸消失","改變分解養分的種類","自行分解成體內所需的水分"], ans:1,
+      why:"唾液中的酵素適合中性偏鹼的環境，進到酸性的胃裡就會失去活性。酵素具專一性，不會改變作用對象。" },
+    { id:"q21", tag:"實力養成評量", type:"choice",
+      text:"人體內酵素活性和溫度的關係圖，應以下列何者表示較合理？",
+      opts:[
+        "活性隨溫度升高而增加，之後趨於平緩",
+        "活性隨溫度升高呈直線持續增加",
+        "活性隨溫度升高而持續下降",
+        "活性隨溫度升高先增加，超過某一溫度後再下降"
+      ], ans:3,
+      why:"在適宜範圍內活性隨溫度升高而增高，超過一定溫度後酵素失去活性，所以是先升後降的形狀，約 37℃ 最高。" },
+    { id:"q22", tag:"實力養成評量", type:"choice",
+      text:"取一支試管放入唾液 3 毫升，加熱煮沸後，冷卻到 37℃ 再加入澱粉液 3 毫升，經 30 分鐘後加入等量的本氏液隔水加熱，則試管內的液體將呈現什麼顏色？",
+      opts:["淡藍色","紅色","橙色","無色透明"], ans:0,
+      why:"唾液已被煮沸，酵素失去活性且無法回復，澱粉不會被分解成糖，本氏液維持原本的淡藍色。" },
+    { id:"q23", tag:"題組", type:"choice",
+      text:"小華將四支試管加入試液靜置 30 分鐘：甲（澱粉液＋唾液，先加熱至 100℃ 再冷卻至 40℃）、乙（澱粉液＋唾液，40℃）、丙（澱粉液＋唾液，5℃）、丁（澱粉液＋水，40℃）。加入本氏液再隔水加熱，何者顏色變化最明顯？",
+      opts:["甲試管","乙試管","丙試管","丁試管"], ans:1,
+      why:"乙的酵素完好又在適宜溫度，分解出最多糖。甲的酵素已被煮沸破壞、丙溫度太低活性暫時消失、丁根本沒有酵素。" },
+    { id:"q24", tag:"題組", type:"choice",
+      text:"承上題，變色的試管中代表有糖產生，試問此糖是如何生成的？",
+      opts:["唾液加熱而被分解出來的","澱粉在低溫下分解出來的","澱粉被酵素分解而產生的","水把澱粉分解而產生的"], ans:2,
+      why:"唾液中的澱粉酶把澱粉分解成糖；水本身不具催化能力，低溫也不會讓澱粉自行分解。" },
+    { id:"q25", tag:"題組", type:"choice",
+      text:"承上題，哪一支試管是所謂的對照組？",
+      opts:["甲試管","乙試管","丙試管","丁試管"], ans:3,
+      why:"丁以等量的水取代唾液，是唯一不含酵素的一組，用來對照「有沒有酵素」造成的差別。" },
+    { id:"q26", tag:"歷屆經典題", type:"choice",
+      text:"茶葉中的酵素 X 在超過 70℃ 後就無法再有催化能力。製作綠茶與紅茶各有四個步驟（依序 I→II→III→IV）：綠茶在步驟 I 時溫度超過 70℃，其餘步驟都低於 70℃；紅茶在步驟 I、II 都低於 70℃，到步驟 III 才超過 70℃，步驟 IV 低於 70℃。比較四個步驟中綠茶及紅茶的酵素 X 之活性，下列何者最合理？",
+      opts:[
+        "步驟 I 結束時：綠茶 > 紅茶",
+        "步驟 II 結束時：綠茶 = 紅茶",
+        "步驟 III 結束時：綠茶 < 紅茶",
+        "步驟 IV 結束時：綠茶 = 紅茶"
+      ], ans:3,
+      why:"綠茶在步驟 I 就被高溫破壞、活性歸零；紅茶到步驟 III 才被破壞。所以 I、II 結束時綠茶小於紅茶，III 之後兩者都是零而相等。" },
+    { id:"q27", tag:"歷屆經典題", type:"choice",
+      text:"將酵素甲和澱粉溶液在試管中混合均勻，並定時測量試管內的澱粉濃度，發現澱粉濃度隨時間逐漸下降。下列關於甲的敘述，何者正確？",
+      opts:[
+        "甲主要由葡萄糖組成",
+        "甲與澱粉反應後，會被分解成胺基酸",
+        "若降低甲的活性，會使澱粉的合成速率變快",
+        "若提高甲的活性，會使澱粉的分解速率變快"
+      ], ans:3,
+      why:"酵素主要由蛋白質組成，且可重複使用、不會在反應中被分解；活性越大代表作用速率越快，澱粉分解得越快。" }
+  ];
+
+  var host = document.getElementById("qs");
+
+  QS.forEach(function(q, idx){
+    var box = document.createElement("div");
+    box.className = "q";
+    box.id = "box-" + q.id;
+
+    var head = document.createElement("p");
+    head.className = "qtext";
+    head.innerHTML = '<span class="qtag"></span> ';
+    head.querySelector(".qtag").textContent = q.tag;
+    head.appendChild(document.createTextNode(" " + (idx+1) + ". " + q.text));
+    box.appendChild(head);
+
+    if (q.type === "choice") {
+      var ul = document.createElement("ul");
+      ul.className = "opts";
+      q.opts.forEach(function(opt, i){
+        var li = document.createElement("li");
+        var lab = document.createElement("label");
+        var r = document.createElement("input");
+        r.type = "radio"; r.name = q.id; r.value = String(i);
+        if (state.answers[q.id] === String(i)) r.checked = true;
+        r.addEventListener("change", function(){
+          state.answers[q.id] = r.value; store.write(state);
+        });
+        lab.appendChild(r);
+        lab.appendChild(document.createTextNode("(" + "ABCD".charAt(i) + ") " + opt));
+        li.appendChild(lab);
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    } else {
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.size = 12;
+      inp.setAttribute("aria-label", "填答");
+      if (state.answers[q.id]) inp.value = state.answers[q.id];
+      inp.addEventListener("input", function(){
+        state.answers[q.id] = inp.value; store.write(state); inp.classList.remove("ok","no");
+      });
+      box.appendChild(inp);
+    }
+
+    var fb = document.createElement("p");
+    fb.className = "fb";
+    fb.id = "fb-" + q.id;
+    box.appendChild(fb);
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "act ghost";
+    btn.style.marginTop = "8px";
+    btn.textContent = "對答案";
+    btn.addEventListener("click", function(){ judge(q); updateScore(); });
+    box.appendChild(btn);
+
+    host.appendChild(box);
+  });
+
+  function isRight(q){
+    var v = state.answers[q.id];
+    if (v === undefined || v === "") return null;
+    if (q.type === "choice") return String(q.ans) === v;
+    var t = v.replace(/\s/g,"");
+    return q.ans.indexOf(t) > -1;
+  }
+
+  function judge(q){
+    var ok = isRight(q);
+    var fb = document.getElementById("fb-" + q.id);
+    if (ok === null) {
+      fb.className = "fb show wrong";
+      fb.textContent = "還沒作答。";
+      return;
+    }
+    logResult(q, ok);
+    fb.className = "fb show " + (ok ? "right" : "wrong");
+    var ansText = q.type === "choice"
+      ? "答案：(" + "ABCD".charAt(q.ans) + ")"
+      : "答案：" + q.ans[0];
+    fb.textContent = (ok ? "答對了。" : "再看一次。") + ansText + "　" + q.why;
+    if (q.type === "fill") {
+      var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+      inp.classList.toggle("ok", ok); inp.classList.toggle("no", !ok);
+    }
+  }
+
+  function updateScore(){
+    var right = 0;
+    QS.forEach(function(q){ if (isRight(q) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + QS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
+    else if (right >= 21) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else note.textContent = "先回上面三個練習區確認一次，再回來作答。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    QS.forEach(judge); updateScore();
+  });
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一份的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    QS.forEach(function(q){
+      var fb = document.getElementById("fb-" + q.id);
+      fb.className = "fb"; fb.textContent = "";
+      if (q.type === "choice") {
+        Array.prototype.forEach.call(document.getElementsByName(q.id), function(r){ r.checked = false; });
+      } else {
+        var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+        inp.value = ""; inp.classList.remove("ok","no");
+      }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("select[data-s], select[data-p], select[data-v]"), function(sel){
+      sel.value = ""; sel.classList.remove("ok","no");
+    });
+    document.getElementById("sortFb").className = "fb";
+    document.getElementById("pairFb").className = "fb";
+    document.getElementById("varFb").className = "fb";
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>

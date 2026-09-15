@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第 1 章 學習地圖｜互動填答</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:0 0 120px;font-weight:700;}
+  .sortrow select{flex:1 1 240px;}
+
+  table.pair{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.pair th,table.pair td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.pair th{background:#F3F7F2;width:190px;font-weight:700;}
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select{width:100%;}
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+
+  table.map{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.map th,table.map td{border:1px solid var(--rule-soft);padding:7px 9px;text-align:left;vertical-align:top;}
+  table.map th{background:#F3F7F2;font-weight:700;}
+  .mapline{margin:.5em 0;font-size:.96rem;}
+  .mapnote{font-size:.88rem;color:var(--ink-soft);margin:.4em 0 0;}
+  .bno{display:inline-block;color:var(--rose);font-weight:700;font-size:.8rem;margin-right:4px;}
+  input.blank{background:#FFFDF4;border-color:var(--amber);}
+  input.blank.ok{border-color:var(--leaf);background:#F1F7F0;}
+  input.blank.no{border-color:var(--rose);background:#FBF1F3;}
+  .chain{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.93rem;margin:.5em 0;}
+  .chain .node{border:1px solid var(--rule);border-radius:8px;padding:4px 10px;background:#F7FAF6;}
+  .chain .arrow{color:var(--ink-soft);}
+  .fbwrap .fb{margin:.4em 0 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 第 1 章 · P.42–43</p>
+  <h1>第 1 章 學習地圖</h1>
+</header>
+
+<div class="goal">
+  <h2>這一頁怎麼用</h2>
+  <ol>
+    <li>把整章的重點串成一張圖，讀過去就等於複習了 1-1 到 1-4。</li>
+    <li>圖裡有十個編號填答格（①～⑩），順序照講義排，所以號碼會跳。</li>
+    <li>每一區填完按「對答案」，答錯的會收進總覽頁的錯題本。</li>
+  </ol>
+</div>
+
+<details class="brief" open>
+  <summary>全章重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li><b>生命現象</b>有生長與發育、代謝、感應與運動、繁殖四類；生物生存需要陽光、空氣、水和養分。</li>
+    <li><b>細胞是組成生物體的基本單位</b>。細胞膜控制物質進出，細胞質是細胞內化學反應進行的場所，細胞核內含遺傳物質、控制細胞的活動，粒線體將養分轉化成能量。</li>
+    <li><b>植物才有的構造</b>是細胞壁和葉綠體：細胞壁保護並支持植物體，葉綠體行光合作用。液泡負責儲存物質。</li>
+    <li><b>發現細胞的歷程</b>：虎克用顯微鏡觀察軟木塞切片，把看到的小格子命名為「細胞」，其實那是死掉的軟木塞細胞留下的細胞壁；之後的科學家提出細胞學說。</li>
+    <li><b>兩種顯微鏡</b>：複式顯微鏡觀察可透光的玻片標本，成像平面且上下顛倒、左右相反；解剖顯微鏡可觀察玻片標本或實物，成像立體且方向與實物相同。</li>
+    <li><b>擴散作用</b>是物質由高濃度往低濃度移動，最後均勻分布；水通過細胞膜的擴散作用特稱為滲透作用。</li>
+    <li><b>物質進出細胞</b>：氧氣、二氧化碳和水可直接通過細胞膜；葡萄糖、胺基酸、礦物質和水要透過特殊蛋白質通道；澱粉、蛋白質等大分子必須先分解。</li>
+    <li><b>大小層次</b>：原子依特定排列組合形成分子，分子再往上組成細胞。分子有醣類、蛋白質、脂質、氧氣、二氧化碳、水等；原子有碳、氫、氧、氮等。</li>
+    <li><b>單細胞生物</b>一個細胞就能表現所有生命現象，例如草履蟲、變形蟲；<b>多細胞生物</b>要靠多個細胞分工合作。</li>
+    <li><b>組成層次</b>：動物是細胞、組織、器官、器官系統、個體；植物沒有器官系統這一層，器官之後直接組成個體。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、1-1 生命現象／1-2 細胞</h2>
+  <p class="hint">Start：生物能夠表現生命現象，組成生物體的基本單位為<b>細胞</b>。</p>
+
+  <table class="map">
+    <tr><th style="width:34%">生命現象</th><td>生長與發育、代謝、感應與運動、繁殖</td></tr>
+    <tr><th>生物生存環境條件</th><td>陽光、空氣、水、養分</td></tr>
+  </table>
+
+  <p class="hint" style="margin-bottom:.4em;"><b>實驗1-2</b>　生物基本組成——細胞</p>
+  <table class="map">
+    <tr><th style="width:34%">構造名稱</th><th>功能</th></tr>
+    <tr><td><span class="bk" data-b="b1"></span></td><td>控制物質進出</td></tr>
+    <tr><td>細胞質</td><td>細胞內化學反應進行的場所</td></tr>
+    <tr><td>細胞核</td><td>內含遺傳物質，控制細胞的活動</td></tr>
+    <tr><td>粒線體</td><td>將養分轉化成能量，供細胞活動使用</td></tr>
+    <tr><td>液泡</td><td>儲存物質</td></tr>
+    <tr><td>葉綠體</td><td>行 <span class="bk" data-b="b2"></span> 作用</td></tr>
+    <tr><td>細胞壁</td><td>保護、支持植物體</td></tr>
+  </table>
+  <p class="mapnote">植物具有：細胞壁、葉綠體。動、植物皆有：細胞膜、細胞核、細胞質、液泡、粒線體。</p>
+
+  <div class="actions"><button class="act" data-check="a" type="button">對答案</button></div>
+  <div class="fbwrap" id="fb-a"></div>
+</section>
+
+<section class="card">
+  <h2>二、發現細胞的歷程／實驗1-1 顯微鏡的比較</h2>
+
+  <p class="mapline"><span class="bk" data-b="b6"></span> 使用顯微鏡觀察軟木塞的切片，將小格子命名為「細胞」。（他看到的其實是死掉的軟木塞細胞留下的細胞壁。）</p>
+  <p class="mapline">之後的科學家提出 <span class="bk" data-b="b7"></span>：「所有的生物體都是由細胞所構成。」意即細胞為構成生物體構造與功能的基本單位。</p>
+
+  <table class="map">
+    <tr><th style="width:22%">項目比較</th><th>複式顯微鏡</th><th>解剖顯微鏡</th></tr>
+    <tr><td>觀察對象</td><td>可透光的玻片標本</td><td>玻片標本或實物</td></tr>
+    <tr><td>成像結果</td><td>成像平面，方向與實物上下顛倒、左右相反</td><td>成像立體，方向與實物 <span class="bk" data-b="b8"></span></td></tr>
+  </table>
+
+  <div class="actions"><button class="act" data-check="b" type="button">對答案</button></div>
+  <div class="fbwrap" id="fb-b"></div>
+</section>
+
+<section class="card">
+  <h2>三、1-3 細胞所需的物質</h2>
+
+  <p class="mapline">1. <span class="bk" data-b="b9"></span> 作用是指物質由<b>高濃度</b>的區域往<b>低濃度</b>的區域移動，最後均勻分布。</p>
+  <p class="mapline">2. 水通過細胞膜所進行的擴散作用，特稱為 <span class="bk" data-b="b10"></span> 作用。</p>
+
+  <table class="map">
+    <tr><th style="width:34%">透過特殊蛋白質通道</th><td>葡萄糖、胺基酸、礦物質、水</td></tr>
+    <tr><th>直接通過</th><td>水、氧氣、二氧化碳</td></tr>
+  </table>
+
+  <p class="mapnote">細胞往下進入物質層次：分子有醣類、蛋白質、脂質、氧氣、二氧化碳、水等；原子有碳 C、氫 H、氧 O、氮 N 等。原子依特定排列組合，可形成分子。</p>
+
+  <div class="actions"><button class="act" data-check="c" type="button">對答案</button></div>
+  <div class="fbwrap" id="fb-c"></div>
+</section>
+
+<section class="card">
+  <h2>四、1-4 從細胞到個體</h2>
+  <p class="hint">生物個體的定義</p>
+
+  <p class="mapline"><span class="bk" data-b="b3"></span> 細胞生物：一個細胞就能表現所有生命現象。例如：草履蟲、變形蟲。</p>
+  <p class="mapline"><span class="bk" data-b="b4"></span> 細胞生物：多個細胞分工合作，表現生命現象。</p>
+
+  <p class="hint" style="margin:1em 0 .2em;">生物的組成層次（由大到小）</p>
+  <div class="chain">
+    <span class="node">動物</span><span class="arrow">▸</span>
+    <span class="node">個體</span><span class="arrow">▸</span>
+    <span class="node">器官<span class="bk" data-b="b5"></span></span><span class="arrow">▸</span>
+    <span class="node">器官</span><span class="arrow">▸</span>
+    <span class="node">組織</span><span class="arrow">▸</span>
+    <span class="node">細胞</span>
+  </div>
+  <div class="chain">
+    <span class="node">植物</span><span class="arrow">▸</span>
+    <span class="node">個體</span><span class="arrow">▸</span>
+    <span class="node">器官</span><span class="arrow">▸</span>
+    <span class="node">組織</span><span class="arrow">▸</span>
+    <span class="node">細胞</span>
+  </div>
+  <p class="mapnote">植物沒有器官系統！</p>
+
+  <div class="actions"><button class="act" data-check="d" type="button">對答案</button></div>
+  <div class="fbwrap" id="fb-d"></div>
+</section>
+
+<section class="card">
+  <h2>五、整張地圖一起對</h2>
+  <p class="hint">十格填完後，可以一次檢查。</p>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>填答區答對</span><b id="score">0 / 10</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）第 1 章 學習地圖 P.42–43 配套互動填答頁。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-c1-map-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  /* ── 共用錯題本 ── */
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"c1-map", title:"第 1 章 學習地圖", file:"bio1-c1-map.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  /* ── 十個填答格 ── */
+  var BLANKS = [
+    { id:"b1", no:"①", card:"a", tag:"學習地圖", type:"fill", width:"6em",
+      ans:["細胞膜"],
+      text:"學習地圖①　控制物質進出的構造是＿＿＿。",
+      why:"控制物質進出細胞的是細胞膜；細胞壁只負責保護和支持，並不能控制物質進出。" },
+    { id:"b2", no:"②", card:"a", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["光合","光合作用"],
+      text:"學習地圖②　葉綠體負責行＿＿作用。",
+      why:"葉綠體是行光合作用的構造，也是植物才有的構造之一。" },
+    { id:"b6", no:"⑥", card:"b", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["虎克","胡克","羅伯虎克","羅伯特虎克"],
+      text:"學習地圖⑥　觀察軟木塞切片、把小格子命名為「細胞」的科學家是＿＿。",
+      why:"虎克觀察到的其實是死掉的軟木塞細胞留下的細胞壁，他把這些小格子命名為 cell。" },
+    { id:"b7", no:"⑦", card:"b", tag:"學習地圖", type:"fill", width:"6em",
+      ans:["細胞學說"],
+      text:"學習地圖⑦　「所有的生物體都是由細胞所構成」，這是後來科學家提出的＿＿＿＿。",
+      why:"細胞學說指出細胞是構成生物體構造與功能的基本單位。" },
+    { id:"b8", no:"⑧", card:"b", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["相同","一致","相同（不顛倒）"],
+      text:"學習地圖⑧　解剖顯微鏡成像立體，方向與實物＿＿。",
+      why:"複式顯微鏡的像上下顛倒、左右相反；解剖顯微鏡的像方向與實物相同。" },
+    { id:"b9", no:"⑨", card:"c", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["擴散","擴散作用"],
+      text:"學習地圖⑨　物質由高濃度往低濃度移動、最後均勻分布，稱為＿＿作用。",
+      why:"擴散作用不需外力就會自然發生，攪拌、加熱、風吹則可以加快速率。" },
+    { id:"b10", no:"⑩", card:"c", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["滲透","滲透作用"],
+      text:"學習地圖⑩　水通過細胞膜所進行的擴散作用，特稱為＿＿作用。",
+      why:"滲透作用是擴散作用的一種，專指「水」通過細胞膜。" },
+    { id:"b3", no:"③", card:"d", tag:"學習地圖", type:"fill", width:"4em",
+      ans:["單"],
+      text:"學習地圖③　一個細胞就能表現所有生命現象的是＿細胞生物。",
+      why:"草履蟲、變形蟲都是單細胞生物，一個細胞就要包辦所有生命現象。" },
+    { id:"b4", no:"④", card:"d", tag:"學習地圖", type:"fill", width:"4em",
+      ans:["多"],
+      text:"學習地圖④　多個細胞分工合作才能表現生命現象的是＿細胞生物。",
+      why:"多細胞生物的細胞彼此分工，單一細胞的獨立性低。" },
+    { id:"b5", no:"⑤", card:"d", tag:"學習地圖", type:"fill", width:"4em",
+      ans:["系統"],
+      text:"學習地圖⑤　動物的組成層次中，器官之上、個體之下的是器官＿＿。",
+      why:"動物是細胞→組織→器官→器官系統→個體；植物沒有器官系統這一層。" }
+  ];
+
+  var BY_ID = {};
+  BLANKS.forEach(function(b){ BY_ID[b.id] = b; });
+
+  /* 把 <span class="bk"> 換成 編號 + 輸入格 */
+  Array.prototype.forEach.call(document.querySelectorAll("span.bk"), function(slot){
+    var b = BY_ID[slot.dataset.b];
+    if (!b) return;
+    var no = document.createElement("span");
+    no.className = "bno";
+    no.textContent = b.no;
+    var inp = document.createElement("input");
+    inp.type = "text";
+    inp.className = "blank";
+    inp.style.width = b.width;
+    inp.setAttribute("aria-label", "填答 " + b.no);
+    inp.dataset.b = b.id;
+    if (state.answers[b.id]) inp.value = state.answers[b.id];
+    inp.addEventListener("input", function(){
+      state.answers[b.id] = inp.value;
+      store.write(state);
+      inp.classList.remove("ok","no");
+    });
+    slot.appendChild(no);
+    slot.appendChild(inp);
+  });
+
+  function isRight(b){
+    var v = state.answers[b.id];
+    if (v === undefined || v === "") return null;
+    var t = v.replace(/\s/g,"");
+    return b.ans.indexOf(t) > -1;
+  }
+
+  function judge(b){
+    var ok = isRight(b);
+    var inp = document.querySelector('input.blank[data-b="' + b.id + '"]');
+    if (ok === null) {
+      inp.classList.remove("ok","no");
+      return { blank:b, ok:null };
+    }
+    logResult(b, ok);
+    inp.classList.toggle("ok", ok);
+    inp.classList.toggle("no", !ok);
+    return { blank:b, ok:ok };
+  }
+
+  function renderCard(card){
+    var wrap = document.getElementById("fb-" + card);
+    wrap.innerHTML = "";
+    BLANKS.filter(function(b){ return b.card === card; }).forEach(function(b){
+      var r = judge(b);
+      var p = document.createElement("p");
+      if (r.ok === null) {
+        p.className = "fb show wrong";
+        p.textContent = b.no + "　還沒作答。";
+      } else {
+        p.className = "fb show " + (r.ok ? "right" : "wrong");
+        p.textContent = b.no + "　" + (r.ok ? "答對了。" : "再看一次。")
+          + "答案：" + b.ans[0] + "　" + b.why;
+      }
+      wrap.appendChild(p);
+    });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll("button[data-check]"), function(btn){
+    btn.addEventListener("click", function(){
+      renderCard(btn.dataset.check);
+      updateScore();
+    });
+  });
+
+  function updateScore(){
+    var right = 0;
+    BLANKS.forEach(function(b){ if (isRight(b) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + BLANKS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === BLANKS.length) note.textContent = "整張地圖都填對了，這一章可以收工。";
+    else if (right >= 7) note.textContent = "大部分都記得了，錯的看一次解說再回頭填。";
+    else note.textContent = "先展開上面的「全章重點整理」讀一遍，再回來填。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    ["a","b","c","d"].forEach(renderCard);
+    updateScore();
+  });
+
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一頁的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    Array.prototype.forEach.call(document.querySelectorAll("input.blank"), function(inp){
+      inp.value = ""; inp.classList.remove("ok","no");
+    });
+    ["a","b","c","d"].forEach(function(card){
+      document.getElementById("fb-" + card).innerHTML = "";
+    });
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>

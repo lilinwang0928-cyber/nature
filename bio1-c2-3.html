@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2-3 植物如何獲得養分｜互動學習單</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:0 0 120px;font-weight:700;}
+  .sortrow select{flex:1 1 240px;}
+
+  table.pair{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.pair th,table.pair td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.pair th{background:#F3F7F2;width:190px;font-weight:700;}
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select{width:100%;}
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 第 2 章 · P.81–88（含實驗2-3）</p>
+  <h1>2-3 植物如何獲得養分</h1>
+</header>
+
+<div class="goal">
+  <h2>學完這一節，你要能夠……</h2>
+  <ol>
+    <li>說出葉片各個構造的名稱與功能，並指出哪些含有葉綠體。</li>
+    <li>寫出光合作用的總反應式，分辨反應物與產物。</li>
+    <li>說明光合作用對生物和環境的重要性，並看懂實驗2-3 的設計。</li>
+  </ol>
+</div>
+
+<details class="brief" open>
+  <summary>學習重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li><b>植物獲得養分的兩條途徑</b>：由根部從土壤中吸收水分和礦物質；由葉行光合作用，合成生長所需的養分。</li>
+    <li><b>葉</b>是綠色植物行光合作用的主要器官。</li>
+    <li><b>角質層</b>位於表皮細胞外側，可防止水分散失。<b>表皮</b>分為上、下表皮，細胞扁平、排列整齊緊密，無色透明，具保護功能，避免植物受外界病菌感染。</li>
+    <li><b>保衛細胞</b>散布於表皮，呈半月形且兩兩成對。成對保衛細胞中間的縫隙就是<b>氣孔</b>，是氣體進出和水分蒸散的通道；保衛細胞可控制氣孔的開閉。</li>
+    <li><b>葉脈</b>由輸導組織組成，負責運送水分和養分，是葉內的維管束。</li>
+    <li><b>葉肉細胞</b>位於上、下表皮之間，含有葉綠體，是行光合作用的主要場所。</li>
+    <li><b>含有葉綠體的只有兩種</b>：葉肉細胞和保衛細胞。角質層、表皮細胞、葉脈中的細胞都沒有葉綠體。</li>
+    <li><b>柵狀葉肉細胞</b>靠近上表皮，呈長條形、排列整齊緊密，幾乎沒有空隙；<b>海綿葉肉細胞</b>靠近下表皮，形狀不規則、排列疏鬆，空隙中充滿氣體，可經由氣孔與外界流通。</li>
+    <li><b>光合作用</b>是葉綠體中的葉綠素吸收光能，將水和二氧化碳轉變成葡萄糖和水，並釋出氧氣的過程。</li>
+    <li><b>總反應式</b>：水加二氧化碳，在光能與葉綠體的作用下，生成氧氣、葡萄糖和水。<b>反應物和產物中都有水</b>，這是常考的陷阱。</li>
+    <li>葡萄糖可進一步轉變成澱粉或其他形式的養分，儲存在植物體內。</li>
+    <li><b>光合作用的重要性</b>：製造養分供植物利用，也可經動物攝食進入動物體內；製造氧氣供生物呼吸；穩定大氣中的氧氣與二氧化碳濃度。</li>
+    <li><b>實驗2-3 的變因</b>：操縱變因是照光；控制變因是同一葉片、碘液的濃度與量；應變變因是葉片是否有澱粉產生。</li>
+    <li><b>實驗2-3 的步驟</b>：用鋁箔包住葉片中段遮光，數天後摘下；沸水加熱軟化角質層；浸入酒精隔水加熱溶出葉綠素、把葉片漂白；放入熱水漂洗；最後滴加碘液檢測澱粉。</li>
+    <li>酒精是易燃物，<b>必須隔水加熱</b>，不可直接放在火上加熱，燒杯也不可加蓋。</li>
+    <li><b>實驗2-3 的結果</b>：夾鋁箔處滴碘液仍是黃褐色，代表沒有澱粉；未夾鋁箔處變成藍黑色，代表有澱粉。結論是植物需要光照才能進行光合作用。</li>
+    <li><b>二氧化碳對光合作用的影響</b>：把水蘊草放入碳酸氫鈉水溶液可提高二氧化碳含量，操縱變因是二氧化碳含量，應變變因是產生氧氣的速率。乙組生成的氣體量較多，代表提高二氧化碳含量可促進光合作用。</li>
+    <li>光照下水蘊草產生的氣泡是<b>氧氣</b>，可收集後插入點燃的線香驗證，若線香燃燒更旺盛即可確認。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、葉片各構造的功能</h2>
+  <p class="hint">選出每個構造負責的工作。</p>
+  <table class="pair" id="pairTable"></table>
+  <div class="actions"><button class="act" id="pairCheck" type="button">檢查</button></div>
+  <p class="fb" id="pairFb"></p>
+</section>
+
+<section class="card">
+  <h2>二、這個構造有沒有葉綠體？</h2>
+  <p class="hint">有葉綠體才能行光合作用，判斷每個構造。</p>
+  <div id="sorts"></div>
+  <div class="actions"><button class="act" id="sortCheck" type="button">檢查分類</button></div>
+  <p class="fb" id="sortFb"></p>
+</section>
+
+<section class="card">
+  <h2>三、實驗2-3 每個步驟在做什麼？</h2>
+  <p class="hint">選出每個步驟的目的。</p>
+  <table class="pair" id="stepTable"></table>
+  <div class="actions"><button class="act" id="stepCheck" type="button">檢查</button></div>
+  <p class="fb" id="stepFb"></p>
+</section>
+
+<section class="card">
+  <h2>四、練習題</h2>
+  <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
+  <div id="qs"></div>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>練習題答對</span><b id="score">0 / 28</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）2-3 植物如何獲得養分 P.81–88 配套互動學習單。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-c2-3-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  /* ── 共用錯題本 ── */
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"c2-3", title:"2-3 植物如何獲得養分", file:"bio1-c2-3.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = (q.type === "choice")
+      ? "(" + "ABCD".charAt(q.ans) + ") " + q.opts[q.ans]
+      : q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  /* ── 共用的下拉表格工具 ── */
+  function buildSelectTable(tableId, dataAttr, rows, options){
+    var table = document.getElementById(tableId);
+    rows.forEach(function(item){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = item.name;
+      var td = document.createElement("td");
+      var sel = document.createElement("select");
+      sel.dataset[dataAttr] = item.id;
+      var blank = document.createElement("option");
+      blank.value = ""; blank.textContent = "（請選擇）";
+      sel.appendChild(blank);
+      options.forEach(function(o){
+        var op = document.createElement("option");
+        op.value = o; op.textContent = o;
+        sel.appendChild(op);
+      });
+      var savedKey = dataAttr + "-" + item.id;
+      if (state.answers[savedKey]) sel.value = state.answers[savedKey];
+      sel.addEventListener("change", function(){
+        state.answers[savedKey] = sel.value;
+        store.write(state);
+        sel.classList.remove("ok","no");
+      });
+      td.appendChild(sel);
+      tr.appendChild(th);
+      tr.appendChild(td);
+      table.appendChild(tr);
+    });
+  }
+
+  function checkSelectTable(dataAttr, rows, fbId, allRight, hint){
+    var right = 0;
+    rows.forEach(function(item){
+      var sel = document.querySelector("select[data-" + dataAttr + '="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById(fbId);
+    fb.className = "fb show " + (right === rows.length ? "right" : "wrong");
+    fb.textContent = right === rows.length ? allRight
+      : "答對 " + right + " / " + rows.length + "。" + hint;
+  }
+
+  /* ── 一、葉片構造的功能 ── */
+  var FUNCS = [
+    "位於表皮細胞外側，可防止水分散失",
+    "無色透明、排列緊密，具保護功能，避免受外界病菌感染",
+    "呈半月形且兩兩成對，可控制氣孔的開閉",
+    "由輸導組織組成，負責運送水分和養分",
+    "含有葉綠體，是行光合作用的主要場所"
+  ];
+  var PAIRS = [
+    { id:"p1", name:"角質層", ans:FUNCS[0] },
+    { id:"p2", name:"表皮", ans:FUNCS[1] },
+    { id:"p3", name:"保衛細胞", ans:FUNCS[2] },
+    { id:"p4", name:"葉脈", ans:FUNCS[3] },
+    { id:"p5", name:"葉肉細胞", ans:FUNCS[4] }
+  ];
+
+  buildSelectTable("pairTable", "p", PAIRS, FUNCS);
+  document.getElementById("pairCheck").addEventListener("click", function(){
+    checkSelectTable("p", PAIRS, "pairFb",
+      "全對。特別記住：控制氣孔開閉的是保衛細胞，不是表皮細胞；葉脈就是葉內的維管束。",
+      "由外往內想：角質層防水、表皮保護、保衛細胞管氣孔、葉脈運輸、葉肉製造養分。");
+  });
+
+  /* ── 二、有沒有葉綠體 ── */
+  var HAS = ["有葉綠體","沒有葉綠體"];
+  var SORTS = [
+    { id:"s1", name:"角質層", ans:"沒有葉綠體" },
+    { id:"s2", name:"表皮細胞", ans:"沒有葉綠體" },
+    { id:"s3", name:"保衛細胞", ans:"有葉綠體" },
+    { id:"s4", name:"葉脈中的細胞", ans:"沒有葉綠體" },
+    { id:"s5", name:"葉肉細胞", ans:"有葉綠體" }
+  ];
+
+  var sortHost = document.getElementById("sorts");
+  SORTS.forEach(function(item){
+    var row = document.createElement("div");
+    row.className = "sortrow";
+    var p = document.createElement("p");
+    p.textContent = item.name;
+    var sel = document.createElement("select");
+    sel.dataset.s = item.id;
+    var blank = document.createElement("option");
+    blank.value = ""; blank.textContent = "（請選擇）";
+    sel.appendChild(blank);
+    HAS.forEach(function(w){
+      var op = document.createElement("option");
+      op.value = w; op.textContent = w;
+      sel.appendChild(op);
+    });
+    if (state.answers["sort-" + item.id]) sel.value = state.answers["sort-" + item.id];
+    sel.addEventListener("change", function(){
+      state.answers["sort-" + item.id] = sel.value;
+      store.write(state);
+      sel.classList.remove("ok","no");
+    });
+    row.appendChild(p);
+    row.appendChild(sel);
+    sortHost.appendChild(row);
+  });
+
+  document.getElementById("sortCheck").addEventListener("click", function(){
+    var right = 0;
+    SORTS.forEach(function(item){
+      var sel = document.querySelector('select[data-s="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById("sortFb");
+    fb.className = "fb show " + (right === SORTS.length ? "right" : "wrong");
+    fb.textContent = right === SORTS.length
+      ? "全對。葉片裡有葉綠體的只有葉肉細胞和保衛細胞，所以能行光合作用的也只有這兩種。"
+      : "答對 " + right + " / " + SORTS.length + "。只有兩種有：葉肉細胞和保衛細胞。表皮是無色透明的，所以沒有。";
+  });
+
+  /* ── 三、實驗2-3 的步驟目的 ── */
+  var AIMS = [
+    "讓這一段葉片無法接收光照",
+    "軟化葉片的角質層",
+    "溶出葉片中的葉綠素，把葉片漂白",
+    "洗去葉片上的酒精和殘餘的葉綠素",
+    "檢測葉片是否有澱粉產生"
+  ];
+  var STEPS = [
+    { id:"t1", name:"用鋁箔包住葉片中段，以迴紋針固定", ans:AIMS[0] },
+    { id:"t2", name:"把摘下的葉片放入沸水中加熱數分鐘", ans:AIMS[1] },
+    { id:"t3", name:"把葉片浸入酒精中隔水加熱", ans:AIMS[2] },
+    { id:"t4", name:"顏色褪去後，把葉片放入熱水中漂洗", ans:AIMS[3] },
+    { id:"t5", name:"把葉片平放在培養皿內，加入碘液", ans:AIMS[4] }
+  ];
+
+  buildSelectTable("stepTable", "t", STEPS, AIMS);
+  document.getElementById("stepCheck").addEventListener("click", function(){
+    checkSelectTable("t", STEPS, "stepFb",
+      "全對。整條流程的邏輯是：先製造有光與無光的差別，再把葉片處理成看得出顏色變化的樣子，最後用碘液驗澱粉。",
+      "注意兩次加熱不一樣：沸水是為了軟化角質層，酒精是為了溶出葉綠素（而且必須隔水加熱）。");
+  });
+
+  /* ── 四、練習題 ── */
+  var QS = [
+    { id:"q1", tag:"焦點即時練", type:"fill",
+      text:"植物利用＿＿吸收水分和礦物質。",
+      ans:["根部","根"],
+      why:"水分和礦物質由根部從土壤中吸收，再經由葉脈中的輸導組織運送。" },
+    { id:"q2", tag:"焦點即時練", type:"fill",
+      text:"植物利用葉片行＿＿作用製造養分。",
+      ans:["光合","光合作用"],
+      why:"葉是綠色植物行光合作用的主要器官。" },
+    { id:"q3", tag:"焦點即時練", type:"fill",
+      text:"葉片中的＿＿是由輸導組織組成，負責運送水分和養分。",
+      ans:["葉脈"],
+      why:"葉脈就是葉內的維管束，由輸導組織組成。" },
+    { id:"q4", tag:"焦點即時練", type:"choice",
+      text:"植物葉部的構造中，哪一個具有保護葉片的功能？",
+      opts:["表皮細胞","氣孔","保衛細胞","葉肉細胞"], ans:0,
+      why:"表皮細胞無色透明、排列緊密，可保護葉片、避免受外界病菌感染。" },
+    { id:"q5", tag:"焦點即時練", type:"choice",
+      text:"葉內的水分主要從哪一個構造蒸散到體外？",
+      opts:["角質層","表皮細胞","氣孔","葉脈"], ans:2,
+      why:"氣孔是氣體進出和水分蒸散的通道；角質層剛好相反，是用來防止水分散失的。" },
+    { id:"q6", tag:"好題示例", type:"choice",
+      text:"某示意圖中，陽光照射葉片，二氧化碳由葉片進入、氧氣由葉片放出，水則由根部吸收後往上運送。此生理作用最可能是下列何者？",
+      opts:["呼吸作用","蒸散作用","光合作用","觸發運動"], ans:2,
+      why:"消耗二氧化碳、產生氧氣，而且需要陽光和水，這正是光合作用的特徵。" },
+    { id:"q7", tag:"焦點即時練", type:"choice",
+      text:"光合作用的總反應式，下列何者正確？",
+      opts:[
+        "水＋二氧化碳 →（光能、葉綠體）→ 氧氣＋葡萄糖＋水",
+        "氧氣＋葡萄糖 →（光能、葉綠體）→ 水＋二氧化碳",
+        "水＋氧氣 →（光能、葉綠體）→ 二氧化碳＋葡萄糖",
+        "二氧化碳＋葡萄糖 →（光能、葉綠體）→ 水＋氧氣"
+      ], ans:0,
+      why:"反應物是水和二氧化碳，產物是氧氣、葡萄糖和水；葉綠素吸收光能，在葉綠體中進行。" },
+    { id:"q8", tag:"焦點即時練", type:"choice",
+      text:"光合作用中，反應物與產物都有下列哪一種物質？",
+      opts:["氧氣","二氧化碳","水","葡萄糖"], ans:2,
+      why:"水既是反應物也是產物，這是總反應式中最容易被漏掉的一項。" },
+    { id:"q9", tag:"焦點即時練", type:"choice",
+      text:"植物行光合作用主要的場所，是細胞中的哪一種構造？",
+      opts:["粒線體","葉綠體","細胞核","細胞膜"], ans:1,
+      why:"葉綠體中的葉綠素吸收光能，是行光合作用的構造；粒線體則是把養分轉化成能量。" },
+    { id:"q10", tag:"實驗題", type:"choice",
+      text:"實驗中以鋁箔包覆植物的葉片，是為了證明光合作用必須有哪一條件才能進行？",
+      opts:["水","光","二氧化碳","葉綠素"], ans:1,
+      why:"鋁箔只擋住光線，其他條件都相同，所以測試的是光照的有無。" },
+    { id:"q11", tag:"實驗題", type:"choice",
+      text:"實驗中，將葉片置於酒精中並隔水加熱的目的為何？",
+      opts:[
+        "促使葡萄糖轉變為澱粉",
+        "溶解葉片中的葉綠素，避免干擾實驗結果",
+        "避免葉片被煮爛而無法進行實驗",
+        "使葉片氣孔打開，讓碘液可以滲入葉片"
+      ], ans:1,
+      why:"葉片漂白後才看得清楚碘液由黃褐色變成藍黑色的變化。" },
+    { id:"q12", tag:"實驗題", type:"choice",
+      text:"由「光合作用的探討」實驗可推知下列何種結論？",
+      opts:[
+        "植物需要光照才可進行光合作用",
+        "二氧化碳為形成葡萄糖的必要原料",
+        "溫度越高，光合作用的效率越高",
+        "葉綠素可吸收太陽能，使光合作用得以進行"
+      ], ans:0,
+      why:"這個實驗只操縱了「照光」一個變因，所以只能推論光照的影響，不能推論二氧化碳或溫度。" },
+    { id:"q13", tag:"實力養成評量", type:"choice",
+      text:"關於葉片上、下表皮細胞的形狀，下列敘述何者正確？",
+      opts:["圓球形，排列不規則","扁平狀，排列整齊且緊密","長管狀，排列整齊但疏鬆","顆粒狀，排列不規則"], ans:1,
+      why:"表皮細胞扁平、排列整齊緊密，才能發揮保護的功能。" },
+    { id:"q14", tag:"實力養成評量", type:"choice",
+      text:"葉片的構造中，負責運送物質的是下列何者？",
+      opts:["角質層","表皮","葉脈","氣孔"], ans:2,
+      why:"葉脈由輸導組織組成，是葉內的維管束，負責運送水分和養分。" },
+    { id:"q15", tag:"實力養成評量", type:"choice",
+      text:"承上題，葉片中哪些構造含有葉綠體、可以行光合作用？",
+      opts:["表皮細胞、角質層","葉肉細胞、保衛細胞","葉脈中的細胞、表皮細胞","角質層、葉脈中的細胞"], ans:1,
+      why:"葉片中只有葉肉細胞和保衛細胞含有葉綠體；角質層、表皮細胞、葉脈中的細胞都沒有。" },
+    { id:"q16", tag:"實力養成評量", type:"choice",
+      text:"下列何者為植物行光合作用的主要場所？",
+      opts:["細胞核","葉綠體","維管束","種子"], ans:1,
+      why:"光合作用在葉綠體中進行；維管束負責運輸，種子是生殖器官。" },
+    { id:"q17", tag:"實力養成評量", type:"choice",
+      text:"關於葉片中各構造的敘述，下列何者正確？",
+      opts:[
+        "最外層的角質層可防止外界病菌入侵",
+        "表皮細胞可控制氣孔的開閉",
+        "氣孔是水分進入植物體的通道",
+        "保衛細胞呈半月形且兩兩成對"
+      ], ans:3,
+      why:"角質層防的是水分散失、防病菌的是表皮；控制氣孔開閉的是保衛細胞；氣孔是水分蒸散「出去」的通道，水是由根部進入的。" },
+    { id:"q18", tag:"實力養成評量", type:"choice",
+      text:"關於植物行光合作用的敘述，下列何者錯誤？",
+      opts:[
+        "光合作用通常在葉綠體中進行",
+        "會釋放出二氧化碳",
+        "會產生水",
+        "所合成的葡萄糖可轉變成澱粉儲存起來"
+      ], ans:1,
+      why:"二氧化碳是光合作用的反應物，是被消耗掉的；釋放出來的是氧氣。" },
+    { id:"q19", tag:"實力養成評量", type:"choice",
+      text:"若有一天太陽消失了，則地球大氣中哪種氣體將最先被生物用盡？",
+      opts:["二氧化碳","氮氣","氧氣","水氣"], ans:2,
+      why:"沒有陽光就無法行光合作用、不再產生氧氣，但生物仍持續呼吸消耗氧氣。" },
+    { id:"q20", tag:"實力養成評量", type:"choice",
+      text:"下列何者不是植物行光合作用所帶來的影響？",
+      opts:[
+        "供應生物呼吸所需的氧氣",
+        "動物可藉由攝食植物獲得養分和能量",
+        "使溫室效應更加劇烈",
+        "維持大氣中氧與二氧化碳濃度穩定"
+      ], ans:2,
+      why:"光合作用會消耗二氧化碳，反而有助於減緩溫室效應。" },
+    { id:"q21", tag:"實力養成評量", type:"choice",
+      text:"光合作用之反應物為何？",
+      opts:["水、二氧化碳","二氧化碳、葡萄糖","水、氮氣","葉綠體、二氧化碳"], ans:0,
+      why:"葡萄糖是產物不是反應物；葉綠體是進行的場所，也不算反應物。" },
+    { id:"q22", tag:"實力養成評量", type:"choice",
+      text:"在「光合作用的探討」實驗中，應如何溶出葉片中的葉綠素以避免干擾實驗結果？",
+      opts:["放入水中直接加熱","放入酒精中直接加熱","放入水中隔酒精加熱","放入酒精中隔水加熱"], ans:3,
+      why:"要用酒精才溶得出葉綠素；而酒精易燃，必須隔水加熱，不可直接放在火上。" },
+    { id:"q23", tag:"實力養成評量", type:"choice",
+      text:"植物除了靠根部吸收土壤中的水分和礦物質外，還必須進行何種作用，才能合成生長所需的養分？",
+      opts:["光合作用","氧化作用","輸導作用","滲透作用"], ans:0,
+      why:"根部只能吸收水和礦物質，養分要靠葉行光合作用製造。" },
+    { id:"q24", tag:"題組", type:"choice",
+      text:"葉綠體中光合作用的反應過程裡，甲、丙是反應物，乙、丁、戊是產物，其中丙和乙皆為氣體。已知甲、戊兩者是相同的物質，則甲是何種物質？",
+      opts:["二氧化碳","水","氧氣","葡萄糖"], ans:1,
+      why:"反應物和產物中都出現的物質只有水，所以甲和戊都是水。" },
+    { id:"q25", tag:"題組", type:"choice",
+      text:"承上題，丙可由空氣中直接進入植物體內，則丙是何種物質？",
+      opts:["二氧化碳","水","氧氣","葡萄糖"], ans:0,
+      why:"丙是反應物中的氣體，由氣孔從空氣進入植物體，就是二氧化碳。" },
+    { id:"q26", tag:"題組", type:"choice",
+      text:"承上題，在光合作用的產物中，葉綠素所吸收的太陽能儲存在哪一種物質內？",
+      opts:["二氧化碳","水","氧氣","葡萄糖"], ans:3,
+      why:"光能被轉換並儲存在葡萄糖中，葡萄糖再轉變成澱粉儲存在植物體內。" },
+    { id:"q27", tag:"歷屆經典題", type:"choice",
+      text:"小帆想知道某一植株在不同環境條件下，葉片行光合作用時速率的快慢，應依據下列哪一資料進行推測最為合理？",
+      opts:[
+        "單位時間內產生氧氣的量",
+        "單位時間內消耗葉綠素的量",
+        "單位時間內消耗葡萄糖的量",
+        "單位時間內產生二氧化碳的量"
+      ], ans:0,
+      why:"氧氣是光合作用的產物，產生越快代表光合作用越快。葉綠素不會被消耗，葡萄糖和二氧化碳的方向也剛好相反。" },
+    { id:"q28", tag:"歷屆經典題", type:"choice",
+      text:"甲、乙、丙、丁是裝有池水的四組密閉透明容器，除了內容物不同外其餘條件皆相同：甲只有螺，乙有水草和螺，丙有水草、小蝦和螺，丁有水草、小魚、小蝦和螺。已知照光時水草光合作用的速率大於自身呼吸作用的速率，四組皆持續照光一天且生物仍生長良好，則哪一容器中池水所含的二氧化碳量可能最少？",
+      opts:["甲","乙","丙","丁"], ans:1,
+      why:"要二氧化碳少，就要有水草消耗、而且動物越少越好。甲沒有水草只會累積二氧化碳；乙有水草且只有一種動物，消耗最多、產生最少。" }
+  ];
+
+  var host = document.getElementById("qs");
+
+  QS.forEach(function(q, idx){
+    var box = document.createElement("div");
+    box.className = "q";
+    box.id = "box-" + q.id;
+
+    var head = document.createElement("p");
+    head.className = "qtext";
+    head.innerHTML = '<span class="qtag"></span> ';
+    head.querySelector(".qtag").textContent = q.tag;
+    head.appendChild(document.createTextNode(" " + (idx+1) + ". " + q.text));
+    box.appendChild(head);
+
+    if (q.type === "choice") {
+      var ul = document.createElement("ul");
+      ul.className = "opts";
+      q.opts.forEach(function(opt, i){
+        var li = document.createElement("li");
+        var lab = document.createElement("label");
+        var r = document.createElement("input");
+        r.type = "radio"; r.name = q.id; r.value = String(i);
+        if (state.answers[q.id] === String(i)) r.checked = true;
+        r.addEventListener("change", function(){
+          state.answers[q.id] = r.value; store.write(state);
+        });
+        lab.appendChild(r);
+        lab.appendChild(document.createTextNode("(" + "ABCD".charAt(i) + ") " + opt));
+        li.appendChild(lab);
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    } else {
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.size = 12;
+      inp.setAttribute("aria-label", "填答");
+      if (state.answers[q.id]) inp.value = state.answers[q.id];
+      inp.addEventListener("input", function(){
+        state.answers[q.id] = inp.value; store.write(state); inp.classList.remove("ok","no");
+      });
+      box.appendChild(inp);
+    }
+
+    var fb = document.createElement("p");
+    fb.className = "fb";
+    fb.id = "fb-" + q.id;
+    box.appendChild(fb);
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "act ghost";
+    btn.style.marginTop = "8px";
+    btn.textContent = "對答案";
+    btn.addEventListener("click", function(){ judge(q); updateScore(); });
+    box.appendChild(btn);
+
+    host.appendChild(box);
+  });
+
+  function isRight(q){
+    var v = state.answers[q.id];
+    if (v === undefined || v === "") return null;
+    if (q.type === "choice") return String(q.ans) === v;
+    var t = v.replace(/\s/g,"");
+    return q.ans.indexOf(t) > -1;
+  }
+
+  function judge(q){
+    var ok = isRight(q);
+    var fb = document.getElementById("fb-" + q.id);
+    if (ok === null) {
+      fb.className = "fb show wrong";
+      fb.textContent = "還沒作答。";
+      return;
+    }
+    logResult(q, ok);
+    fb.className = "fb show " + (ok ? "right" : "wrong");
+    var ansText = q.type === "choice"
+      ? "答案：(" + "ABCD".charAt(q.ans) + ")"
+      : "答案：" + q.ans[0];
+    fb.textContent = (ok ? "答對了。" : "再看一次。") + ansText + "　" + q.why;
+    if (q.type === "fill") {
+      var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+      inp.classList.toggle("ok", ok); inp.classList.toggle("no", !ok);
+    }
+  }
+
+  function updateScore(){
+    var right = 0;
+    QS.forEach(function(q){ if (isRight(q) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + QS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
+    else if (right >= 22) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else note.textContent = "先回上面三個練習區確認一次，再回來作答。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    QS.forEach(judge); updateScore();
+  });
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一份的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    QS.forEach(function(q){
+      var fb = document.getElementById("fb-" + q.id);
+      fb.className = "fb"; fb.textContent = "";
+      if (q.type === "choice") {
+        Array.prototype.forEach.call(document.getElementsByName(q.id), function(r){ r.checked = false; });
+      } else {
+        var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+        inp.value = ""; inp.classList.remove("ok","no");
+      }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("select[data-s], select[data-p], select[data-t]"), function(sel){
+      sel.value = ""; sel.classList.remove("ok","no");
+    });
+    document.getElementById("sortFb").className = "fb";
+    document.getElementById("pairFb").className = "fb";
+    document.getElementById("stepFb").className = "fb";
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>

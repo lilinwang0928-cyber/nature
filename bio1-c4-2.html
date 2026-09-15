@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4-2 內分泌系統｜互動學習單</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:0 0 120px;font-weight:700;}
+  .sortrow select{flex:1 1 240px;}
+
+  table.pair{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.pair th,table.pair td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.pair th{background:#F3F7F2;width:190px;font-weight:700;}
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select{width:100%;}
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 第 4 章 · P.157–163</p>
+  <h1>4-2 內分泌系統</h1>
+</header>
+
+<div class="goal">
+  <h2>學完這一小節，你要能夠……</h2>
+  <ol>
+    <li>說明神經系統和內分泌系統如何相互調控，以協調動物的生理反應。</li>
+    <li>說出人體重要的內分泌腺、它們分泌的激素與功能。</li>
+    <li>說出各種激素分泌異常時，會造成哪些症狀。</li>
+  </ol>
+</div>
+
+<details class="brief" open>
+  <summary>學習重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li>協調動物生理反應的器官系統有兩個：<b>神經系統</b>和<b>內分泌系統</b>。蝌蚪變青蛙、毛毛蟲變蝴蝶，就是內分泌腺分泌激素控制身體各部位生長變化的結果。</li>
+    <li><b>激素又稱荷爾蒙</b>，由內分泌腺分泌，經<b>血液</b>運送至作用部位的細胞，以調節生理功能。</li>
+    <li>血液中只要有<b>極少量</b>的激素便可明顯影響生理功能；分泌量與分泌時間必須適當，過多、過少、過早、過晚都有不利影響。</li>
+    <li><b>兩系統的比較</b>：神經系統靠神經元傳導，作用迅速而短暫、範圍局部；內分泌系統靠血液運送激素，作用緩慢而持久、範圍廣泛。</li>
+    <li><b>內分泌腺與外分泌腺</b>：內分泌腺的分泌物主要由血液運輸；外分泌腺有特定的運輸管道，例如汗腺和消化腺，把分泌物送到體外或消化道中。</li>
+    <li><b>腦垂腺</b>位於大腦下方，分泌生長激素控制個體生長發育，也分泌多種促進激素影響其他內分泌腺體，因此被稱為內分泌系統的<b>總指揮</b>。</li>
+    <li>成長階段生長激素分泌<b>過多會造成巨人症，過少會造成侏儒症</b>。</li>
+    <li><b>甲狀腺</b>位於喉部氣管兩側、呈蝶狀，分泌甲狀腺素，控制細胞的代謝作用以調節個體生長與發育。</li>
+    <li>甲狀腺素分泌<b>過多</b>會使細胞代謝較快、個體消瘦、容易神經緊張煩躁，稱為<b>甲狀腺亢進</b>；<b>幼年時期分泌不足</b>會使發育遲緩、影響智力發展，稱為<b>呆小症</b>。</li>
+    <li>甲狀腺素由胺基酸和<b>碘</b>組成，攝入的碘不足時無法合成足量的甲狀腺素，會使甲狀腺腫脹，俗稱<b>大脖子症</b>。</li>
+    <li><b>副甲狀腺</b>包埋於甲狀腺內、共有四顆、呈豆狀，分泌副甲狀腺素，調節血液中<b>鈣</b>的濃度，影響骨骼生長與肌肉收縮。過多會骨質脆弱、腎結石，不足則肌肉易痙攣。</li>
+    <li><b>腎上腺</b>位於腎臟上方，分泌腎上腺素，可促使心跳加速、呼吸加快加深、血壓上升，並提高血糖濃度，以應付緊急狀況。醫療上常作為強心劑。</li>
+    <li><b>胰島</b>是胰臟中的內分泌細胞集合成團，像散布在胰臟中的小島。<b>胰島素降低血糖濃度</b>，促使細胞利用血糖或轉成肝糖儲存；<b>升糖素提高血糖濃度</b>，使肝糖轉成葡萄糖進入血液。</li>
+    <li>胰島素分泌不足會使血糖長期過高，是<b>糖尿病</b>成因之一，患者常有吃多、喝多、尿多及體重減輕的「三多一少」現象；分泌過多則血糖過低，可能導致昏迷甚至有生命危險。</li>
+    <li><b>性腺</b>：睪丸產生精子並分泌雄性激素，影響男性第二性徵，例如長出鬍鬚、喉結凸出、聲音變低沉；卵巢產生卵並分泌雌性激素，影響女性第二性徵，例如乳房發育、皮下脂肪增加、聲音變細。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、哪個腺體分泌哪種激素？</h2>
+  <p class="hint">七個內分泌腺，先把名字對起來。</p>
+  <table class="pair" id="glandTable"></table>
+  <div class="actions"><button class="act" id="glandCheck" type="button">檢查</button></div>
+  <p class="fb" id="glandFb"></p>
+</section>
+
+<section class="card">
+  <h2>二、這種激素的功能是什麼？</h2>
+  <p class="hint">胰島素與升糖素方向相反，是最常考的一組。</p>
+  <table class="pair" id="hormoneTable"></table>
+  <div class="actions"><button class="act" id="hormoneCheck" type="button">檢查</button></div>
+  <p class="fb" id="hormoneFb"></p>
+</section>
+
+<section class="card">
+  <h2>三、分泌異常會怎樣？</h2>
+  <p class="hint">七種情況對應七個病名或症狀。</p>
+  <table class="pair" id="disTable"></table>
+  <div class="actions"><button class="act" id="disCheck" type="button">檢查</button></div>
+  <p class="fb" id="disFb"></p>
+</section>
+
+<section class="card">
+  <h2>四、神經系統還是內分泌系統？</h2>
+  <p class="hint">兩套協調系統的分工，看速度、持久度和範圍。</p>
+  <table class="pair" id="sysTable"></table>
+  <div class="actions"><button class="act" id="sysCheck" type="button">檢查</button></div>
+  <p class="fb" id="sysFb"></p>
+</section>
+
+<section class="card">
+  <h2>五、練習題</h2>
+  <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
+  <div id="qs"></div>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>練習題答對</span><b id="score">0 / 26</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）4-2 內分泌系統 P.157–163 配套互動學習單。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-c4-2-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"c4-2", title:"4-2 內分泌系統", file:"bio1-c4-2.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = (q.type === "choice")
+      ? "(" + "ABCD".charAt(q.ans) + ") " + q.opts[q.ans]
+      : q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  function buildSelectTable(tableId, dataAttr, rows, options){
+    var table = document.getElementById(tableId);
+    rows.forEach(function(item){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = item.name;
+      var td = document.createElement("td");
+      var sel = document.createElement("select");
+      sel.dataset[dataAttr] = item.id;
+      var blank = document.createElement("option");
+      blank.value = ""; blank.textContent = "（請選擇）";
+      sel.appendChild(blank);
+      options.forEach(function(o){
+        var op = document.createElement("option");
+        op.value = o; op.textContent = o;
+        sel.appendChild(op);
+      });
+      var savedKey = dataAttr + "-" + item.id;
+      if (state.answers[savedKey]) sel.value = state.answers[savedKey];
+      sel.addEventListener("change", function(){
+        state.answers[savedKey] = sel.value;
+        store.write(state);
+        sel.classList.remove("ok","no");
+      });
+      td.appendChild(sel);
+      tr.appendChild(th);
+      tr.appendChild(td);
+      table.appendChild(tr);
+    });
+  }
+  function checkSelectTable(dataAttr, rows, fbId, allRight, hint){
+    var right = 0;
+    rows.forEach(function(item){
+      var sel = document.querySelector("select[data-" + dataAttr + '="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById(fbId);
+    fb.className = "fb show " + (right === rows.length ? "right" : "wrong");
+    fb.textContent = right === rows.length ? allRight
+      : "答對 " + right + " / " + rows.length + "。" + hint;
+  }
+
+  /* ── 一、腺體與激素 ── */
+  var HORM = ["生長激素與多種促進激素","甲狀腺素","副甲狀腺素","腎上腺素","胰島素與升糖素","雌性激素","雄性激素"];
+  var GROWS = [
+    { id:"g1", name:"腦垂腺（位於大腦下方）", ans:HORM[0] },
+    { id:"g2", name:"甲狀腺（喉部氣管兩側，蝶狀）", ans:HORM[1] },
+    { id:"g3", name:"副甲狀腺（包埋於甲狀腺內，四顆豆狀）", ans:HORM[2] },
+    { id:"g4", name:"腎上腺（位於腎臟上方）", ans:HORM[3] },
+    { id:"g5", name:"胰島（胰臟中的內分泌細胞團）", ans:HORM[4] },
+    { id:"g6", name:"卵巢（女性）", ans:HORM[5] },
+    { id:"g7", name:"睪丸（男性）", ans:HORM[6] }
+  ];
+  buildSelectTable("glandTable", "g", GROWS, HORM);
+  document.getElementById("glandCheck").addEventListener("click", function(){
+    checkSelectTable("g", GROWS, "glandFb",
+      "全對。多數腺體的激素就跟腺體同名，只有腦垂腺、胰島和性腺要另外記。",
+      "腺體名稱多半就是激素名稱（甲狀腺→甲狀腺素、腎上腺→腎上腺素）；胰島一個腺體要分泌兩種相反的激素。");
+  });
+
+  /* ── 二、激素的功能 ── */
+  var FUNC = [
+    "控制個體生長發育，並影響其他內分泌腺體",
+    "控制細胞的代謝作用，以調節生長與發育",
+    "調節血液中鈣的濃度，影響骨骼生長與肌肉收縮",
+    "心跳加速、呼吸加快加深、血壓上升並提高血糖，以應付緊急狀況",
+    "降低血糖濃度",
+    "提高血糖濃度",
+    "影響第二性徵的表現"
+  ];
+  var HROWS = [
+    { id:"h1", name:"生長激素", ans:FUNC[0] },
+    { id:"h2", name:"甲狀腺素", ans:FUNC[1] },
+    { id:"h3", name:"副甲狀腺素", ans:FUNC[2] },
+    { id:"h4", name:"腎上腺素", ans:FUNC[3] },
+    { id:"h5", name:"胰島素", ans:FUNC[4] },
+    { id:"h6", name:"升糖素", ans:FUNC[5] },
+    { id:"h7", name:"雌性激素與雄性激素", ans:FUNC[6] }
+  ];
+  buildSelectTable("hormoneTable", "h", HROWS, FUNC);
+  document.getElementById("hormoneCheck").addEventListener("click", function(){
+    checkSelectTable("h", HROWS, "hormoneFb",
+      "全對。胰島素「收」血糖進細胞、升糖素「放」肝糖出來；腎上腺素也會提高血糖，所以緊急時血糖是升高的。",
+      "名字就有線索：胰島「素」把糖收起來，「升」糖素把糖放出來。副甲狀腺素管的是鈣，不是糖。");
+  });
+
+  /* ── 三、分泌異常 ── */
+  var DIS = [
+    "巨人症",
+    "侏儒症",
+    "甲狀腺亢進：消瘦、神經緊張、煩躁",
+    "呆小症：發育遲緩、影響智力發展",
+    "大脖子症：甲狀腺腫脹",
+    "糖尿病：血糖長期過高，糖分隨尿液排出",
+    "肌肉容易痙攣"
+  ];
+  var DROWS = [
+    { id:"d1", name:"成長階段生長激素分泌過多", ans:DIS[0] },
+    { id:"d2", name:"成長階段生長激素分泌過少", ans:DIS[1] },
+    { id:"d3", name:"甲狀腺素分泌過多", ans:DIS[2] },
+    { id:"d4", name:"幼年時期甲狀腺素分泌不足", ans:DIS[3] },
+    { id:"d5", name:"攝入的碘不足，無法合成足量甲狀腺素", ans:DIS[4] },
+    { id:"d6", name:"胰島素長期分泌不足或作用不佳", ans:DIS[5] },
+    { id:"d7", name:"副甲狀腺素分泌不足", ans:DIS[6] }
+  ];
+  buildSelectTable("disTable", "d", DROWS, DIS);
+  document.getElementById("disCheck").addEventListener("click", function(){
+    checkSelectTable("d", DROWS, "disFb",
+      "全對。甲狀腺有三種狀況要分清楚：亢進是分泌太多、呆小症是幼年太少、大脖子症是缺碘。",
+      "生長激素管身高（巨人／侏儒）、甲狀腺素管代謝、副甲狀腺素管鈣、胰島素管血糖，各管各的。");
+  });
+
+  /* ── 四、兩套系統 ── */
+  var SYSS = ["神經系統","內分泌系統"];
+  var YROWS = [
+    { id:"y1", name:"訊息由神經元傳導", ans:"神經系統" },
+    { id:"y2", name:"分泌激素，再由血液運送至作用部位", ans:"內分泌系統" },
+    { id:"y3", name:"作用迅速而短暫", ans:"神經系統" },
+    { id:"y4", name:"作用緩慢而持久", ans:"內分泌系統" },
+    { id:"y5", name:"作用範圍局部", ans:"神經系統" },
+    { id:"y6", name:"作用範圍廣泛", ans:"內分泌系統" },
+    { id:"y7", name:"黑暗中瞳孔放大", ans:"神經系統" },
+    { id:"y8", name:"蝌蚪變青蛙、毛毛蟲變蝴蝶", ans:"內分泌系統" }
+  ];
+  buildSelectTable("sysTable", "y", YROWS, SYSS);
+  document.getElementById("sysCheck").addEventListener("click", function(){
+    checkSelectTable("y", YROWS, "sysFb",
+      "全對。要「馬上」發生的歸神經系統，要「一段時間慢慢變」的歸內分泌系統。",
+      "瞳孔放大是瞬間的事，屬神經；變態發育要好幾天甚至幾週，屬內分泌。");
+  });
+
+  /* ── 五、練習題 ── */
+  var QS = [
+    { id:"q1", tag:"焦點即時練", type:"choice",
+      text:"甲.腦垂腺　乙.唾腺　丙.腎上腺　丁.卵巢　戊.淚腺　己.甲狀腺。人體的下列腺體中，屬於內分泌系統的有哪些？",
+      opts:["甲乙丙丁戊己","甲丙丁己","乙丁戊","丙己"], ans:1,
+      why:"唾腺和淚腺有特定的運輸管道，屬於外分泌腺；腦垂腺、腎上腺、卵巢、甲狀腺的分泌物才是由血液運送。" },
+    { id:"q2", tag:"焦點即時練", type:"choice",
+      text:"下列哪一腺體所分泌的物質，是隨著血液運送到作用部位？",
+      opts:["胃腺","汗腺","胰島","腸腺"], ans:2,
+      why:"胃腺、腸腺把消化液送到消化道，汗腺把汗液送到體外，都是外分泌腺；只有胰島是內分泌腺。" },
+    { id:"q3", tag:"焦點即時練", type:"choice",
+      text:"關於激素對人體的作用，下列敘述何者正確？",
+      opts:[
+        "激素可影響個體生長及維持體內環境穩定",
+        "激素分泌量越多越有利",
+        "激素分泌時機越早，越有助於個體生長",
+        "激素只會對某一器官產生作用"
+      ], ans:0,
+      why:"激素的分泌量和時間都必須適當，過多過少、過早過晚都不好；而且作用範圍廣泛，不會只針對一個器官。" },
+    { id:"q4", tag:"焦點即時練", type:"choice",
+      text:"人體內分泌系統所分泌的激素，亦可稱為下列何者？",
+      opts:["組織液","酵素","抗生素","荷爾蒙"], ans:3,
+      why:"激素又稱荷爾蒙。酵素是催化反應的蛋白質，和激素是兩回事。" },
+    { id:"q5", tag:"焦點即時練", type:"choice",
+      text:"下列各種生理反應，何者的調控系統與其他不同？",
+      opts:["蝌蚪變青蛙","黑暗中瞳孔放大","毛毛蟲變蝴蝶","第二性徵表現"], ans:1,
+      why:"其餘三項都是激素慢慢造成的變化，屬於內分泌系統；瞳孔放大是瞬間的反射，由神經系統控制。" },
+    { id:"q6", tag:"焦點即時練", type:"fill",
+      text:"小晶服用減肥藥後體重急速減輕，且情緒緊張煩躁，則該藥可能含有＿＿＿腺素。",
+      ans:["甲狀"],
+      why:"甲狀腺素分泌過多會使細胞代謝加快、個體消瘦、容易神經緊張煩躁，也就是甲狀腺亢進的症狀。" },
+    { id:"q7", tag:"焦點即時練", type:"fill",
+      text:"影響骨骼生長、肌肉收縮等生理反應的是＿＿＿＿腺素。",
+      ans:["副甲狀"],
+      why:"副甲狀腺素調節血液中鈣的濃度，而鈣和骨骼生長、肌肉收縮直接相關。" },
+    { id:"q8", tag:"焦點即時練", type:"choice",
+      text:"內分泌系統中，何者分泌的激素除了可控制個體正常發育，還能分泌多種促進激素影響其他內分泌腺體，因而被稱為內分泌系統的「總指揮」？",
+      opts:["腦垂腺","甲狀腺","腎上腺","胰島"], ans:0,
+      why:"腦垂腺位於大腦下方，除了生長激素還分泌促甲狀腺激素等多種促進激素，因此是總指揮。" },
+    { id:"q9", tag:"焦點即時練", type:"fill",
+      text:"激烈運動、承受壓力或遇緊急狀況時，腎上腺素分泌量會＿＿。（填增加或減少）",
+      ans:["增加"],
+      why:"此時細胞需要更多能量，腎上腺素增加可提高血糖、加快心跳呼吸，讓身體應付危急狀況。" },
+    { id:"q10", tag:"焦點即時練", type:"fill",
+      text:"男性的睪丸與女性的卵巢，都是人體重要的內分泌腺，稱為＿腺。",
+      ans:["性"],
+      why:"性腺同時具有兩種身分：既產生生殖細胞，也分泌影響第二性徵的激素。" },
+    { id:"q11", tag:"焦點即時練", type:"fill",
+      text:"承上題，性腺可產生人體的＿＿細胞。",
+      ans:["生殖"],
+      why:"睪丸產生精子、卵巢產生卵，兩者都是生殖細胞。" },
+    { id:"q12", tag:"焦點即時練", type:"fill",
+      text:"承上題，性腺分泌的激素會影響第＿性徵的表現。（填一或二）",
+      ans:["二"],
+      why:"雄性激素使男性長鬍鬚、喉結凸出、聲音低沉；雌性激素使女性乳房發育、皮下脂肪增加、聲音變細。" },
+    { id:"q13", tag:"焦點即時練", type:"fill",
+      text:"當人體中的＿＿素分泌不足時，會使血液中的血糖濃度過高，長期如此將導致糖尿病。",
+      ans:["胰島"],
+      why:"胰島素負責降低血糖；分泌不足或作用不佳，血糖就會長期偏高。" },
+    { id:"q14", tag:"焦點即時練", type:"fill",
+      text:"承上題，糖尿病患者過多的糖分會隨著＿＿排出體外。",
+      ans:["尿液","尿"],
+      why:"血糖過高時，多餘的葡萄糖會隨尿液排出，因此稱為糖尿病，患者常有三多一少的現象。" },
+    { id:"q15", tag:"好題示例", type:"choice",
+      text:"「若食物中所含的糖分容易被人體快速吸收，則會使血糖急遽上升，而引起某激素分泌增加，進而造成血糖快速下降，甚至形成餐後血糖過低的現象。」有關此激素的敘述，下列何者正確？",
+      opts:[
+        "是由肝臟分泌的胰島素",
+        "是由肝臟分泌的升糖素",
+        "是由胰島分泌的胰島素",
+        "是由胰島分泌的升糖素"
+      ], ans:2,
+      why:"能讓血糖下降的是胰島素，而胰島素由胰島分泌，不是肝臟。肝臟是儲存肝糖的地方，不是分泌這兩種激素的腺體。" },
+    { id:"q16", tag:"實力養成評量", type:"choice",
+      text:"關於內分泌系統與神經系統的比較，下列何者正確？",
+      opts:[
+        "內分泌系統作用較快速，但效果侷限於局部",
+        "內分泌系統作用較緩慢，但效果較廣泛而持久",
+        "神經系統作用較緩慢，效果較廣泛",
+        "神經系統作用較快速，且效果較持久"
+      ], ans:1,
+      why:"內分泌靠血液運送激素，慢但廣泛持久；神經系統靠神經元傳導，快但短暫且局部。" },
+    { id:"q17", tag:"實力養成評量", type:"choice",
+      text:"正式的運動比賽明文規定，運動員在賽前不可注射一切含腎上腺素的藥物，其主要原因為何？",
+      opts:[
+        "腎上腺素會使心跳變慢、血液循環減緩",
+        "腎上腺素可提高血糖濃度，供應身體細胞能量",
+        "腎上腺素會讓精神鬆懈，使運動員攝取更多養分",
+        "腎上腺素不會運送到作用部位，以免緊張"
+      ], ans:1,
+      why:"腎上腺素會提高血糖、加快心跳與呼吸，等於讓身體處在備戰狀態，對比賽表現構成不公平的優勢。" },
+    { id:"q18", tag:"實力養成評量", type:"choice",
+      text:"甲狀腺所分泌的激素，如何運送到其作用的部位？",
+      opts:["由神經纖維運送","由血液運輸","由特殊的導管輸送","不會向外輸送"], ans:1,
+      why:"內分泌腺沒有導管，分泌物直接進入血液由血漿運送；有導管的是汗腺、消化腺那類外分泌腺。" },
+    { id:"q19", tag:"實力養成評量", type:"choice",
+      text:"當遭遇緊急狀況時，人體一般不會發生下列哪一種生理變化？",
+      opts:["胰島素分泌增加","血糖濃度升高","腎上腺素分泌增加","呼吸加快加深"], ans:0,
+      why:"緊急時需要更多血糖供細胞使用，所以血糖是升高的；胰島素會降低血糖，此時不該增加。" },
+    { id:"q20", tag:"實力養成評量", type:"choice",
+      text:"下列何種疾病的成因與內分泌無關？",
+      opts:["大脖子症","甲狀腺亢進","呆小症","流行性感冒"], ans:3,
+      why:"前三者都和甲狀腺素有關；流行性感冒是病毒感染造成的，和內分泌無關。" },
+    { id:"q21", tag:"實力養成評量", type:"choice",
+      text:"青春期公鳥羽毛色彩較母鳥鮮明、人類男性的聲音較女性低沉，這些特徵都與下列哪一種內分泌腺有關？",
+      opts:["腎上腺","胰島","性腺","甲狀腺"], ans:2,
+      why:"這些都是第二性徵的表現，由性腺分泌的雄性激素或雌性激素所影響。" },
+    { id:"q22", tag:"實力養成評量", type:"choice",
+      text:"王小姐曾因甲狀腺素分泌過多，使細胞代謝異常而影響健康。下列何者不是她當時會有的症狀？",
+      opts:["細胞代謝旺盛","神經緊張","體重減輕","心跳變慢"], ans:3,
+      why:"甲狀腺亢進時代謝加快，人會消瘦、緊張煩躁，心跳是加快而不是變慢。" },
+    { id:"q23", tag:"實力養成評量", type:"choice",
+      text:"關於甲狀腺的敘述，下列何者錯誤？",
+      opts:[
+        "位於喉部氣管兩側",
+        "分泌的激素與第二性徵的表現有關",
+        "幼年時若分泌不足，生長發育與智力發展皆會受阻",
+        "分泌過多時，大部分患者身體顯得異常消瘦"
+      ], ans:1,
+      why:"影響第二性徵的是性腺分泌的雌性激素和雄性激素，不是甲狀腺素。" },
+    { id:"q24", tag:"題組", type:"choice",
+      text:"哪一種腺體分泌失調時，可能會使個體在成長階段長成巨人或侏儒？",
+      opts:["腦垂腺","甲狀腺","腎上腺","胰島"], ans:0,
+      why:"腦垂腺分泌的生長激素控制個體生長發育，成長階段分泌過多是巨人症、過少是侏儒症。" },
+    { id:"q25", tag:"題組", type:"choice",
+      text:"小胖持續注射某種藥劑後，發現體重急速減輕且神經緊張，則該藥可能含有哪一腺體所分泌的激素？",
+      opts:["腦垂腺","甲狀腺","副甲狀腺","性腺"], ans:1,
+      why:"體重急速減輕加上神經緊張，是甲狀腺素過多（甲狀腺亢進）的典型表現。" },
+    { id:"q26", tag:"題組", type:"choice",
+      text:"爺爺做健康檢查時，醫護人員把他的尿液加入本氏液後加熱，結果呈現紅色。請問可能是哪一個腺體出了問題？",
+      opts:["腦垂腺","甲狀腺","胰島","腎上腺"], ans:2,
+      why:"本氏液加熱變紅代表尿中含大量葡萄糖，也就是糖尿；這通常是胰島分泌的胰島素不足所造成。" }
+  ];
+
+  var host = document.getElementById("qs");
+
+  QS.forEach(function(q, idx){
+    var box = document.createElement("div");
+    box.className = "q";
+    box.id = "box-" + q.id;
+
+    var head = document.createElement("p");
+    head.className = "qtext";
+    head.innerHTML = '<span class="qtag"></span> ';
+    head.querySelector(".qtag").textContent = q.tag;
+    head.appendChild(document.createTextNode(" " + (idx+1) + ". " + q.text));
+    box.appendChild(head);
+
+    if (q.type === "choice") {
+      var ul = document.createElement("ul");
+      ul.className = "opts";
+      q.opts.forEach(function(opt, i){
+        var li = document.createElement("li");
+        var lab = document.createElement("label");
+        var r = document.createElement("input");
+        r.type = "radio"; r.name = q.id; r.value = String(i);
+        if (state.answers[q.id] === String(i)) r.checked = true;
+        r.addEventListener("change", function(){
+          state.answers[q.id] = r.value; store.write(state);
+        });
+        lab.appendChild(r);
+        lab.appendChild(document.createTextNode("(" + "ABCD".charAt(i) + ") " + opt));
+        li.appendChild(lab);
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    } else {
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.size = 12;
+      inp.setAttribute("aria-label", "填答");
+      if (state.answers[q.id]) inp.value = state.answers[q.id];
+      inp.addEventListener("input", function(){
+        state.answers[q.id] = inp.value; store.write(state); inp.classList.remove("ok","no");
+      });
+      box.appendChild(inp);
+    }
+
+    var fb = document.createElement("p");
+    fb.className = "fb";
+    fb.id = "fb-" + q.id;
+    box.appendChild(fb);
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "act ghost";
+    btn.style.marginTop = "8px";
+    btn.textContent = "對答案";
+    btn.addEventListener("click", function(){ judge(q); updateScore(); });
+    box.appendChild(btn);
+
+    host.appendChild(box);
+  });
+
+  function isRight(q){
+    var v = state.answers[q.id];
+    if (v === undefined || v === "") return null;
+    if (q.type === "choice") return String(q.ans) === v;
+    var t = v.replace(/\s/g,"");
+    return q.ans.indexOf(t) > -1;
+  }
+
+  function judge(q){
+    var ok = isRight(q);
+    var fb = document.getElementById("fb-" + q.id);
+    if (ok === null) {
+      fb.className = "fb show wrong";
+      fb.textContent = "還沒作答。";
+      return;
+    }
+    logResult(q, ok);
+    fb.className = "fb show " + (ok ? "right" : "wrong");
+    var ansText = q.type === "choice"
+      ? "答案：(" + "ABCD".charAt(q.ans) + ")"
+      : "答案：" + q.ans[0];
+    fb.textContent = (ok ? "答對了。" : "再看一次。") + ansText + "　" + q.why;
+    if (q.type === "fill") {
+      var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+      inp.classList.toggle("ok", ok); inp.classList.toggle("no", !ok);
+    }
+  }
+
+  function updateScore(){
+    var right = 0;
+    QS.forEach(function(q){ if (isRight(q) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + QS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
+    else if (right >= 20) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else note.textContent = "先回上面四個練習區確認一次，再回來作答。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    QS.forEach(judge); updateScore();
+  });
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一份的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    QS.forEach(function(q){
+      var fb = document.getElementById("fb-" + q.id);
+      fb.className = "fb"; fb.textContent = "";
+      if (q.type === "choice") {
+        Array.prototype.forEach.call(document.getElementsByName(q.id), function(r){ r.checked = false; });
+      } else {
+        var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+        inp.value = ""; inp.classList.remove("ok","no");
+      }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("select[data-g], select[data-h], select[data-d], select[data-y]"), function(sel){
+      sel.value = ""; sel.classList.remove("ok","no");
+    });
+    ["glandFb","hormoneFb","disFb","sysFb"].forEach(function(id){
+      document.getElementById(id).className = "fb";
+    });
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>

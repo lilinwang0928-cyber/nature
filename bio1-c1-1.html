@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1-1 生命現象｜互動學習單</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  /* 分類 */
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:1 1 240px;min-width:200px;}
+  .sortrow select{flex:0 0 auto;min-width:150px;}
+
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  /* 排序 */
+  .track{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin:0 0 14px;}
+  .slot{
+    min-height:78px;border:2px dashed var(--rule);border-radius:10px;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:10px 8px;font-size:.9rem;background:#FBFDFA;position:relative;
+  }
+  .slot .n{position:absolute;top:4px;left:8px;font-size:.72rem;color:var(--slate);}
+  .slot.filled{border-style:solid;border-color:var(--leaf);background:#F1F7F0;cursor:pointer;}
+  .slot.wrong{border-color:var(--rose);background:#FBF1F3;}
+  .pool{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;}
+  .chip{
+    font:inherit;font-size:.9rem;padding:8px 14px;border-radius:12px;text-align:left;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;max-width:100%;
+  }
+  .chip[disabled]{opacity:.25;cursor:default;}
+
+  table.cmp{width:100%;border-collapse:collapse;font-size:.94rem;margin:6px 0 12px;}
+  table.cmp th,table.cmp td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.cmp th{background:#F3F7F2;font-weight:700;width:46%;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible,.slot:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 第 1 章 · P.10–17</p>
+  <h1>1-1 生命現象</h1>
+</header>
+
+<div class="goal">
+  <h2>學完這一節，你要能夠……</h2>
+  <ol>
+    <li>用四種生命現象區分生物和非生物，並說出生物生存所需的資源。</li>
+    <li>說明細胞的發現歷程與細胞學說的主要內容。</li>
+    <li>比較複式顯微鏡與解剖顯微鏡的成像差異，並知道玻片該往哪個方向移動。</li>
+  </ol>
+</div>
+
+<details class="brief" open>
+  <summary>學習重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li><b>生命現象四項</b>：生長與發育、繁殖、感應與運動、代謝。不能表現生命現象的是非生物（岩石、空氣、水等）。</li>
+    <li><b>生存所需資源</b>：陽光（能量大多來自太陽）、空氣（氧氣供呼吸、二氧化碳供光合作用）、養分、水。</li>
+    <li><b>細胞的發現</b>：虎克用自製顯微鏡觀察軟木塞切片，看到蜂窩狀小格子並命名為細胞；他看到的是<b>死細胞，只剩細胞壁</b>。細胞學說是後來科學家陸續研究後匯集提出（許來登、許旺分別在植物與動物體內發現細胞）。</li>
+    <li><b>細胞學說</b>：細胞是生物組成的基本單位，所有生物皆由細胞構成。</li>
+    <li><b>複式顯微鏡</b>：放大倍率＝目鏡倍率×物鏡倍率；成像<b>上下顛倒、左右相反</b>，較平面，倍率較大；玻片往影像偏移的<b>同方向</b>移動。目鏡越長倍率越小，物鏡越長倍率越大。</li>
+    <li><b>解剖顯微鏡</b>：成像與實物<b>同方向</b>、較立體、倍率較小，可觀察不透光的樣本；樣本往影像偏移的<b>反方向</b>移動。</li>
+    <li><b>倍率越高</b>：視野範圍越窄、越暗，細胞看起來越大但數目越少。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、這是哪一種生命現象？</h2>
+  <p class="hint">四種生命現象：生長與發育、繁殖、感應與運動、代謝。</p>
+  <div id="sorts"></div>
+  <div class="actions"><button class="act" id="sortCheck" type="button">檢查分類</button></div>
+  <p class="fb" id="sortFb"></p>
+</section>
+
+<section class="card">
+  <h2>二、細胞是怎麼被發現的？</h2>
+  <p class="hint">點下方卡片，依時間順序放進格子；點格子可以取回。</p>
+  <div class="track" id="track"></div>
+  <div class="pool" id="pool"></div>
+  <div class="actions">
+    <button class="act" id="flowCheck" type="button">檢查順序</button>
+    <button class="act ghost" id="flowReset" type="button">重排</button>
+  </div>
+  <p class="hint" id="flowFb" style="margin-top:10px;"></p>
+</section>
+
+<section class="card">
+  <h2>三、兩種顯微鏡與倍率</h2>
+  <p class="hint">每一列選出正確的說法。</p>
+  <table class="cmp">
+    <tr><th>複式顯微鏡看到的影像方向</th><td><select data-m="a"></select></td></tr>
+    <tr><th>解剖顯微鏡看到的影像</th><td><select data-m="b"></select></td></tr>
+    <tr><th>複式顯微鏡下字母偏右上方，玻片要往</th><td><select data-m="c"></select></td></tr>
+    <tr><th>從低倍率換成高倍率物鏡後，視野</th><td><select data-m="d"></select></td></tr>
+    <tr><th>高倍率下看到的細胞</th><td><select data-m="e"></select></td></tr>
+  </table>
+  <div class="actions"><button class="act" id="mCheck" type="button">檢查</button></div>
+  <p class="fb" id="mFb"></p>
+</section>
+
+<section class="card">
+  <h2>四、練習題</h2>
+  <p class="hint">作答後按「對答案」，會顯示解題重點。答題紀錄存在這台裝置。</p>
+  <div id="qs"></div>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>練習題答對</span><b id="score">0 / 11</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）1-1 生命現象 P.10–17 配套互動學習單。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-c1-1-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  /* ── 共用錯題本 ── */
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"c1-1", title:"1-1 生命現象", file:"bio1-c1-1.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = (q.type === "choice")
+      ? "(" + "ABCD".charAt(q.ans) + ") " + q.opts[q.ans]
+      : q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  /* ── 一、生命現象分類 ── */
+  var KINDS = ["生長與發育","繁殖","感應與運動","代謝"];
+  var SORTS = [
+    { id:"s1", text:"幼苗長成一株成熟的植株。", ans:"生長與發育" },
+    { id:"s2", text:"鳥類產卵並孵育下一代。", ans:"繁殖" },
+    { id:"s3", text:"魚群遇到危險時，集體改變游動方向。", ans:"感應與運動" },
+    { id:"s4", text:"熊捕食魚類後，把食物消化並產生能量。", ans:"代謝" },
+    { id:"s5", text:"小郁在冷氣太強的電影院裡冷得直發抖。", ans:"感應與運動" },
+    { id:"s6", text:"蝌蚪的形態逐漸改變，變成青蛙。", ans:"生長與發育" }
+  ];
+  var sortHost = document.getElementById("sorts");
+  SORTS.forEach(function(item){
+    var row = document.createElement("div");
+    row.className = "sortrow";
+    var p = document.createElement("p");
+    p.textContent = item.text;
+    var sel = document.createElement("select");
+    sel.dataset.s = item.id;
+    var blank = document.createElement("option");
+    blank.value = ""; blank.textContent = "（請選擇）";
+    sel.appendChild(blank);
+    KINDS.forEach(function(k){
+      var op = document.createElement("option");
+      op.value = k; op.textContent = k;
+      sel.appendChild(op);
+    });
+    if (state.answers["sort-" + item.id]) sel.value = state.answers["sort-" + item.id];
+    sel.addEventListener("change", function(){
+      state.answers["sort-" + item.id] = sel.value;
+      store.write(state);
+      sel.classList.remove("ok","no");
+    });
+    row.appendChild(p);
+    row.appendChild(sel);
+    sortHost.appendChild(row);
+  });
+
+  document.getElementById("sortCheck").addEventListener("click", function(){
+    var right = 0;
+    SORTS.forEach(function(item){
+      var sel = document.querySelector('select[data-s="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById("sortFb");
+    fb.className = "fb show " + (right === SORTS.length ? "right" : "wrong");
+    fb.textContent = right === SORTS.length
+      ? "全對。判斷訣竅：體積變大或形態成熟＝生長與發育；產生下一代＝繁殖；對環境刺激做出反應＝感應與運動；體內的分解與合成＝代謝。"
+      : "答對 " + right + " / " + SORTS.length + "。「冷得發抖」是身體感知環境變化後產生的反應，不是代謝喔。";
+  });
+
+  /* ── 二、細胞發現史排序 ── */
+  var STEPS = [
+    "虎克用自製的顯微鏡觀察軟木塞切片",
+    "他看到許多蜂窩狀的小格子，把它稱為「細胞」",
+    "許來登和許旺分別在植物和動物體內發現細胞",
+    "科學家陸續研究後匯集提出細胞學說：所有生物皆由細胞構成"
+  ];
+  var track = document.getElementById("track");
+  var pool = document.getElementById("pool");
+  var placed = [];
+
+  function shuffled(arr){
+    var a = arr.slice(), i, j, t;
+    for (i=a.length-1;i>0;i--){ j=Math.floor(Math.random()*(i+1)); t=a[i]; a[i]=a[j]; a[j]=t; }
+    return a;
+  }
+  var poolOrder = shuffled(STEPS);
+
+  function drawTrack(){
+    track.innerHTML = "";
+    STEPS.forEach(function(_, i){
+      var d = document.createElement("div");
+      d.className = "slot" + (placed[i] ? " filled" : "");
+      d.innerHTML = '<span class="n">' + (i+1) + '</span>';
+      d.appendChild(document.createTextNode(placed[i] || ""));
+      if (placed[i]) {
+        d.tabIndex = 0;
+        d.addEventListener("click", function(){ placed[i] = null; render(); });
+      }
+      track.appendChild(d);
+    });
+  }
+  function drawPool(){
+    pool.innerHTML = "";
+    poolOrder.forEach(function(name){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip";
+      b.textContent = name;
+      if (placed.indexOf(name) > -1) b.disabled = true;
+      b.addEventListener("click", function(){
+        var slot = -1, i;
+        for (i=0;i<STEPS.length;i++){ if (!placed[i]) { slot = i; break; } }
+        if (slot < 0) return;
+        placed[slot] = name;
+        render();
+      });
+      pool.appendChild(b);
+    });
+  }
+  function render(){ drawTrack(); drawPool(); }
+  render();
+
+  document.getElementById("flowCheck").addEventListener("click", function(){
+    var fb = document.getElementById("flowFb");
+    var slots = track.querySelectorAll(".slot");
+    var wrong = 0, i;
+    for (i=0;i<STEPS.length;i++){
+      if (placed[i] && placed[i] !== STEPS[i]) { slots[i].classList.add("wrong"); wrong++; }
+      else slots[i].classList.remove("wrong");
+    }
+    if (placed.filter(Boolean).length < STEPS.length) {
+      fb.textContent = "還有卡片沒放進去。";
+    } else if (wrong === 0) {
+      fb.textContent = "順序正確。要注意：虎克只是發現並命名細胞，而且看到的是死掉的軟木塞細胞（只剩細胞壁）；細胞學說是後來的科學家陸續研究後才提出的。";
+    } else {
+      fb.textContent = "有 " + wrong + " 格位置不對（紅框）。先發現、才命名，最後才形成學說。";
+    }
+  });
+  document.getElementById("flowReset").addEventListener("click", function(){
+    placed = []; poolOrder = shuffled(STEPS);
+    document.getElementById("flowFb").textContent = "";
+    render();
+  });
+
+  /* ── 三、顯微鏡比較 ── */
+  var MICRO = {
+    a:{ opts:["與原物方向相同","與原物上下顛倒、左右相反"], ans:"與原物上下顛倒、左右相反" },
+    b:{ opts:["影像較立體，方向與實物相同","影像較平面，方向與實物相反"], ans:"影像較立體，方向與實物相同" },
+    c:{ opts:["右上方移動","左下方移動"], ans:"右上方移動" },
+    d:{ opts:["範圍變寬、變亮","範圍變窄、變暗"], ans:"範圍變窄、變暗" },
+    e:{ opts:["比較大、數目比較少","比較小、數目比較多"], ans:"比較大、數目比較少" }
+  };
+  Array.prototype.forEach.call(document.querySelectorAll("select[data-m]"), function(sel){
+    var conf = MICRO[sel.dataset.m];
+    var blank = document.createElement("option");
+    blank.value = ""; blank.textContent = "（請選擇）";
+    sel.appendChild(blank);
+    conf.opts.forEach(function(o){
+      var op = document.createElement("option");
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    if (state.answers["m-" + sel.dataset.m]) sel.value = state.answers["m-" + sel.dataset.m];
+    sel.addEventListener("change", function(){
+      state.answers["m-" + sel.dataset.m] = sel.value;
+      store.write(state);
+      sel.classList.remove("ok","no");
+    });
+  });
+  document.getElementById("mCheck").addEventListener("click", function(){
+    var right = 0, total = 0;
+    Array.prototype.forEach.call(document.querySelectorAll("select[data-m]"), function(sel){
+      total++;
+      var ok = sel.value === MICRO[sel.dataset.m].ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById("mFb");
+    fb.className = "fb show " + (right === total ? "right" : "wrong");
+    fb.textContent = right === total
+      ? "全對。複式顯微鏡成像相反，所以玻片要往影像偏移的「同方向」移動；解剖顯微鏡成像同方向，玻片要往「反方向」移動。"
+      : "答對 " + right + " / " + total + "。倍率越高，看到的範圍越小、越暗，細胞看起來越大但數目越少。";
+  });
+
+  /* ── 四、練習題 ── */
+  var QS = [
+    { id:"p1", tag:"焦點即時練", type:"fill",
+      text:"細胞是由英國科學家＿＿＿所發現。",
+      ans:["虎克"],
+      why:"約 300 多年前，虎克用自製顯微鏡觀察軟木塞切片而發現。" },
+    { id:"p2", tag:"焦點即時練", type:"choice",
+      text:"下列何者不是生物生存所必備的條件？",
+      opts:["充足的陽光","適宜的大氣","液態的水","大量的石油"], ans:3,
+      why:"生物生存需要陽光、空氣、水和養分，石油不在其中。" },
+    { id:"p3", tag:"焦點即時練", type:"choice",
+      text:"小郁在冷氣太強的電影院裡冷得直發抖，「冷得發抖」屬於何種生命現象？",
+      opts:["生長與發育","代謝","感應與運動","繁殖"], ans:2,
+      why:"感知到環境變冷而產生的反應，屬於感應與運動。" },
+    { id:"p4", tag:"焦點即時練", type:"choice",
+      text:"生物學家所提出的細胞學說中，認為構成生物體最基本的單位是什麼？",
+      opts:["血球","氧氣","葉綠素","細胞"], ans:3,
+      why:"細胞學說：細胞是生物組成的基本單位，所有生物皆由細胞構成。" },
+    { id:"p5", tag:"焦點即時練", type:"choice",
+      text:"虎克以自製顯微鏡觀察軟木塞切片，他看到的主要是細胞的哪一構造？",
+      opts:["細胞核","細胞質","細胞壁","葉綠體"], ans:2,
+      why:"軟木塞是死細胞，只剩下細胞壁，沒有細胞核、細胞質等構造。" },
+    { id:"p6", tag:"實驗題", type:"choice",
+      text:"使用複式顯微鏡時，若目鏡為 20X，則應選用倍率為多少的物鏡，才能使視野下影像放大 200 倍？",
+      opts:["4X","10X","40X","100X"], ans:1,
+      why:"放大倍率＝目鏡倍率×物鏡倍率，200÷20＝10。" },
+    { id:"p7", tag:"實驗題", type:"choice",
+      text:"若想觀察不透光的花瓣表面構造，應選用哪一種顯微鏡較適宜？",
+      opts:["複式顯微鏡","解剖顯微鏡"], ans:1,
+      why:"複式顯微鏡要用可透光的玻片標本；不透光的樣本要用解剖顯微鏡。" },
+    { id:"p8", tag:"實驗題", type:"choice",
+      text:"使用解剖顯微鏡觀察樣本時，若物體在視野的右上方，應往哪一方向移動樣本，才能移到視野中央？",
+      opts:["右上方","右下方","左上方","左下方"], ans:3,
+      why:"解剖顯微鏡成像方向與實物相同，樣本要往影像偏移的反方向移動。" },
+    { id:"p9", tag:"實驗題", type:"choice",
+      text:"使用複式顯微鏡時，主要是利用下列何者來調節視野亮度？",
+      opts:["目鏡和物鏡","鏡筒和鏡臂","光圈和反光鏡","粗、細調節輪"], ans:2,
+      why:"光圈控制通過的光量，反光鏡（或光源鈕）調整進光；調節輪是調清晰度。" },
+    { id:"p10", tag:"實驗題", type:"choice",
+      text:"若在載玻片上寫下「pq」兩字母並放在複式顯微鏡下觀察，視野下的影像應為下列何者？（放大倍率不計）",
+      opts:["bd","qp","pd","bq"], ans:0,
+      why:"複式顯微鏡的影像是把原物上下顛倒、左右相反，等於旋轉 180 度：p 變 d、q 變 b，順序也顛倒，成為 bd。" },
+    { id:"p11", tag:"實驗題", type:"choice",
+      text:"使用解剖顯微鏡時，若兩眼的視野無法重合成一個畫面，應該調整哪一構造？",
+      opts:["倍率調整輪","眼焦調整器","眼距調整器","調節輪"], ans:2,
+      why:"眼距調整器調整兩眼目鏡的間距，使視野重合；眼焦調整器是調左右眼焦距。" }
+  ];
+
+  var host = document.getElementById("qs");
+
+  QS.forEach(function(q, idx){
+    var box = document.createElement("div");
+    box.className = "q";
+    box.id = "box-" + q.id;
+
+    var head = document.createElement("p");
+    head.className = "qtext";
+    head.innerHTML = '<span class="qtag"></span> ';
+    head.querySelector(".qtag").textContent = q.tag;
+    head.appendChild(document.createTextNode(" " + (idx+1) + ". " + q.text));
+    box.appendChild(head);
+
+    if (q.type === "choice") {
+      var ul = document.createElement("ul");
+      ul.className = "opts";
+      q.opts.forEach(function(opt, i){
+        var li = document.createElement("li");
+        var lab = document.createElement("label");
+        var r = document.createElement("input");
+        r.type = "radio"; r.name = q.id; r.value = String(i);
+        if (state.answers[q.id] === String(i)) r.checked = true;
+        r.addEventListener("change", function(){
+          state.answers[q.id] = r.value; store.write(state);
+        });
+        lab.appendChild(r);
+        lab.appendChild(document.createTextNode("(" + "ABCD".charAt(i) + ") " + opt));
+        li.appendChild(lab);
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    } else {
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.size = 12;
+      inp.setAttribute("aria-label", "填答");
+      if (state.answers[q.id]) inp.value = state.answers[q.id];
+      inp.addEventListener("input", function(){
+        state.answers[q.id] = inp.value; store.write(state); inp.classList.remove("ok","no");
+      });
+      box.appendChild(inp);
+    }
+
+    var fb = document.createElement("p");
+    fb.className = "fb";
+    fb.id = "fb-" + q.id;
+    box.appendChild(fb);
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "act ghost";
+    btn.style.marginTop = "8px";
+    btn.textContent = "對答案";
+    btn.addEventListener("click", function(){ judge(q); updateScore(); });
+    box.appendChild(btn);
+
+    host.appendChild(box);
+  });
+
+  function isRight(q){
+    var v = state.answers[q.id];
+    if (v === undefined || v === "") return null;
+    if (q.type === "choice") return String(q.ans) === v;
+    var t = v.replace(/\s/g,"");
+    return q.ans.indexOf(t) > -1;
+  }
+
+  function judge(q){
+    var ok = isRight(q);
+    var fb = document.getElementById("fb-" + q.id);
+    if (ok === null) {
+      fb.className = "fb show wrong";
+      fb.textContent = "還沒作答。";
+      return;
+    }
+    logResult(q, ok);
+    fb.className = "fb show " + (ok ? "right" : "wrong");
+    var ansText = q.type === "choice"
+      ? "答案：(" + "ABCD".charAt(q.ans) + ")"
+      : "答案：" + q.ans[0];
+    fb.textContent = (ok ? "答對了。" : "再看一次。") + ansText + "　" + q.why;
+    if (q.type === "fill") {
+      var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+      inp.classList.toggle("ok", ok); inp.classList.toggle("no", !ok);
+    }
+  }
+
+  function updateScore(){
+    var right = 0;
+    QS.forEach(function(q){ if (isRight(q) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + QS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
+    else if (right >= 8) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else note.textContent = "先回上面的顯微鏡比較表確認一次，再回來作答。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    QS.forEach(judge); updateScore();
+  });
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一份的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    QS.forEach(function(q){
+      var fb = document.getElementById("fb-" + q.id);
+      fb.className = "fb"; fb.textContent = "";
+      if (q.type === "choice") {
+        Array.prototype.forEach.call(document.getElementsByName(q.id), function(r){ r.checked = false; });
+      } else {
+        var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+        inp.value = ""; inp.classList.remove("ok","no");
+      }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("select[data-s], select[data-m]"), function(sel){
+      sel.value = ""; sel.classList.remove("ok","no");
+    });
+    document.getElementById("sortFb").className = "fb";
+    document.getElementById("mFb").className = "fb";
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>

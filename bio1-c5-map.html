@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第 5 章 學習地圖｜互動填答</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:0 0 120px;font-weight:700;}
+  .sortrow select{flex:1 1 240px;}
+
+  table.pair{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.pair th,table.pair td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.pair th{background:#F3F7F2;width:190px;font-weight:700;}
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select{width:100%;}
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+
+  table.map{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.map th,table.map td{border:1px solid var(--rule-soft);padding:7px 9px;text-align:left;vertical-align:top;}
+  table.map th{background:#F3F7F2;font-weight:700;}
+  .mapline{margin:.5em 0;font-size:.96rem;}
+  .mapnote{font-size:.88rem;color:var(--ink-soft);margin:.4em 0 0;}
+  .bno{display:inline-block;color:var(--rose);font-weight:700;font-size:.8rem;margin-right:4px;}
+  input.blank{background:#FFFDF4;border-color:var(--amber);}
+  input.blank.ok{border-color:var(--leaf);background:#F1F7F0;}
+  input.blank.no{border-color:var(--rose);background:#FBF1F3;}
+  .chain{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.93rem;margin:.5em 0;}
+  .chain .node{border:1px solid var(--rule);border-radius:8px;padding:4px 10px;background:#F7FAF6;}
+  .chain .arrow{color:var(--ink-soft);}
+  .fbwrap .fb{margin:.4em 0 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 第 5 章 · P.210–211</p>
+  <h1>第 5 章 學習地圖</h1>
+</header>
+
+<div class="goal">
+  <h2>這一頁怎麼用</h2>
+  <ol>
+    <li>把整章串成一張圖，讀過去就等於複習了 5-1 到 5-4。</li>
+    <li>圖裡有十二個編號填答格（①～⑫），順序照講義排。</li>
+    <li>每一區填完按「對答案」，答錯的會收進總覽頁的錯題本。</li>
+  </ol>
+</div>
+
+<details class="brief" open>
+  <summary>全章重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li><b>Start</b>：各器官系統協調合作，維持體內的穩定，稱為<b>恆定性</b>。這一章談的四件事就是體溫、氣體、水分和血糖的恆定。</li>
+    <li><b>外溫動物</b>從外界環境中吸收熱量來維持體溫，<b>內溫動物</b>則利用本身代謝作用所產生的熱量。</li>
+    <li><b>體溫升高</b>時，腦內的體溫控制中心讓產熱減少（活動力下降）、散熱增加（皮膚微血管血液量增加、汗腺排汗）。</li>
+    <li><b>體溫降低</b>時，則是產熱增加（肌肉收縮顫抖、食慾增加）、散熱減少（皮膚微血管血液量減少），最後回到體溫適中。</li>
+    <li><b>排泄作用</b>是排除細胞代謝作用產生的代謝廢物：肺經呼氣排出水和二氧化碳，皮膚經流汗排出水、尿素和礦物質，泌尿系統經尿液排出水、尿素和礦物質。</li>
+    <li><b>含氮廢物來自蛋白質</b>：蛋白質分解成胺基酸，代謝後產生含氮廢物，也就是氨，再視動物種類轉變成尿素或尿酸。</li>
+    <li><b>三種含氮廢物</b>：氨毒性大，見於水中單細胞生物和大多數魚類，以擴散作用排出；尿素見於大部分哺乳類，混在尿液中排出；尿酸毒性小，見於昆蟲和鳥類，混在糞便中排出。</li>
+    <li><b>人體的泌尿系統</b>由腎臟、輸尿管、膀胱和尿道組成。</li>
+    <li><b>人體的呼吸系統</b>：鼻腔、咽喉、氣管、支氣管、肺。吸氣獲得氧氣，呼氣排除二氧化碳，氣體交換就發生在<b>肺泡</b>。</li>
+    <li><b>呼吸運動</b>是吸氣與呼氣的動作：吸氣時肋骨上舉、橫膈下降、胸腔變大、肺變大；呼氣時肋骨下降、橫膈上升、胸腔變小、肺變小。</li>
+    <li><b>呼吸作用</b>：細胞利用氧氣，將養分分解，釋放二氧化碳、水與能量。反應式是葡萄糖加氧氣，生成二氧化碳、水和能量。生物所需的能量主要來自呼吸作用。</li>
+    <li><b>實驗5-2</b>：檢測水用氯化亞鈷試紙，由藍變紅；檢測二氧化碳用澄清石灰水，由澄清變混濁。</li>
+    <li><b>血糖過高</b>時分泌胰島素：一方面讓葡萄糖進入細胞內供利用以消耗血糖，一方面讓肝細胞與肌肉細胞把葡萄糖合成<b>肝糖</b>儲存起來，血糖便降回正常。</li>
+    <li><b>血糖過低</b>時分泌升糖素：肝細胞將肝糖轉成葡萄糖釋放至血液，血糖便升回正常。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、5-1 恆定性與體溫的恆定</h2>
+  <p class="hint">Start：各器官系統協調合作，維持體內的穩定，稱為恆定性。</p>
+
+  <table class="map">
+    <tr><th style="width:24%"><span class="bk" data-b="b1"></span> 動物</th><td>從外界環境中吸收熱量來維持體溫</td></tr>
+    <tr><th><span class="bk" data-b="b2"></span> 動物</th><td>利用本身代謝作用所產生的熱量來維持體溫</td></tr>
+  </table>
+
+  <p class="hint" style="margin:1em 0 .2em;">體溫升高　→　腦內體溫控制中心　→　如何降低？</p>
+  <table class="map">
+    <tr><th style="width:24%">產熱　減少</th><td>活動力下降</td></tr>
+    <tr><th>散熱　<span class="bk" data-b="b3"></span></th><td>皮膚微血管血液量增加、汗腺排汗</td></tr>
+  </table>
+
+  <p class="hint" style="margin:1em 0 .2em;">體溫降低　→　腦內體溫控制中心　→　如何升高？</p>
+  <table class="map">
+    <tr><th style="width:24%">產熱　<span class="bk" data-b="b4"></span></th><td>肌肉收縮、顫抖、食慾增加</td></tr>
+    <tr><th>散熱　減少</th><td>皮膚微血管血液量減少</td></tr>
+  </table>
+  <p class="mapnote">兩條路最後都回到：體溫適中。</p>
+
+  <div class="actions"><button class="act" data-check="a" type="button">對答案</button></div>
+  <div class="fbwrap" id="fb-a"></div>
+</section>
+
+<section class="card">
+  <h2>二、5-4 排泄作用與水分的恆定</h2>
+  <p class="hint">排泄作用：排除細胞代謝作用產生的代謝廢物。</p>
+
+  <table class="map">
+    <tr><th style="width:26%"><span class="bk" data-b="b5"></span></th><td>呼氣　→　排出水、二氧化碳</td></tr>
+    <tr><th>皮膚</th><td>流汗　→　排出水、尿素、礦物質</td></tr>
+    <tr><th>泌尿系統</th><td>排出尿液　→　排出水、尿素、礦物質</td></tr>
+  </table>
+
+  <p class="hint" style="margin:1em 0 .2em;">含氮廢物從哪裡來？</p>
+  <div class="chain">
+    <span class="node"><span class="bk" data-b="b6"></span></span><span class="arrow">▸</span>
+    <span class="node">胺基酸</span><span class="arrow">▸</span>
+    <span class="node">含氮廢物</span><span class="arrow">▸</span>
+    <span class="node">氨</span><span class="arrow">▸</span>
+    <span class="node">尿酸／尿素</span>
+  </div>
+
+  <table class="map">
+    <tr><th style="width:20%">含氮廢物</th><th>毒性</th><th>生物種類</th><th>排出方式</th></tr>
+    <tr><td>氨</td><td>大</td><td>水中單細胞生物、大多數的魚類</td><td>擴散作用</td></tr>
+    <tr><td><span class="bk" data-b="b7"></span></td><td>↓</td><td>大部分的哺乳類</td><td>混在尿液中</td></tr>
+    <tr><td>尿酸</td><td>小</td><td>昆蟲、鳥類</td><td>混在糞便中</td></tr>
+  </table>
+  <p class="mapnote">人體的泌尿系統：腎臟、輸尿管、膀胱、尿道。</p>
+
+  <div class="actions"><button class="act" data-check="b" type="button">對答案</button></div>
+  <div class="fbwrap" id="fb-b"></div>
+</section>
+
+<section class="card">
+  <h2>三、5-2 呼吸與氣體的恆定</h2>
+  <p class="hint">人體的呼吸系統：鼻腔、咽喉、氣管、支氣管、肺。吸氣獲得 O₂，呼氣排除 CO₂。</p>
+
+  <table class="map">
+    <tr><th style="width:26%">氣體交換的場所</th><td><span class="bk" data-b="b8"></span>　（與微血管間交換氧氣和二氧化碳）</td></tr>
+  </table>
+
+  <p class="hint" style="margin:1em 0 .2em;">呼吸運動：吸氣與呼氣的動作</p>
+  <table class="map">
+    <tr><th style="width:20%">　</th><th>肺</th><th><span class="bk" data-b="b9"></span></th><th>橫膈</th><th>胸腔</th></tr>
+    <tr><td>吸氣</td><td>變大</td><td>上舉</td><td>下降</td><td>變大</td></tr>
+    <tr><td>呼氣</td><td>變小</td><td>下降</td><td>上升</td><td>變小</td></tr>
+  </table>
+
+  <p class="mapline"><span class="bk" data-b="b10"></span> <b>作用</b>：細胞利用氧氣，將養分分解，釋放二氧化碳、水與能量。</p>
+  <div class="chain">
+    <span class="node">葡萄糖</span><span class="arrow">＋</span>
+    <span class="node">氧氣</span><span class="arrow">→</span>
+    <span class="node">二氧化碳</span><span class="arrow">＋</span>
+    <span class="node">水</span><span class="arrow">＋</span>
+    <span class="node">能量</span>
+  </div>
+
+  <p class="hint" style="margin:1em 0 .2em;"><b>實驗5-2</b>　如何檢驗生物呼吸作用後所呼出的氣體成分？</p>
+  <table class="map">
+    <tr><th style="width:26%">檢測物</th><th>檢測劑</th><th>顏色變化</th></tr>
+    <tr><td><span class="bk" data-b="b11"></span></td><td>氯化亞鈷試紙</td><td>藍 → 紅</td></tr>
+    <tr><td>二氧化碳</td><td>澄清石灰水</td><td>澄清 → 混濁</td></tr>
+  </table>
+
+  <div class="actions"><button class="act" data-check="c" type="button">對答案</button></div>
+  <div class="fbwrap" id="fb-c"></div>
+</section>
+
+<section class="card">
+  <h2>四、5-3 血糖的恆定</h2>
+  <p class="hint">血糖的調控：太高就收起來，太低就放出來。</p>
+
+  <table class="map">
+    <tr><th style="width:20%">血糖過高</th><td>分泌胰島素</td><td>消耗血糖：葡萄糖進入細胞內，供細胞利用<br>儲存血糖：肝細胞與肌肉細胞吸收血液中的葡萄糖，合成 <span class="bk" data-b="b12"></span></td></tr>
+    <tr><th>血糖過低</th><td>分泌升糖素</td><td>增加血糖：肝細胞將肝糖轉成葡萄糖，釋放至血液</td></tr>
+  </table>
+  <p class="mapnote">兩條路最後都回到：血糖正常。</p>
+
+  <div class="actions"><button class="act" data-check="d" type="button">對答案</button></div>
+  <div class="fbwrap" id="fb-d"></div>
+</section>
+
+<section class="card">
+  <h2>五、整張地圖一起對</h2>
+  <p class="hint">十二格填完後，可以一次檢查。</p>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>填答區答對</span><b id="score">0 / 12</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）第 5 章 學習地圖 P.210–211 配套互動填答頁。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-c5-map-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"c5-map", title:"第 5 章 學習地圖", file:"bio1-c5-map.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  var BLANKS = [
+    { id:"b1", no:"①", card:"a", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["外溫"],
+      text:"學習地圖①　從外界環境中吸收熱量來維持體溫的是＿＿動物。",
+      why:"外溫動物的體溫會隨環境改變，例如兩生類、爬蟲類和魚類。" },
+    { id:"b2", no:"②", card:"a", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["內溫"],
+      text:"學習地圖②　利用本身代謝作用所產生的熱量維持體溫的是＿＿動物。",
+      why:"內溫動物的體溫不隨環境改變，例如鳥類和哺乳類，還能靠羽毛、毛髮和皮下脂肪保溫。" },
+    { id:"b3", no:"③", card:"a", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["增加"],
+      text:"學習地圖③　體溫升高時，散熱要＿＿（皮膚微血管血液量增加、汗腺排汗）。",
+      why:"熱的時候是「產熱減少、散熱增加」，兩件事同時做才降得下來。" },
+    { id:"b4", no:"④", card:"a", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["增加"],
+      text:"學習地圖④　體溫降低時，產熱要＿＿（肌肉收縮、顫抖、食慾增加）。",
+      why:"冷的時候剛好相反，是「產熱增加、散熱減少」。" },
+    { id:"b5", no:"⑤", card:"b", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["肺"],
+      text:"學習地圖⑤　經由呼氣排出水和二氧化碳的排泄器官是＿。",
+      why:"人體的三個排泄器官是腎臟、肺和皮膚；肺負責排出二氧化碳和少量水分。" },
+    { id:"b6", no:"⑥", card:"b", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["蛋白質"],
+      text:"學習地圖⑥　含氮廢物來自哪一種養分的代謝？＿＿＿。",
+      why:"蛋白質分解成胺基酸，代謝後產生含氮廢物氨；醣類和脂質代謝則不會產生含氮廢物。" },
+    { id:"b7", no:"⑦", card:"b", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["尿素"],
+      text:"學習地圖⑦　大部分哺乳類的含氮廢物，混在尿液中排出的是＿＿。",
+      why:"毒性由大到小是氨、尿素、尿酸；哺乳類在肝臟把氨轉成尿素，再由腎臟形成尿液排出。" },
+    { id:"b8", no:"⑧", card:"c", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["肺泡"],
+      text:"學習地圖⑧　人體進行氣體交換的場所是＿＿。",
+      why:"肺由許多肺泡組成，肺泡壁和微血管壁都很薄，氧氣和二氧化碳可經擴散作用交換。" },
+    { id:"b9", no:"⑨", card:"c", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["肋骨"],
+      text:"學習地圖⑨　吸氣時上舉、呼氣時下降的構造是＿＿。",
+      why:"肋骨和橫膈剛好相反：吸氣時肋骨上舉、橫膈下降；呼氣時肋骨下降、橫膈上升。" },
+    { id:"b10", no:"⑩", card:"c", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["呼吸","呼吸作用"],
+      text:"學習地圖⑩　細胞利用氧氣分解養分、釋放能量的過程稱為＿＿作用。",
+      why:"注意和呼吸運動區分：呼吸運動是呼氣吸氣的動作，呼吸作用是細胞內的化學反應。" },
+    { id:"b11", no:"⑪", card:"c", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["水","水分","水氣"],
+      text:"學習地圖⑪　用氯化亞鈷試紙（藍變紅）檢測的是＿。",
+      why:"氯化亞鈷試紙只對水起反應；檢測二氧化碳要用澄清石灰水，由澄清變混濁。" },
+    { id:"b12", no:"⑫", card:"d", tag:"學習地圖", type:"fill", width:"5em",
+      ans:["肝糖"],
+      text:"學習地圖⑫　血糖過高時，肝細胞與肌肉細胞把葡萄糖合成＿＿儲存。",
+      why:"肝糖是葡萄糖的儲存形式；血糖太低時，升糖素再讓肝糖轉回葡萄糖釋放到血液中。" }
+  ];
+
+  var BY_ID = {};
+  BLANKS.forEach(function(b){ BY_ID[b.id] = b; });
+
+  Array.prototype.forEach.call(document.querySelectorAll("span.bk"), function(slot){
+    var b = BY_ID[slot.dataset.b];
+    if (!b) return;
+    var no = document.createElement("span");
+    no.className = "bno";
+    no.textContent = b.no;
+    var inp = document.createElement("input");
+    inp.type = "text";
+    inp.className = "blank";
+    inp.style.width = b.width;
+    inp.setAttribute("aria-label", "填答 " + b.no);
+    inp.dataset.b = b.id;
+    if (state.answers[b.id]) inp.value = state.answers[b.id];
+    inp.addEventListener("input", function(){
+      state.answers[b.id] = inp.value;
+      store.write(state);
+      inp.classList.remove("ok","no");
+    });
+    slot.appendChild(no);
+    slot.appendChild(inp);
+  });
+
+  function isRight(b){
+    var v = state.answers[b.id];
+    if (v === undefined || v === "") return null;
+    var t = v.replace(/\s/g,"");
+    return b.ans.indexOf(t) > -1;
+  }
+
+  function judge(b){
+    var ok = isRight(b);
+    var inp = document.querySelector('input.blank[data-b="' + b.id + '"]');
+    if (ok === null) {
+      inp.classList.remove("ok","no");
+      return { blank:b, ok:null };
+    }
+    logResult(b, ok);
+    inp.classList.toggle("ok", ok);
+    inp.classList.toggle("no", !ok);
+    return { blank:b, ok:ok };
+  }
+
+  function renderCard(card){
+    var wrap = document.getElementById("fb-" + card);
+    wrap.innerHTML = "";
+    BLANKS.filter(function(b){ return b.card === card; }).forEach(function(b){
+      var r = judge(b);
+      var p = document.createElement("p");
+      if (r.ok === null) {
+        p.className = "fb show wrong";
+        p.textContent = b.no + "　還沒作答。";
+      } else {
+        p.className = "fb show " + (r.ok ? "right" : "wrong");
+        p.textContent = b.no + "　" + (r.ok ? "答對了。" : "再看一次。")
+          + "答案：" + b.ans[0] + "　" + b.why;
+      }
+      wrap.appendChild(p);
+    });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll("button[data-check]"), function(btn){
+    btn.addEventListener("click", function(){
+      renderCard(btn.dataset.check);
+      updateScore();
+    });
+  });
+
+  function updateScore(){
+    var right = 0;
+    BLANKS.forEach(function(b){ if (isRight(b) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + BLANKS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === BLANKS.length) note.textContent = "整張地圖都填對了，這一章可以收工。";
+    else if (right >= 9) note.textContent = "大部分都記得了，錯的看一次解說再回頭填。";
+    else note.textContent = "先展開上面的「全章重點整理」讀一遍，再回來填。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    ["a","b","c","d"].forEach(renderCard);
+    updateScore();
+  });
+
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一頁的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    Array.prototype.forEach.call(document.querySelectorAll("input.blank"), function(inp){
+      inp.value = ""; inp.classList.remove("ok","no");
+    });
+    ["a","b","c","d"].forEach(function(card){
+      document.getElementById("fb-" + card).innerHTML = "";
+    });
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>

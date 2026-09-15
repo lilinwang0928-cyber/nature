@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>跨科主題 第 1 節 巨觀尺度與微觀尺度｜互動學習單</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:0 0 120px;font-weight:700;}
+  .sortrow select{flex:1 1 240px;}
+
+  table.pair{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.pair th,table.pair td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.pair th{background:#F3F7F2;width:190px;font-weight:700;}
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select{width:100%;}
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 跨科主題 世界的各種大小樣貌 · P.53–55</p>
+  <h1>第 1 節 巨觀尺度與微觀尺度</h1>
+</header>
+
+<div class="goal">
+  <h2>學完這一小節，你要能夠……</h2>
+  <ol>
+    <li>定義微觀尺度與巨觀尺度，並判斷自然界中的生物屬於哪一種。</li>
+    <li>說明為什麼觀察微觀尺度的事物需要工具輔助。</li>
+    <li>用不同尺度的觀點，解釋生活中遇到的一些現象。</li>
+  </ol>
+</div>
+
+<details class="brief" open>
+  <summary>學習重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li>觀察物體的<b>倍率</b>不同，使用的尺度也不同；使用不同尺度觀察相同的東西，能觀察到的現象與特徵也不同。</li>
+    <li>以蜻蜓的複眼為例：近景拍攝看到的是圓形的眼睛，放大拍攝才看得出是由<b>許多六角形小眼</b>組成。</li>
+    <li>複眼中的每個小眼都能感覺光線明暗及顏色，昆蟲的視力雖然不太好，但眾多小眼可以讓視野更廣闊。</li>
+    <li><b>微觀尺度</b>是肉眼不可見的微小事物，例如新型冠狀病毒、大腸桿菌、紅血球。</li>
+    <li><b>巨觀尺度</b>是肉眼可見或更大的事物，例如人類約 1.6 公尺、金星直徑 12104 公里。</li>
+    <li>一般而言，在距離人眼<b>25 公分</b>處的兩點，須相隔<b>0.1 毫米</b>以上才能被分辨，所以觀察微觀尺度的事物需要使用工具輔助，例如放大鏡、顯微鏡。</li>
+    <li>望遠鏡是用來觀察遠方巨大事物的，<b>不屬於</b>觀察微觀尺度的工具。</li>
+    <li>有些現象需要透過微觀尺度觀察才能解釋原理，例如水生植物的葉面能防水、鳥類飛行羽毛不會被風吹亂。</li>
+    <li><b>槐葉蘋和蓮花的葉片表面</b>有許多微小的突起，因此可防水且不易沾附雜質。</li>
+    <li><b>蓮花效應</b>：蓮葉表面具有超疏水性及自潔的特性，微觀結構使蓮葉不會被水潤濕，水滴在葉面形成小水珠，水珠滾動時帶走葉面的汙泥，達到自然潔淨的效果。</li>
+    <li><b>鳥類的飛行羽毛</b>：羽軸的兩側有羽枝和羽小枝，排列密集且整齊，使飛行羽呈一整層薄片狀，可以隔絕風。</li>
+    <li>鳥類羽毛依著生部位可分為飛行羽、尾羽和覆羽；依外表特徵可分為正羽、絨羽、半絨羽和纖羽。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、巨觀尺度還是微觀尺度？</h2>
+  <p class="hint">判斷標準只有一個：肉眼看不看得見。</p>
+  <div id="sorts"></div>
+  <div class="actions"><button class="act" id="sortCheck" type="button">檢查分類</button></div>
+  <p class="fb" id="sortFb"></p>
+</section>
+
+<section class="card">
+  <h2>二、這個現象的微觀原理是什麼？</h2>
+  <p class="hint">有些現象要放大到微觀尺度才解釋得通。</p>
+  <table class="pair" id="pairTable"></table>
+  <div class="actions"><button class="act" id="pairCheck" type="button">檢查</button></div>
+  <p class="fb" id="pairFb"></p>
+</section>
+
+<section class="card">
+  <h2>三、練習題</h2>
+  <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
+  <div id="qs"></div>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>練習題答對</span><b id="score">0 / 8</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）跨科主題 第 1 節 巨觀尺度與微觀尺度 P.53–55 配套互動學習單。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-cx-1-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"cx-1", title:"跨科主題 第 1 節 巨觀尺度與微觀尺度", file:"bio1-cx-1.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = (q.type === "choice")
+      ? "(" + "ABCD".charAt(q.ans) + ") " + q.opts[q.ans]
+      : q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  /* ── 一、尺度分類 ── */
+  var SCALE = ["微觀尺度","巨觀尺度"];
+  var SORTS = [
+    { id:"s1", name:"新型冠狀病毒", ans:"微觀尺度" },
+    { id:"s2", name:"大腸桿菌", ans:"微觀尺度" },
+    { id:"s3", name:"紅血球", ans:"微觀尺度" },
+    { id:"s4", name:"草履蟲", ans:"微觀尺度" },
+    { id:"s5", name:"眼蟲", ans:"微觀尺度" },
+    { id:"s6", name:"螞蟻", ans:"巨觀尺度" },
+    { id:"s7", name:"人類（約 1.6 公尺）", ans:"巨觀尺度" },
+    { id:"s8", name:"金星（直徑 12104 公里）", ans:"巨觀尺度" }
+  ];
+
+  var sortHost = document.getElementById("sorts");
+  SORTS.forEach(function(item){
+    var row = document.createElement("div");
+    row.className = "sortrow";
+    var p = document.createElement("p");
+    p.textContent = item.name;
+    var sel = document.createElement("select");
+    sel.dataset.s = item.id;
+    var blank = document.createElement("option");
+    blank.value = ""; blank.textContent = "（請選擇）";
+    sel.appendChild(blank);
+    SCALE.forEach(function(w){
+      var op = document.createElement("option");
+      op.value = w; op.textContent = w;
+      sel.appendChild(op);
+    });
+    if (state.answers["sort-" + item.id]) sel.value = state.answers["sort-" + item.id];
+    sel.addEventListener("change", function(){
+      state.answers["sort-" + item.id] = sel.value;
+      store.write(state);
+      sel.classList.remove("ok","no");
+    });
+    row.appendChild(p);
+    row.appendChild(sel);
+    sortHost.appendChild(row);
+  });
+
+  document.getElementById("sortCheck").addEventListener("click", function(){
+    var right = 0;
+    SORTS.forEach(function(item){
+      var sel = document.querySelector('select[data-s="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById("sortFb");
+    fb.className = "fb show " + (right === SORTS.length ? "right" : "wrong");
+    fb.textContent = right === SORTS.length
+      ? "全對。螞蟻雖然很小，但肉眼看得見，所以是巨觀尺度；細胞和微生物才是微觀尺度。"
+      : "答對 " + right + " / " + SORTS.length + "。問自己一句：不用工具，肉眼看得到嗎？看得到就是巨觀。";
+  });
+
+  /* ── 二、微觀原理 ── */
+  function buildSelectTable(tableId, dataAttr, rows, options){
+    var table = document.getElementById(tableId);
+    rows.forEach(function(item){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = item.name;
+      var td = document.createElement("td");
+      var sel = document.createElement("select");
+      sel.dataset[dataAttr] = item.id;
+      var blank = document.createElement("option");
+      blank.value = ""; blank.textContent = "（請選擇）";
+      sel.appendChild(blank);
+      options.forEach(function(o){
+        var op = document.createElement("option");
+        op.value = o; op.textContent = o;
+        sel.appendChild(op);
+      });
+      var savedKey = dataAttr + "-" + item.id;
+      if (state.answers[savedKey]) sel.value = state.answers[savedKey];
+      sel.addEventListener("change", function(){
+        state.answers[savedKey] = sel.value;
+        store.write(state);
+        sel.classList.remove("ok","no");
+      });
+      td.appendChild(sel);
+      tr.appendChild(th);
+      tr.appendChild(td);
+      table.appendChild(tr);
+    });
+  }
+  function checkSelectTable(dataAttr, rows, fbId, allRight, hint){
+    var right = 0;
+    rows.forEach(function(item){
+      var sel = document.querySelector("select[data-" + dataAttr + '="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById(fbId);
+    fb.className = "fb show " + (right === rows.length ? "right" : "wrong");
+    fb.textContent = right === rows.length ? allRight
+      : "答對 " + right + " / " + rows.length + "。" + hint;
+  }
+
+  var REASONS = [
+    "葉片表面有許多微小的突起，因此防水且不易沾附雜質",
+    "羽軸兩側的羽枝和羽小枝排列密集整齊，使飛行羽呈一整層薄片狀",
+    "眼睛其實是由許多六角形的小眼所組成",
+    "在距離人眼 25 公分處，兩點須相隔 0.1 毫米以上才能被分辨"
+  ];
+  var PAIRS = [
+    { id:"p1", name:"蓮葉不會被水潤濕，水珠滾動時還會帶走汙泥", ans:REASONS[0] },
+    { id:"p2", name:"鳥類的飛行羽毛不會被風吹亂", ans:REASONS[1] },
+    { id:"p3", name:"蜻蜓的眼睛放大拍攝後，看起來完全不一樣", ans:REASONS[2] },
+    { id:"p4", name:"細菌明明就在身邊，肉眼卻怎麼也看不到", ans:REASONS[3] }
+  ];
+
+  buildSelectTable("pairTable", "p", PAIRS, REASONS);
+  document.getElementById("pairCheck").addEventListener("click", function(){
+    checkSelectTable("p", PAIRS, "pairFb",
+      "全對。這一節的核心就是：換一個尺度看，本來想不通的現象就有答案了。",
+      "蓮葉靠突起、羽毛靠密排的羽小枝、複眼靠小眼、看不見則是因為超過人眼能分辨的極限。");
+  });
+
+  /* ── 三、練習題 ── */
+  var QS = [
+    { id:"q1", tag:"焦點即時練", type:"fill",
+      text:"生活中許多肉眼不可見的微生物，屬於＿＿尺度。",
+      ans:["微觀","微觀尺度"],
+      why:"肉眼不可見的微小事物屬於微觀尺度，需要顯微鏡等工具才能觀察。" },
+    { id:"q2", tag:"焦點即時練", type:"fill",
+      text:"科學家觀察宇宙中不同的星球，需使用太空望遠鏡或衛星拍攝等技術，這些星球屬於＿＿尺度。",
+      ans:["巨觀","巨觀尺度"],
+      why:"星球是肉眼可見或更大的事物，屬於巨觀尺度。用望遠鏡是因為距離遠，不是因為它小。" },
+    { id:"q3", tag:"焦點即時練", type:"choice",
+      text:"甲.草履蟲　乙.小丑魚　丙.螞蟻　丁.眼蟲　戊.細菌，下列各種生物中，哪些屬於微觀尺度？",
+      opts:["甲乙丙","乙丙戊","甲丁戊","丙丁戊"], ans:2,
+      why:"草履蟲、眼蟲、細菌都要用顯微鏡才看得到；小丑魚和螞蟻肉眼可見，屬於巨觀尺度。" },
+    { id:"q4", tag:"焦點即時練", type:"choice",
+      text:"觀察微觀尺度的事物需透過工具輔助，則下列何者不屬於此類工具？",
+      opts:["複式顯微鏡","解剖顯微鏡","放大鏡","望遠鏡"], ans:3,
+      why:"望遠鏡是用來觀察遠方的巨大物體，不是用來放大微小事物的。" },
+    { id:"q5", tag:"實力養成評量", type:"choice",
+      text:"下列何者屬於巨觀尺度？",
+      opts:["病毒","保衛細胞","月球","變形蟲"], ans:2,
+      why:"病毒、保衛細胞、變形蟲都要用工具才看得到；月球肉眼可見，屬於巨觀尺度。" },
+    { id:"q6", tag:"實力養成評量", type:"choice",
+      text:"關於尺度的敘述，下列何者錯誤？",
+      opts:[
+        "肉眼可見的事物，則其細部構造必為巨觀尺度",
+        "血球細胞需使用顯微鏡才可觀察，屬於微觀尺度",
+        "使用望遠鏡觀察對面山坡的牛，則牛屬於巨觀尺度",
+        "微觀尺度的事物需要使用顯微鏡或放大鏡等工具輔助觀察"
+      ], ans:0,
+      why:"肉眼可見的東西，細部構造仍可能是微觀的。蜻蜓的眼睛肉眼看得到，但組成它的小眼要放大才看得見。" },
+    { id:"q7", tag:"題組", type:"choice",
+      text:"中秀使用放大鏡觀察人厭槐葉蘋葉片表面時，看到細毛構造。此細毛構造與人厭槐葉蘋葉片的何種特性相關？",
+      opts:["葉片呈現綠色","不易沾附雜質及水滴","可浮於水面上","葉面可吸水"], ans:1,
+      why:"葉面的微小突起讓水不易附著，效果和蓮花葉片表面相同，也就是蓮花效應。" },
+    { id:"q8", tag:"題組", type:"choice",
+      text:"承上題，關於人厭槐葉蘋葉片表面細毛構造的敘述，下列何者錯誤？",
+      opts:[
+        "為微觀尺度",
+        "效果類似蓮花葉片表面的突起",
+        "不須使用工具輔助即可觀察",
+        "葉面細毛為肉眼無法觀察的微小構造"
+      ], ans:2,
+      why:"題目一開始就說中秀是「使用放大鏡」才看到的，代表肉眼看不到，必須靠工具輔助。" }
+  ];
+
+  var host = document.getElementById("qs");
+
+  QS.forEach(function(q, idx){
+    var box = document.createElement("div");
+    box.className = "q";
+    box.id = "box-" + q.id;
+
+    var head = document.createElement("p");
+    head.className = "qtext";
+    head.innerHTML = '<span class="qtag"></span> ';
+    head.querySelector(".qtag").textContent = q.tag;
+    head.appendChild(document.createTextNode(" " + (idx+1) + ". " + q.text));
+    box.appendChild(head);
+
+    if (q.type === "choice") {
+      var ul = document.createElement("ul");
+      ul.className = "opts";
+      q.opts.forEach(function(opt, i){
+        var li = document.createElement("li");
+        var lab = document.createElement("label");
+        var r = document.createElement("input");
+        r.type = "radio"; r.name = q.id; r.value = String(i);
+        if (state.answers[q.id] === String(i)) r.checked = true;
+        r.addEventListener("change", function(){
+          state.answers[q.id] = r.value; store.write(state);
+        });
+        lab.appendChild(r);
+        lab.appendChild(document.createTextNode("(" + "ABCD".charAt(i) + ") " + opt));
+        li.appendChild(lab);
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    } else {
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.size = 12;
+      inp.setAttribute("aria-label", "填答");
+      if (state.answers[q.id]) inp.value = state.answers[q.id];
+      inp.addEventListener("input", function(){
+        state.answers[q.id] = inp.value; store.write(state); inp.classList.remove("ok","no");
+      });
+      box.appendChild(inp);
+    }
+
+    var fb = document.createElement("p");
+    fb.className = "fb";
+    fb.id = "fb-" + q.id;
+    box.appendChild(fb);
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "act ghost";
+    btn.style.marginTop = "8px";
+    btn.textContent = "對答案";
+    btn.addEventListener("click", function(){ judge(q); updateScore(); });
+    box.appendChild(btn);
+
+    host.appendChild(box);
+  });
+
+  function isRight(q){
+    var v = state.answers[q.id];
+    if (v === undefined || v === "") return null;
+    if (q.type === "choice") return String(q.ans) === v;
+    var t = v.replace(/\s/g,"");
+    return q.ans.indexOf(t) > -1;
+  }
+
+  function judge(q){
+    var ok = isRight(q);
+    var fb = document.getElementById("fb-" + q.id);
+    if (ok === null) {
+      fb.className = "fb show wrong";
+      fb.textContent = "還沒作答。";
+      return;
+    }
+    logResult(q, ok);
+    fb.className = "fb show " + (ok ? "right" : "wrong");
+    var ansText = q.type === "choice"
+      ? "答案：(" + "ABCD".charAt(q.ans) + ")"
+      : "答案：" + q.ans[0];
+    fb.textContent = (ok ? "答對了。" : "再看一次。") + ansText + "　" + q.why;
+    if (q.type === "fill") {
+      var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+      inp.classList.toggle("ok", ok); inp.classList.toggle("no", !ok);
+    }
+  }
+
+  function updateScore(){
+    var right = 0;
+    QS.forEach(function(q){ if (isRight(q) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + QS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
+    else if (right >= 6) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else note.textContent = "先回上面兩個練習區確認一次，再回來作答。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    QS.forEach(judge); updateScore();
+  });
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一份的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    QS.forEach(function(q){
+      var fb = document.getElementById("fb-" + q.id);
+      fb.className = "fb"; fb.textContent = "";
+      if (q.type === "choice") {
+        Array.prototype.forEach.call(document.getElementsByName(q.id), function(r){ r.checked = false; });
+      } else {
+        var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+        inp.value = ""; inp.classList.remove("ok","no");
+      }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("select[data-s], select[data-p]"), function(sel){
+      sel.value = ""; sel.classList.remove("ok","no");
+    });
+    document.getElementById("sortFb").className = "fb";
+    document.getElementById("pairFb").className = "fb";
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>

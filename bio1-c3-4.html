@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3-4 人體的防禦作用｜互動學習單</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:0 0 120px;font-weight:700;}
+  .sortrow select{flex:1 1 240px;}
+
+  table.pair{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.pair th,table.pair td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.pair th{background:#F3F7F2;width:190px;font-weight:700;}
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select{width:100%;}
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 第 3 章 · P.127–129</p>
+  <h1>3-4 人體的防禦作用</h1>
+</header>
+
+<div class="goal">
+  <h2>學完這一小節，你要能夠……</h2>
+  <ol>
+    <li>說出人體防禦作用的第一道防線是什麼，並說明它的防禦原理。</li>
+    <li>解釋發炎反應對人體的生理意義。</li>
+    <li>說出專一性防禦作用的特性，以及醫學上如何用它發展出疫苗。</li>
+  </ol>
+</div>
+
+<details class="brief" open>
+  <summary>學習重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li><b>病原體</b>是環境中會導致生物體生病的微生物，例如病毒、細菌。人體為了抵抗病原體，發展出不同的防禦機制。</li>
+    <li><b>非專一性防禦作用</b>對任何入侵的病原體都會產生反應，包含前兩道防禦；<b>專一性防禦作用</b>只針對特定病原體，是第三道防禦。</li>
+    <li><b>第一道防禦是皮膜的阻隔</b>：皮膚及黏膜可阻擋病原體進入體內。病原體難以穿越完好的皮膚；上呼吸道的黏膜可產生黏液包覆異物，再透過纖毛擺動排出體外。</li>
+    <li>消化器官分泌的<b>酵素或鹽酸</b>，可破壞進入消化道的病原體，這也屬於第一道防禦。</li>
+    <li><b>皮膚覆蓋體表，黏膜則位在眼部、消化道、呼吸道、泌尿及生殖道等處的內襯</b>，例如口腔黏膜、胃黏膜。</li>
+    <li><b>第二道防禦是發炎反應和吞噬作用</b>：病原體進入體內後，受傷部位會出現紅、熱、腫、痛的現象，稱為發炎反應。</li>
+    <li>發炎反應可促使<b>白血球大量聚集</b>在受傷處，吞噬、分解入侵的病原體。所以紅腫並不是壞事，而是防禦正在運作。</li>
+    <li><b>第三道防禦由特殊白血球執行</b>：一是破壞被感染的細胞，阻止病原體繼續繁殖；二是產生抗體，讓病原體失去感染能力。</li>
+    <li>這類防禦具有<b>專一性</b>：流行性感冒病毒引發的防禦作用，只能對抗流行性感冒病毒的感染。</li>
+    <li><b>疫苗</b>是利用專一性防禦作用的<b>記憶性</b>所發展出、對特定疾病的預防措施。</li>
+    <li><b>初次感染</b>病原體時，專一性防禦作用反應較慢、效果較弱；<b>第二次感染</b>相同病原體時，特定的白血球快速大量增生，反應更快、效果更強。</li>
+    <li>接受疫苗注射可降低未來罹病的機率，減少因病造成身體殘疾或死亡；疫苗接種也可降低傳染病發生率，所以應按時接種，避免疾病重新擴散或流行。</li>
+    <li>有些疫苗接種一次後，身體產生的防禦作用還不足以對抗病原體，所以需要接種多次，這是<b>多劑型疫苗</b>。</li>
+    <li>接種疫苗後<b>並非對疾病完全免疫</b>，只能降低罹病的機率，仍應注意配合飲食、正常作息，以提高自身免疫力。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、這是第幾道防禦？</h2>
+  <p class="hint">人體防禦分三道，前兩道是非專一性，第三道是專一性。</p>
+  <div id="sorts"></div>
+  <div class="actions"><button class="act" id="sortCheck" type="button">檢查分類</button></div>
+  <p class="fb" id="sortFb"></p>
+</section>
+
+<section class="card">
+  <h2>二、專一性還是非專一性？</h2>
+  <p class="hint">關鍵在：它是對所有病原體都有效，還是只對特定一種？</p>
+  <table class="pair" id="pairTable"></table>
+  <div class="actions"><button class="act" id="pairCheck" type="button">檢查</button></div>
+  <p class="fb" id="pairFb"></p>
+</section>
+
+<section class="card">
+  <h2>三、關於疫苗，正確的說法是？</h2>
+  <p class="hint">疫苗這一段最容易被考「過度推論」，看清楚每一句的界線。</p>
+  <table class="pair" id="vacTable"></table>
+  <div class="actions"><button class="act" id="vacCheck" type="button">檢查</button></div>
+  <p class="fb" id="vacFb"></p>
+</section>
+
+<section class="card">
+  <h2>四、練習題</h2>
+  <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
+  <div id="qs"></div>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>練習題答對</span><b id="score">0 / 11</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）3-4 人體的防禦作用 P.127–129 配套互動學習單。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-c3-4-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"c3-4", title:"3-4 人體的防禦作用", file:"bio1-c3-4.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = (q.type === "choice")
+      ? "(" + "ABCD".charAt(q.ans) + ") " + q.opts[q.ans]
+      : q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  function buildSelectTable(tableId, dataAttr, rows, options){
+    var table = document.getElementById(tableId);
+    rows.forEach(function(item){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = item.name;
+      var td = document.createElement("td");
+      var sel = document.createElement("select");
+      sel.dataset[dataAttr] = item.id;
+      var blank = document.createElement("option");
+      blank.value = ""; blank.textContent = "（請選擇）";
+      sel.appendChild(blank);
+      options.forEach(function(o){
+        var op = document.createElement("option");
+        op.value = o; op.textContent = o;
+        sel.appendChild(op);
+      });
+      var savedKey = dataAttr + "-" + item.id;
+      if (state.answers[savedKey]) sel.value = state.answers[savedKey];
+      sel.addEventListener("change", function(){
+        state.answers[savedKey] = sel.value;
+        store.write(state);
+        sel.classList.remove("ok","no");
+      });
+      td.appendChild(sel);
+      tr.appendChild(th);
+      tr.appendChild(td);
+      table.appendChild(tr);
+    });
+  }
+  function checkSelectTable(dataAttr, rows, fbId, allRight, hint){
+    var right = 0;
+    rows.forEach(function(item){
+      var sel = document.querySelector("select[data-" + dataAttr + '="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById(fbId);
+    fb.className = "fb show " + (right === rows.length ? "right" : "wrong");
+    fb.textContent = right === rows.length ? allRight
+      : "答對 " + right + " / " + rows.length + "。" + hint;
+  }
+
+  /* ── 一、第幾道防禦 ── */
+  var LINES = [
+    "第一道防禦（皮膜的阻隔）",
+    "第二道防禦（發炎反應與吞噬作用）",
+    "第三道防禦（專一性防禦作用）"
+  ];
+  var SORTS = [
+    { id:"s1", name:"病原體難以穿越完好的皮膚", ans:LINES[0] },
+    { id:"s2", name:"上呼吸道的黏膜產生黏液包覆異物，再透過纖毛擺動排出體外", ans:LINES[0] },
+    { id:"s3", name:"胃液中的鹽酸破壞隨食物進入消化道的病原體", ans:LINES[0] },
+    { id:"s4", name:"傷口周圍出現紅、熱、腫、痛的現象", ans:LINES[1] },
+    { id:"s5", name:"白血球大量聚集在受傷處，吞噬並分解病原體", ans:LINES[1] },
+    { id:"s6", name:"特殊白血球破壞被感染的細胞，阻止病原體繼續繁殖", ans:LINES[2] },
+    { id:"s7", name:"特殊白血球產生抗體，讓病原體失去感染能力", ans:LINES[2] }
+  ];
+
+  var sortHost = document.getElementById("sorts");
+  SORTS.forEach(function(item){
+    var row = document.createElement("div");
+    row.className = "sortrow";
+    var p = document.createElement("p");
+    p.style.flex = "1 1 240px";
+    p.textContent = item.name;
+    var sel = document.createElement("select");
+    sel.dataset.s = item.id;
+    var blank = document.createElement("option");
+    blank.value = ""; blank.textContent = "（請選擇）";
+    sel.appendChild(blank);
+    LINES.forEach(function(w){
+      var op = document.createElement("option");
+      op.value = w; op.textContent = w;
+      sel.appendChild(op);
+    });
+    if (state.answers["sort-" + item.id]) sel.value = state.answers["sort-" + item.id];
+    sel.addEventListener("change", function(){
+      state.answers["sort-" + item.id] = sel.value;
+      store.write(state);
+      sel.classList.remove("ok","no");
+    });
+    row.appendChild(p);
+    row.appendChild(sel);
+    sortHost.appendChild(row);
+  });
+
+  document.getElementById("sortCheck").addEventListener("click", function(){
+    var right = 0;
+    SORTS.forEach(function(item){
+      var sel = document.querySelector('select[data-s="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById("sortFb");
+    fb.className = "fb show " + (right === SORTS.length ? "right" : "wrong");
+    fb.textContent = right === SORTS.length
+      ? "全對。第一道是「擋在外面」，第二道是「進來了就圍捕」，第三道是「認出這一種、專門對付」。"
+      : "答對 " + right + " / " + SORTS.length + "。皮膚、黏膜、鹽酸都是把病原體擋在體外或消化道，屬於第一道；病原體已經進入體內才會有發炎和吞噬。";
+  });
+
+  /* ── 二、專一性或非專一性 ── */
+  var KINDS = ["非專一性防禦作用","專一性防禦作用"];
+  var PAIRS = [
+    { id:"p1", name:"對任何入侵的病原體都會產生反應", ans:KINDS[0] },
+    { id:"p2", name:"皮膚與黏膜的阻隔", ans:KINDS[0] },
+    { id:"p3", name:"發炎反應與吞噬作用", ans:KINDS[0] },
+    { id:"p4", name:"只能對抗某一種特定的病原體", ans:KINDS[1] },
+    { id:"p5", name:"由特殊白血球產生抗體", ans:KINDS[1] },
+    { id:"p6", name:"具有記憶性，第二次感染時反應更快、效果更強", ans:KINDS[1] },
+    { id:"p7", name:"疫苗所利用的原理", ans:KINDS[1] }
+  ];
+  buildSelectTable("pairTable", "p", PAIRS, KINDS);
+  document.getElementById("pairCheck").addEventListener("click", function(){
+    checkSelectTable("p", PAIRS, "pairFb",
+      "全對。前兩道防禦不挑對象，第三道才會「認人」，也因為認得出來，才能有記憶性、才做得出疫苗。",
+      "只要句子裡出現「特定」「抗體」「記憶」「疫苗」，幾乎都是專一性。");
+  });
+
+  /* ── 三、疫苗 ── */
+  var VACS = [
+    "反應較慢、效果較弱",
+    "特定白血球快速大量增生，反應更快、效果更強",
+    "記憶性",
+    "只能降低罹病的機率，並非完全免疫",
+    "只對接種的那一種疾病有預防效果",
+    "接種一次產生的防禦作用還不足以對抗病原體"
+  ];
+  var VROWS = [
+    { id:"v1", name:"初次感染病原體時，專一性防禦作用的表現", ans:VACS[0] },
+    { id:"v2", name:"第二次感染相同病原體時的表現", ans:VACS[1] },
+    { id:"v3", name:"疫苗利用的是專一性防禦作用的哪一項特性", ans:VACS[2] },
+    { id:"v4", name:"接種疫苗後，對該疾病的效果", ans:VACS[3] },
+    { id:"v5", name:"接種流感疫苗後的預防範圍", ans:VACS[4] },
+    { id:"v6", name:"為什麼有些疫苗需要接種多次（多劑型疫苗）", ans:VACS[5] }
+  ];
+  buildSelectTable("vacTable", "v", VROWS, VACS);
+  document.getElementById("vacCheck").addEventListener("click", function(){
+    checkSelectTable("v", VROWS, "vacFb",
+      "全對。兩個界線要記牢：疫苗不等於終身免疫，也不等於對所有感冒都有效。",
+      "看到「必可」「完全」「終身」「所有」這類字眼，通常就是錯的選項。");
+  });
+
+  /* ── 四、練習題 ── */
+  var QS = [
+    { id:"q1", tag:"焦點即時練", type:"fill",
+      text:"發炎反應為＿＿＿性防禦作用。（填專一或非專一）",
+      ans:["非專一","非專一性"],
+      why:"發炎反應是第二道防禦，對任何入侵的病原體都會發生，屬於非專一性。" },
+    { id:"q2", tag:"焦點即時練", type:"fill",
+      text:"特殊白血球產生抗體為＿＿性防禦作用。（填專一或非專一）",
+      ans:["專一","專一性"],
+      why:"抗體只針對特定病原體，是第三道防禦，屬於專一性。" },
+    { id:"q3", tag:"焦點即時練", type:"choice",
+      text:"受傷時，傷處常會產生紅腫發炎的現象，原因為何？",
+      opts:[
+        "促使白血球聚集以吞噬病原體",
+        "使白血球產生抗體，對抗病原體",
+        "使傷口長出黏膜，以隔絕病原體",
+        "讓皮膚上的傷口更快癒合"
+      ], ans:0,
+      why:"發炎反應的意義是把白血球叫到受傷處，吞噬並分解入侵的病原體；產生抗體是第三道防禦的事。" },
+    { id:"q4", tag:"焦點即時練", type:"fill",
+      text:"疫苗是利用了人體專一性防禦作用的＿＿性，在第二次感染時防禦作用效果更快速有效。",
+      ans:["記憶","記憶性"],
+      why:"身體記得曾經對付過這種病原體，第二次遇到時特定白血球能快速大量增生。" },
+    { id:"q5", tag:"焦點即時練", type:"fill",
+      text:"接種疫苗可＿＿傳染性疾病的發生率。（填增加或降低）",
+      ans:["降低"],
+      why:"疫苗接種可降低傳染病發生率，所以應按時接種，避免疾病重新擴散或流行。" },
+    { id:"q6", tag:"焦點即時練", type:"choice",
+      text:"關於疫苗的敘述，下列何者正確？",
+      opts:[
+        "接種疫苗後，對該疾病必可終身免疫",
+        "接種疫苗後只對第一次病原體的感染有防禦作用",
+        "特定疫苗只對特定疾病具有預防作用",
+        "接種流感疫苗後，可同時對不同類型的感冒免疫"
+      ], ans:2,
+      why:"疫苗靠的是專一性防禦作用，所以只對特定疾病有效；也不能保證終身免疫。" },
+    { id:"q7", tag:"實力養成評量", type:"choice",
+      text:"下列何者屬於人體的專一性防禦作用？",
+      opts:[
+        "上呼吸道的黏膜包覆灰塵，透過纖毛擺動將其排出體外",
+        "胃液中的鹽酸，可破壞隨著食物攝取入體內的病原體",
+        "傷口處出現紅腫、脹痛的發炎反應",
+        "特定的白血球破壞被病原體感染的細胞，使病原體無法在體內擴散"
+      ], ans:3,
+      why:"前三項分別是第一道和第二道防禦，都屬於非專一性；只有「特定的白血球」才是第三道專一性防禦。" },
+    { id:"q8", tag:"實力養成評量", type:"choice",
+      text:"身體出現傷口時，常會伴隨著發炎反應的發生，試問發炎反應可造成何種效果？",
+      opts:[
+        "使傷口周圍皮膚的溫度升高，緩解疼痛",
+        "促使白血球聚集，可吞噬、分解由傷口入侵的病原體",
+        "皮膚紅腫會使傷口附近的紅血球失去攜氧功能，傷口不再流血",
+        "發炎反應為人體防禦作用的第一道防線，可避免傷口接觸病原體"
+      ], ans:1,
+      why:"發炎反應是第二道防禦，紅、熱、腫、痛本身就是白血球聚集作戰的結果，不是為了止痛或止血。" },
+    { id:"q9", tag:"實力養成評量", type:"choice",
+      text:"成功接種完某疾病的疫苗後，若遭到該疾病的病原體感染，人體的防禦作用出現何種反應最合理？",
+      opts:[
+        "血小板會快速增生，阻塞血管使該病原體無法入侵",
+        "促進消化腺中的鹽酸分泌，殺死該病原體",
+        "特定白血球增生並產生抗體，抵抗該病原體的入侵",
+        "全身皮膜增厚，使專一性防禦作用效果加強"
+      ], ans:2,
+      why:"疫苗建立的是專一性防禦的記憶，再次遇到時由特定白血球增生並產生抗體。血小板負責凝血，和防禦病原體無關。" },
+    { id:"q10", tag:"題組", type:"choice",
+      text:"有些疫苗須重複接種以達到更好的預防效果。已知某流感疫苗兩次接種後，人體血液中抗體量的變化為：第二次接種後抗體量增加得比第一次更大量且快速。此現象的主要原因為何？",
+      opts:[
+        "人體專一性防禦作用具有記憶性",
+        "人體專一性防禦作用具有專一性",
+        "人體非專一性防禦作用具有重複性",
+        "人體非專一性防禦作用具有加強性"
+      ], ans:0,
+      why:"第二次比第一次快又強，靠的正是記憶性；專一性講的是「只對誰有效」，不是「反應多快」。" },
+    { id:"q11", tag:"題組", type:"choice",
+      text:"承上題，關於此流感疫苗的敘述，下列何者錯誤？",
+      opts:[
+        "接種完此流感疫苗，僅能對此種流感有預防效果",
+        "第二次接種後，特定白血球增生並產生抗體的速率提高",
+        "兩次接種完後體內所產生的抗體種類應相同",
+        "完成兩次接種後，就能完全杜絕罹患此種流感的可能"
+      ], ans:3,
+      why:"接種疫苗只能降低罹病的機率，並不能完全免疫。兩次接種的是同一種疫苗，所以產生的抗體種類相同。" }
+  ];
+
+  var host = document.getElementById("qs");
+
+  QS.forEach(function(q, idx){
+    var box = document.createElement("div");
+    box.className = "q";
+    box.id = "box-" + q.id;
+
+    var head = document.createElement("p");
+    head.className = "qtext";
+    head.innerHTML = '<span class="qtag"></span> ';
+    head.querySelector(".qtag").textContent = q.tag;
+    head.appendChild(document.createTextNode(" " + (idx+1) + ". " + q.text));
+    box.appendChild(head);
+
+    if (q.type === "choice") {
+      var ul = document.createElement("ul");
+      ul.className = "opts";
+      q.opts.forEach(function(opt, i){
+        var li = document.createElement("li");
+        var lab = document.createElement("label");
+        var r = document.createElement("input");
+        r.type = "radio"; r.name = q.id; r.value = String(i);
+        if (state.answers[q.id] === String(i)) r.checked = true;
+        r.addEventListener("change", function(){
+          state.answers[q.id] = r.value; store.write(state);
+        });
+        lab.appendChild(r);
+        lab.appendChild(document.createTextNode("(" + "ABCD".charAt(i) + ") " + opt));
+        li.appendChild(lab);
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    } else {
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.size = 12;
+      inp.setAttribute("aria-label", "填答");
+      if (state.answers[q.id]) inp.value = state.answers[q.id];
+      inp.addEventListener("input", function(){
+        state.answers[q.id] = inp.value; store.write(state); inp.classList.remove("ok","no");
+      });
+      box.appendChild(inp);
+    }
+
+    var fb = document.createElement("p");
+    fb.className = "fb";
+    fb.id = "fb-" + q.id;
+    box.appendChild(fb);
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "act ghost";
+    btn.style.marginTop = "8px";
+    btn.textContent = "對答案";
+    btn.addEventListener("click", function(){ judge(q); updateScore(); });
+    box.appendChild(btn);
+
+    host.appendChild(box);
+  });
+
+  function isRight(q){
+    var v = state.answers[q.id];
+    if (v === undefined || v === "") return null;
+    if (q.type === "choice") return String(q.ans) === v;
+    var t = v.replace(/\s/g,"");
+    return q.ans.indexOf(t) > -1;
+  }
+
+  function judge(q){
+    var ok = isRight(q);
+    var fb = document.getElementById("fb-" + q.id);
+    if (ok === null) {
+      fb.className = "fb show wrong";
+      fb.textContent = "還沒作答。";
+      return;
+    }
+    logResult(q, ok);
+    fb.className = "fb show " + (ok ? "right" : "wrong");
+    var ansText = q.type === "choice"
+      ? "答案：(" + "ABCD".charAt(q.ans) + ")"
+      : "答案：" + q.ans[0];
+    fb.textContent = (ok ? "答對了。" : "再看一次。") + ansText + "　" + q.why;
+    if (q.type === "fill") {
+      var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+      inp.classList.toggle("ok", ok); inp.classList.toggle("no", !ok);
+    }
+  }
+
+  function updateScore(){
+    var right = 0;
+    QS.forEach(function(q){ if (isRight(q) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + QS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
+    else if (right >= 9) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else note.textContent = "先回上面三個練習區確認一次，再回來作答。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    QS.forEach(judge); updateScore();
+  });
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一份的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    QS.forEach(function(q){
+      var fb = document.getElementById("fb-" + q.id);
+      fb.className = "fb"; fb.textContent = "";
+      if (q.type === "choice") {
+        Array.prototype.forEach.call(document.getElementsByName(q.id), function(r){ r.checked = false; });
+      } else {
+        var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+        inp.value = ""; inp.classList.remove("ok","no");
+      }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("select[data-s], select[data-p], select[data-v]"), function(sel){
+      sel.value = ""; sel.classList.remove("ok","no");
+    });
+    ["sortFb","pairFb","vacFb"].forEach(function(id){
+      document.getElementById(id).className = "fb";
+    });
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>

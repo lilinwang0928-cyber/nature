@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4-1 神經系統｜互動學習單</title>
+<style>
+  :root{
+    --ink:#16302B; --ink-soft:#4A5F58; --field:#E8EFE6; --paper:#FFF;
+    --rule:#C6D5C3; --rule-soft:#DDE7DB;
+    --blue:#2F5EA8; --amber:#B4741E; --leaf:#3E8B45; --rose:#B24A63; --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.75;font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 72px;}
+  a.back{font-size:.85rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+  header{padding:16px 0 4px;}
+  .eyebrow{font-size:.85rem;color:var(--ink-soft);letter-spacing:.12em;margin:.8em 0 0;}
+  h1{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;font-size:clamp(1.8rem,6vw,2.5rem);margin:.1em 0 .2em;}
+  .goal{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--amber);
+        border-radius:12px;padding:14px 18px;margin:18px 0 26px;}
+  .goal h2{font-size:1rem;margin:0 0 .3em;}
+  .goal ol{margin:.2em 0 0 1.1em;padding:0;color:var(--ink-soft);font-size:.94rem;}
+
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 22px;margin:0 0 20px;}
+  section.card > h2{
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .2em;
+    border-bottom:2px solid var(--rule-soft);padding-bottom:.35em;
+  }
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:.5em 0 1em;}
+  details.brief{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--leaf);
+    border-radius:12px;padding:0 18px;margin:0 0 20px;}
+  details.brief summary{cursor:pointer;padding:14px 0;font-weight:700;
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:1.15rem;}
+  details.brief ul{margin:0 0 16px;padding-left:1.2em;font-size:.95rem;}
+  details.brief li{margin:.35em 0;}
+  details.brief b{color:var(--blue);}
+  .brief-tts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;}
+  .brief-tts button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .brief-tts button.on{background:var(--ink);color:#fff;}
+  .brief-tts button[disabled]{opacity:.4;cursor:default;}
+  .brief-tts span{font-size:.82rem;color:var(--ink-soft);}
+  details.brief li.reading{background:#F1F7F0;border-radius:6px;
+    box-shadow:-6px 0 0 var(--leaf);padding-left:6px;}
+
+  .sortrow{border-top:1px solid var(--rule-soft);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .sortrow:first-of-type{border-top:none;}
+  .sortrow p{margin:0;flex:0 0 120px;font-weight:700;}
+  .sortrow select{flex:1 1 240px;}
+
+  table.pair{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  table.pair th,table.pair td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.pair th{background:#F3F7F2;width:190px;font-weight:700;}
+  select,input[type=text]{
+    font:inherit;font-size:.95rem;padding:6px 8px;border:1px solid var(--rule);
+    border-radius:8px;background:#FBFDFA;color:var(--ink);max-width:100%;
+  }
+  select{width:100%;}
+  select.ok,input.ok{border-color:var(--leaf);background:#F1F7F0;}
+  select.no,input.no{border-color:var(--rose);background:#FBF1F3;}
+
+  .q{border-top:1px solid var(--rule-soft);padding:14px 0 4px;}
+  .q:first-of-type{border-top:none;}
+  .qtag{font-size:.74rem;color:var(--slate);border:1px solid var(--rule);border-radius:999px;padding:1px 8px;}
+  .qtext{margin:.5em 0 .6em;}
+  .opts{list-style:none;margin:0;padding:0;}
+  .opts li{margin:.2em 0;}
+  .opts label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:4px 6px;border-radius:8px;}
+  .opts label:hover{background:#F4F8F3;}
+  .opts input{margin-top:.42em;accent-color:var(--leaf);}
+  .fb{margin:.6em 0 0;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.right{background:#F1F7F0;border-left:4px solid var(--leaf);}
+  .fb.wrong{background:#FBF1F3;border-left:4px solid var(--rose);}
+
+  button.act{
+    font:inherit;font-size:.9rem;padding:7px 16px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+  }
+  button.ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  .scorebar{
+    position:sticky;bottom:0;background:var(--paper);border:1px solid var(--rule);
+    border-radius:12px;padding:12px 16px;margin-top:22px;
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    box-shadow:0 -2px 12px rgba(22,48,43,.06);
+  }
+  .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
+  footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="bio1-hub.html">← 回總覽</a>
+
+<header>
+  <p class="eyebrow">國中自然科學 學習講義（第1冊）· 第 4 章 · P.144–156（含實驗4-1-1、4-1-2）</p>
+  <h1>4-1 神經系統</h1>
+</header>
+
+<div class="goal">
+  <h2>學完這一小節，你要能夠……</h2>
+  <ol>
+    <li>說出受器與動器的意義，並由接收刺激到產生反應描出完整路徑。</li>
+    <li>說出中樞神經中大腦、小腦、腦幹、脊髓各自的功能。</li>
+    <li>分辨意識行為與反射作用，並說明為什麼生物需要反射作用。</li>
+  </ol>
+</div>
+
+<details class="brief" open>
+  <summary>學習重點整理</summary>
+  <div class="brief-tts">
+    <button type="button" id="ttsPlay">▶ 語音導覽</button>
+    <button type="button" id="ttsStop">停止</button>
+    <span id="ttsState"></span>
+  </div>
+  <ul>
+    <li><b>受器</b>是生物體接受刺激的構造，多分布於眼、耳、鼻、舌、皮膚等感覺器官中。眼接受光線變化，耳接受聲音，鼻和舌接受化學分子，皮膚接受接觸、壓力和溫度。</li>
+    <li><b>動器</b>是動物表現反應的構造，分為肌肉和腺體；藉由肌肉收縮或腺體分泌產生適當的反應。</li>
+    <li>受器接受的刺激，會經由<b>神經系統與內分泌系統</b>傳導與整合，再傳到動器引發反應。</li>
+    <li><b>神經系統分兩類</b>：中樞神經系統包含腦與脊髓，是指揮中心，負責整合全身傳來的訊息、控制全身活動；周圍神經系統由腦神經十二對和脊神經三十一對組成，負責傳送感覺與運動的訊息。</li>
+    <li><b>神經元</b>是組成神經系統的基本單位，主要功能是傳遞訊息，包含<b>細胞本體</b>（細胞核所在部位，維持生長及代謝）和<b>神經纖維</b>（向外延伸的突起，傳遞訊息）。</li>
+    <li>細胞本體主要位於中樞神經系統，神經纖維則是周圍神經系統的主要組成。神經纖維有長有短，長頸鹿由脊髓延伸至腳趾的神經纖維可長達數公尺。</li>
+    <li><b>大腦是意識中樞</b>，主管感覺、運動、語言、記憶、思考和情感；分左右兩半球，<b>右腦控制左半身、左腦控制右半身</b>。</li>
+    <li><b>小腦是平衡中樞</b>，協調全身肌肉活動、維持身體平衡；動作敏捷的動物例如貓，小腦特別發達。</li>
+    <li><b>腦幹是生命中樞</b>，控制心搏、呼吸等生命現象，也負責頸部以上的反射作用。腦幹受損會影響生命現象，甚至造成死亡。</li>
+    <li><b>脊髓是肢體反射中樞</b>，把頸部以下受器傳來的訊息傳到腦、或把腦的指令傳到動器，並負責頸部以下的反射作用。</li>
+    <li><b>三種神經元</b>：感覺神經元介於受器與中樞之間，運動神經元介於中樞與動器之間，聯絡神經元則在中樞神經系統內傳遞訊息。</li>
+    <li><b>反應時間</b>是由受器接受刺激、經神經元傳遞訊息，到動器表現出反應所需的時間。</li>
+    <li><b>神經傳導途徑依訊息是否經過大腦</b>分成兩類：意識行為經過大腦，反射作用不經過大腦。</li>
+    <li><b>反射作用的控制中樞</b>看部位：頸部以上是腦幹，頸部以下是脊髓。異物接近而眨眼、嘗到美食引發唾液分泌、打噴嚏、腳踏尖物縮回，都是反射作用。</li>
+    <li>意識行為所需的反應時間較長，不利於應付緊急狀況，所以反射作用能<b>爭取時效、避免更嚴重的傷害</b>。</li>
+    <li>有些反射作用會伴隨後續的意識行為：手觸及熱茶壺會立即縮回（反射），接著感覺到痛而去沖冷水（意識行為）。</li>
+    <li><b>實驗4-1-1 接尺</b>：神經傳導途徑是眼內受器、感覺神經元、大腦、脊髓、運動神經元、手部肌肉，屬於意識行為。反應時間可隨熟練程度提高而變短，也會因專注力不同而有個別差異。</li>
+    <li><b>實驗4-1-2 溫覺</b>：皮膚不能感覺到準確的溫度，只能感覺溫度的相對變化，所以用手摸額頭判斷發燒可能誤判。</li>
+    <li><b>視覺暫留</b>：影像暫存於腦中形成後像，顏色與原物相同的稱為正片後像，電影和卡通就是利用這個原理。</li>
+    <li><b>負片後像</b>：凝視過久造成視覺疲勞，看到形狀大小相同但顏色呈<b>互補色</b>的影像。互補色的配對是紅與青、藍與黃、綠與洋紅、黑與白。</li>
+  </ul>
+</details>
+
+<section class="card">
+  <h2>一、哪個感覺器官接受哪種刺激？</h2>
+  <p class="hint">受器多分布在這五個感覺器官中。</p>
+  <table class="pair" id="senseTable"></table>
+  <div class="actions"><button class="act" id="senseCheck" type="button">檢查</button></div>
+  <p class="fb" id="senseFb"></p>
+</section>
+
+<section class="card">
+  <h2>二、大腦、小腦、腦幹還是脊髓？</h2>
+  <p class="hint">四個中樞的分工，這是本節最常考的一格。</p>
+  <table class="pair" id="brainTable"></table>
+  <div class="actions"><button class="act" id="brainCheck" type="button">檢查</button></div>
+  <p class="fb" id="brainFb"></p>
+</section>
+
+<section class="card">
+  <h2>三、意識行為還是反射作用？</h2>
+  <p class="hint">判斷標準只有一個：訊息有沒有經過大腦。</p>
+  <table class="pair" id="actTable"></table>
+  <div class="actions"><button class="act" id="actCheck" type="button">檢查</button></div>
+  <p class="fb" id="actFb"></p>
+</section>
+
+<section class="card">
+  <h2>四、神經元的分類與構造</h2>
+  <p class="hint">三種神經元、兩個構造，各自的位置與功能。</p>
+  <table class="pair" id="neuronTable"></table>
+  <div class="actions"><button class="act" id="neuronCheck" type="button">檢查</button></div>
+  <p class="fb" id="neuronFb"></p>
+</section>
+
+<section class="card">
+  <h2>五、練習題</h2>
+  <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
+  <div id="qs"></div>
+  <div class="actions">
+    <button class="act" id="checkAll" type="button">全部對答案</button>
+    <button class="act ghost" id="clearAll" type="button">清除作答</button>
+  </div>
+</section>
+
+<div class="scorebar">
+  <span>練習題答對</span><b id="score">0 / 32</b>
+  <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
+</div>
+
+<footer>國中自然科學學習講義（第1冊）4-1 神經系統 P.144–156 配套互動學習單。</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var KEY = "nature1-c4-1-v1";
+  var mem = {};
+  var store = {
+    read:function(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } },
+    write:function(o){ mem=o; try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+    clear:function(){ mem={}; try{ localStorage.removeItem(KEY); }catch(e){} }
+  };
+  var state = store.read();
+  if (!state.answers) state.answers = {};
+
+  var WB_KEY = "nature1-wrongbook-v1";
+  var SHEET = { id:"c4-1", title:"4-1 神經系統", file:"bio1-c4-1.html" };
+  function wbRead(){ try{ var r=localStorage.getItem(WB_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+  function wbWrite(o){ try{ localStorage.setItem(WB_KEY, JSON.stringify(o)); }catch(e){} }
+  function logResult(q, ok){
+    var book = wbRead();
+    var key = SHEET.id + ":" + q.id;
+    var rec = book[key] || { sheet:SHEET.title, file:SHEET.file, wrong:0, fixed:false };
+    rec.tag = q.tag; rec.q = q.text; rec.why = q.why;
+    rec.answer = (q.type === "choice")
+      ? "(" + "ABCD".charAt(q.ans) + ") " + q.opts[q.ans]
+      : q.ans[0];
+    if (ok) {
+      if (rec.wrong > 0) { rec.fixed = true; book[key] = rec; }
+    } else {
+      rec.wrong++; rec.fixed = false;
+      rec.last = new Date().toISOString().slice(0,10);
+      book[key] = rec;
+    }
+    wbWrite(book);
+  }
+
+  function buildSelectTable(tableId, dataAttr, rows, options){
+    var table = document.getElementById(tableId);
+    rows.forEach(function(item){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = item.name;
+      var td = document.createElement("td");
+      var sel = document.createElement("select");
+      sel.dataset[dataAttr] = item.id;
+      var blank = document.createElement("option");
+      blank.value = ""; blank.textContent = "（請選擇）";
+      sel.appendChild(blank);
+      options.forEach(function(o){
+        var op = document.createElement("option");
+        op.value = o; op.textContent = o;
+        sel.appendChild(op);
+      });
+      var savedKey = dataAttr + "-" + item.id;
+      if (state.answers[savedKey]) sel.value = state.answers[savedKey];
+      sel.addEventListener("change", function(){
+        state.answers[savedKey] = sel.value;
+        store.write(state);
+        sel.classList.remove("ok","no");
+      });
+      td.appendChild(sel);
+      tr.appendChild(th);
+      tr.appendChild(td);
+      table.appendChild(tr);
+    });
+  }
+  function checkSelectTable(dataAttr, rows, fbId, allRight, hint){
+    var right = 0;
+    rows.forEach(function(item){
+      var sel = document.querySelector("select[data-" + dataAttr + '="' + item.id + '"]');
+      var ok = sel.value === item.ans;
+      sel.classList.toggle("ok", ok);
+      sel.classList.toggle("no", !ok);
+      if (ok) right++;
+    });
+    var fb = document.getElementById(fbId);
+    fb.className = "fb show " + (right === rows.length ? "right" : "wrong");
+    fb.textContent = right === rows.length ? allRight
+      : "答對 " + right + " / " + rows.length + "。" + hint;
+  }
+
+  /* ── 一、感覺器官 ── */
+  var STIM = ["光線變化","聲音","氣味（化學分子）","味道（化學分子）","接觸、壓力、溫度"];
+  var SROWS = [
+    { id:"s1", name:"眼", ans:STIM[0] },
+    { id:"s2", name:"耳", ans:STIM[1] },
+    { id:"s3", name:"鼻", ans:STIM[2] },
+    { id:"s4", name:"舌", ans:STIM[3] },
+    { id:"s5", name:"皮膚", ans:STIM[4] }
+  ];
+  buildSelectTable("senseTable", "s", SROWS, STIM);
+  document.getElementById("senseCheck").addEventListener("click", function(){
+    checkSelectTable("s", SROWS, "senseFb",
+      "全對。接受化學分子的是鼻和舌這兩個，這一組最常被考。",
+      "鼻聞氣味、舌嘗味道，兩者都是化學分子；皮膚一個就管接觸、壓力和溫度三種。");
+  });
+
+  /* ── 二、四個中樞 ── */
+  var CENT = ["大腦","小腦","腦幹","脊髓"];
+  var BROWS = [
+    { id:"b1", name:"意識中樞，主管感覺、運動、語言、記憶、思考和情感", ans:"大腦" },
+    { id:"b2", name:"平衡中樞，協調全身肌肉活動、維持身體平衡", ans:"小腦" },
+    { id:"b3", name:"生命中樞，控制心搏、呼吸等生命現象", ans:"腦幹" },
+    { id:"b4", name:"肢體反射中樞，負責頸部以下的反射作用", ans:"脊髓" },
+    { id:"b5", name:"負責頸部以上的反射作用", ans:"腦幹" },
+    { id:"b6", name:"右半球控制左半身的活動", ans:"大腦" },
+    { id:"b7", name:"打噴嚏的控制中樞", ans:"腦幹" },
+    { id:"b8", name:"膝跳反射的控制中樞", ans:"脊髓" },
+    { id:"b9", name:"貓動作敏捷，特別發達的是", ans:"小腦" },
+    { id:"b10", name:"中風後失去語言能力，受損的是", ans:"大腦" }
+  ];
+  buildSelectTable("brainTable", "b", BROWS, CENT);
+  document.getElementById("brainCheck").addEventListener("click", function(){
+    checkSelectTable("b", BROWS, "brainFb",
+      "全對。四句話記住：大腦管意識、小腦管平衡、腦幹管生命（和頸部以上的反射）、脊髓管頸部以下的反射。",
+      "遇到反射作用先問部位：脖子以上找腦幹，脖子以下找脊髓。打噴嚏在頭部、膝跳在腳，剛好一組對照。");
+  });
+
+  /* ── 三、意識行為或反射作用 ── */
+  var ACTS = ["意識行為","反射作用"];
+  var AROWS = [
+    { id:"a1", name:"聞到花香，感到心情愉悅", ans:"意識行為" },
+    { id:"a2", name:"聽到旋律而跟著唱歌", ans:"意識行為" },
+    { id:"a3", name:"看見羽毛球飛來，揮拍去接", ans:"意識行為" },
+    { id:"a4", name:"胡椒粉嗆到而猛打噴嚏", ans:"反射作用" },
+    { id:"a5", name:"異物突然接近眼睛而眨眼", ans:"反射作用" },
+    { id:"a6", name:"腳踏到尖物而迅速縮回", ans:"反射作用" },
+    { id:"a7", name:"手被燙到而立即縮回", ans:"反射作用" },
+    { id:"a8", name:"手被燙到後，感覺到痛而去沖冷水", ans:"意識行為" },
+    { id:"a9", name:"敲擊膝蓋下方韌帶而小腿跳起", ans:"反射作用" },
+    { id:"a10", name:"嘗到美食而引發唾液分泌", ans:"反射作用" }
+  ];
+  buildSelectTable("actTable", "a", AROWS, ACTS);
+  document.getElementById("actCheck").addEventListener("click", function(){
+    checkSelectTable("a", AROWS, "actFb",
+      "全對。注意第七、八項：同一件事的前半（縮回）是反射、後半（沖冷水）是意識行為，反射常會伴隨後續的意識行為。",
+      "只問一句：這個動作需要「想一下」嗎？需要想就經過大腦，是意識行為；來不及想就是反射作用。");
+  });
+
+  /* ── 四、神經元 ── */
+  var NEUR = ["感覺神經元","運動神經元","聯絡神經元","細胞本體","神經纖維"];
+  var NROWS = [
+    { id:"n1", name:"介於受器及中樞之間，把訊息傳入腦和脊髓", ans:"感覺神經元" },
+    { id:"n2", name:"介於中樞及動器之間，把訊息傳到肌肉與腺體", ans:"運動神經元" },
+    { id:"n3", name:"位於中樞之中，在中樞神經系統內傳遞訊息", ans:"聯絡神經元" },
+    { id:"n4", name:"細胞核所在部位，維持神經元的生長及代謝", ans:"細胞本體" },
+    { id:"n5", name:"細胞本體向外延伸的突起，負責傳遞訊息", ans:"神經纖維" }
+  ];
+  buildSelectTable("neuronTable", "n", NROWS, NEUR);
+  document.getElementById("neuronCheck").addEventListener("click", function(){
+    checkSelectTable("n", NROWS, "neuronFb",
+      "全對。感覺神經元「進」中樞、運動神經元「出」中樞；細胞本體管生存，神經纖維管傳話。",
+      "看它連接誰：接受器的是感覺神經元，接動器的是運動神經元，兩頭都在中樞內的是聯絡神經元。");
+  });
+
+  /* ── 五、練習題 ── */
+  var QS = [
+    { id:"q1", tag:"焦點即時練", type:"fill",
+      text:"動物體接受環境刺激的構造稱為＿＿。",
+      ans:["受器"],
+      why:"受器多分布於眼、耳、鼻、舌、皮膚等感覺器官中。" },
+    { id:"q2", tag:"焦點即時練", type:"fill",
+      text:"動物表現反應的構造稱為＿＿。",
+      ans:["動器"],
+      why:"動器分為肌肉和腺體，靠肌肉收縮或腺體分泌產生反應。" },
+    { id:"q3", tag:"焦點即時練", type:"fill",
+      text:"動物的生理反應由＿＿系統、內分泌系統兩大器官系統負責協調。",
+      ans:["神經"],
+      why:"神經系統作用迅速而短暫、範圍局部；內分泌系統緩慢而持久、範圍廣泛，兩者互補。" },
+    { id:"q4", tag:"焦點即時練", type:"choice",
+      text:"甲.眼睛　乙.皮膚　丙.舌　丁.耳　戊.鼻，下列各器官中，哪些可接受環境中的化學分子？",
+      opts:["甲乙","乙丁","丙戊","丁戊"], ans:2,
+      why:"舌接受味道、鼻接受氣味，兩者都是化學分子；眼接受光線、耳接受聲音、皮膚接受接觸壓力溫度。" },
+    { id:"q5", tag:"焦點即時練", type:"choice",
+      text:"「聽到鐘聲就知道要下課」、「聞到花香感到心情愉悅」，以上敘述中的「鐘聲」及「花香」對我們來說，都可稱為什麼？",
+      opts:["反應","協調","刺激","運動"], ans:2,
+      why:"鐘聲和花香都是環境給的訊號，屬於刺激；知道要下課、感到愉悅才是反應。" },
+    { id:"q6", tag:"焦點即時練", type:"fill",
+      text:"人體神經系統中，負責整合訊息、控制全身活動的是＿＿神經系統。",
+      ans:["中樞"],
+      why:"中樞神經系統包含腦與脊髓，是神經系統的指揮中心。" },
+    { id:"q7", tag:"焦點即時練", type:"fill",
+      text:"承上題，負責傳送感覺與運動訊息的是＿＿神經系統。",
+      ans:["周圍"],
+      why:"周圍神經系統由腦神經十二對和脊神經三十一對組成，分布到全身。" },
+    { id:"q8", tag:"焦點即時練", type:"fill",
+      text:"人體的平衡中樞是指＿＿。",
+      ans:["小腦"],
+      why:"小腦協調全身肌肉活動、維持身體平衡；貓動作敏捷，小腦特別發達。" },
+    { id:"q9", tag:"焦點即時練", type:"fill",
+      text:"人體的生命中樞是指＿＿。",
+      ans:["腦幹"],
+      why:"腦幹控制心搏、呼吸等生命現象，受損會影響生命，甚至造成死亡。" },
+    { id:"q10", tag:"焦點即時練", type:"choice",
+      text:"阿威的爺爺因為中風而失去了語言能力，則可能是哪個部位受到損傷所造成？",
+      opts:["大腦","小腦","脊髓","腦幹"], ans:0,
+      why:"語言屬於意識行為，由大腦主管；小腦管平衡、腦幹管生命現象。" },
+    { id:"q11", tag:"好題示例", type:"choice",
+      text:"人手指觸電後會立刻縮手，也會感覺疼痛而趕緊甩手。已知甲為感覺神經元、乙為運動神經元、丙為脊髓。下列訊息傳導路徑與所對應神經的配對，何者最合理？",
+      opts:[
+        "觸電後立刻縮手——甲、乙",
+        "觸電後感覺疼痛——乙、丙",
+        "受器接受刺激後傳至中樞神經——乙、丙",
+        "中樞神經發出甩手的命令後傳至動器——丙、甲"
+      ], ans:0,
+      why:"縮手是反射作用，路徑為甲（感覺神經元）→脊髓→乙（運動神經元）。感覺疼痛是意識行為，要走甲→丙→大腦；發出甩手命令則是大腦→丙→乙。" },
+    { id:"q12", tag:"焦點即時練", type:"fill",
+      text:"由受器接受刺激，經神經元傳遞訊息，到動器表現出反應所需的時間，稱為＿＿＿＿。",
+      ans:["反應時間"],
+      why:"意識行為的反應時間較長，反射作用較短，所以反射能應付緊急狀況。" },
+    { id:"q13", tag:"焦點即時練", type:"fill",
+      text:"神經傳導途徑依訊息是否經過＿＿，可分為意識行為和反射作用兩類。",
+      ans:["大腦"],
+      why:"經過大腦的是意識行為，不經過大腦的是反射作用。" },
+    { id:"q14", tag:"焦點即時練", type:"choice",
+      text:"下列何者不屬於反射作用？",
+      opts:[
+        "吃到好吃的菜而分泌唾液",
+        "有人突然在你眼前拍手，眼睛很快的閉起來",
+        "腳踩到圖釘，迅速抬起來",
+        "手碰到熱鍋，覺得很燙而趕快去沖冷水"
+      ], ans:3,
+      why:"「覺得很燙」代表已經經過大腦判斷，去沖冷水是後續的意識行為；碰到熱鍋當下的縮手才是反射。" },
+    { id:"q15", tag:"焦點即時練", type:"choice",
+      text:"試就「小美用右手夾菜放進嘴中咀嚼」這一系列動作判定下列選項何者為非？",
+      opts:[
+        "夾菜的動作神經傳導需經過腦",
+        "咀嚼的動作由脊髓控制",
+        "整體動作為意識行為",
+        "控制小美右手的是左腦半球"
+      ], ans:1,
+      why:"咀嚼是自己決定要做的動作，屬於意識行為，由大腦控制；而且嘴巴在頸部以上，也不歸脊髓管。" },
+    { id:"q16", tag:"實驗題", type:"choice",
+      text:"關於接尺反應的敘述，下列何者錯誤？",
+      opts:[
+        "同一人每次測得的反應時間不一定相同",
+        "同一人經多次練習可縮短反應時間",
+        "屬於大腦控制的意識行為",
+        "屬於脊髓控制的反射作用"
+      ], ans:3,
+      why:"接尺要先「看到」尺落下才動手，訊息經過大腦，屬於意識行為，不是反射作用。" },
+    { id:"q17", tag:"實驗題", type:"choice",
+      text:"小清進行接尺實驗五次，尺滑落距離分別為 24、20、12、18、16 公分。已知平均距離 16 公分對應 0.18 秒、18 公分對應 0.19 秒、20 公分對應 0.20 秒、24 公分對應 0.22 秒，則小清接尺需要的平均反應時間為何？",
+      opts:["0.16 秒","0.18 秒","0.19 秒","0.22 秒"], ans:2,
+      why:"先算平均距離：(24＋20＋12＋18＋16)÷5＝90÷5＝18 公分，查表對應 0.19 秒。要算平均，不是挑其中一次。" },
+    { id:"q18", tag:"實驗題", type:"choice",
+      text:"甲.脊髓　乙.大腦　丙.眼睛　丁.運動神經元　戊.手部肌肉　己.感覺神經元。接尺反應的神經傳導途徑應為何？",
+      opts:["甲丁戊丙己乙","乙丙己丁甲戊","丙己乙甲丁戊","戊丁甲乙己丙"], ans:2,
+      why:"眼睛看到（丙）→感覺神經元（己）→大腦（乙）→脊髓（甲）→運動神經元（丁）→手部肌肉（戊）。手在頸部以下，所以命令要經過脊髓。" },
+    { id:"q19", tag:"實驗題", type:"choice",
+      text:"桌上有三杯水，先將左手放入甲杯、右手放入乙杯，三分鐘後兩手同時放入丙杯，結果左手感覺冷、右手感覺熱，則三杯水溫由高至低應為何？",
+      opts:["乙＞丙＞甲","甲＞乙＞丙","甲＞丙＞乙","丙＞甲＞乙"], ans:2,
+      why:"左手從甲換到丙覺得冷，代表丙比甲低；右手從乙換到丙覺得熱，代表丙比乙高。所以甲＞丙＞乙——皮膚感覺到的是相對變化，不是絕對溫度。" },
+    { id:"q20", tag:"實驗題", type:"choice",
+      text:"兩眼凝視紅花綠葉的圖形約 20 秒後，立刻將視線移至白紙上，則看到的後像應為何？",
+      opts:["紅花、綠葉","青花、洋紅葉","黑花、白葉","洋紅花、綠葉"], ans:1,
+      why:"負片後像呈現互補色：紅的互補是青、綠的互補是洋紅，所以紅花變青花、綠葉變洋紅葉。" },
+    { id:"q21", tag:"實驗題", type:"choice",
+      text:"手剛開始泡進 50℃ 的水中時覺得很燙，但 5 分鐘後便不再覺得燙了，下列何者是合理的解釋？",
+      opts:[
+        "體溫也上升到 50℃",
+        "水瞬間冷卻至 20℃ 以下",
+        "血液循環變慢了",
+        "皮膚的感覺受器疲勞了"
+      ], ans:3,
+      why:"受器持續受到同樣的刺激會疲勞，感覺就變得遲鈍，和先吃糖果再吃芭樂覺得不甜是同樣的道理。" },
+    { id:"q22", tag:"實力養成評量", type:"choice",
+      text:"如果把人體比擬為電腦，則接受刺激的感覺器官類似於下列何種構造？",
+      opts:[
+        "可以鍵入訊息的鍵盤",
+        "進行運算的中央處理器",
+        "將文件印出的印表機",
+        "可以儲存檔案的硬碟"
+      ], ans:0,
+      why:"感覺器官是把外界訊息「輸入」進來的，對應鍵盤；中央處理器像中樞神經，印表機像動器。" },
+    { id:"q23", tag:"實力養成評量", type:"choice",
+      text:"下列有關神經元的敘述，何者不正確？",
+      opts:[
+        "神經元又稱神經細胞，是組成神經系統的基本單位",
+        "神經元向外延伸的突起都稱為受器",
+        "神經元的神經纖維有長有短",
+        "神經元由細胞本體和神經纖維所組成"
+      ], ans:1,
+      why:"向外延伸的突起叫神經纖維，負責傳遞訊息；受器是接受刺激的構造，兩者不同。" },
+    { id:"q24", tag:"實力養成評量", type:"choice",
+      text:"小欣喝玉米濃湯時不小心撒了太多胡椒粉，結果猛打噴嚏，這種打噴嚏的反應是由哪一個中樞所控制？",
+      opts:["鼻子","脊髓","腦幹","大腦"], ans:2,
+      why:"打噴嚏是反射作用，而且發生在頸部以上，控制中樞是腦幹；鼻子只是受器所在的位置。" },
+    { id:"q25", tag:"實力養成評量", type:"choice",
+      text:"俊明登山時，前面突然出現小蛇，他大叫一聲並往後退了一步。關於此事的敘述，下列何者錯誤？",
+      opts:[
+        "此為反射作用",
+        "此為意識反應",
+        "小蛇為刺激物",
+        "其神經傳導會經過脊髓及大腦"
+      ], ans:0,
+      why:"看到小蛇要先由大腦判斷「那是蛇、有危險」才大叫後退，屬於意識行為，不是反射作用。" },
+    { id:"q26", tag:"實力養成評量", type:"choice",
+      text:"下列何者與感覺疲勞的原理不同？",
+      opts:[
+        "入芝蘭之室，久聞不覺其香",
+        "花生米香酥脆，越吃越有味",
+        "鞋中有小石，久而不覺難受",
+        "入鮑魚之肆，久聞不覺其臭"
+      ], ans:1,
+      why:"其餘三項都是受器持續受刺激而疲勞、感覺變遲鈍；「越吃越有味」剛好相反，不屬於感覺疲勞。" },
+    { id:"q27", tag:"題組", type:"choice",
+      text:"小宇開車上班途中，突然看到前方有一故障車輛，立刻腳踩煞車。就腳踩煞車的反應而言，下列有關「神經傳導途徑」的敘述，何者正確？",
+      opts:[
+        "腳底是這反應過程中的受器",
+        "感覺神經元將訊息傳送到眼睛",
+        "此反應是由大腦控制",
+        "此反應是一種反射作用"
+      ], ans:2,
+      why:"是先「看到」故障車輛、判斷有危險才踩煞車，屬於意識行為，由大腦控制。受器是眼睛，不是腳底。" },
+    { id:"q28", tag:"題組", type:"choice",
+      text:"承上題，腳踩煞車的神經傳導途徑和下列哪一種情況相似？",
+      opts:[
+        "看見筆由桌上滑落，用手接住",
+        "腳踏尖物迅速縮回",
+        "眼受強光刺激而眨眼",
+        "心臟跳動"
+      ], ans:0,
+      why:"「看見再動手」同樣要經過大腦，屬於意識行為；縮回、眨眼是反射作用，心臟跳動則由腦幹自動調控。" },
+    { id:"q29", tag:"題組", type:"choice",
+      text:"某人遭遇車禍致使神經系統受損。已知甲為脊髓、乙為腳趾上的感覺神經元、丙為腳趾上的運動神經元、丁為腦。若叫他動一動腳趾，他就會動，但用手抓他的腳趾時他卻沒有感覺，表示受傷在何處？",
+      opts:["甲","乙","丙","丁"], ans:1,
+      why:"能動代表腦、脊髓和運動神經元這條「傳出」的路都通；沒感覺代表「傳入」的路斷了，問題出在感覺神經元。" },
+    { id:"q30", tag:"題組", type:"choice",
+      text:"承上題，假如醫生用針刺他的腳趾時他能感到痛，卻無法動腳趾，那麼他受傷的位置在何處？",
+      opts:["甲","乙","丙","丁"], ans:2,
+      why:"能感到痛代表傳入的路完好，無法動代表傳出的路斷了，問題出在運動神經元。" },
+    { id:"q31", tag:"歷屆經典題", type:"choice",
+      text:"小育在吃某道料理時，突然覺得有苦味，於是立刻吐出查看，才知道食物中有苦瓜。根據上述，下列敘述何者最合理？",
+      opts:[
+        "立刻吐出是一種反射作用",
+        "苦味的感覺受器位於大腦中",
+        "突然覺得有苦味是一種反射作用",
+        "經由大腦判斷而得知食物中混有苦瓜"
+      ], ans:3,
+      why:"「知道那是苦瓜」是大腦判斷的結果。受器在舌頭不在大腦；覺得苦、吐出來都需要大腦參與，不是反射作用。" },
+    { id:"q32", tag:"歷屆經典題", type:"choice",
+      text:"阿煌重複完成五次相同動作，時間分別為 59、48、30、35、25 秒。由此推論，有關此動作的敘述，下列何者錯誤？",
+      opts:[
+        "控制中樞僅為脊髓",
+        "需有感覺神經元參與",
+        "需有運動神經元參與",
+        "經練習可縮短反應時間"
+      ], ans:0,
+      why:"時間會隨練習而縮短，代表這是需要學習的意識行為，控制中樞是大腦而不只是脊髓。" }
+  ];
+
+  var host = document.getElementById("qs");
+
+  QS.forEach(function(q, idx){
+    var box = document.createElement("div");
+    box.className = "q";
+    box.id = "box-" + q.id;
+
+    var head = document.createElement("p");
+    head.className = "qtext";
+    head.innerHTML = '<span class="qtag"></span> ';
+    head.querySelector(".qtag").textContent = q.tag;
+    head.appendChild(document.createTextNode(" " + (idx+1) + ". " + q.text));
+    box.appendChild(head);
+
+    if (q.type === "choice") {
+      var ul = document.createElement("ul");
+      ul.className = "opts";
+      q.opts.forEach(function(opt, i){
+        var li = document.createElement("li");
+        var lab = document.createElement("label");
+        var r = document.createElement("input");
+        r.type = "radio"; r.name = q.id; r.value = String(i);
+        if (state.answers[q.id] === String(i)) r.checked = true;
+        r.addEventListener("change", function(){
+          state.answers[q.id] = r.value; store.write(state);
+        });
+        lab.appendChild(r);
+        lab.appendChild(document.createTextNode("(" + "ABCD".charAt(i) + ") " + opt));
+        li.appendChild(lab);
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    } else {
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.size = 12;
+      inp.setAttribute("aria-label", "填答");
+      if (state.answers[q.id]) inp.value = state.answers[q.id];
+      inp.addEventListener("input", function(){
+        state.answers[q.id] = inp.value; store.write(state); inp.classList.remove("ok","no");
+      });
+      box.appendChild(inp);
+    }
+
+    var fb = document.createElement("p");
+    fb.className = "fb";
+    fb.id = "fb-" + q.id;
+    box.appendChild(fb);
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "act ghost";
+    btn.style.marginTop = "8px";
+    btn.textContent = "對答案";
+    btn.addEventListener("click", function(){ judge(q); updateScore(); });
+    box.appendChild(btn);
+
+    host.appendChild(box);
+  });
+
+  function isRight(q){
+    var v = state.answers[q.id];
+    if (v === undefined || v === "") return null;
+    if (q.type === "choice") return String(q.ans) === v;
+    var t = v.replace(/\s/g,"");
+    return q.ans.indexOf(t) > -1;
+  }
+
+  function judge(q){
+    var ok = isRight(q);
+    var fb = document.getElementById("fb-" + q.id);
+    if (ok === null) {
+      fb.className = "fb show wrong";
+      fb.textContent = "還沒作答。";
+      return;
+    }
+    logResult(q, ok);
+    fb.className = "fb show " + (ok ? "right" : "wrong");
+    var ansText = q.type === "choice"
+      ? "答案：(" + "ABCD".charAt(q.ans) + ")"
+      : "答案：" + q.ans[0];
+    fb.textContent = (ok ? "答對了。" : "再看一次。") + ansText + "　" + q.why;
+    if (q.type === "fill") {
+      var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+      inp.classList.toggle("ok", ok); inp.classList.toggle("no", !ok);
+    }
+  }
+
+  function updateScore(){
+    var right = 0;
+    QS.forEach(function(q){ if (isRight(q) === true) right++; });
+    document.getElementById("score").textContent = right + " / " + QS.length;
+    var note = document.getElementById("scoreNote");
+    if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
+    else if (right >= 25) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else note.textContent = "先回上面四個練習區確認一次，再回來作答。";
+  }
+
+  document.getElementById("checkAll").addEventListener("click", function(){
+    QS.forEach(judge); updateScore();
+  });
+  document.getElementById("clearAll").addEventListener("click", function(){
+    if (!window.confirm("清除這一份的所有作答？")) return;
+    store.clear(); state = { answers:{} };
+    QS.forEach(function(q){
+      var fb = document.getElementById("fb-" + q.id);
+      fb.className = "fb"; fb.textContent = "";
+      if (q.type === "choice") {
+        Array.prototype.forEach.call(document.getElementsByName(q.id), function(r){ r.checked = false; });
+      } else {
+        var inp = document.querySelector("#box-" + q.id + " input[type=text]");
+        inp.value = ""; inp.classList.remove("ok","no");
+      }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("select[data-s], select[data-b], select[data-a], select[data-n]"), function(sel){
+      sel.value = ""; sel.classList.remove("ok","no");
+    });
+    ["senseFb","brainFb","actFb","neuronFb"].forEach(function(id){
+      document.getElementById(id).className = "fb";
+    });
+    updateScore();
+  });
+
+  updateScore();
+
+  /* ── 重點整理語音導覽 ── */
+  (function(){
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById("ttsPlay");
+    var stopBtn = document.getElementById("ttsStop");
+    var stateEl = document.getElementById("ttsState");
+    var brief = document.querySelector("details.brief");
+    var items = Array.prototype.slice.call(document.querySelectorAll("details.brief li"));
+    if (!playBtn || !items.length) return;
+
+    if (!synth || typeof window.SpeechSynthesisUtterance === "undefined") {
+      playBtn.disabled = true; stopBtn.disabled = true;
+      stateEl.textContent = "這個瀏覽器不支援語音朗讀。";
+      return;
+    }
+
+    var idx = 0, playing = false, watchdog = null;
+
+    function pickVoice(){
+      var vs = synth.getVoices() || [], i;
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]TW/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/zh[-_]HK/i.test(vs[i].lang)) return vs[i]; }
+      for (i = 0; i < vs.length; i++) { if (/^zh/i.test(vs[i].lang)) return vs[i]; }
+      return null;
+    }
+    if (typeof synth.onvoiceschanged !== "undefined") {
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+
+    function clean(t){
+      return t.replace(/＝/g, "等於").replace(/／/g, "、").replace(/～/g, "到").replace(/\s+/g, " ").trim();
+    }
+    function highlight(i){
+      items.forEach(function(li, n){ li.classList.toggle("reading", n === i); });
+      if (i >= 0 && items[i] && items[i].scrollIntoView) {
+        items[i].scrollIntoView({ block:"nearest" });
+      }
+    }
+    function startWatchdog(){
+      stopWatchdog();
+      watchdog = setInterval(function(){
+        if (playing && synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
+      }, 8000);
+    }
+    function stopWatchdog(){ if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
+    function speakFrom(i){
+      if (i >= items.length) { finish(); return; }
+      idx = i;
+      highlight(i);
+      stateEl.textContent = "朗讀中… 第 " + (i + 1) + " / " + items.length + " 點";
+      var u = new window.SpeechSynthesisUtterance(clean(items[i].textContent));
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.lang = "zh-TW"; u.rate = 0.95; u.pitch = 1;
+      u.onend = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      u.onerror = function(){ if (playing) { setTimeout(function(){ speakFrom(i + 1); }, 250); } };
+      synth.speak(u);
+    }
+    function finish(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "朗讀完畢。";
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (playing) {
+        playing = false; stopWatchdog(); synth.cancel();
+        playBtn.textContent = "▶ 繼續朗讀"; playBtn.classList.remove("on");
+        stateEl.textContent = "已暫停，停在第 " + (idx + 1) + " 點。";
+        return;
+      }
+      if (brief) brief.open = true;
+      playing = true; startWatchdog();
+      playBtn.textContent = "⏸ 暫停"; playBtn.classList.add("on");
+      synth.cancel();
+      setTimeout(function(){ speakFrom(idx); }, 120);
+    });
+
+    stopBtn.addEventListener("click", function(){
+      playing = false; stopWatchdog(); synth.cancel(); highlight(-1); idx = 0;
+      playBtn.textContent = "▶ 語音導覽"; playBtn.classList.remove("on");
+      stateEl.textContent = "";
+    });
+
+    window.addEventListener("beforeunload", function(){ synth.cancel(); });
+  })();
+})();
+</script>
+</body>
+</html>
