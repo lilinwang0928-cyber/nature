@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國中自然科學 學習講義（第1冊）互動學習單總覽</title>
+<style>
+  :root{
+    --ink:#16302B;
+    --ink-soft:#4A5F58;
+    --field:#E8EFE6;
+    --paper:#FFFFFF;
+    --rule:#C6D5C3;
+    --rule-soft:#DDE7DB;
+    --blue:#2F5EA8;   /* 亞甲藍液 */
+    --amber:#B4741E;  /* 碘液 */
+    --leaf:#3E8B45;   /* 葉綠體 */
+    --violet:#7A4C8E; /* 紅鳳菜 */
+    --teal:#1F7A73;
+    --rose:#B24A63;
+    --slate:#5C6B75;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(22,48,43,.045) 0 1px, transparent 1px 28px),
+      var(--field);
+    color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    line-height:1.7;
+    font-size:16px;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:24px 18px 72px;}
+
+  /* ── 抬頭 ── */
+  header{padding:22px 0 8px;}
+  .book-line{font-size:.86rem;letter-spacing:.14em;color:var(--ink-soft);}
+  h1{
+    font-family:"Songti TC","Noto Serif TC","Source Han Serif TC","PMingLiU",serif;
+    font-size:clamp(1.9rem,6vw,2.7rem);
+    line-height:1.25;
+    margin:.15em 0 .1em;
+    font-weight:700;
+  }
+  .lede{max-width:34em;color:var(--ink-soft);margin:.4em 0 0;}
+
+  /* ── 視野（進度） ── */
+  .scope{
+    display:flex;gap:26px;align-items:center;flex-wrap:wrap;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:14px;
+    padding:20px 22px;
+    margin:24px 0 34px;
+  }
+  .field-view{
+    position:relative;width:132px;height:132px;flex:0 0 auto;
+    border-radius:50%;
+    background:#F6F9F5;
+    border:3px solid var(--ink);
+    overflow:hidden;
+    display:grid;place-items:center;
+  }
+  .field-fill{
+    position:absolute;inset:0;
+    background:conic-gradient(var(--leaf) calc(var(--pct,0) * 1%), rgba(62,139,69,.09) 0);
+    opacity:.85;
+    transition:background .45s ease;
+  }
+  .field-mask{
+    position:absolute;inset:16px;border-radius:50%;
+    background:#FBFDFA;
+    box-shadow:inset 0 0 0 1px var(--rule-soft);
+  }
+  .field-num{position:relative;text-align:center;}
+  .field-num b{
+    display:block;font-size:1.9rem;line-height:1.1;font-variant-numeric:tabular-nums;
+  }
+  .field-num span{font-size:.76rem;color:var(--ink-soft);}
+  .scope-text{flex:1 1 260px;min-width:240px;}
+  .scope-text h2{font-size:1.05rem;margin:0 0 .3em;}
+  .scope-text p{margin:0 0 .6em;color:var(--ink-soft);font-size:.94rem;}
+  .tally{display:flex;gap:18px;flex-wrap:wrap;padding:0;margin:.6em 0 0;list-style:none;}
+  .tally li{font-size:.86rem;color:var(--ink-soft);}
+  .tally b{display:block;font-size:1.3rem;color:var(--ink);font-variant-numeric:tabular-nums;}
+
+  /* ── 章節面板 ── */
+  .unit{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:7px solid var(--accent,var(--teal));
+    border-radius:12px;
+    margin:0 0 18px;
+    overflow:hidden;
+  }
+  .unit-head{
+    display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+    padding:16px 20px 12px;
+    border-bottom:1px solid var(--rule-soft);
+  }
+  .unit-no{
+    font-family:"Songti TC","Noto Serif TC",serif;
+    font-size:.9rem;color:var(--accent,var(--teal));
+    letter-spacing:.1em;
+  }
+  .unit-title{
+    font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;
+    font-size:1.35rem;font-weight:700;margin:0;flex:1 1 auto;
+  }
+  .unit-page{font-size:.82rem;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
+  .flag{
+    font-size:.75rem;padding:2px 9px;border-radius:999px;
+    border:1px solid currentColor;white-space:nowrap;
+  }
+  .flag.ready{color:var(--leaf);}
+  .flag.wait{color:var(--slate);}
+
+  .rows{list-style:none;margin:0;padding:6px 8px 12px;}
+  .row{
+    display:flex;align-items:center;gap:12px;
+    padding:9px 12px;border-radius:8px;
+  }
+  .row + .row{border-top:1px solid var(--rule-soft);}
+  .row:focus-within{background:#F4F8F3;}
+  .tick{
+    width:22px;height:22px;flex:0 0 auto;margin:0;
+    accent-color:var(--leaf);cursor:pointer;
+  }
+  .row-main{flex:1 1 auto;min-width:0;}
+  .row-title{font-size:1rem;}
+  .row.done .row-title{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:var(--rule);}
+  .row-meta{font-size:.78rem;color:var(--ink-soft);}
+  .lab{
+    display:inline-block;margin-left:8px;padding:1px 7px;border-radius:4px;
+    background:#EAF1F7;color:var(--blue);font-size:.74rem;
+  }
+  .kind-map{color:var(--amber);}
+  .kind-test{color:var(--rose);}
+  .go{
+    flex:0 0 auto;
+    font:inherit;font-size:.85rem;
+    padding:6px 14px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--ink);color:#fff;
+    cursor:pointer;text-decoration:none;
+  }
+  .go[data-empty]{background:transparent;color:var(--slate);border-color:var(--rule);cursor:default;}
+  .go:focus-visible,.tick:focus-visible,summary:focus-visible,.reset:focus-visible{
+    outline:3px solid var(--blue);outline-offset:2px;
+  }
+
+  /* ── 架構圖例 ── */
+  details.legend{
+    background:var(--paper);border:1px solid var(--rule);border-radius:12px;
+    padding:0 20px;margin:30px 0 0;
+  }
+  details.legend summary{
+    cursor:pointer;padding:16px 0;font-size:1.05rem;
+    font-family:"Songti TC","Noto Serif TC",serif;font-weight:700;
+  }
+  .legend-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:14px 22px;padding:4px 0 22px;margin:0;
+  }
+  .legend-grid div{border-top:1px solid var(--rule-soft);padding-top:8px;}
+  .legend-grid dt{font-weight:700;font-size:.94rem;}
+  .legend-grid dd{margin:.2em 0 0;font-size:.85rem;color:var(--ink-soft);}
+
+  /* ── 錯題本 ── */
+  .wb{background:var(--paper);border:1px solid var(--rule);border-left:7px solid var(--rose);
+      border-radius:12px;padding:18px 20px 20px;margin:26px 0 0;}
+  .wb h2{font-family:"Songti TC","Noto Serif TC",serif;font-size:1.25rem;margin:0 0 .3em;}
+  .wb-note{font-size:.92rem;color:var(--ink-soft);margin:.2em 0 .6em;}
+  .wb-tags{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px;padding:0;list-style:none;}
+  .wb-tags li{font-size:.8rem;border:1px solid var(--rule);border-radius:999px;padding:2px 10px;color:var(--ink-soft);}
+  .wb h3{font-size:1rem;margin:16px 0 4px;}
+  .wb-item{border-top:1px solid var(--rule-soft);padding:10px 0;}
+  .wb-head{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.78rem;color:var(--slate);}
+  .badge{border-radius:999px;padding:1px 9px;border:1px solid currentColor;}
+  .badge.open{color:var(--rose);}
+  .badge.fixed{color:var(--leaf);}
+  .wb-q{margin:.35em 0 .2em;font-size:.95rem;}
+  .wb-a{margin:0;font-size:.88rem;color:var(--ink-soft);}
+  .wb-a b{color:var(--ink);}
+  .wb-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+  .wb-actions button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:8px;
+      border:1px solid var(--rule);background:transparent;color:var(--ink-soft);cursor:pointer;}
+  .wb-actions button.on{border-color:var(--ink);background:var(--ink);color:#fff;}
+
+  footer{margin-top:34px;font-size:.85rem;color:var(--ink-soft);}
+  .reset{
+    font:inherit;font-size:.82rem;background:none;border:1px solid var(--rule);
+    color:var(--ink-soft);border-radius:8px;padding:5px 12px;cursor:pointer;margin-top:10px;
+  }
+  .note{margin:.4em 0;}
+  @media (max-width:560px){
+    .row{flex-wrap:wrap;}
+    .go{margin-left:34px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .field-fill{transition:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="book-line">國中自然科學 學習講義（第1冊）· 生物</p>
+  <h1>互動學習單總覽</h1>
+  <p class="lede">依講義目次編排，一節一份互動學習單。做完一份就在這裡打勾，視野會慢慢被填滿。</p>
+</header>
+
+<section class="scope" aria-labelledby="progress-title">
+  <div class="field-view" role="img" aria-label="學習進度視野圖">
+    <div class="field-fill" id="fill"></div>
+    <div class="field-mask"></div>
+    <p class="field-num"><b id="pctText">0%</b><span id="countText">0 / 37 份</span></p>
+  </div>
+  <div class="scope-text">
+    <h2 id="progress-title">目前進度</h2>
+    <p>全冊共 37 份學習單：緒論 2、五章 29、跨科主題 3、複習評量 3。勾選紀錄存在這台裝置裡。</p>
+    <ul class="tally">
+      <li><b>2</b>緒論</li>
+      <li><b>5</b>章</li>
+      <li><b>19</b>小節</li>
+      <li><b>3</b>複習評量</li>
+    </ul>
+  </div>
+</section>
+
+<main id="units"></main>
+
+<section class="wb" aria-labelledby="wb-title">
+  <h2 id="wb-title">錯題本</h2>
+  <p class="wb-note" id="wbNote"></p>
+  <ul class="wb-tags" id="wbTags"></ul>
+  <div id="wbList"></div>
+  <div class="wb-actions">
+    <button type="button" id="wbFilter">只看未訂正</button>
+    <button type="button" id="wbClear">清除錯題紀錄</button>
+  </div>
+</section>
+
+<details class="legend">
+  <summary>講義的欄目怎麼讀（本書架構）</summary>
+  <dl class="legend-grid">
+    <div><dt>本章概念圖</dt><dd>樹狀圖，一眼看完整章脈絡。</dd></div>
+    <div><dt>學習目標</dt><dd>這一小節該學會的事。</dd></div>
+    <div><dt>學習重點</dt><dd>扣課本內容，用焦點切分段落。</dd></div>
+    <div><dt>焦點</dt><dd>以圖表歸納課程內容。</dd></div>
+    <div><dt>知識快遞</dt><dd>補充相關知識，加深印象。</dd></div>
+    <div><dt>動腦時間</dt><dd>思考性問題，用解題驗證所學。</dd></div>
+    <div><dt>延伸學習</dt><dd>補充科普知識，增廣見聞。</dd></div>
+    <div><dt>好題示例</dt><dd>經典試題＋解題精要與步驟。</dd></div>
+    <div><dt>焦點即時練</dt><dd>基礎練習題，立即檢測成效。</dd></div>
+    <div><dt>實驗</dt><dd>步驟圖解、結果與分析，附即時練習。</dd></div>
+    <div><dt>實力養成評量</dt><dd>每小節後的檢測，依焦點布題。</dd></div>
+    <div><dt>學習地圖</dt><dd>整章填空複習，扣課本學習地圖。</dd></div>
+    <div><dt>學習成果診斷</dt><dd>全章試題：基礎、精熟、題組、素養整合。</dd></div>
+    <div><dt>複習評量</dt><dd>依進度規畫，考前實力評估。</dd></div>
+  </dl>
+</details>
+
+<footer>
+  <p class="note">綠色標記＝內頁資料已備齊，可開始製作學習單；灰色標記＝待補講義內頁。</p>
+  <p class="note">學習單完成後，把檔名填進本頁 UNITS 資料的 <code>file</code> 欄位，按鈕就會亮起。</p>
+  <button class="reset" id="reset" type="button">清除本機勾選紀錄</button>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var UNITS = [
+    { id:"in", no:"緒論", title:"緒論", page:3, accent:"var(--slate)", ready:true, items:[
+      { code:"in-1", title:"科學方法", page:3, file:"bio1-in1.html" },
+      { code:"in-2", title:"進入實驗室", page:5, file:"bio1-in2.html" }
+    ]},
+    { id:"c1", no:"第 1 章", title:"生命的特性", page:9, accent:"var(--leaf)", ready:true, items:[
+      { code:"c1-1", title:"1-1 生命現象", page:10, lab:"實驗1-1 顯微鏡的使用", file:"bio1-c1-1.html" },
+      { code:"c1-2", title:"1-2 細胞", page:20, lab:"實驗1-2 動、植物細胞的觀察", file:"bio1-c1-2.html" },
+      { code:"c1-3", title:"1-3 細胞所需的物質", page:28, file:"bio1-c1-3.html" },
+      { code:"c1-4", title:"1-4 從細胞到個體", page:33, lab:"實驗1-4 水滴中的生命世界", file:"bio1-c1-4.html" },
+      { code:"c1-map", title:"學習地圖", page:42, kind:"map", file:"bio1-c1-map.html" },
+      { code:"c1-test", title:"學習成果診斷", page:44, kind:"test", file:"" }
+    ]},
+    { id:"cx", no:"跨科主題", title:"世界的各種大小樣貌", page:52, accent:"var(--violet)", ready:true, items:[
+      { code:"cx-1", title:"第 1 節 巨觀尺度與微觀尺度", page:53, file:"bio1-cx-1.html" },
+      { code:"cx-2", title:"第 2 節 尺度的表示與比較", page:56, file:"bio1-cx-2.html" },
+      { code:"cx-test", title:"學習成果診斷", page:60, kind:"test", file:"" }
+    ]},
+    { id:"r1", no:"複習評量（一）", title:"緒論～跨科主題", page:62, accent:"var(--rose)", ready:false, items:[
+      { code:"r1-1", title:"複習評量（一）", page:62, kind:"test", file:"bio1-r1.html" }
+    ]},
+    { id:"c2", no:"第 2 章", title:"養分", page:65, accent:"var(--amber)", ready:true, items:[
+      { code:"c2-1", title:"2-1 食物中的養分", page:66, lab:"實驗2-1 食物中醣類的測定", file:"bio1-c2-1.html" },
+      { code:"c2-2", title:"2-2 酵素", page:74, lab:"實驗2-2 酵素的作用", file:"bio1-c2-2.html" },
+      { code:"c2-3", title:"2-3 植物如何獲得養分", page:81, lab:"實驗2-3 光合作用的探討", file:"bio1-c2-3.html" },
+      { code:"c2-4", title:"2-4 動物如何獲得養分", page:89, file:"bio1-c2-4.html" },
+      { code:"c2-map", title:"學習地圖", page:96, kind:"map", file:"bio1-c2-map.html" },
+      { code:"c2-test", title:"學習成果診斷", page:98, kind:"test", file:"" }
+    ]},
+    { id:"c3", no:"第 3 章", title:"生物的運輸與防禦", page:103, accent:"var(--blue)", ready:true, items:[
+      { code:"c3-1", title:"3-1 植物的運輸構造", page:104, file:"bio1-c3-1.html" },
+      { code:"c3-2", title:"3-2 植物體內物質的運輸", page:109, lab:"實驗3-2 觀察植物的水分運輸構造", file:"bio1-c3-2.html" },
+      { code:"c3-3", title:"3-3 人體內物質的運輸", page:114, lab:"實驗3-3-1 心音與脈搏／3-3-2 觀察血液的流動", file:"bio1-c3-3.html" },
+      { code:"c3-4", title:"3-4 人體的防禦作用", page:127, file:"bio1-c3-4.html" },
+      { code:"c3-map", title:"學習地圖", page:130, kind:"map", file:"bio1-c3-map.html" },
+      { code:"c3-test", title:"學習成果診斷", page:132, kind:"test", file:"" }
+    ]},
+    { id:"r2", no:"複習評量（二）", title:"第 2～3 章", page:139, accent:"var(--rose)", ready:false, items:[
+      { code:"r2-1", title:"複習評量（二）", page:139, kind:"test", file:"bio1-r2.html" }
+    ]},
+    { id:"c4", no:"第 4 章", title:"生物的協調作用", page:143, accent:"var(--teal)", ready:true, items:[
+      { code:"c4-1", title:"4-1 神經系統", page:144, lab:"實驗4-1-1 反應時間的測定／4-1-2 人體的感覺作用", file:"bio1-c4-1.html" },
+      { code:"c4-2", title:"4-2 內分泌系統", page:157, file:"bio1-c4-2.html" },
+      { code:"c4-3", title:"4-3 生物的感應", page:164, file:"bio1-c4-3.html" },
+      { code:"c4-map", title:"學習地圖", page:172, kind:"map", file:"bio1-c4-map.html" },
+      { code:"c4-test", title:"學習成果診斷", page:174, kind:"test", file:"" }
+    ]},
+    { id:"c5", no:"第 5 章", title:"生物的恆定性", page:179, accent:"var(--violet)", ready:true, items:[
+      { code:"c5-1", title:"5-1 恆定性與體溫的恆定", page:180, file:"bio1-c5-1.html" },
+      { code:"c5-2", title:"5-2 呼吸與氣體的恆定", page:187, lab:"實驗5-2 呼吸作用的觀察", file:"bio1-c5-2.html" },
+      { code:"c5-3", title:"5-3 血糖的恆定", page:198, file:"bio1-c5-3.html" },
+      { code:"c5-4", title:"5-4 排泄作用與水分的恆定", page:204, file:"bio1-c5-4.html" },
+      { code:"c5-map", title:"學習地圖", page:210, kind:"map", file:"bio1-c5-map.html" },
+      { code:"c5-test", title:"學習成果診斷", page:212, kind:"test", file:"" }
+    ]},
+    { id:"r3", no:"複習評量（三）", title:"第 4～5 章", page:218, accent:"var(--rose)", ready:false, items:[
+      { code:"r3-1", title:"複習評量（三）", page:218, kind:"test", file:"" }
+    ]}
+  ];
+
+  var KEY = "nature1-hub-progress-v1";
+  var memory = {};
+  var store = {
+    read: function(){
+      try {
+        var raw = window.localStorage.getItem(KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) { return memory; }
+    },
+    write: function(obj){
+      memory = obj;
+      try { window.localStorage.setItem(KEY, JSON.stringify(obj)); } catch (e) {}
+    },
+    clear: function(){
+      memory = {};
+      try { window.localStorage.removeItem(KEY); } catch (e) {}
+    }
+  };
+
+  var state = store.read();
+  var host = document.getElementById("units");
+  var fill = document.getElementById("fill");
+  var pctText = document.getElementById("pctText");
+  var countText = document.getElementById("countText");
+  var total = 0;
+
+  function kindClass(kind){
+    if (kind === "map") return "kind-map";
+    if (kind === "test") return "kind-test";
+    return "";
+  }
+
+  UNITS.forEach(function(unit){
+    var sec = document.createElement("section");
+    sec.className = "unit";
+    sec.style.setProperty("--accent", unit.accent);
+
+    var head = document.createElement("div");
+    head.className = "unit-head";
+    head.innerHTML =
+      '<span class="unit-no"></span>' +
+      '<h2 class="unit-title"></h2>' +
+      '<span class="unit-page"></span>' +
+      '<span class="flag"></span>';
+    head.querySelector(".unit-no").textContent = unit.no;
+    head.querySelector(".unit-title").textContent = unit.title;
+    head.querySelector(".unit-page").textContent = "P." + unit.page;
+    var flag = head.querySelector(".flag");
+    if (unit.ready === true) { flag.textContent = "內頁已備齊"; flag.className = "flag ready"; }
+    else if (unit.ready === "partial") { flag.textContent = "部分內頁"; flag.className = "flag wait"; }
+    else { flag.textContent = "待補內頁"; flag.className = "flag wait"; }
+    sec.appendChild(head);
+
+    var list = document.createElement("ul");
+    list.className = "rows";
+
+    unit.items.forEach(function(item){
+      total++;
+      var li = document.createElement("li");
+      li.className = "row";
+
+      var box = document.createElement("input");
+      box.type = "checkbox";
+      box.className = "tick";
+      box.id = "tick-" + item.code;
+      box.checked = !!state[item.code];
+      box.setAttribute("aria-label", "標記完成：" + item.title);
+
+      var main = document.createElement("div");
+      main.className = "row-main";
+      var label = document.createElement("label");
+      label.className = "row-title " + kindClass(item.kind);
+      label.setAttribute("for", box.id);
+      label.textContent = item.title;
+      main.appendChild(label);
+
+      var meta = document.createElement("p");
+      meta.className = "row-meta";
+      meta.textContent = "P." + item.page;
+      if (item.lab) {
+        var tag = document.createElement("span");
+        tag.className = "lab";
+        tag.textContent = item.lab;
+        meta.appendChild(tag);
+      }
+      main.appendChild(meta);
+
+      var go;
+      if (item.file) {
+        go = document.createElement("a");
+        go.className = "go";
+        go.href = item.file;
+        go.textContent = "開啟學習單";
+      } else {
+        go = document.createElement("button");
+        go.type = "button";
+        go.className = "go";
+        go.setAttribute("data-empty", "1");
+        go.disabled = true;
+        go.textContent = "尚未建立";
+      }
+
+      if (box.checked) li.classList.add("done");
+
+      box.addEventListener("change", function(){
+        state[item.code] = box.checked;
+        if (!box.checked) delete state[item.code];
+        li.classList.toggle("done", box.checked);
+        store.write(state);
+        paint();
+      });
+
+      li.appendChild(box);
+      li.appendChild(main);
+      li.appendChild(go);
+      list.appendChild(li);
+    });
+
+    sec.appendChild(list);
+    host.appendChild(sec);
+  });
+
+  function paint(){
+    var done = 0;
+    Object.keys(state).forEach(function(k){ if (state[k]) done++; });
+    var pct = total ? Math.round(done / total * 100) : 0;
+    fill.style.setProperty("--pct", pct);
+    pctText.textContent = pct + "%";
+    countText.textContent = done + " / " + total + " 份";
+  }
+
+  document.getElementById("reset").addEventListener("click", function(){
+    if (!window.confirm("清除這台裝置上的所有勾選紀錄？")) return;
+    store.clear();
+    state = {};
+    Array.prototype.forEach.call(document.querySelectorAll(".tick"), function(b){
+      b.checked = false;
+      b.closest(".row").classList.remove("done");
+    });
+    paint();
+  });
+
+  /* ── 錯題本 ── */
+  var WB_KEY = "nature1-wrongbook-v1";
+  var wbOnlyOpen = false;
+
+  function wbRead(){
+    try { var r = localStorage.getItem(WB_KEY); return r ? JSON.parse(r) : {}; }
+    catch (e) { return {}; }
+  }
+
+  function renderWB(){
+    var book = wbRead();
+    var keys = Object.keys(book);
+    var note = document.getElementById("wbNote");
+    var tagBox = document.getElementById("wbTags");
+    var list = document.getElementById("wbList");
+    list.innerHTML = "";
+    tagBox.innerHTML = "";
+
+    if (!keys.length) {
+      note.textContent = "目前沒有錯題紀錄。在各份學習單按「對答案」後，答錯的題目會自動收進這裡；下次答對就會標成已訂正。";
+      return;
+    }
+
+    var openCount = 0, tags = {}, sheets = {};
+    keys.forEach(function(k){
+      var r = book[k];
+      if (!r.fixed) openCount++;
+      tags[r.tag] = (tags[r.tag] || 0) + 1;
+      (sheets[r.sheet] = sheets[r.sheet] || { file:r.file, items:[] }).items.push(r);
+    });
+
+    note.textContent = "累計錯過 " + keys.length + " 題，其中 " + openCount + " 題尚未訂正。";
+
+    Object.keys(tags).sort(function(a,b){ return tags[b] - tags[a]; }).forEach(function(t){
+      var li = document.createElement("li");
+      li.textContent = t + " " + tags[t] + " 題";
+      tagBox.appendChild(li);
+    });
+
+    Object.keys(sheets).forEach(function(name){
+      var group = sheets[name];
+      var items = group.items.filter(function(r){ return wbOnlyOpen ? !r.fixed : true; });
+      if (!items.length) return;
+
+      var h3 = document.createElement("h3");
+      h3.textContent = name + "（" + items.length + " 題）";
+      list.appendChild(h3);
+
+      var link = document.createElement("a");
+      link.href = group.file;
+      link.textContent = "重做這份學習單 →";
+      link.style.fontSize = ".85rem";
+      list.appendChild(link);
+
+      items.sort(function(a,b){ return b.wrong - a.wrong; }).forEach(function(r){
+        var box = document.createElement("div");
+        box.className = "wb-item";
+
+        var head = document.createElement("p");
+        head.className = "wb-head";
+        head.style.margin = "0";
+        var badge = document.createElement("span");
+        badge.className = "badge " + (r.fixed ? "fixed" : "open");
+        badge.textContent = r.fixed ? "已訂正" : "未訂正";
+        head.appendChild(badge);
+        head.appendChild(document.createTextNode(r.tag + "　錯 " + r.wrong + " 次" + (r.last ? "　最近 " + r.last : "")));
+        box.appendChild(head);
+
+        var qp = document.createElement("p");
+        qp.className = "wb-q";
+        qp.textContent = r.q;
+        box.appendChild(qp);
+
+        var ap = document.createElement("p");
+        ap.className = "wb-a";
+        ap.innerHTML = "<b></b>";
+        ap.querySelector("b").textContent = "答案：" + r.answer;
+        ap.appendChild(document.createTextNode("　" + r.why));
+        box.appendChild(ap);
+
+        list.appendChild(box);
+      });
+    });
+  }
+
+  document.getElementById("wbFilter").addEventListener("click", function(){
+    wbOnlyOpen = !wbOnlyOpen;
+    this.classList.toggle("on", wbOnlyOpen);
+    this.textContent = wbOnlyOpen ? "顯示全部錯題" : "只看未訂正";
+    renderWB();
+  });
+
+  document.getElementById("wbClear").addEventListener("click", function(){
+    if (!window.confirm("清除這台裝置上的所有錯題紀錄？")) return;
+    try { localStorage.removeItem(WB_KEY); } catch (e) {}
+    renderWB();
+  });
+
+  renderWB();
+  paint();
+})();
+</script>
+</body>
+</html>
