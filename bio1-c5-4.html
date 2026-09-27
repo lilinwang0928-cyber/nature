@@ -98,6 +98,31 @@
   }
   .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
   footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+  /* ── 實驗紀錄共用元件 ── */
+  .sub{font-family:"Songti TC","Noto Serif TC",serif;font-size:1.03rem;font-weight:700;
+    margin:20px 0 8px;padding-top:14px;border-top:1px dashed var(--rule-soft);color:var(--ink);}
+  .sub:first-child{border-top:none;padding-top:0;margin-top:2px;}
+  .kfill{margin:0;}
+  .kfill .row{padding:9px 0;border-top:1px solid var(--rule-soft);line-height:2.4;}
+  .kfill .row:first-child{border-top:none;}
+  .kfill select{width:auto;min-width:120px;max-width:100%;margin:0 3px;}
+  .kord .row{display:flex;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kord .row:first-child{border-top:none;}
+  .kord .row p{margin:0;flex:1 1 auto;}
+  .kord select{flex:0 0 auto;width:auto;min-width:82px;}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.94rem;margin:6px 0 12px;}
+  table.cmp th,table.cmp td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.cmp th{background:#F3F7F2;font-weight:700;width:46%;}
+  table.cmp td select{width:100%;min-width:0;}
+  .kchk .row{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kchk .row:first-child{border-top:none;}
+  .kchk .row p{margin:0;flex:1 1 auto;}
+  .kchk .row input{margin-top:.5em;flex:0 0 auto;width:18px;height:18px;accent-color:var(--leaf);}
+  .knote{font-size:.9rem;color:var(--ink-soft);margin:.6em 0 0;line-height:1.75;}
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:4px 0 0;}
+  .kgrid .cell{border:1px solid var(--rule-soft);border-radius:10px;padding:10px 12px;background:#FCFDFB;}
+  .kgrid .cell h4{margin:0 0 .25em;font-size:.95rem;}
+  .kgrid .cell p{margin:0;font-size:.86rem;color:var(--ink-soft);line-height:1.65;}
 </style>
 </head>
 <body>
@@ -180,8 +205,21 @@
   <p class="fb" id="waterFb"></p>
 </section>
 
+
 <section class="card">
-  <h2>五、練習題</h2>
+  <h2>五、學力養成：三種含氮廢物連連看</h2>
+  <p class="hint">依實驗活動紀錄簿 P.85 第 19 題。不同生物排出的含氮廢物形式不同，毒性也不同。</p>
+  <div id="e54n"></div>
+
+  <p class="sub">毒性大小怎麼排？</p>
+  <div id="e54tox"></div>
+  <p class="knote">為什麼會有這樣的差別？<b>毒性越強的廢物，排放時需要越多水分來稀釋。</b>
+    水裡的生物不缺水，用毒性最強但最省事的氨就好；陸地上的昆蟲和鳥類必須省水，
+    就把廢物轉換成幾乎不需要水的尿酸——這也讓鳥的身體更輕盈，有助於飛行。</p>
+</section>
+
+<section class="card">
+  <h2>六、練習題</h2>
   <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
   <div id="qs"></div>
   <div class="actions">
@@ -191,7 +229,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 31</b>
+  <span>練習題答對</span><b id="score">0 / 39</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -483,7 +521,43 @@
     { id:"q31", tag:"歷屆經典題", type:"choice",
       text:"小潔比較人體血液流出甲器官後的濃度變化，發現尿素濃度上升、氧氣濃度下降。根據上述推測，甲器官最可能是下列何者？",
       opts:["膀胱","肝臟","肺臟","腎臟"], ans:1,
-      why:"肝臟把氨轉變成尿素，所以流出去的血液尿素變多；同時肝細胞行呼吸作用消耗氧氣，氧氣就下降。若是腎臟，尿素應該被濾掉而減少。" }
+      why:"肝臟把氨轉變成尿素，所以流出去的血液尿素變多；同時肝細胞行呼吸作用消耗氧氣，氧氣就下降。若是腎臟，尿素應該被濾掉而減少。" },
+
+    { id:"z1", tag:"學力養成篇", type:"choice",
+      text:"沛沛比較人體血液中的尿素與二氧化碳在「流出甲器官後」的濃度變化，結果為：尿素下降、二氧化碳上升。根據上述，推測甲器官最可能是下列何者？",
+      opts:["膀胱","肝臟","肺臟","腎臟"], ans:3,
+      why:"尿素濃度下降代表這個器官把尿素過濾掉了，那就是腎臟。至於二氧化碳上升，是因為腎臟本身的細胞也在進行呼吸作用產生二氧化碳。肺臟會讓二氧化碳下降；肝臟是製造尿素的地方，會讓尿素上升；膀胱只是儲存尿液。" },
+    { id:"z2", tag:"學力養成篇", type:"choice",
+      text:"下列何種構造和生物體防止水分的散失無關？",
+      opts:["杜鵑葉表面的角質層","桑樹莖中的維管束","蛇的鱗片","鍬形蟲的外骨骼"], ans:1,
+      why:"維管束的功能是「運輸」水分和養分，不是防止水分散失。角質層、鱗片和外骨骼都是覆蓋在體表、阻擋水分蒸發的構造。" },
+    { id:"z3", tag:"學力養成篇", type:"choice",
+      text:"【題組】尿液是在人體泌尿系統的哪一個器官形成的？",
+      opts:["腎臟","輸尿管","膀胱","尿道"], ans:0,
+      why:"腎臟負責過濾血液、把含氮廢物和多餘的水分形成尿液。輸尿管只是通道，膀胱負責儲存，尿道負責排出。" },
+    { id:"z4", tag:"學力養成篇", type:"choice",
+      text:"【題組】承上題，尿液排出體外的正確途徑為何？",
+      opts:["腎臟→輸尿管→膀胱→尿道","膀胱→輸尿管→腎臟→尿道",
+            "腎臟→膀胱→輸尿管→尿道","尿道→膀胱→輸尿管→腎臟"], ans:0,
+      why:"尿液在腎臟形成後，經輸尿管送到膀胱儲存，累積到一定量再經尿道排出體外。記住順序是「造→送→存→排」。" },
+    { id:"z5", tag:"閱讀趣", type:"choice",
+      text:"（含氮廢物的排泄）根據含氮廢物的形式判斷，下列何種生物排出的含氮廢物毒性最弱？",
+      opts:["大肚魚","變形蟲","人","蝗蟲"], ans:3,
+      why:"蝗蟲是昆蟲，排出的是尿酸，毒性最弱。大肚魚和變形蟲排氨（毒性最強），人排尿素（居中）。" },
+    { id:"z6", tag:"閱讀趣", type:"choice",
+      text:"（含氮廢物的排泄）由單細胞生物排出氨的過程判斷，下列何者正確？",
+      opts:["細胞內氨的濃度＞細胞外氨的濃度","細胞內氨的濃度＝細胞外氨的濃度",
+            "細胞內氨的濃度＜細胞外氨的濃度","以上均有可能"], ans:0,
+      why:"氨是藉由擴散作用從細胞排到水中的，而擴散一定是由高濃度往低濃度移動，所以細胞內的濃度必須比細胞外高。" },
+    { id:"z7", tag:"閱讀趣", type:"choice",
+      text:"（含氮廢物的排泄）關於人類排出的含氮廢物，下列何者正確？",
+      opts:["主要排放尿酸","排出的器官包括皮膚",
+            "含氮廢物形式與大肚魚相同","大多混在糞便中排出"], ans:1,
+      why:"人類主要以尿素的形式排放，除了尿液之外，汗液中也含有少許尿素，所以皮膚也是排出的器官之一。大肚魚排的是氨，混在糞便中排出的是昆蟲和鳥類的尿酸。" },
+    { id:"z8", tag:"閱讀趣", type:"choice",
+      text:"（含氮廢物的排泄）關於鳥類排出的含氮廢物，下列何者正確？",
+      opts:["毒性很強","排出時需要大量水分稀釋","含氮廢物形式與蝴蝶相同","大多混在尿液中排出"], ans:2,
+      why:"鳥類排出的是尿酸，蝴蝶是昆蟲，排的也是尿酸，兩者形式相同。尿酸毒性最弱、不需要大量水分稀釋，而且是混在糞便中排出——鳥糞上白色的部分就是它。" }
   ];
 
   var host = document.getElementById("qs");
@@ -580,7 +654,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 25) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先回上面四個練習區確認一次，再回來作答。";
   }
 
@@ -703,7 +777,7 @@
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -825,7 +899,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -878,7 +954,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -922,8 +997,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -942,11 +1015,296 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　END ===== -->
 
+<script>
+/* ── 實驗紀錄共用元件（NKit）── */
+window.NKit = (function(){
+  "use strict";
+
+  var mem = {};
+  function read(key){
+    try { var r = localStorage.getItem(key); return r ? JSON.parse(r) : {}; }
+    catch(e){ return mem[key] || {}; }
+  }
+  function write(key, o){
+    mem[key] = o;
+    try { localStorage.setItem(key, JSON.stringify(o)); } catch(e){}
+  }
+
+  function mkSelect(opts, val){
+    var sel = document.createElement("select");
+    var b = document.createElement("option");
+    b.value = ""; b.textContent = "（選）";
+    sel.appendChild(b);
+    opts.forEach(function(o){
+      var op = document.createElement("option");
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    if (val) sel.value = val;
+    return sel;
+  }
+
+  function actions(host, label, run){
+    var wrap = document.createElement("div");
+    wrap.className = "actions";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "act";
+    btn.textContent = label || "檢查";
+    wrap.appendChild(btn);
+    host.parentNode.insertBefore(wrap, host.nextSibling);
+
+    var p = document.createElement("p");
+    p.className = "fb";
+    host.parentNode.insertBefore(p, wrap.nextSibling);
+
+    btn.addEventListener("click", function(){ run(p); });
+    return p;
+  }
+
+  function verdict(p, right, total, ok, no){
+    p.className = "fb show " + (right === total ? "right" : "wrong");
+    p.textContent = right === total
+      ? (ok || "全對。")
+      : ("答對 " + right + " / " + total + "。" + (no || ""));
+  }
+
+  /* 句子填空：t 字串中每個 {} 換成一個下拉選單 */
+  function fill(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kfill";
+    var sels = [];
+
+    cfg.rows.forEach(function(row, ri){
+      var div = document.createElement("div");
+      div.className = "row";
+      var parts = row.t.split("{}");
+      var rowSels = [];
+      parts.forEach(function(txt, i){
+        div.appendChild(document.createTextNode(txt));
+        if (i < parts.length - 1) {
+          var id = cfg.host + "-" + ri + "-" + i;
+          var sel = mkSelect(row.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          div.appendChild(sel);
+          rowSels.push({ sel:sel, id:id });
+        }
+      });
+      if (row.tail) div.appendChild(document.createTextNode(row.tail));
+      sels.push(rowSels);
+      host.appendChild(div);
+    });
+
+    actions(host, cfg.btn, function(p){
+      var right = 0, total = 0;
+      cfg.rows.forEach(function(row, ri){
+        var pool = row.ans.slice();
+        sels[ri].forEach(function(o, i){
+          total++;
+          var ok;
+          if (row.any) {
+            var at = pool.indexOf(o.sel.value);
+            ok = o.sel.value !== "" && at >= 0;
+            if (ok) pool.splice(at, 1);
+          } else {
+            ok = o.sel.value === row.ans[i];
+          }
+          o.sel.classList.toggle("ok", ok);
+          o.sel.classList.toggle("no", !ok);
+          if (ok) right++;
+        });
+      });
+      verdict(p, right, total, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 步驟排序：steps 以正確順序給，畫面上打散，用數字下拉作答 */
+  function order(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kord";
+    var n = cfg.steps.length;
+    var nums = [];
+    for (var i=1;i<=n;i++) nums.push(String(i));
+
+    var idx = cfg.steps.map(function(_, i){ return i; });
+    var seed = 0, c;
+    for (c=0;c<cfg.host.length;c++) seed = (seed * 31 + cfg.host.charCodeAt(c)) % 9973;
+    for (c=idx.length-1;c>0;c--){
+      seed = (seed * 1103515245 + 12345) % 2147483647;
+      var j = seed % (c+1), t = idx[c]; idx[c] = idx[j]; idx[j] = t;
+    }
+
+    var rows = [];
+    idx.forEach(function(orig){
+      var div = document.createElement("div");
+      div.className = "row";
+      var p = document.createElement("p");
+      p.textContent = cfg.steps[orig];
+      var id = cfg.host + "-" + orig;
+      var sel = mkSelect(nums, st[id]);
+      sel.addEventListener("change", function(){
+        st[id] = sel.value; write(cfg.key, st);
+        sel.classList.remove("ok","no");
+      });
+      div.appendChild(p); div.appendChild(sel);
+      host.appendChild(div);
+      rows.push({ sel:sel, ans:String(orig + 1) });
+    });
+
+    actions(host, cfg.btn || "檢查順序", function(p){
+      var right = 0;
+      rows.forEach(function(r){
+        var ok = r.sel.value === r.ans;
+        r.sel.classList.toggle("ok", ok);
+        r.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, rows.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 比較表：head 是欄位標題，rows 每列一個項目 */
+  function table(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    var tb = document.createElement("table");
+    tb.className = "cmp";
+
+    if (cfg.head) {
+      var tr = document.createElement("tr");
+      cfg.head.forEach(function(h, i){
+        var c = document.createElement("th");
+        c.textContent = h;
+        if (i > 0) c.style.width = "auto";
+        tr.appendChild(c);
+      });
+      tb.appendChild(tr);
+    }
+
+    var cells = [];
+    cfg.rows.forEach(function(row, ri){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = row.th;
+      tr.appendChild(th);
+      row.cells.forEach(function(cell, ci){
+        var td = document.createElement("td");
+        if (cell.text) {
+          td.textContent = cell.text;
+        } else {
+          var id = cfg.host + "-" + ri + "-" + ci;
+          var sel = mkSelect(cell.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          td.appendChild(sel);
+          cells.push({ sel:sel, ans:cell.ans });
+        }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    host.appendChild(tb);
+
+    actions(host, cfg.btn, function(p){
+      var right = 0;
+      cells.forEach(function(c){
+        var ok = c.sel.value === c.ans;
+        c.sel.classList.toggle("ok", ok);
+        c.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, cells.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 複選勾選題 */
+  function check(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kchk";
+    var boxes = [];
+    cfg.items.forEach(function(item, i){
+      var div = document.createElement("div");
+      div.className = "row";
+      var inp = document.createElement("input");
+      inp.type = "checkbox";
+      var id = cfg.host + "-" + i;
+      inp.checked = !!st[id];
+      inp.addEventListener("change", function(){
+        st[id] = inp.checked; write(cfg.key, st);
+      });
+      var p = document.createElement("p");
+      p.textContent = item.t;
+      div.appendChild(inp); div.appendChild(p);
+      host.appendChild(div);
+      boxes.push({ inp:inp, ans:!!item.ok, p:p, why:item.why });
+    });
+
+    actions(host, cfg.btn || "對答案", function(p){
+      var right = 0;
+      boxes.forEach(function(b){
+        var ok = b.inp.checked === b.ans;
+        b.p.style.color = ok ? "" : "var(--rose)";
+        if (ok) right++;
+      });
+      verdict(p, right, boxes.length, cfg.ok, cfg.no);
+    });
+  }
+
+  return { fill:fill, order:order, table:table, check:check };
+})();
+</script>
+<script>
+
+(function(){
+  var K = "nature1-c5-4-lab-v1";
+
+  NKit.table({
+    host:"e54n", key:K,
+    head:["生物","排出的含氮廢物","排泄方式"],
+    rows:[
+      { th:"水中的單細胞生物", cells:[
+        { opts:["氨","尿素","尿酸"], ans:"氨" },
+        { opts:["以擴散作用直接排出","形成尿液排出","混在糞便中排出"], ans:"以擴散作用直接排出" } ] },
+      { th:"人類", cells:[
+        { opts:["氨","尿素","尿酸"], ans:"尿素" },
+        { opts:["以擴散作用直接排出","形成尿液排出","混在糞便中排出"], ans:"形成尿液排出" } ] },
+      { th:"陸地的昆蟲", cells:[
+        { opts:["氨","尿素","尿酸"], ans:"尿酸" },
+        { opts:["以擴散作用直接排出","形成尿液排出","混在糞便中排出"], ans:"混在糞便中排出" } ] }
+    ],
+    ok:"全對。鳥類和昆蟲一樣排尿酸，鳥糞中白色的部分主要成分就是尿酸。",
+    no:"線索在「有沒有水可以用」：水中生物用氨，陸生哺乳類用尿素，需要極度省水的昆蟲和鳥類用尿酸。"
+  });
+
+  NKit.fill({
+    host:"e54tox", key:K,
+    rows:[
+      { t:"三種含氮廢物的毒性由強到弱依序為： {} ＞ {} ＞ {} 。",
+        opts:["氨","尿素","尿酸"], ans:["氨","尿素","尿酸"] },
+      { t:"毒性越強的含氮廢物，排放時需要的水分越 {} 。",
+        opts:["多","少"], ans:["多"] }
+    ],
+    ok:"全對。氨毒性最強、最需要水稀釋；尿酸毒性最弱、幾乎不需要水。",
+    no:"記法照著生活環境排：水最多的用氨，水最少的用尿酸，人類居中用尿素。"
+  });
+})();
+</script>
 </body>
 </html>

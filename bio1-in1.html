@@ -188,7 +188,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 10</b>
+  <span>練習題答對</span><b id="score">0 / 13</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -387,7 +387,23 @@
         "不支持，因為甲組孑孓的存活率沒有比乙組低",
         "不支持，因為甲、乙兩組孑孓的存活率皆低於50%"
       ], ans:2,
-      why:"要看的是兩組的比較：放硬幣的甲組存活率反而略高，沒有出現假說預期的結果，所以不支持。存活率高低本身不是判斷依據。" }
+      why:"要看的是兩組的比較：放硬幣的甲組存活率反而略高，沒有出現假說預期的結果，所以不支持。存活率高低本身不是判斷依據。" },
+
+    { id:"x1", tag:"學力養成篇", type:"choice",
+      text:"【題組】小軒發現放有數枚一元硬幣的水盆裡沒有孑孓生存，但沒有一元硬幣的水盆裡卻有孑孓生存（甲）；他問：為什麼放有一元硬幣的水盆中孑孓無法生存（乙）；他認為：含有一元硬幣的水可能會促使孑孓死亡（丙）；接著他準備兩組相同的水盆進行實驗（丁）。請問哪一部分為「提出假設」？",
+      opts:["甲","乙","丙","丁"], ans:2,
+      why:"甲是觀察到的現象，乙是提出問題，丙是對問題提出一個「可能的解釋」，也就是假設，丁則是設計實驗。" },
+    { id:"x2", tag:"學力養成篇", type:"choice",
+      text:"【題組】承上題，小軒準備兩組相同的水盆，皆倒入等量的純水，僅在實驗組中放入 10 枚一元硬幣，對照組則無；兩組皆放入 30 隻孑孓，每日皆提供充足的相同食物，一週後觀察兩組孑孓的存活率。下列何者為操縱變因？",
+      opts:["孑孓的起始數量","純水的量","孑孓的存活率","一元硬幣的有無"], ans:3,
+      why:"操縱變因是實驗者刻意製造差異的條件。這個實驗中兩組唯一不同的是有沒有一元硬幣；孑孓數量和水量是控制變因，存活率是應變變因。" },
+    { id:"x3", tag:"學力養成篇", type:"choice",
+      text:"【題組】承上題，實驗結果為：實驗組（純水＋孑孓＋一元硬幣）存活率 43.3%，對照組（純水＋孑孓）存活率 40.0%。下列關於實驗結果是否支持小軒所提出的假設，何者最合理？",
+      opts:["支持，因為實驗組孑孓的存活率沒有比對照組低",
+            "支持，因為兩組孑孓的存活率皆低於 50%",
+            "不支持，因為實驗組孑孓的存活率沒有比對照組低",
+            "不支持，因為兩組孑孓的存活率皆低於 50%"], ans:2,
+      why:"假設是「硬幣的水會促使孑孓死亡」，若成立，實驗組存活率應該明顯較低；但實驗組 43.3% 反而略高於對照組 40.0%，所以結果不支持假設。存活率是否低於 50% 和假設無關。" }
   ];
 
   var host = document.getElementById("qs");
@@ -484,7 +500,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 7) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先把錯的題目對照上面的流程與變因表再想一次。";
   }
 
@@ -605,7 +621,7 @@
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -727,7 +743,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -780,7 +798,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -824,8 +841,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -844,7 +859,7 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>

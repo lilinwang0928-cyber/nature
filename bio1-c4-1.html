@@ -98,6 +98,43 @@
   }
   .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
   footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+  /* ── 實驗紀錄共用元件 ── */
+  .sub{font-family:"Songti TC","Noto Serif TC",serif;font-size:1.03rem;font-weight:700;
+    margin:20px 0 8px;padding-top:14px;border-top:1px dashed var(--rule-soft);color:var(--ink);}
+  .sub:first-child{border-top:none;padding-top:0;margin-top:2px;}
+  .kfill{margin:0;}
+  .kfill .row{padding:9px 0;border-top:1px solid var(--rule-soft);line-height:2.4;}
+  .kfill .row:first-child{border-top:none;}
+  .kfill select{width:auto;min-width:120px;max-width:100%;margin:0 3px;}
+  .kord .row{display:flex;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kord .row:first-child{border-top:none;}
+  .kord .row p{margin:0;flex:1 1 auto;}
+  .kord select{flex:0 0 auto;width:auto;min-width:82px;}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.94rem;margin:6px 0 12px;}
+  table.cmp th,table.cmp td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.cmp th{background:#F3F7F2;font-weight:700;width:46%;}
+  table.cmp td select{width:100%;min-width:0;}
+  .kchk .row{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kchk .row:first-child{border-top:none;}
+  .kchk .row p{margin:0;flex:1 1 auto;}
+  .kchk .row input{margin-top:.5em;flex:0 0 auto;width:18px;height:18px;accent-color:var(--leaf);}
+  .knote{font-size:.9rem;color:var(--ink-soft);margin:.6em 0 0;line-height:1.75;}
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:4px 0 0;}
+  .kgrid .cell{border:1px solid var(--rule-soft);border-radius:10px;padding:10px 12px;background:#FCFDFB;}
+  .kgrid .cell h4{margin:0 0 .25em;font-size:.95rem;}
+  .kgrid .cell p{margin:0;font-size:.86rem;color:var(--ink-soft);line-height:1.65;}
+  /* ── 接尺反應時間計算器 ── */
+  .rt-in{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 0;}
+  .rt-in label{display:flex;align-items:center;gap:6px;font-size:.9rem;color:var(--ink-soft);}
+  .rt-in input{width:76px;text-align:right;}
+  .rt-out{margin:14px 0 0;padding:12px 14px;border:1px solid var(--rule-soft);border-radius:10px;
+    background:#F3F7F2;font-size:.95rem;line-height:1.9;}
+  .rt-out b{color:var(--blue);font-size:1.05rem;}
+  .rt-tab{max-height:220px;overflow:auto;border:1px solid var(--rule-soft);border-radius:10px;margin:10px 0 0;}
+  .rt-tab table{width:100%;border-collapse:collapse;font-size:.88rem;}
+  .rt-tab th,.rt-tab td{border-bottom:1px solid var(--rule-soft);padding:5px 10px;text-align:center;}
+  .rt-tab th{background:#F3F7F2;position:sticky;top:0;}
+  .rt-tab tr.hit td{background:#DCEFDC;font-weight:700;}
 </style>
 </head>
 <body>
@@ -182,8 +219,48 @@
   <p class="fb" id="neuronFb"></p>
 </section>
 
+
 <section class="card">
-  <h2>五、練習題</h2>
+  <h2>五、實驗 4-1-1：反應時間的測定</h2>
+  <p class="hint">依實驗活動紀錄簿 P.64–66。主試者放開直尺，受試者看到就夾住，夾住的刻度就是滑落距離。</p>
+
+  <p class="sub">算算看你的反應時間</p>
+  <p class="hint">填入 5 次的直尺滑落距離（公分），下面會自動算出平均值並查表對照反應時間。</p>
+  <div class="rt-in" id="rtIn"></div>
+  <div class="actions">
+    <button class="act" id="rtGo" type="button">計算</button>
+    <button class="act ghost" id="rtClr" type="button">清除</button>
+  </div>
+  <p class="rt-out" id="rtOut">還沒有資料。</p>
+  <div class="rt-tab" id="rtTab"></div>
+
+  <p class="sub">結果與討論</p>
+  <div id="e411r"></div>
+  <p class="knote">為什麼練習幾次之後會變快？因為受試者更專注、也更熟悉直尺落下的時機，
+    但神經傳導本身的速度並沒有改變——縮短的是「判斷」花掉的時間。</p>
+</section>
+
+<section class="card">
+  <h2>六、實驗 4-1-2：人體的感覺作用</h2>
+  <p class="hint">依實驗活動紀錄簿 P.66–70。溫覺會被騙，視覺也會。</p>
+
+  <p class="sub">甲　溫覺：三盆水的實驗</p>
+  <p class="hint">A 盆 35～40℃（自來水加熱水）、B 盆 20～25℃（室溫自來水）、C 盆 10～15℃（自來水加冰塊）。
+    右手先放 A 盆、左手先放 C 盆，三分鐘後兩手同時移入 B 盆。</p>
+  <div id="e412a"></div>
+
+  <p class="sub">乙　視覺暫留：負片後像的顏色</p>
+  <p class="hint">凝視圖形中心 15 秒後把目光移到旁邊的空白處，就會看到後像。</p>
+  <div id="e412b"></div>
+
+  <p class="sub">結果與討論</p>
+  <div id="e412r"></div>
+  <p class="knote">負片後像的顏色，是原圖顏色的<b>互補色</b>：紅↔青綠、黃↔藍。
+    原因是眼睛中感受該顏色的細胞長時間受刺激而疲乏，移開視線後其他顏色的感受就相對變強。</p>
+</section>
+
+<section class="card">
+  <h2>七、練習題</h2>
   <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
   <div id="qs"></div>
   <div class="actions">
@@ -193,7 +270,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 32</b>
+  <span>練習題答對</span><b id="score">0 / 45</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -550,7 +627,77 @@
         "需有運動神經元參與",
         "經練習可縮短反應時間"
       ], ans:0,
-      why:"時間會隨練習而縮短，代表這是需要學習的意識行為，控制中樞是大腦而不只是脊髓。" }
+      why:"時間會隨練習而縮短，代表這是需要學習的意識行為，控制中樞是大腦而不只是脊髓。" },
+
+    { id:"y1", tag:"學力養成篇", type:"choice",
+      text:"神經元由細胞本體和神經纖維組成，下列敘述何者正確？",
+      opts:["細胞本體中有細胞核，負責神經元的代謝",
+            "神經纖維中有神經細胞的細胞核",
+            "細胞本體負責把訊息傳遞到遠處",
+            "神經纖維負責神經元的代謝"], ans:0,
+      why:"細胞本體含有細胞核，是神經元維持生命與代謝的地方；由它延伸出去的神經纖維才是負責長距離傳遞訊息的構造。" },
+    { id:"y2", tag:"學力養成篇", type:"choice",
+      text:"走路時不小心踢到石頭，不經思考而立刻將腳縮回，請問此反應不需要經過下列哪一個部位？",
+      opts:["感覺神經元","運動神經元","大腦","脊髓"], ans:2,
+      why:"這是反射作用，訊息由感覺神經元傳到脊髓後就直接經運動神經元傳出，不需要先上傳到大腦，所以反應特別快。（事後才會感覺到痛，那是訊息另外傳到大腦的結果。）" },
+    { id:"y3", tag:"學力養成篇", type:"choice",
+      text:"有關意識行為與反射作用的比較，下列何者正確？",
+      opts:["反應中樞：意識行為是腦幹，反射作用是脊髓",
+            "反應時間：意識行為較慢，反射作用較快",
+            "是否經過動器：意識行為否，反射作用是",
+            "舉例：意識行為是流口水，反射作用是眨眼"], ans:1,
+      why:"反射作用不必經過大腦，路徑短所以比較快。意識行為的中樞是大腦不是腦幹；兩者最後都要由動器產生反應；流口水是反射作用而非意識行為。" },
+    { id:"y4", tag:"學力養成篇", type:"choice",
+      text:"有關「大腦」的敘述，下列何者有誤？",
+      opts:["由腦殼保護","分為左右兩半球","屬於中樞神經","參與肢體反射作用"], ans:3,
+      why:"肢體的反射作用中樞在脊髓，不經過大腦。大腦由腦殼保護、分左右兩半球、與脊髓同屬中樞神經系統，這三項都正確。" },
+    { id:"y5", tag:"學力養成篇", type:"choice",
+      text:"一新跑完百米賽跑後，呼吸加快、心跳加速，請問控制呼吸與心跳的主要構造為下列何者？",
+      opts:["大腦","小腦","腦幹","脊髓"], ans:2,
+      why:"腦幹是生命中樞，負責控制心搏、呼吸等維持生命所必需的恆定功能，因此又被稱為生命中樞。" },
+    { id:"y6", tag:"學力養成篇", type:"choice",
+      text:"閉上眼睛以單腳站立做瑜珈動作時，協調肌肉活動以維持身體平衡，主要是由下列何者調控？",
+      opts:["大腦","小腦","腦幹","脊髓"], ans:1,
+      why:"小腦負責協調全身肌肉活動並維持身體的平衡，所以走路、騎車、平衡動作都由它主導。" },
+    { id:"y7", tag:"學力養成篇", type:"choice",
+      text:"（實驗 4-1-1）在接尺實驗中，受試者接受環境刺激的受器主要分布於何處？",
+      opts:["手部皮膚","手部肌肉","眼","耳"], ans:2,
+      why:"受試者是「看到」直尺落下才夾住的，所以接受刺激的受器是眼睛。手部皮膚和肌肉屬於動器那一端。" },
+    { id:"y8", tag:"學力養成篇", type:"choice",
+      text:"（實驗 4-1-1）在接尺實驗中，受試者體內的神經傳導途徑為何？",
+      opts:["受器→感覺神經元→大腦→運動神經元→動器",
+            "受器→感覺神經元→脊髓→運動神經元→動器",
+            "受器→感覺神經元→大腦→脊髓→運動神經元→動器",
+            "受器→感覺神經元→脊髓→大腦→運動神經元→動器"], ans:0,
+      why:"接尺需要看到之後判斷再動手，屬於意識行為，訊息必須經過大腦。如果是反射作用才會在脊髓就直接轉出去。" },
+    { id:"y9", tag:"學力養成篇", type:"choice",
+      text:"（實驗 4-1-2）小明將右手放入 A 盆（35℃）、左手放入 C 盆（15℃），三分鐘後兩手同時移入中間的 B 盆（25℃），請問兩手的感覺分別為何？",
+      opts:["左手感覺熱、右手感覺冷","右手感覺熱、左手感覺冷",
+            "左、右手均感覺熱","左、右手均感覺冷"], ans:0,
+      why:"皮膚感受的是溫度的「相對變化」。右手從 35℃ 移到 25℃ 是降溫，覺得冷；左手從 15℃ 移到 25℃ 是升溫，覺得熱。同一盆水卻有相反的感覺。" },
+    { id:"y10", tag:"學力養成篇", type:"choice",
+      text:"（實驗 4-1-2）下列何者不是因為「視覺暫留」所造成的現象？",
+      opts:["煙火在空中呈現出絢麗的圖案",
+            "卡通影片中的卡通人物表現出可愛的動作",
+            "綿綿春雨如細絲般地降落地面",
+            "滴入水中的墨汁逐漸均勻散布至整杯水中"], ans:3,
+      why:"墨汁在水中散開是「擴散作用」，和眼睛無關。前三者都是影像在視網膜上短暫停留、前後影像連接起來所造成的效果。" },
+    { id:"y11", tag:"閱讀趣", type:"choice",
+      text:"（腦部的傷害）「植物人」與「腦死」是以哪個構造是否仍具有功能而分？",
+      opts:["大腦","小腦","腦幹","脊髓"], ans:2,
+      why:"植物人的腦幹仍可正常運作，所以能自己呼吸；腦死則是腦幹完全壞死、喪失功能，導致呼吸與心跳完全停止。" },
+    { id:"y12", tag:"閱讀趣", type:"choice",
+      text:"（腦部的傷害）通常腦部重創而昏迷的患者，不會立即被宣布為植物人的原因為何？",
+      opts:["腦部受傷與植物人無關",
+            "腦細胞恢復速度前半年較快，仍有康復的機會",
+            "科技進步，病情都能藉由藥物來控制",
+            "腦部受傷造成立即死亡，沒有必要宣布"], ans:1,
+      why:"受傷後 3～6 個月腦部細胞恢復速度最快，一年後才會趨緩甚至停滯，所以醫師通常不會在第一時間就下定論。" },
+    { id:"y13", tag:"閱讀趣", type:"choice",
+      text:"（腦部的傷害）關於腦死患者的症狀，下列何項正確？",
+      opts:["無法維持正常血壓","有正常的瞳孔反射",
+            "患者的心跳可自行維持恆定","外界只需協助餵食，患者就可以延續生命"], ans:0,
+      why:"腦死是腦幹喪失功能，呼吸、心跳、血壓等生命徵象都無法自行維持，絕大多數患者兩週內血壓下降、心跳停止。後三項描述的是植物人的狀況。" }
   ];
 
   var host = document.getElementById("qs");
@@ -647,7 +794,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 25) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先回上面四個練習區確認一次，再回來作答。";
   }
 
@@ -770,7 +917,7 @@
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -892,7 +1039,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -945,7 +1094,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -989,8 +1137,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -1009,11 +1155,427 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　END ===== -->
 
+<script>
+/* ── 實驗紀錄共用元件（NKit）── */
+window.NKit = (function(){
+  "use strict";
+
+  var mem = {};
+  function read(key){
+    try { var r = localStorage.getItem(key); return r ? JSON.parse(r) : {}; }
+    catch(e){ return mem[key] || {}; }
+  }
+  function write(key, o){
+    mem[key] = o;
+    try { localStorage.setItem(key, JSON.stringify(o)); } catch(e){}
+  }
+
+  function mkSelect(opts, val){
+    var sel = document.createElement("select");
+    var b = document.createElement("option");
+    b.value = ""; b.textContent = "（選）";
+    sel.appendChild(b);
+    opts.forEach(function(o){
+      var op = document.createElement("option");
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    if (val) sel.value = val;
+    return sel;
+  }
+
+  function actions(host, label, run){
+    var wrap = document.createElement("div");
+    wrap.className = "actions";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "act";
+    btn.textContent = label || "檢查";
+    wrap.appendChild(btn);
+    host.parentNode.insertBefore(wrap, host.nextSibling);
+
+    var p = document.createElement("p");
+    p.className = "fb";
+    host.parentNode.insertBefore(p, wrap.nextSibling);
+
+    btn.addEventListener("click", function(){ run(p); });
+    return p;
+  }
+
+  function verdict(p, right, total, ok, no){
+    p.className = "fb show " + (right === total ? "right" : "wrong");
+    p.textContent = right === total
+      ? (ok || "全對。")
+      : ("答對 " + right + " / " + total + "。" + (no || ""));
+  }
+
+  /* 句子填空：t 字串中每個 {} 換成一個下拉選單 */
+  function fill(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kfill";
+    var sels = [];
+
+    cfg.rows.forEach(function(row, ri){
+      var div = document.createElement("div");
+      div.className = "row";
+      var parts = row.t.split("{}");
+      var rowSels = [];
+      parts.forEach(function(txt, i){
+        div.appendChild(document.createTextNode(txt));
+        if (i < parts.length - 1) {
+          var id = cfg.host + "-" + ri + "-" + i;
+          var sel = mkSelect(row.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          div.appendChild(sel);
+          rowSels.push({ sel:sel, id:id });
+        }
+      });
+      if (row.tail) div.appendChild(document.createTextNode(row.tail));
+      sels.push(rowSels);
+      host.appendChild(div);
+    });
+
+    actions(host, cfg.btn, function(p){
+      var right = 0, total = 0;
+      cfg.rows.forEach(function(row, ri){
+        var pool = row.ans.slice();
+        sels[ri].forEach(function(o, i){
+          total++;
+          var ok;
+          if (row.any) {
+            var at = pool.indexOf(o.sel.value);
+            ok = o.sel.value !== "" && at >= 0;
+            if (ok) pool.splice(at, 1);
+          } else {
+            ok = o.sel.value === row.ans[i];
+          }
+          o.sel.classList.toggle("ok", ok);
+          o.sel.classList.toggle("no", !ok);
+          if (ok) right++;
+        });
+      });
+      verdict(p, right, total, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 步驟排序：steps 以正確順序給，畫面上打散，用數字下拉作答 */
+  function order(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kord";
+    var n = cfg.steps.length;
+    var nums = [];
+    for (var i=1;i<=n;i++) nums.push(String(i));
+
+    var idx = cfg.steps.map(function(_, i){ return i; });
+    var seed = 0, c;
+    for (c=0;c<cfg.host.length;c++) seed = (seed * 31 + cfg.host.charCodeAt(c)) % 9973;
+    for (c=idx.length-1;c>0;c--){
+      seed = (seed * 1103515245 + 12345) % 2147483647;
+      var j = seed % (c+1), t = idx[c]; idx[c] = idx[j]; idx[j] = t;
+    }
+
+    var rows = [];
+    idx.forEach(function(orig){
+      var div = document.createElement("div");
+      div.className = "row";
+      var p = document.createElement("p");
+      p.textContent = cfg.steps[orig];
+      var id = cfg.host + "-" + orig;
+      var sel = mkSelect(nums, st[id]);
+      sel.addEventListener("change", function(){
+        st[id] = sel.value; write(cfg.key, st);
+        sel.classList.remove("ok","no");
+      });
+      div.appendChild(p); div.appendChild(sel);
+      host.appendChild(div);
+      rows.push({ sel:sel, ans:String(orig + 1) });
+    });
+
+    actions(host, cfg.btn || "檢查順序", function(p){
+      var right = 0;
+      rows.forEach(function(r){
+        var ok = r.sel.value === r.ans;
+        r.sel.classList.toggle("ok", ok);
+        r.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, rows.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 比較表：head 是欄位標題，rows 每列一個項目 */
+  function table(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    var tb = document.createElement("table");
+    tb.className = "cmp";
+
+    if (cfg.head) {
+      var tr = document.createElement("tr");
+      cfg.head.forEach(function(h, i){
+        var c = document.createElement("th");
+        c.textContent = h;
+        if (i > 0) c.style.width = "auto";
+        tr.appendChild(c);
+      });
+      tb.appendChild(tr);
+    }
+
+    var cells = [];
+    cfg.rows.forEach(function(row, ri){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = row.th;
+      tr.appendChild(th);
+      row.cells.forEach(function(cell, ci){
+        var td = document.createElement("td");
+        if (cell.text) {
+          td.textContent = cell.text;
+        } else {
+          var id = cfg.host + "-" + ri + "-" + ci;
+          var sel = mkSelect(cell.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          td.appendChild(sel);
+          cells.push({ sel:sel, ans:cell.ans });
+        }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    host.appendChild(tb);
+
+    actions(host, cfg.btn, function(p){
+      var right = 0;
+      cells.forEach(function(c){
+        var ok = c.sel.value === c.ans;
+        c.sel.classList.toggle("ok", ok);
+        c.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, cells.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 複選勾選題 */
+  function check(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kchk";
+    var boxes = [];
+    cfg.items.forEach(function(item, i){
+      var div = document.createElement("div");
+      div.className = "row";
+      var inp = document.createElement("input");
+      inp.type = "checkbox";
+      var id = cfg.host + "-" + i;
+      inp.checked = !!st[id];
+      inp.addEventListener("change", function(){
+        st[id] = inp.checked; write(cfg.key, st);
+      });
+      var p = document.createElement("p");
+      p.textContent = item.t;
+      div.appendChild(inp); div.appendChild(p);
+      host.appendChild(div);
+      boxes.push({ inp:inp, ans:!!item.ok, p:p, why:item.why });
+    });
+
+    actions(host, cfg.btn || "對答案", function(p){
+      var right = 0;
+      boxes.forEach(function(b){
+        var ok = b.inp.checked === b.ans;
+        b.p.style.color = ok ? "" : "var(--rose)";
+        if (ok) right++;
+      });
+      verdict(p, right, boxes.length, cfg.ok, cfg.no);
+    });
+  }
+
+  return { fill:fill, order:order, table:table, check:check };
+})();
+</script>
+<script>
+
+/* ── 接尺反應時間計算器 ── */
+(function(){
+  var TAB = [[2,0.06],[4,0.09],[6,0.11],[8,0.13],[10,0.14],[12,0.16],
+             [14,0.17],[16,0.18],[18,0.19],[20,0.20],[22,0.21],[24,0.22],
+             [26,0.23],[28,0.24],[30,0.25],[32,0.26],[34,0.26],[36,0.27],
+             [38,0.28],[40,0.29],[42,0.29],[44,0.30],[46,0.31],[48,0.31]];
+  var KEY = "nature1-c4-1-rt-v1";
+  var host = document.getElementById("rtIn");
+  if (!host) return;
+  var out = document.getElementById("rtOut");
+  var tabHost = document.getElementById("rtTab");
+
+  var st = {};
+  try { st = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e){ st = {}; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(st)); } catch(e){} }
+
+  var inputs = [];
+  for (var i = 1; i <= 5; i++) {
+    (function(n){
+      var lab = document.createElement("label");
+      lab.appendChild(document.createTextNode("第 " + n + " 次"));
+      var inp = document.createElement("input");
+      inp.type = "number"; inp.min = "0"; inp.max = "60"; inp.step = "0.1";
+      inp.placeholder = "公分";
+      if (st["t" + n] != null) inp.value = st["t" + n];
+      inp.addEventListener("input", function(){ st["t" + n] = inp.value; save(); });
+      lab.appendChild(inp);
+      host.appendChild(lab);
+      inputs.push(inp);
+    })(i);
+  }
+
+  /* 對照表 */
+  (function(){
+    var t = document.createElement("table");
+    var tr = document.createElement("tr");
+    ["直尺滑落距離（公分）","接尺反應時間（秒）"].forEach(function(h){
+      var th = document.createElement("th"); th.textContent = h; tr.appendChild(th);
+    });
+    t.appendChild(tr);
+    TAB.forEach(function(row){
+      var r = document.createElement("tr");
+      r.dataset.cm = row[0];
+      [row[0], row[1].toFixed(2)].forEach(function(v){
+        var td = document.createElement("td"); td.textContent = v; r.appendChild(td);
+      });
+      t.appendChild(r);
+    });
+    tabHost.appendChild(t);
+  })();
+
+  function lookup(cm){
+    var best = TAB[0], i;
+    for (i = 0; i < TAB.length; i++) {
+      if (Math.abs(TAB[i][0] - cm) < Math.abs(best[0] - cm)) best = TAB[i];
+    }
+    return best;
+  }
+
+  document.getElementById("rtGo").addEventListener("click", function(){
+    var vals = [], i, v;
+    for (i = 0; i < inputs.length; i++) {
+      v = parseFloat(inputs[i].value);
+      if (!isNaN(v) && v >= 0) vals.push(v);
+    }
+    Array.prototype.forEach.call(tabHost.querySelectorAll("tr"), function(r){
+      r.classList.remove("hit");
+    });
+    if (vals.length === 0) {
+      out.textContent = "請至少填入一次滑落距離。";
+      return;
+    }
+    var sum = 0;
+    for (i = 0; i < vals.length; i++) sum += vals[i];
+    var avg = sum / vals.length;
+    var hit = lookup(avg);
+    var row = tabHost.querySelector('tr[data-cm="' + hit[0] + '"]');
+    if (row) { row.classList.add("hit"); row.scrollIntoView({ block:"nearest" }); }
+    out.innerHTML = "";
+    out.appendChild(document.createTextNode(
+      "共 " + vals.length + " 次，平均滑落距離 "));
+    var b1 = document.createElement("b");
+    b1.textContent = avg.toFixed(1) + " 公分";
+    out.appendChild(b1);
+    out.appendChild(document.createTextNode("，對照表中最接近的是 " + hit[0] +
+      " 公分，接尺反應時間約為 "));
+    var b2 = document.createElement("b");
+    b2.textContent = hit[1].toFixed(2) + " 秒";
+    out.appendChild(b2);
+    out.appendChild(document.createTextNode(
+      "。（一般國中生大多落在 0.15～0.25 秒之間。）"));
+  });
+
+  document.getElementById("rtClr").addEventListener("click", function(){
+    inputs.forEach(function(inp, i){ inp.value = ""; st["t" + (i+1)] = ""; });
+    save();
+    out.textContent = "還沒有資料。";
+    Array.prototype.forEach.call(tabHost.querySelectorAll("tr"), function(r){
+      r.classList.remove("hit");
+    });
+  });
+})();
+
+/* ── 實驗 4-1-1、4-1-2 的填答 ── */
+(function(){
+  var K = "nature1-c4-1-lab-v1";
+
+  NKit.fill({
+    host:"e411r", key:K,
+    rows:[
+      { t:"1. 實驗中由「接受刺激」到「產生反應」的神經傳導途徑是：受器（眼）→ {} → {} → {} → 動器（手部肌肉）。",
+        opts:["感覺神經元","運動神經元","大腦","脊髓"],
+        ans:["感覺神經元","大腦","運動神經元"] },
+      { t:"2. 比較第 1 次和第 5 次的測試結果，若反應時間縮短，可能的原因是受試者經過練習後 {} 。",
+        opts:["更專注也更熟悉直尺落下的時機","神經傳導速度變快了","手指變得比較有力","直尺變輕了"],
+        ans:["更專注也更熟悉直尺落下的時機"] },
+      { t:"3. 不同受試者的平均反應時間若不同，可能的原因包括 {} 等個別差異。",
+        opts:["專注程度、熟練度、視力與疲勞程度","身高與體重","血型","慣用手的長度"],
+        ans:["專注程度、熟練度、視力與疲勞程度"] }
+    ],
+    ok:"全對。接尺是看到才反應，屬於意識行為，訊息一定要經過大腦判斷。",
+    no:"注意：接尺不是反射作用。要「看到」才夾，代表訊息有經過大腦。"
+  });
+
+  NKit.table({
+    host:"e412a", key:K,
+    head:["三分鐘後同時移入 B 盆（20～25℃）","右手（原本在 A 盆 35～40℃）","左手（原本在 C 盆 10～15℃）"],
+    opts:["感覺熱","感覺冷","沒有感覺"],
+    rows:[
+      { th:"放入 B 盆後的感覺", cells:[{ ans:"感覺冷" }, { ans:"感覺熱" }] }
+    ],
+    ok:"全對。同一盆水，兩手的感覺卻相反——皮膚感受到的是「溫度的變化」，不是絕對溫度。",
+    no:"從熱水移到溫水，相對變冷；從冷水移到溫水，相對變熱。兩手的感覺會顛倒過來。"
+  });
+
+  NKit.table({
+    host:"e412b", key:K,
+    head:["原圖的顏色","負片後像看到的顏色"],
+    opts:["青綠色","藍色","黃色","紅色"],
+    rows:[
+      { th:"紅色的蘋果",   cells:[{ ans:"青綠色" }] },
+      { th:"黃色的風車",   cells:[{ ans:"藍色" }] },
+      { th:"藍色的圓環",   cells:[{ ans:"黃色" }] }
+    ],
+    ok:"全對。後像看到的都是原色的互補色。",
+    no:"規則是互補色：紅配青綠、黃配藍，反過來也成立。"
+  });
+
+  NKit.fill({
+    host:"e412r", key:K,
+    rows:[
+      { t:"1. 根據實驗甲的結果，皮膚 {} 準確感覺到水的溫度。所以用手觸摸額頭判斷是否發燒超過 38℃ 時，可能因為 {} 而誤判，應該改用體溫計測量。",
+        opts:["不能","能","手本身的溫度不同","額頭太小"],
+        ans:["不能","手本身的溫度不同"] },
+      { t:"2. 生活中應用視覺暫留的實例有 {} 。",
+        opts:["動畫、電影與手翻書","照鏡子","戴眼鏡","閉眼休息"],
+        ans:["動畫、電影與手翻書"] },
+      { t:"3. 若先吃很甜的糖果再吃芭樂，會覺得芭樂比較 {} ，可能的原因是感覺器官對於持續或強烈的刺激會產生 {} 。",
+        opts:["不甜","更甜","適應","記憶"], ans:["不甜","適應"] }
+    ],
+    ok:"全對。感覺器官會「適應」——這也是為什麼剛下水覺得冷，過一會兒就不冷了。",
+    no:"想想游泳剛下水的例子：感覺會隨著持續刺激而變鈍，這叫適應。"
+  });
+})();
+</script>
 </body>
 </html>

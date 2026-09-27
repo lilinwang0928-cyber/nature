@@ -98,6 +98,31 @@
   }
   .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
   footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+  /* ── 實驗紀錄共用元件 ── */
+  .sub{font-family:"Songti TC","Noto Serif TC",serif;font-size:1.03rem;font-weight:700;
+    margin:20px 0 8px;padding-top:14px;border-top:1px dashed var(--rule-soft);color:var(--ink);}
+  .sub:first-child{border-top:none;padding-top:0;margin-top:2px;}
+  .kfill{margin:0;}
+  .kfill .row{padding:9px 0;border-top:1px solid var(--rule-soft);line-height:2.4;}
+  .kfill .row:first-child{border-top:none;}
+  .kfill select{width:auto;min-width:120px;max-width:100%;margin:0 3px;}
+  .kord .row{display:flex;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kord .row:first-child{border-top:none;}
+  .kord .row p{margin:0;flex:1 1 auto;}
+  .kord select{flex:0 0 auto;width:auto;min-width:82px;}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.94rem;margin:6px 0 12px;}
+  table.cmp th,table.cmp td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.cmp th{background:#F3F7F2;font-weight:700;width:46%;}
+  table.cmp td select{width:100%;min-width:0;}
+  .kchk .row{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kchk .row:first-child{border-top:none;}
+  .kchk .row p{margin:0;flex:1 1 auto;}
+  .kchk .row input{margin-top:.5em;flex:0 0 auto;width:18px;height:18px;accent-color:var(--leaf);}
+  .knote{font-size:.9rem;color:var(--ink-soft);margin:.6em 0 0;line-height:1.75;}
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:4px 0 0;}
+  .kgrid .cell{border:1px solid var(--rule-soft);border-radius:10px;padding:10px 12px;background:#FCFDFB;}
+  .kgrid .cell h4{margin:0 0 .25em;font-size:.95rem;}
+  .kgrid .cell p{margin:0;font-size:.86rem;color:var(--ink-soft);line-height:1.65;}
 </style>
 </head>
 <body>
@@ -174,8 +199,25 @@
   <p class="fb" id="stomaFb"></p>
 </section>
 
+
 <section class="card">
-  <h2>四、練習題</h2>
+  <h2>四、實驗 3-2：觀察植物的水分運輸構造</h2>
+  <p class="hint">依實驗活動紀錄簿 P.48–50。把芹菜葉柄插進紅色溶液，看水走過哪裡。</p>
+
+  <p class="sub">操作順序</p>
+  <div id="e32ord"></div>
+
+  <p class="sub">步驟 Q：想一想</p>
+  <div id="e32q"></div>
+
+  <p class="sub">結果與討論</p>
+  <div id="e32r"></div>
+  <p class="knote">紅色溶液走過的地方，就是<b>木質部</b>走過的地方。這個實驗之所以有效，
+    是因為染料跟著水一起被運送，等於幫看不見的水分「上了色」。</p>
+</section>
+
+<section class="card">
+  <h2>五、練習題</h2>
   <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
   <div id="qs"></div>
   <div class="actions">
@@ -185,7 +227,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 8</b>
+  <span>練習題答對</span><b id="score">0 / 12</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -381,7 +423,25 @@
         "最外層的表皮細胞",
         "維管束中的韌皮部"
       ], ans:1,
-      why:"紅墨水是隨著水分被運送的，而運水的是木質部，所以只有葉柄中維管束的木質部會變紅，不是整片都紅。" }
+      why:"紅墨水是隨著水分被運送的，而運水的是木質部，所以只有葉柄中維管束的木質部會變紅，不是整片都紅。" },
+
+    { id:"y1", tag:"學力養成篇", type:"choice",
+      text:"木棉在秋冬時葉片落盡，請問這個時候木棉的養分從何處而來？",
+      opts:["莖表皮細胞的光合作用","根在夏天儲存的養分","根部吸收土壤中的養分","植物本身的呼吸作用"], ans:1,
+      why:"葉子落盡就無法行光合作用製造養分，只能動用先前儲存在根、莖裡的養分，再由韌皮部由下往上送。根從土壤吸收的是水和礦物質，不是養分。" },
+    { id:"y2", tag:"學力養成篇", type:"choice",
+      text:"關於植物蒸散作用的敘述，下列何者不正確？",
+      opts:["韌皮部負責蒸散作用的進行","摘除植物葉片會減緩蒸散作用",
+            "蒸散作用有助於根部對水分的吸收","蒸散作用時，水分移動的方向是由下往上運輸"], ans:0,
+      why:"蒸散作用散失的是水分，走的是木質部，不是韌皮部。氣孔主要在葉片上，所以摘除葉片會減緩蒸散；蒸散產生的拉力正是水分向上運輸的主要動力。" },
+    { id:"y3", tag:"學力養成篇", type:"choice",
+      text:"小雯從某植物上取了四個條件相同的枝條：A 不做任何處理、B 只在葉片上表皮塗上白膠、C 只在葉片下表皮塗上白膠、D 在上下表皮皆塗上白膠（塗白膠處的氣孔無法進行蒸散作用）。之後分別插入水量相同的量筒並封口，一段時間後記錄散失的水分量，結果為 A＞B＞C＞D。根據實驗結果，對此植物氣孔位置分布的推論最有可能為下列何者？",
+      opts:["葉片上表皮無氣孔分布","主要分布於葉片上表皮","主要分布於葉片下表皮","平均分布於葉片上下表皮"], ans:2,
+      why:"塗住下表皮的 C 組水分散失量，比塗住上表皮的 B 組少很多，代表堵住下表皮擋掉的蒸散比較多，所以氣孔主要分布在下表皮。D 組兩面都塗仍有少量散失，表示上表皮也有少數氣孔。" },
+    { id:"y4", tag:"學力養成篇", type:"choice",
+      text:"（實驗 3-2）將泡過紅色溶液的植物莖橫切，置於顯微鏡下觀察，請問莖的橫切面中，哪一種組織會呈現紅色？",
+      opts:["表皮","皮層","韌皮部","木質部"], ans:3,
+      why:"紅色溶液是跟著水分一起被運送的，而運送水分的是木質部，所以呈現紅色的部位就是木質部。" }
   ];
 
   var host = document.getElementById("qs");
@@ -478,7 +538,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 6) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先回上面三個練習區確認一次，再回來作答。";
   }
 
@@ -601,7 +661,7 @@
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -723,7 +783,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -776,7 +838,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -820,8 +881,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -840,11 +899,306 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　END ===== -->
 
+<script>
+/* ── 實驗紀錄共用元件（NKit）── */
+window.NKit = (function(){
+  "use strict";
+
+  var mem = {};
+  function read(key){
+    try { var r = localStorage.getItem(key); return r ? JSON.parse(r) : {}; }
+    catch(e){ return mem[key] || {}; }
+  }
+  function write(key, o){
+    mem[key] = o;
+    try { localStorage.setItem(key, JSON.stringify(o)); } catch(e){}
+  }
+
+  function mkSelect(opts, val){
+    var sel = document.createElement("select");
+    var b = document.createElement("option");
+    b.value = ""; b.textContent = "（選）";
+    sel.appendChild(b);
+    opts.forEach(function(o){
+      var op = document.createElement("option");
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    if (val) sel.value = val;
+    return sel;
+  }
+
+  function actions(host, label, run){
+    var wrap = document.createElement("div");
+    wrap.className = "actions";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "act";
+    btn.textContent = label || "檢查";
+    wrap.appendChild(btn);
+    host.parentNode.insertBefore(wrap, host.nextSibling);
+
+    var p = document.createElement("p");
+    p.className = "fb";
+    host.parentNode.insertBefore(p, wrap.nextSibling);
+
+    btn.addEventListener("click", function(){ run(p); });
+    return p;
+  }
+
+  function verdict(p, right, total, ok, no){
+    p.className = "fb show " + (right === total ? "right" : "wrong");
+    p.textContent = right === total
+      ? (ok || "全對。")
+      : ("答對 " + right + " / " + total + "。" + (no || ""));
+  }
+
+  /* 句子填空：t 字串中每個 {} 換成一個下拉選單 */
+  function fill(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kfill";
+    var sels = [];
+
+    cfg.rows.forEach(function(row, ri){
+      var div = document.createElement("div");
+      div.className = "row";
+      var parts = row.t.split("{}");
+      var rowSels = [];
+      parts.forEach(function(txt, i){
+        div.appendChild(document.createTextNode(txt));
+        if (i < parts.length - 1) {
+          var id = cfg.host + "-" + ri + "-" + i;
+          var sel = mkSelect(row.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          div.appendChild(sel);
+          rowSels.push({ sel:sel, id:id });
+        }
+      });
+      if (row.tail) div.appendChild(document.createTextNode(row.tail));
+      sels.push(rowSels);
+      host.appendChild(div);
+    });
+
+    actions(host, cfg.btn, function(p){
+      var right = 0, total = 0;
+      cfg.rows.forEach(function(row, ri){
+        var pool = row.ans.slice();
+        sels[ri].forEach(function(o, i){
+          total++;
+          var ok;
+          if (row.any) {
+            var at = pool.indexOf(o.sel.value);
+            ok = o.sel.value !== "" && at >= 0;
+            if (ok) pool.splice(at, 1);
+          } else {
+            ok = o.sel.value === row.ans[i];
+          }
+          o.sel.classList.toggle("ok", ok);
+          o.sel.classList.toggle("no", !ok);
+          if (ok) right++;
+        });
+      });
+      verdict(p, right, total, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 步驟排序：steps 以正確順序給，畫面上打散，用數字下拉作答 */
+  function order(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kord";
+    var n = cfg.steps.length;
+    var nums = [];
+    for (var i=1;i<=n;i++) nums.push(String(i));
+
+    var idx = cfg.steps.map(function(_, i){ return i; });
+    var seed = 0, c;
+    for (c=0;c<cfg.host.length;c++) seed = (seed * 31 + cfg.host.charCodeAt(c)) % 9973;
+    for (c=idx.length-1;c>0;c--){
+      seed = (seed * 1103515245 + 12345) % 2147483647;
+      var j = seed % (c+1), t = idx[c]; idx[c] = idx[j]; idx[j] = t;
+    }
+
+    var rows = [];
+    idx.forEach(function(orig){
+      var div = document.createElement("div");
+      div.className = "row";
+      var p = document.createElement("p");
+      p.textContent = cfg.steps[orig];
+      var id = cfg.host + "-" + orig;
+      var sel = mkSelect(nums, st[id]);
+      sel.addEventListener("change", function(){
+        st[id] = sel.value; write(cfg.key, st);
+        sel.classList.remove("ok","no");
+      });
+      div.appendChild(p); div.appendChild(sel);
+      host.appendChild(div);
+      rows.push({ sel:sel, ans:String(orig + 1) });
+    });
+
+    actions(host, cfg.btn || "檢查順序", function(p){
+      var right = 0;
+      rows.forEach(function(r){
+        var ok = r.sel.value === r.ans;
+        r.sel.classList.toggle("ok", ok);
+        r.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, rows.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 比較表：head 是欄位標題，rows 每列一個項目 */
+  function table(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    var tb = document.createElement("table");
+    tb.className = "cmp";
+
+    if (cfg.head) {
+      var tr = document.createElement("tr");
+      cfg.head.forEach(function(h, i){
+        var c = document.createElement("th");
+        c.textContent = h;
+        if (i > 0) c.style.width = "auto";
+        tr.appendChild(c);
+      });
+      tb.appendChild(tr);
+    }
+
+    var cells = [];
+    cfg.rows.forEach(function(row, ri){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = row.th;
+      tr.appendChild(th);
+      row.cells.forEach(function(cell, ci){
+        var td = document.createElement("td");
+        if (cell.text) {
+          td.textContent = cell.text;
+        } else {
+          var id = cfg.host + "-" + ri + "-" + ci;
+          var sel = mkSelect(cell.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          td.appendChild(sel);
+          cells.push({ sel:sel, ans:cell.ans });
+        }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    host.appendChild(tb);
+
+    actions(host, cfg.btn, function(p){
+      var right = 0;
+      cells.forEach(function(c){
+        var ok = c.sel.value === c.ans;
+        c.sel.classList.toggle("ok", ok);
+        c.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, cells.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 複選勾選題 */
+  function check(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kchk";
+    var boxes = [];
+    cfg.items.forEach(function(item, i){
+      var div = document.createElement("div");
+      div.className = "row";
+      var inp = document.createElement("input");
+      inp.type = "checkbox";
+      var id = cfg.host + "-" + i;
+      inp.checked = !!st[id];
+      inp.addEventListener("change", function(){
+        st[id] = inp.checked; write(cfg.key, st);
+      });
+      var p = document.createElement("p");
+      p.textContent = item.t;
+      div.appendChild(inp); div.appendChild(p);
+      host.appendChild(div);
+      boxes.push({ inp:inp, ans:!!item.ok, p:p, why:item.why });
+    });
+
+    actions(host, cfg.btn || "對答案", function(p){
+      var right = 0;
+      boxes.forEach(function(b){
+        var ok = b.inp.checked === b.ans;
+        b.p.style.color = ok ? "" : "var(--rose)";
+        if (ok) right++;
+      });
+      verdict(p, right, boxes.length, cfg.ok, cfg.no);
+    });
+  }
+
+  return { fill:fill, order:order, table:table, check:check };
+})();
+</script>
+<script>
+
+(function(){
+  var K = "nature1-c3-2-lab-v1";
+
+  NKit.order({
+    host:"e32ord", key:K,
+    steps:[
+      "在量筒中加入 5 毫升的紅色溶液，並用膠帶把量筒固定於桌面，以免打翻。",
+      "在水中切取長約 25 公分、含葉片的芹菜葉柄。",
+      "將葉柄插入量筒中，靜置 30 分鐘，記錄紅色溶液在葉柄和葉片上的分布情形。",
+      "在玻璃片上用單面刀片分別橫切和縱切葉柄。",
+      "以放大鏡觀察葉柄的切面，記錄紅色溶液在切面上的分布。"
+    ],
+    ok:"順序正確。先讓植物吸水夠久，才切開來看水走到哪裡。",
+    no:"要先讓芹菜「喝」到紅色溶液（靜置 30 分鐘），才有東西可以觀察。"
+  });
+
+  NKit.fill({
+    host:"e32q", key:K,
+    rows:[
+      { t:"為什麼要使用有顏色的溶液？答：為了方便觀察植物體 {} 的情形。",
+        opts:["運輸水分","進行光合作用","行呼吸作用","吸收養分"], ans:["運輸水分"] },
+      { t:"為什麼要在水中切取葉柄？答：避免 {} 進入維管束，影響紅色溶液的運輸。",
+        opts:["空氣","水分","養分","色素"], ans:["空氣"] }
+    ],
+    ok:"全對。在水中切斷，切口不會接觸空氣，水柱才不會斷掉。",
+    no:"如果空氣跑進維管束裡形成氣泡，水柱就被切斷，紅色溶液會上不去。"
+  });
+
+  NKit.fill({
+    host:"e32r", key:K,
+    rows:[
+      { t:"1. 以芹菜為例， {} 有紅色溶液分布。",
+        opts:["葉柄與葉脈","只有葉片","只有根部","整片葉子均勻變紅"], ans:["葉柄與葉脈"] },
+      { t:"2. 推論芹菜有呈現紅色的部分，是屬於維管束中的 {} 。",
+        opts:["木質部","韌皮部","形成層","表皮"], ans:["木質部"] },
+      { t:"3. 由此可知，這個構造負責運送 {} ，運送方向是 {} 。",
+        opts:["水分與礦物質","光合作用的養分","由下而上","由上而下"],
+        ans:["水分與礦物質","由下而上"] }
+    ],
+    ok:"全對。木質部像一束吸管，把根吸到的水一路送到葉子。",
+    no:"紅色溶液跟著水走，所以呈現紅色的一定是運送水分的木質部。"
+  });
+})();
+</script>
 </body>
 </html>

@@ -179,7 +179,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 8</b>
+  <span>練習題答對</span><b id="score">0 / 9</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -392,7 +392,12 @@
     { id:"p8", tag:"老師說", type:"choice",
       text:"讀取量筒中液體的刻度時，視線應該如何？",
       opts:["由上往下俯視","由下往上仰視","和液面中央處等高","任何角度都可以"], ans:2,
-      why:"俯視或仰視都會讀錯，視線要平視液面中央的最低處。" }
+      why:"俯視或仰視都會讀錯，視線要平視液面中央的最低處。" },
+
+    { id:"x1", tag:"學力養成篇", type:"choice",
+      text:"下列三種實驗器材的使用方法：甲、讀取量筒液面中央處的刻度；乙、以一盞點燃的酒精燈去點燃另一盞酒精燈；丙、直接用量筒盛裝溶液來回均勻加熱。哪幾種使用方法不恰當？",
+      opts:["方法甲和方法乙","方法甲和方法丙","方法乙和方法丙","三種方法都不恰當"], ans:2,
+      why:"甲是正確的（視線要平視液面中央的凹處）。乙會使酒精流出引起火災，必須用火柴或打火機點燃。丙的量筒只能量體積、不可加熱，加熱要用燒杯或試管。" }
   ];
 
   var host = document.getElementById("qs");
@@ -489,7 +494,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 6) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先回上面的器材配對和判斷題確認一次再作答。";
   }
 
@@ -615,7 +620,7 @@
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -737,7 +742,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -790,7 +797,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -834,8 +840,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -854,7 +858,7 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>

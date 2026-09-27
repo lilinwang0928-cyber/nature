@@ -100,6 +100,31 @@
   footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
 
   .mapnote{font-size:.9rem;color:var(--ink-soft);}
+  /* ── 實驗紀錄共用元件 ── */
+  .sub{font-family:"Songti TC","Noto Serif TC",serif;font-size:1.03rem;font-weight:700;
+    margin:20px 0 8px;padding-top:14px;border-top:1px dashed var(--rule-soft);color:var(--ink);}
+  .sub:first-child{border-top:none;padding-top:0;margin-top:2px;}
+  .kfill{margin:0;}
+  .kfill .row{padding:9px 0;border-top:1px solid var(--rule-soft);line-height:2.4;}
+  .kfill .row:first-child{border-top:none;}
+  .kfill select{width:auto;min-width:120px;max-width:100%;margin:0 3px;}
+  .kord .row{display:flex;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kord .row:first-child{border-top:none;}
+  .kord .row p{margin:0;flex:1 1 auto;}
+  .kord select{flex:0 0 auto;width:auto;min-width:82px;}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.94rem;margin:6px 0 12px;}
+  table.cmp th,table.cmp td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.cmp th{background:#F3F7F2;font-weight:700;width:46%;}
+  table.cmp td select{width:100%;min-width:0;}
+  .kchk .row{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kchk .row:first-child{border-top:none;}
+  .kchk .row p{margin:0;flex:1 1 auto;}
+  .kchk .row input{margin-top:.5em;flex:0 0 auto;width:18px;height:18px;accent-color:var(--leaf);}
+  .knote{font-size:.9rem;color:var(--ink-soft);margin:.6em 0 0;line-height:1.75;}
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:4px 0 0;}
+  .kgrid .cell{border:1px solid var(--rule-soft);border-radius:10px;padding:10px 12px;background:#FCFDFB;}
+  .kgrid .cell h4{margin:0 0 .25em;font-size:.95rem;}
+  .kgrid .cell p{margin:0;font-size:.86rem;color:var(--ink-soft);line-height:1.65;}
 </style>
 </head>
 <body>
@@ -190,8 +215,55 @@
   <p class="fb" id="lymphFb"></p>
 </section>
 
+
 <section class="card">
-  <h2>五、練習題</h2>
+  <h2>五、實驗 3-3-1：探測人體的心音與脈搏</h2>
+  <p class="hint">依實驗活動紀錄簿 P.51–52。每次「撲一通」就是一次心搏。</p>
+
+  <p class="sub">步驟 Q 與安全提醒</p>
+  <div id="e331q"></div>
+
+  <p class="sub">結果與討論</p>
+  <div id="e331r"></div>
+  <p class="knote">心臟收縮時把血液擠進動脈，富有彈性的動脈管壁跟著擴張；心臟舒張時動脈又復原。
+    這種週期性的擴張與復原就是脈搏——所以<b>心搏一次、脈搏就一次</b>。</p>
+</section>
+
+<section class="card">
+  <h2>六、實驗 3-3-2：觀察血液的流動</h2>
+  <p class="hint">依實驗活動紀錄簿 P.53–55。在小魚尾鰭裡看見血球排隊前進。</p>
+
+  <p class="sub">操作順序</p>
+  <div id="e332ord"></div>
+
+  <p class="sub">結果與討論：怎麼分辨三種血管</p>
+  <div id="e332r"></div>
+
+  <p class="sub">三種血管比一比</p>
+  <div id="e332t"></div>
+  <p class="knote">實驗倫理：請善待活體材料，實驗結束後盡速把小魚放回水箱中；
+    夾鏈袋外若有水滴要先用衛生紙輕輕擦拭，以免汙染物鏡及載物臺。</p>
+</section>
+
+<section class="card">
+  <h2>七、素養活用：毒蛇咬傷保命祕笈</h2>
+  <p class="hint">依實驗活動紀錄簿 P.62。臺灣山林多蛇類，這些判斷都跟血液循環有關。</p>
+
+  <p class="sub">Q1　在野外不幸被毒蛇咬到時，應採取哪些行動？</p>
+  <p class="hint">可複選。</p>
+  <div id="e33s1"></div>
+
+  <p class="sub">Q2　為什麼要把咬傷處放低於心臟、保持冷靜避免走動？</p>
+  <div id="e33s2"></div>
+
+  <p class="sub">Q3　龜殼花的蛇毒主要影響哪一種血球的功能？</p>
+  <div id="e33s3"></div>
+  <p class="knote">四要：記住蛇的特徵、立刻撥 119 求救送醫、讓傷處低於心臟、除去傷處衣物首飾。<br>
+    四不要：不要切開傷口、不要冰敷、不要用嘴吸、不要走動或追蛇。</p>
+</section>
+
+<section class="card">
+  <h2>八、練習題</h2>
   <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
   <div id="qs"></div>
   <div class="actions">
@@ -201,7 +273,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 20</b>
+  <span>練習題答對</span><b id="score">0 / 34</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -485,7 +557,73 @@
     { id:"q20", tag:"實驗題", type:"choice",
       text:"小魚的血管中，哪一條血管將血液送回心臟？",
       opts:["小動脈","小靜脈","微血管","以上皆可"], ans:1,
-      why:"血液由小動脈流入微血管，再由微血管流入小靜脈，最後經靜脈回到心臟。" }
+      why:"血液由小動脈流入微血管，再由微血管流入小靜脈，最後經靜脈回到心臟。" },
+
+    { id:"y1", tag:"學力養成篇", type:"choice",
+      text:"人體的心血管系統，不包含下列何者？",
+      opts:["心臟","血管","血液","淋巴管"], ans:3,
+      why:"心血管系統由心臟、血管和血液組成；淋巴管屬於淋巴系統。兩者合稱循環系統，但不是同一個系統。" },
+    { id:"y2", tag:"學力養成篇", type:"choice",
+      text:"下列有關動脈、靜脈和微血管的比較，何者正確？",
+      opts:["靜脈內的血液流速最慢","動脈血的氧氣濃度皆較高",
+            "微血管可收縮產生脈搏","動脈血皆流離心臟，靜脈血皆流向心臟"], ans:3,
+      why:"動脈、靜脈是依「血流方向」定義的，和含氧量無關。流速最慢的是微血管；脈搏發生在動脈。肺動脈裡流的是缺氧血，所以(B)錯。" },
+    { id:"y3", tag:"學力養成篇", type:"choice",
+      text:"供應手臂氧氣養分的血液，是由哪一個心臟腔室所擠壓出來的？",
+      opts:["左心房","右心房","左心室","右心室"], ans:2,
+      why:"含氧血由肺靜脈回到左心房，流入左心室後經主動脈送往全身（包含手臂）。心房只負責接收血液，把血液擠出去的是心室。" },
+    { id:"y4", tag:"學力養成篇", type:"choice",
+      text:"下列有關肺循環與體循環的敘述，何者錯誤？",
+      opts:["肺循環主要是心臟與肺部間的血液循環",
+            "肺循環與體循環是同時進行的",
+            "兩循環系統在心臟交會",
+            "血液循環的動力來自於動脈的搏動"], ans:3,
+      why:"血液循環的動力來源是心臟的搏動，動脈的搏動只是心臟擠壓血液造成的結果，不是動力本身。" },
+    { id:"y5", tag:"學力養成篇", type:"choice",
+      text:"小軒不小心受傷了，醫生在他手臂注射消炎藥劑，此藥劑自手臂到腳的流動次序為何？甲、主動脈；乙、上大靜脈；丙、肺靜脈；丁、肺動脈；戊、心臟；己、下肢的動脈；庚、手臂的靜脈。",
+      opts:["庚→乙→戊→丁→丙→甲→己","庚→乙→丁→戊→丙→甲→己",
+            "庚→甲→戊→丁→丙→乙→己","庚→乙→戊→丙→丁→甲→己"], ans:0,
+      why:"藥劑從手臂的靜脈出發，經上大靜脈回到心臟，再由肺動脈送到肺、經肺靜脈回心臟，接著由主動脈送出，最後到達下肢的動脈。記住原則：往心臟走用靜脈，離開心臟用動脈。" },
+    { id:"y6", tag:"學力養成篇", type:"choice",
+      text:"有關淋巴系統的敘述，下列何者錯誤？",
+      opts:["淋巴管中具有瓣膜","血液自微血管流入淋巴管形成淋巴",
+            "淋巴結可過濾病原體","淋巴系統可維持血液組成的恆定"], ans:1,
+      why:"進入淋巴管的是從微血管滲出到組織間的「組織液」，不是血液本身。血球和大分子並不會直接跑進淋巴管。" },
+    { id:"y7", tag:"學力養成篇", type:"choice",
+      text:"有關人體心血管和淋巴系統的敘述，下列何者正確？",
+      opts:["淋巴管中有紅血球可產生抗體","淋巴最後會注入動脈中",
+            "心血管系統主要功能是運輸物質","血管和淋巴管都有瓣膜"], ans:2,
+      why:"產生抗體的是白血球不是紅血球；淋巴最後注入靜脈；瓣膜只存在於靜脈和淋巴管，動脈沒有。心血管系統的主要功能確實是運輸體內物質。" },
+    { id:"y8", tag:"學力養成篇", type:"choice",
+      text:"【題組】體內受細菌感染時，哪一種血球會急遽增加，以抵抗侵入的病原體？",
+      opts:["紅血球","白血球","血小板","三種血球都會增加"], ans:1,
+      why:"白血球負責吞噬病原體和產生抗體，受到感染時數量會明顯上升，所以驗血可以看出有沒有發炎或感染。" },
+    { id:"y9", tag:"學力養成篇", type:"choice",
+      text:"【題組】受傷流血時，哪一種血球可以協助止血？",
+      opts:["紅血球","白血球","血小板","血管會自行癒合，不需血球幫助"], ans:2,
+      why:"血小板負責凝血，會在傷口處聚集形成血塊止血。紅血球運送氧氣，白血球負責防禦。" },
+    { id:"y10", tag:"學力養成篇", type:"choice",
+      text:"（實驗 3-3-1）分別測量小軒在運動前和運動後每分鐘的心搏與脈搏次數：運動前心搏 W、脈搏 X，運動後心搏 Y、脈搏 Z。請比較下列各數值的大小？",
+      opts:["W＝Y","Y＜X","W＜Z","Y＞Z"], ans:2,
+      why:"同一人的心搏和脈搏次數相同，所以 W＝X、Y＝Z；運動後比運動前多，所以 Y＝Z＞W＝X。因此 W＜Z 成立。" },
+    { id:"y11", tag:"學力養成篇", type:"choice",
+      text:"（實驗 3-3-2）以小魚尾鰭作為觀察部位的主要原因為何？",
+      opts:["血流量較大","血管較粗大","血液顏色較鮮豔，易於觀察","尾鰭較薄且透光，易於觀察"], ans:3,
+      why:"複式顯微鏡要用薄而透光的樣本，小魚的尾鰭剛好符合，可以直接看到裡面的血管和流動的血球。" },
+    { id:"y12", tag:"學力養成篇", type:"choice",
+      text:"某人體心臟內甲、乙兩個心室的血液中氧氣含量分別為甲 19.8、乙 15.2（mL/100 mL）。請根據此數據推測此兩心室所連接的血管為何？",
+      opts:["甲與大靜脈連接；乙與肺靜脈連接","甲與肺靜脈連接；乙與肺動脈連接",
+            "甲與主動脈連接；乙與大靜脈連接","甲與主動脈連接；乙與肺動脈連接"], ans:3,
+      why:"含氧量高的甲是左心室，血液由主動脈送往全身；含氧量低的乙是右心室，血液由肺動脈送往肺部進行氣體交換。心室連接的一定是動脈。" },
+    { id:"y13", tag:"閱讀趣", type:"choice",
+      text:"（密閉空間的隱形殺手——一氧化碳）下列何種物質在人體中的運輸效率會因吸入一氧化碳而急速下降？",
+      opts:["二氧化碳","水分","養分","氧氣"], ans:3,
+      why:"一氧化碳與紅血球中血紅素的結合力是氧氣的 200～250 倍，會搶先占住血紅素，使血紅素攜帶氧氣的能力大幅下降，導致組織缺氧。" },
+    { id:"y14", tag:"閱讀趣", type:"choice",
+      text:"（一氧化碳）根據氣體交換的原理，當有人一氧化碳中毒時，下列哪種處理方式錯誤？",
+      opts:["讓患者吸入大量的二氧化碳","讓患者吸入大量的氧氣",
+            "打開門窗使空氣流通","抬高中毒者下顎，保持呼吸道暢通"], ans:0,
+      why:"患者的問題是缺氧，要做的是提高氧氣濃度把一氧化碳競爭掉。吸入二氧化碳不但沒有幫助，還會讓缺氧更嚴重。" }
   ];
 
   var host = document.getElementById("qs");
@@ -582,7 +720,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 16) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先回上面四個練習區確認一次，再回來作答。";
   }
 
@@ -705,7 +843,7 @@
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -827,7 +965,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -880,7 +1020,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -924,8 +1063,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -944,11 +1081,382 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　END ===== -->
 
+<script>
+/* ── 實驗紀錄共用元件（NKit）── */
+window.NKit = (function(){
+  "use strict";
+
+  var mem = {};
+  function read(key){
+    try { var r = localStorage.getItem(key); return r ? JSON.parse(r) : {}; }
+    catch(e){ return mem[key] || {}; }
+  }
+  function write(key, o){
+    mem[key] = o;
+    try { localStorage.setItem(key, JSON.stringify(o)); } catch(e){}
+  }
+
+  function mkSelect(opts, val){
+    var sel = document.createElement("select");
+    var b = document.createElement("option");
+    b.value = ""; b.textContent = "（選）";
+    sel.appendChild(b);
+    opts.forEach(function(o){
+      var op = document.createElement("option");
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    if (val) sel.value = val;
+    return sel;
+  }
+
+  function actions(host, label, run){
+    var wrap = document.createElement("div");
+    wrap.className = "actions";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "act";
+    btn.textContent = label || "檢查";
+    wrap.appendChild(btn);
+    host.parentNode.insertBefore(wrap, host.nextSibling);
+
+    var p = document.createElement("p");
+    p.className = "fb";
+    host.parentNode.insertBefore(p, wrap.nextSibling);
+
+    btn.addEventListener("click", function(){ run(p); });
+    return p;
+  }
+
+  function verdict(p, right, total, ok, no){
+    p.className = "fb show " + (right === total ? "right" : "wrong");
+    p.textContent = right === total
+      ? (ok || "全對。")
+      : ("答對 " + right + " / " + total + "。" + (no || ""));
+  }
+
+  /* 句子填空：t 字串中每個 {} 換成一個下拉選單 */
+  function fill(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kfill";
+    var sels = [];
+
+    cfg.rows.forEach(function(row, ri){
+      var div = document.createElement("div");
+      div.className = "row";
+      var parts = row.t.split("{}");
+      var rowSels = [];
+      parts.forEach(function(txt, i){
+        div.appendChild(document.createTextNode(txt));
+        if (i < parts.length - 1) {
+          var id = cfg.host + "-" + ri + "-" + i;
+          var sel = mkSelect(row.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          div.appendChild(sel);
+          rowSels.push({ sel:sel, id:id });
+        }
+      });
+      if (row.tail) div.appendChild(document.createTextNode(row.tail));
+      sels.push(rowSels);
+      host.appendChild(div);
+    });
+
+    actions(host, cfg.btn, function(p){
+      var right = 0, total = 0;
+      cfg.rows.forEach(function(row, ri){
+        var pool = row.ans.slice();
+        sels[ri].forEach(function(o, i){
+          total++;
+          var ok;
+          if (row.any) {
+            var at = pool.indexOf(o.sel.value);
+            ok = o.sel.value !== "" && at >= 0;
+            if (ok) pool.splice(at, 1);
+          } else {
+            ok = o.sel.value === row.ans[i];
+          }
+          o.sel.classList.toggle("ok", ok);
+          o.sel.classList.toggle("no", !ok);
+          if (ok) right++;
+        });
+      });
+      verdict(p, right, total, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 步驟排序：steps 以正確順序給，畫面上打散，用數字下拉作答 */
+  function order(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kord";
+    var n = cfg.steps.length;
+    var nums = [];
+    for (var i=1;i<=n;i++) nums.push(String(i));
+
+    var idx = cfg.steps.map(function(_, i){ return i; });
+    var seed = 0, c;
+    for (c=0;c<cfg.host.length;c++) seed = (seed * 31 + cfg.host.charCodeAt(c)) % 9973;
+    for (c=idx.length-1;c>0;c--){
+      seed = (seed * 1103515245 + 12345) % 2147483647;
+      var j = seed % (c+1), t = idx[c]; idx[c] = idx[j]; idx[j] = t;
+    }
+
+    var rows = [];
+    idx.forEach(function(orig){
+      var div = document.createElement("div");
+      div.className = "row";
+      var p = document.createElement("p");
+      p.textContent = cfg.steps[orig];
+      var id = cfg.host + "-" + orig;
+      var sel = mkSelect(nums, st[id]);
+      sel.addEventListener("change", function(){
+        st[id] = sel.value; write(cfg.key, st);
+        sel.classList.remove("ok","no");
+      });
+      div.appendChild(p); div.appendChild(sel);
+      host.appendChild(div);
+      rows.push({ sel:sel, ans:String(orig + 1) });
+    });
+
+    actions(host, cfg.btn || "檢查順序", function(p){
+      var right = 0;
+      rows.forEach(function(r){
+        var ok = r.sel.value === r.ans;
+        r.sel.classList.toggle("ok", ok);
+        r.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, rows.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 比較表：head 是欄位標題，rows 每列一個項目 */
+  function table(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    var tb = document.createElement("table");
+    tb.className = "cmp";
+
+    if (cfg.head) {
+      var tr = document.createElement("tr");
+      cfg.head.forEach(function(h, i){
+        var c = document.createElement("th");
+        c.textContent = h;
+        if (i > 0) c.style.width = "auto";
+        tr.appendChild(c);
+      });
+      tb.appendChild(tr);
+    }
+
+    var cells = [];
+    cfg.rows.forEach(function(row, ri){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = row.th;
+      tr.appendChild(th);
+      row.cells.forEach(function(cell, ci){
+        var td = document.createElement("td");
+        if (cell.text) {
+          td.textContent = cell.text;
+        } else {
+          var id = cfg.host + "-" + ri + "-" + ci;
+          var sel = mkSelect(cell.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          td.appendChild(sel);
+          cells.push({ sel:sel, ans:cell.ans });
+        }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    host.appendChild(tb);
+
+    actions(host, cfg.btn, function(p){
+      var right = 0;
+      cells.forEach(function(c){
+        var ok = c.sel.value === c.ans;
+        c.sel.classList.toggle("ok", ok);
+        c.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, cells.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 複選勾選題 */
+  function check(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kchk";
+    var boxes = [];
+    cfg.items.forEach(function(item, i){
+      var div = document.createElement("div");
+      div.className = "row";
+      var inp = document.createElement("input");
+      inp.type = "checkbox";
+      var id = cfg.host + "-" + i;
+      inp.checked = !!st[id];
+      inp.addEventListener("change", function(){
+        st[id] = inp.checked; write(cfg.key, st);
+      });
+      var p = document.createElement("p");
+      p.textContent = item.t;
+      div.appendChild(inp); div.appendChild(p);
+      host.appendChild(div);
+      boxes.push({ inp:inp, ans:!!item.ok, p:p, why:item.why });
+    });
+
+    actions(host, cfg.btn || "對答案", function(p){
+      var right = 0;
+      boxes.forEach(function(b){
+        var ok = b.inp.checked === b.ans;
+        b.p.style.color = ok ? "" : "var(--rose)";
+        if (ok) right++;
+      });
+      verdict(p, right, boxes.length, cfg.ok, cfg.no);
+    });
+  }
+
+  return { fill:fill, order:order, table:table, check:check };
+})();
+</script>
+<script>
+
+(function(){
+  var K = "nature1-c3-3-lab-v1";
+
+  NKit.fill({
+    host:"e331q", key:K,
+    rows:[
+      { t:"受試者甲為什麼要先靜坐 5 分鐘？答：可使脈搏和呼吸調整至 {} 的狀態。",
+        opts:["平常穩定","最高","最低","完全停止"], ans:["平常穩定"] },
+      { t:"安全提醒：使用聽診器時， {} 敲擊薄膜，以免損害聽力。",
+        opts:["不可","必須","要用力"], ans:["不可"] }
+    ],
+    ok:"全對。要測「運動前」的基準值，當然得先讓身體回到平靜狀態。",
+    no:"如果剛跑進教室就開始測，量到的根本不是安靜時的數值。"
+  });
+
+  NKit.fill({
+    host:"e331r", key:K,
+    rows:[
+      { t:"1. 同一受試者每分鐘的心搏次數和脈搏次數 {} ，因為心臟每搏動一次，就會在動脈產生一次脈搏。",
+        opts:["相同","不同"], ans:["相同"] },
+      { t:"2.「運動前」和「運動後」每分鐘的心搏次數 {} 。運動後的心搏次數比較 {} ，因為運動時細胞需要更多氧氣和養分，心臟必須加快搏動來加速運送。",
+        opts:["不一樣","一樣","多","少"], ans:["不一樣","多"] },
+      { t:"3. 正常人運動前的心搏參考值為每分鐘 {} 次。",
+        opts:["60～100","20～40","120～160","150～200"], ans:["60～100"] }
+    ],
+    ok:"全對。心搏和脈搏是同一件事的兩種量法，數值當然一致。",
+    no:"想想脈搏怎麼來的：心臟一擠，動脈就鼓一下，所以次數必然相同。"
+  });
+
+  NKit.order({
+    host:"e332ord", key:K,
+    steps:[
+      "在夾鏈袋中裝少量水，水不超過三分之一。",
+      "使用小撈網將小魚從水箱中撈出，盡速放到裝有水的夾鏈袋中，扣緊袋口。",
+      "把袋子平放測試，若小魚會游動，需再減少袋中水量。",
+      "將裝有小魚的夾鏈袋輕放在顯微鏡的載物臺上。",
+      "用低倍率物鏡觀察尾鰭，記錄血管中小顆粒的流動情形並標示構造名稱。"
+    ],
+    ok:"順序正確。水量要少到讓魚不能游動，影像才不會一直晃。",
+    no:"要先把小魚安置好、測試過裝置，才放上顯微鏡觀察。"
+  });
+
+  NKit.fill({
+    host:"e332r", key:K,
+    rows:[
+      { t:"1. 血管內流動的小顆粒是 {} 。",
+        opts:["血球","養分","氣泡","雜質"], ans:["血球"] },
+      { t:"2. 小顆粒流動的方向 {} 。可藉由 {} 來區分血管種類。",
+        opts:["不同","相同","血液流動的方向與血管的分支情形","血管的顏色"],
+        ans:["不同","血液流動的方向與血管的分支情形"] },
+      { t:"血液由粗血管流向細分支的是 {} ；由細分支匯集流向粗血管的是 {} ；最細、只容血球單行通過的是 {} 。",
+        opts:["小動脈","小靜脈","微血管"], ans:["小動脈","小靜脈","微血管"] },
+      { t:"3. 不同種類血管中的血液流動速度 {} ，其中 {} 內的血液流速較快。",
+        opts:["不同","相同","小動脈","微血管"], ans:["不同","小動脈"] }
+    ],
+    ok:"全對。分辨血管不看顏色，看的是「血往哪裡分、往哪裡合」。",
+    no:"從粗分到細的是動脈（離心），從細匯到粗的是靜脈（回心），中間最細的是微血管。"
+  });
+
+  NKit.table({
+    host:"e332t", key:K,
+    head:["比較項目","動脈","微血管","靜脈"],
+    rows:[
+      { th:"管壁厚度", cells:[
+        { opts:["最厚","最薄","次之"], ans:"最厚" },
+        { opts:["最厚","最薄","次之"], ans:"最薄" },
+        { opts:["最厚","最薄","次之"], ans:"次之" } ] },
+      { th:"管腔大小", cells:[
+        { opts:["最大","最小","次之"], ans:"次之" },
+        { opts:["最大","最小","次之"], ans:"最小" },
+        { opts:["最大","最小","次之"], ans:"最大" } ] },
+      { th:"血壓高低", cells:[
+        { opts:["最高","最低","次之"], ans:"最高" },
+        { opts:["最高","最低","次之"], ans:"次之" },
+        { opts:["最高","最低","次之"], ans:"最低" } ] },
+      { th:"功能", cells:[
+        { opts:["將血液帶離心臟","血液與組織細胞間物質交換的管道","將血液送回心臟"], ans:"將血液帶離心臟" },
+        { opts:["將血液帶離心臟","血液與組織細胞間物質交換的管道","將血液送回心臟"], ans:"血液與組織細胞間物質交換的管道" },
+        { opts:["將血液帶離心臟","血液與組織細胞間物質交換的管道","將血液送回心臟"], ans:"將血液送回心臟" } ] }
+    ],
+    ok:"全對。動脈要承受心臟擠出的壓力，所以管壁最厚、血壓最高；微血管薄到只剩一層細胞，才方便交換物質。",
+    no:"從功能反推構造：要交換物質就得夠薄，要承受高壓就得夠厚。"
+  });
+
+  NKit.check({
+    host:"e33s1", key:K,
+    items:[
+      { t:"立刻求救送醫（撥打 119）", ok:true },
+      { t:"記住毒蛇特徵", ok:true },
+      { t:"跑去追捕毒蛇", ok:false },
+      { t:"除去傷處首飾", ok:true },
+      { t:"用冰塊冰敷傷口", ok:false },
+      { t:"用嘴巴吸出蛇毒", ok:false }
+    ],
+    ok:"全對。記住蛇的特徵是為了讓醫師選對血清；除去首飾是因為傷處會腫脹。",
+    no:"追蛇會加速血液循環又可能再被咬；冰敷會使組織壞死；用嘴吸則可能讓自己也中毒。"
+  });
+
+  NKit.check({
+    host:"e33s2", key:K,
+    items:[
+      { t:"加快血液循環", ok:false },
+      { t:"減緩血液循環", ok:true }
+    ],
+    ok:"正確。傷處低於心臟、保持不動，可以減緩血液循環，讓蛇毒擴散得慢一些，爭取送醫時間。",
+    no:"蛇毒是靠血液帶到全身的，所以要想辦法讓它跑得「慢」而不是快。"
+  });
+
+  NKit.check({
+    host:"e33s3", key:K,
+    items:[
+      { t:"紅血球", ok:false },
+      { t:"白血球", ok:false },
+      { t:"血小板", ok:true }
+    ],
+    ok:"正確。龜殼花蛇毒屬於出血性蛇毒，會影響凝血功能，而負責凝血的正是血小板。",
+    no:"判斷依據：出血性蛇毒影響的是「凝血」，凝血是血小板的工作。"
+  });
+})();
+</script>
 </body>
 </html>

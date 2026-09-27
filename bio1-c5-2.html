@@ -98,6 +98,31 @@
   }
   .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
   footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+  /* ── 實驗紀錄共用元件 ── */
+  .sub{font-family:"Songti TC","Noto Serif TC",serif;font-size:1.03rem;font-weight:700;
+    margin:20px 0 8px;padding-top:14px;border-top:1px dashed var(--rule-soft);color:var(--ink);}
+  .sub:first-child{border-top:none;padding-top:0;margin-top:2px;}
+  .kfill{margin:0;}
+  .kfill .row{padding:9px 0;border-top:1px solid var(--rule-soft);line-height:2.4;}
+  .kfill .row:first-child{border-top:none;}
+  .kfill select{width:auto;min-width:120px;max-width:100%;margin:0 3px;}
+  .kord .row{display:flex;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kord .row:first-child{border-top:none;}
+  .kord .row p{margin:0;flex:1 1 auto;}
+  .kord select{flex:0 0 auto;width:auto;min-width:82px;}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.94rem;margin:6px 0 12px;}
+  table.cmp th,table.cmp td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.cmp th{background:#F3F7F2;font-weight:700;width:46%;}
+  table.cmp td select{width:100%;min-width:0;}
+  .kchk .row{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kchk .row:first-child{border-top:none;}
+  .kchk .row p{margin:0;flex:1 1 auto;}
+  .kchk .row input{margin-top:.5em;flex:0 0 auto;width:18px;height:18px;accent-color:var(--leaf);}
+  .knote{font-size:.9rem;color:var(--ink-soft);margin:.6em 0 0;line-height:1.75;}
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:4px 0 0;}
+  .kgrid .cell{border:1px solid var(--rule-soft);border-radius:10px;padding:10px 12px;background:#FCFDFB;}
+  .kgrid .cell h4{margin:0 0 .25em;font-size:.95rem;}
+  .kgrid .cell p{margin:0;font-size:.86rem;color:var(--ink-soft);line-height:1.65;}
 </style>
 </head>
 <body>
@@ -180,8 +205,29 @@
   <p class="fb" id="modelFb"></p>
 </section>
 
+
 <section class="card">
-  <h2>五、練習題</h2>
+  <h2>五、實驗 5-2：呼吸作用的觀察</h2>
+  <p class="hint">依實驗活動紀錄簿 P.78–80。用兩種試劑，檢查呼出的氣體裡有什麼。</p>
+
+  <p class="sub">兩種檢測試劑</p>
+  <div id="e52t0"></div>
+
+  <p class="sub">甲　人體呼出的氣體：實驗紀錄</p>
+  <div id="e52t1"></div>
+
+  <p class="sub">乙　植物呼出的氣體：步驟 Q 與實驗紀錄</p>
+  <div id="e52q"></div>
+  <div id="e52t2"></div>
+
+  <p class="sub">結果與討論</p>
+  <div id="e52r"></div>
+  <p class="knote">安全提醒：用吸管對著澄清石灰水吹氣時，<b>不可以把石灰水吸入口中</b>。<br>
+    整個實驗的邏輯：呼吸作用會產生二氧化碳和水，所以只要能偵測到這兩者，就證明生物正在行呼吸作用。</p>
+</section>
+
+<section class="card">
+  <h2>六、練習題</h2>
   <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
   <div id="qs"></div>
   <div class="actions">
@@ -191,7 +237,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 34</b>
+  <span>練習題答對</span><b id="score">0 / 41</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -567,7 +613,40 @@
     { id:"q34", tag:"歷屆經典題", type:"choice",
       text:"小美用手指捏住鼻子閉氣，不久卻憋不住而放開手、大口呼吸起來，這是因為血液中下列哪種氣體含量增高所造成？",
       opts:["氧氣","臭氧","甲烷","二氧化碳"], ans:3,
-      why:"刺激呼吸控制中樞的是二氧化碳濃度；濃度一高就會引發呼吸反射，強迫身體重新呼吸。" }
+      why:"刺激呼吸控制中樞的是二氧化碳濃度；濃度一高就會引發呼吸反射，強迫身體重新呼吸。" },
+
+    { id:"z1", tag:"學力養成篇", type:"choice",
+      text:"呼吸作用最重要的生理功能為何？",
+      opts:["使生物體獲得氧氣","使生物體能排出二氧化碳","提供生物體所需能量","提供生物體所需養分"], ans:2,
+      why:"呼吸作用是細胞利用氧氣把養分分解、產生二氧化碳、水和「能量」的過程。獲得氧氣與排出二氧化碳只是過程中的進出，提供能量才是目的；製造養分是光合作用的工作。" },
+    { id:"z2", tag:"學力養成篇", type:"choice",
+      text:"下列有關人體肺的敘述，何者不正確？",
+      opts:["位於胸腔內","由肺泡所組成","表面布滿微血管","肌肉可改變體積，引起呼吸運動"], ans:3,
+      why:"肺本身沒有肌肉，不能自己脹縮。呼吸運動是靠橫膈和肋間肌改變胸腔體積，肺才被動地跟著變大變小。" },
+    { id:"z3", tag:"學力養成篇", type:"choice",
+      text:"人體在運動後呼吸速率會加快，是血液中的什麼因素使呼吸運動加快？",
+      opts:["所減少的氧氣","所增加的二氧化碳","所減少的水分","所增加的熱量"], ans:1,
+      why:"人體偵測呼吸需求的主要訊號是血液中二氧化碳濃度的升高，而不是氧氣的減少。二氧化碳一多，呼吸中樞就下令加快呼吸把它排掉。" },
+    { id:"z4", tag:"學力養成篇", type:"choice",
+      text:"甲圖中橫膈的箭頭向下、胸腔體積變大；乙圖中橫膈的箭頭向上、胸腔體積變小。其中吸氣和呼氣各為何圖？",
+      opts:["甲、乙都是吸氣","甲、乙都是呼氣","甲為吸氣、乙為呼氣","甲為呼氣、乙為吸氣"], ans:2,
+      why:"橫膈下降、肋骨上升會使胸腔體積變大、肺內壓力下降，空氣被吸進肺中，這是吸氣；反過來橫膈上升、胸腔變小就是呼氣。" },
+    { id:"z5", tag:"學力養成篇", type:"choice",
+      text:"當人體呼吸系統內氣體由肺泡往支氣管、氣管移動，此時進行呼吸運動的相關構造之變化，下列何者最合理？",
+      opts:["橫膈上升","肋骨上舉","肺漸變大","胸腔變大"], ans:0,
+      why:"氣體由肺泡往外移動代表正在呼氣。呼氣時橫膈上升、肋骨下降、胸腔體積變小、肺也跟著縮小，把氣體擠出體外。" },
+    { id:"z6", tag:"學力養成篇", type:"choice",
+      text:"（實驗 5-2）小藍利用已萌芽的綠豆進行實驗，30 分鐘後由漏斗倒入一杯清水，同時觀察澄清石灰水的變化。下列何者是實驗中倒入清水的目的？",
+      opts:["清洗錐形瓶","將瓶內的氣體擠入試管中",
+            "促使綠豆生長並快速產生氧氣","促使綠豆生長並快速產生二氧化碳"], ans:1,
+      why:"錐形瓶裡的氣體不會自己跑到試管去。倒入清水佔掉瓶內空間，就能把累積的氣體從玻璃管推進澄清石灰水中檢測。" },
+    { id:"z7", tag:"學力養成篇", type:"choice",
+      text:"（實驗 5-2）下列哪個實驗可以證明「人呼出的氣體中含有水分」？",
+      opts:["對澄清石灰水呼氣，發現石灰水變混濁",
+            "以錐形瓶收集人呼出的氣體，將點燃的火柴伸入瓶內後發現火柴熄滅",
+            "對著清水呼氣數分鐘，以石蕊試紙測試水，發現試紙變粉紅色",
+            "對乾燥的氯化亞鈷試紙呼氣，發現試紙由藍變粉紅"], ans:3,
+      why:"氯化亞鈷試紙乾燥時呈藍色、遇水變粉紅色，是專門檢測水分的試劑。石灰水變混濁證明的是二氧化碳；火柴熄滅證明氧氣變少；石蕊試紙測的是酸鹼性。" }
   ];
 
   var host = document.getElementById("qs");
@@ -664,7 +743,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 27) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先回上面四個練習區確認一次，再回來作答。";
   }
 
@@ -787,7 +866,7 @@
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -909,7 +988,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -962,7 +1043,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -1006,8 +1086,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -1026,11 +1104,336 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　END ===== -->
 
+<script>
+/* ── 實驗紀錄共用元件（NKit）── */
+window.NKit = (function(){
+  "use strict";
+
+  var mem = {};
+  function read(key){
+    try { var r = localStorage.getItem(key); return r ? JSON.parse(r) : {}; }
+    catch(e){ return mem[key] || {}; }
+  }
+  function write(key, o){
+    mem[key] = o;
+    try { localStorage.setItem(key, JSON.stringify(o)); } catch(e){}
+  }
+
+  function mkSelect(opts, val){
+    var sel = document.createElement("select");
+    var b = document.createElement("option");
+    b.value = ""; b.textContent = "（選）";
+    sel.appendChild(b);
+    opts.forEach(function(o){
+      var op = document.createElement("option");
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    if (val) sel.value = val;
+    return sel;
+  }
+
+  function actions(host, label, run){
+    var wrap = document.createElement("div");
+    wrap.className = "actions";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "act";
+    btn.textContent = label || "檢查";
+    wrap.appendChild(btn);
+    host.parentNode.insertBefore(wrap, host.nextSibling);
+
+    var p = document.createElement("p");
+    p.className = "fb";
+    host.parentNode.insertBefore(p, wrap.nextSibling);
+
+    btn.addEventListener("click", function(){ run(p); });
+    return p;
+  }
+
+  function verdict(p, right, total, ok, no){
+    p.className = "fb show " + (right === total ? "right" : "wrong");
+    p.textContent = right === total
+      ? (ok || "全對。")
+      : ("答對 " + right + " / " + total + "。" + (no || ""));
+  }
+
+  /* 句子填空：t 字串中每個 {} 換成一個下拉選單 */
+  function fill(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kfill";
+    var sels = [];
+
+    cfg.rows.forEach(function(row, ri){
+      var div = document.createElement("div");
+      div.className = "row";
+      var parts = row.t.split("{}");
+      var rowSels = [];
+      parts.forEach(function(txt, i){
+        div.appendChild(document.createTextNode(txt));
+        if (i < parts.length - 1) {
+          var id = cfg.host + "-" + ri + "-" + i;
+          var sel = mkSelect(row.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          div.appendChild(sel);
+          rowSels.push({ sel:sel, id:id });
+        }
+      });
+      if (row.tail) div.appendChild(document.createTextNode(row.tail));
+      sels.push(rowSels);
+      host.appendChild(div);
+    });
+
+    actions(host, cfg.btn, function(p){
+      var right = 0, total = 0;
+      cfg.rows.forEach(function(row, ri){
+        var pool = row.ans.slice();
+        sels[ri].forEach(function(o, i){
+          total++;
+          var ok;
+          if (row.any) {
+            var at = pool.indexOf(o.sel.value);
+            ok = o.sel.value !== "" && at >= 0;
+            if (ok) pool.splice(at, 1);
+          } else {
+            ok = o.sel.value === row.ans[i];
+          }
+          o.sel.classList.toggle("ok", ok);
+          o.sel.classList.toggle("no", !ok);
+          if (ok) right++;
+        });
+      });
+      verdict(p, right, total, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 步驟排序：steps 以正確順序給，畫面上打散，用數字下拉作答 */
+  function order(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kord";
+    var n = cfg.steps.length;
+    var nums = [];
+    for (var i=1;i<=n;i++) nums.push(String(i));
+
+    var idx = cfg.steps.map(function(_, i){ return i; });
+    var seed = 0, c;
+    for (c=0;c<cfg.host.length;c++) seed = (seed * 31 + cfg.host.charCodeAt(c)) % 9973;
+    for (c=idx.length-1;c>0;c--){
+      seed = (seed * 1103515245 + 12345) % 2147483647;
+      var j = seed % (c+1), t = idx[c]; idx[c] = idx[j]; idx[j] = t;
+    }
+
+    var rows = [];
+    idx.forEach(function(orig){
+      var div = document.createElement("div");
+      div.className = "row";
+      var p = document.createElement("p");
+      p.textContent = cfg.steps[orig];
+      var id = cfg.host + "-" + orig;
+      var sel = mkSelect(nums, st[id]);
+      sel.addEventListener("change", function(){
+        st[id] = sel.value; write(cfg.key, st);
+        sel.classList.remove("ok","no");
+      });
+      div.appendChild(p); div.appendChild(sel);
+      host.appendChild(div);
+      rows.push({ sel:sel, ans:String(orig + 1) });
+    });
+
+    actions(host, cfg.btn || "檢查順序", function(p){
+      var right = 0;
+      rows.forEach(function(r){
+        var ok = r.sel.value === r.ans;
+        r.sel.classList.toggle("ok", ok);
+        r.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, rows.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 比較表：head 是欄位標題，rows 每列一個項目 */
+  function table(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    var tb = document.createElement("table");
+    tb.className = "cmp";
+
+    if (cfg.head) {
+      var tr = document.createElement("tr");
+      cfg.head.forEach(function(h, i){
+        var c = document.createElement("th");
+        c.textContent = h;
+        if (i > 0) c.style.width = "auto";
+        tr.appendChild(c);
+      });
+      tb.appendChild(tr);
+    }
+
+    var cells = [];
+    cfg.rows.forEach(function(row, ri){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = row.th;
+      tr.appendChild(th);
+      row.cells.forEach(function(cell, ci){
+        var td = document.createElement("td");
+        if (cell.text) {
+          td.textContent = cell.text;
+        } else {
+          var id = cfg.host + "-" + ri + "-" + ci;
+          var sel = mkSelect(cell.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          td.appendChild(sel);
+          cells.push({ sel:sel, ans:cell.ans });
+        }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    host.appendChild(tb);
+
+    actions(host, cfg.btn, function(p){
+      var right = 0;
+      cells.forEach(function(c){
+        var ok = c.sel.value === c.ans;
+        c.sel.classList.toggle("ok", ok);
+        c.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, cells.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 複選勾選題 */
+  function check(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kchk";
+    var boxes = [];
+    cfg.items.forEach(function(item, i){
+      var div = document.createElement("div");
+      div.className = "row";
+      var inp = document.createElement("input");
+      inp.type = "checkbox";
+      var id = cfg.host + "-" + i;
+      inp.checked = !!st[id];
+      inp.addEventListener("change", function(){
+        st[id] = inp.checked; write(cfg.key, st);
+      });
+      var p = document.createElement("p");
+      p.textContent = item.t;
+      div.appendChild(inp); div.appendChild(p);
+      host.appendChild(div);
+      boxes.push({ inp:inp, ans:!!item.ok, p:p, why:item.why });
+    });
+
+    actions(host, cfg.btn || "對答案", function(p){
+      var right = 0;
+      boxes.forEach(function(b){
+        var ok = b.inp.checked === b.ans;
+        b.p.style.color = ok ? "" : "var(--rose)";
+        if (ok) right++;
+      });
+      verdict(p, right, boxes.length, cfg.ok, cfg.no);
+    });
+  }
+
+  return { fill:fill, order:order, table:table, check:check };
+})();
+</script>
+<script>
+
+(function(){
+  var K = "nature1-c5-2-lab-v1";
+
+  NKit.table({
+    host:"e52t0", key:K,
+    head:["試劑","原本的樣子","偵測什麼","呈陽性反應時"],
+    rows:[
+      { th:"氯化亞鈷試紙", cells:[
+        { opts:["乾燥時呈藍色","呈淡藍色澄清液"], ans:"乾燥時呈藍色" },
+        { opts:["水分","二氧化碳"], ans:"水分" },
+        { opts:["轉變成粉紅色","產生白色沉澱而變混濁"], ans:"轉變成粉紅色" } ] },
+      { th:"澄清石灰水", cells:[
+        { opts:["乾燥時呈藍色","呈淡藍色澄清液"], ans:"呈淡藍色澄清液" },
+        { opts:["水分","二氧化碳"], ans:"二氧化碳" },
+        { opts:["轉變成粉紅色","產生白色沉澱而變混濁"], ans:"產生白色沉澱而變混濁" } ] }
+    ],
+    ok:"全對。一個測水、一個測二氧化碳，剛好是呼吸作用的兩種產物。",
+    no:"口訣：試紙變粉紅＝有水；石灰水變混濁＝有二氧化碳。"
+  });
+
+  NKit.table({
+    host:"e52t1", key:K,
+    head:["試驗結果","呼氣前","呼氣後"],
+    rows:[
+      { th:"氯化亞鈷試紙的顏色", cells:[
+        { opts:["藍色","粉紅色"], ans:"藍色" },
+        { opts:["藍色","粉紅色"], ans:"粉紅色" } ] },
+      { th:"澄清石灰水的變化", cells:[
+        { opts:["澄清","變混濁"], ans:"澄清" },
+        { opts:["澄清","變混濁"], ans:"變混濁" } ] }
+    ],
+    ok:"全對。兩項都有反應，代表人呼出的氣體中同時含有水分和二氧化碳。",
+    no:"呼氣前是試劑原本的樣子（藍色試紙、澄清石灰水），呼氣後才會改變。"
+  });
+
+  NKit.fill({
+    host:"e52q", key:K,
+    rows:[
+      { t:"為什麼要拿已萌芽綠豆與乾燥綠豆來做檢測比較？答：已萌芽綠豆是 {} ，乾燥綠豆則是 {} 。",
+        opts:["實驗組","對照組"], ans:["實驗組","對照組"] },
+      { t:"從漏斗加水到錐形瓶內的目的是什麼？答：將錐形瓶中的 {} 擠入到試管的澄清石灰水內。",
+        opts:["氣體","水","綠豆","石灰水"], ans:["氣體"] }
+    ],
+    ok:"全對。加水是為了把瓶內的氣體「推」出去，不是為了給綠豆澆水。",
+    no:"乾燥綠豆幾乎不進行呼吸作用，正好當作沒有變化的比較基準。"
+  });
+
+  NKit.table({
+    host:"e52t2", key:K,
+    head:["試驗結果","甲（已萌芽綠豆）","乙（乾燥綠豆）"],
+    opts:["變混濁","沒有明顯變化（仍澄清）"],
+    rows:[
+      { th:"澄清石灰水的變化", cells:[{ ans:"變混濁" }, { ans:"沒有明顯變化（仍澄清）" }] }
+    ],
+    ok:"全對。只有已萌芽的綠豆正在旺盛地進行呼吸作用，產生足量的二氧化碳。",
+    no:"乾燥綠豆處於休眠狀態，呼吸作用非常微弱，石灰水幾乎不會變化。"
+  });
+
+  NKit.fill({
+    host:"e52r", key:K,
+    rows:[
+      { t:"1. 人呼出的氣體中含有 {} ；已萌芽綠豆呼出的氣體中含有 {} 。",
+        opts:["水分和二氧化碳","二氧化碳","氧氣","氮氣"],
+        ans:["水分和二氧化碳","二氧化碳"] },
+      { t:"2. 由甲、乙試管內澄清石灰水的變化可推論：已萌芽綠豆的呼吸作用速率比乾燥綠豆 {} 。",
+        opts:["快","慢","相同"], ans:["快"] },
+      { t:"3. 若人在劇烈運動後再吹氣至澄清石灰水中，石灰水變混濁的時間會 {} ，因為劇烈運動後細胞的呼吸作用較旺盛，呼出氣體中的二氧化碳濃度較 {} 。",
+        opts:["縮短","變長","高","低"], ans:["縮短","高"] }
+    ],
+    ok:"全對。運動後細胞需要更多能量，呼吸作用加快，呼出的二氧化碳自然更多。",
+    no:"二氧化碳濃度越高，石灰水就越快變混濁，所需時間縮短。"
+  });
+})();
+</script>
 </body>
 </html>

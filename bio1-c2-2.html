@@ -98,6 +98,31 @@
   }
   .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
   footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+  /* ── 實驗紀錄共用元件 ── */
+  .sub{font-family:"Songti TC","Noto Serif TC",serif;font-size:1.03rem;font-weight:700;
+    margin:20px 0 8px;padding-top:14px;border-top:1px dashed var(--rule-soft);color:var(--ink);}
+  .sub:first-child{border-top:none;padding-top:0;margin-top:2px;}
+  .kfill{margin:0;}
+  .kfill .row{padding:9px 0;border-top:1px solid var(--rule-soft);line-height:2.4;}
+  .kfill .row:first-child{border-top:none;}
+  .kfill select{width:auto;min-width:120px;max-width:100%;margin:0 3px;}
+  .kord .row{display:flex;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kord .row:first-child{border-top:none;}
+  .kord .row p{margin:0;flex:1 1 auto;}
+  .kord select{flex:0 0 auto;width:auto;min-width:82px;}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.94rem;margin:6px 0 12px;}
+  table.cmp th,table.cmp td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.cmp th{background:#F3F7F2;font-weight:700;width:46%;}
+  table.cmp td select{width:100%;min-width:0;}
+  .kchk .row{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kchk .row:first-child{border-top:none;}
+  .kchk .row p{margin:0;flex:1 1 auto;}
+  .kchk .row input{margin-top:.5em;flex:0 0 auto;width:18px;height:18px;accent-color:var(--leaf);}
+  .knote{font-size:.9rem;color:var(--ink-soft);margin:.6em 0 0;line-height:1.75;}
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:4px 0 0;}
+  .kgrid .cell{border:1px solid var(--rule-soft);border-radius:10px;padding:10px 12px;background:#FCFDFB;}
+  .kgrid .cell h4{margin:0 0 .25em;font-size:.95rem;}
+  .kgrid .cell p{margin:0;font-size:.86rem;color:var(--ink-soft);line-height:1.65;}
 </style>
 </head>
 <body>
@@ -171,8 +196,51 @@
   <p class="fb" id="varFb"></p>
 </section>
 
+
 <section class="card">
-  <h2>四、練習題</h2>
+  <h2>四、實驗 2-2：酵素的作用</h2>
+  <p class="hint">依實驗活動紀錄簿 P.35–37。市售消化酵素的包裝上寫著「溫度勿超過 50℃」，為什麼？</p>
+
+  <p class="sub">變因設定</p>
+  <div id="e22var"></div>
+
+  <p class="sub">操作順序</p>
+  <div id="e22ord"></div>
+
+  <p class="sub">步驟 Q：想一想</p>
+  <div id="e22q"></div>
+
+  <p class="sub">實驗紀錄：兩支試管的顏色</p>
+  <div id="e22t"></div>
+
+  <p class="sub">結果與討論、實驗結論</p>
+  <div id="e22r"></div>
+  <p class="knote">整個實驗的邏輯鏈：酵素的主要成分是<b>蛋白質</b> → 高溫會破壞它 → 酵素失去活性
+    → 澱粉沒被分解成葡萄糖 → 本氏液加熱後不變色。所以「本氏液有沒有變色」是用來
+    間接判斷酵素還有沒有活性的。</p>
+</section>
+
+
+<section class="card">
+  <h2>五、素養活用：木瓜牛奶變苦了？</h2>
+  <p class="hint">依實驗活動紀錄簿 P.46。木瓜酵素會分解牛奶中的蛋白質，產生有苦味的物質，還會讓蛋白質結塊。</p>
+
+  <p class="sub">Q1　木瓜酵素和我們體內的何種消化液有類似的功用？</p>
+  <p class="hint">可複選。</p>
+  <div id="e22p1"></div>
+
+  <p class="sub">Q2　老闆製作果汁時加入冰塊，是為了對木瓜酵素產生什麼影響？</p>
+  <div id="e22p2"></div>
+
+  <p class="sub">Q3　哪些方式可以讓木瓜飲品較不容易結塊、變苦？</p>
+  <p class="hint">可複選。</p>
+  <div id="e22p3"></div>
+  <p class="knote">這一題和實驗 2-2 是同一個道理：酵素的活性受<b>溫度</b>影響。低溫讓酵素「暫時」慢下來，
+    高溫則會讓它「永久」失去活性。另一個關鍵是——沒有作用對象（牛奶蛋白質），酵素再有活性也不會產生苦味。</p>
+</section>
+
+<section class="card">
+  <h2>六、練習題</h2>
   <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
   <div id="qs"></div>
   <div class="actions">
@@ -182,7 +250,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 27</b>
+  <span>練習題答對</span><b id="score">0 / 31</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -498,7 +566,29 @@
         "若降低甲的活性，會使澱粉的合成速率變快",
         "若提高甲的活性，會使澱粉的分解速率變快"
       ], ans:3,
-      why:"酵素主要由蛋白質組成，且可重複使用、不會在反應中被分解；活性越大代表作用速率越快，澱粉分解得越快。" }
+      why:"酵素主要由蛋白質組成，且可重複使用、不會在反應中被分解；活性越大代表作用速率越快，澱粉分解得越快。" },
+
+    { id:"y1", tag:"學力養成篇", type:"choice",
+      text:"乳牛吃草後在體內產生牛奶，其生理作用過程為何？",
+      opts:["僅有分解作用","僅有合成作用","先進行分解作用，再進行合成作用","先進行合成作用，再進行分解作用"], ans:2,
+      why:"草中的養分要先被消化（分解）成小分子吸收，再於體內合成為牛奶中的成分，所以是先分解後合成。" },
+    { id:"y2", tag:"學力養成篇", type:"choice",
+      text:"人體分泌的唾液中含有澱粉酶，但卻無法加速纖維素的分解利用，理由為何？",
+      opts:["酵素的成分是蛋白質","酵素的活性易受環境的溫度影響",
+            "酵素的活性和環境的酸鹼性有關","酵素和作用對象間有專一性"], ans:3,
+      why:"一種酵素只能作用在特定的對象上，這就是專一性。澱粉酶只認得澱粉，即使纖維素也是由葡萄糖組成，它也分解不了。" },
+    { id:"y3", tag:"學力養成篇", type:"choice",
+      text:"（實驗 2-2）小藍將甲、乙兩試管內容物裝妥，並置於裝有溫水的保麗龍盒中 40 分鐘後，各加一滴碘液於試管中。甲（澱粉液＋唾液）碘液測試結果為黃褐色，乙（澱粉液＋煮沸唾液）為藍黑色。此實驗結果可支持下列哪一項敘述？",
+      opts:["唾液中含有葡萄糖","水可使澱粉液呈藍黑色",
+            "澱粉在高溫可轉變成葡萄糖","唾液中的酵素活性會被高溫破壞"], ans:3,
+      why:"甲管不變色代表澱粉已被分解，乙管變藍黑色代表澱粉還在。兩管唯一的差別是唾液有沒有被煮沸，所以是高溫破壞了酵素的活性。" },
+    { id:"y4", tag:"學力養成篇", type:"choice",
+      text:"（實驗 2-2）承上題，為何乙試管要放入煮沸後的唾液呢？",
+      opts:["因為唾液中的酵素遇到高溫活性會變大",
+            "因為高溫會破壞唾液中酵素活性，可以和甲試管做對照",
+            "能加快和碘液之間的反應",
+            "因為能促進澱粉的分解"], ans:1,
+      why:"乙試管是對照組。把唾液煮沸等於製造一個「沒有酵素活性」的組別，才能證明甲管的變化真的是酵素造成的。" }
   ];
 
   var host = document.getElementById("qs");
@@ -595,7 +685,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 21) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先回上面三個練習區確認一次，再回來作答。";
   }
 
@@ -715,10 +805,336 @@
   })();
 })();
 </script>
+<script>
+/* ── 實驗紀錄共用元件（NKit）── */
+window.NKit = (function(){
+  "use strict";
+
+  var mem = {};
+  function read(key){
+    try { var r = localStorage.getItem(key); return r ? JSON.parse(r) : {}; }
+    catch(e){ return mem[key] || {}; }
+  }
+  function write(key, o){
+    mem[key] = o;
+    try { localStorage.setItem(key, JSON.stringify(o)); } catch(e){}
+  }
+
+  function mkSelect(opts, val){
+    var sel = document.createElement("select");
+    var b = document.createElement("option");
+    b.value = ""; b.textContent = "（選）";
+    sel.appendChild(b);
+    opts.forEach(function(o){
+      var op = document.createElement("option");
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    if (val) sel.value = val;
+    return sel;
+  }
+
+  function actions(host, label, run){
+    var wrap = document.createElement("div");
+    wrap.className = "actions";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "act";
+    btn.textContent = label || "檢查";
+    wrap.appendChild(btn);
+    host.parentNode.insertBefore(wrap, host.nextSibling);
+
+    var p = document.createElement("p");
+    p.className = "fb";
+    host.parentNode.insertBefore(p, wrap.nextSibling);
+
+    btn.addEventListener("click", function(){ run(p); });
+    return p;
+  }
+
+  function verdict(p, right, total, ok, no){
+    p.className = "fb show " + (right === total ? "right" : "wrong");
+    p.textContent = right === total
+      ? (ok || "全對。")
+      : ("答對 " + right + " / " + total + "。" + (no || ""));
+  }
+
+  /* 句子填空：t 字串中每個 {} 換成一個下拉選單 */
+  function fill(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kfill";
+    var sels = [];
+
+    cfg.rows.forEach(function(row, ri){
+      var div = document.createElement("div");
+      div.className = "row";
+      var parts = row.t.split("{}");
+      var rowSels = [];
+      parts.forEach(function(txt, i){
+        div.appendChild(document.createTextNode(txt));
+        if (i < parts.length - 1) {
+          var id = cfg.host + "-" + ri + "-" + i;
+          var sel = mkSelect(row.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          div.appendChild(sel);
+          rowSels.push({ sel:sel, id:id });
+        }
+      });
+      if (row.tail) div.appendChild(document.createTextNode(row.tail));
+      sels.push(rowSels);
+      host.appendChild(div);
+    });
+
+    actions(host, cfg.btn, function(p){
+      var right = 0, total = 0;
+      cfg.rows.forEach(function(row, ri){
+        var pool = row.ans.slice();
+        sels[ri].forEach(function(o, i){
+          total++;
+          var ok;
+          if (row.any) {
+            var at = pool.indexOf(o.sel.value);
+            ok = o.sel.value !== "" && at >= 0;
+            if (ok) pool.splice(at, 1);
+          } else {
+            ok = o.sel.value === row.ans[i];
+          }
+          o.sel.classList.toggle("ok", ok);
+          o.sel.classList.toggle("no", !ok);
+          if (ok) right++;
+        });
+      });
+      verdict(p, right, total, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 步驟排序：steps 以正確順序給，畫面上打散，用數字下拉作答 */
+  function order(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kord";
+    var n = cfg.steps.length;
+    var nums = [];
+    for (var i=1;i<=n;i++) nums.push(String(i));
+
+    var idx = cfg.steps.map(function(_, i){ return i; });
+    var seed = 0, c;
+    for (c=0;c<cfg.host.length;c++) seed = (seed * 31 + cfg.host.charCodeAt(c)) % 9973;
+    for (c=idx.length-1;c>0;c--){
+      seed = (seed * 1103515245 + 12345) % 2147483647;
+      var j = seed % (c+1), t = idx[c]; idx[c] = idx[j]; idx[j] = t;
+    }
+
+    var rows = [];
+    idx.forEach(function(orig){
+      var div = document.createElement("div");
+      div.className = "row";
+      var p = document.createElement("p");
+      p.textContent = cfg.steps[orig];
+      var id = cfg.host + "-" + orig;
+      var sel = mkSelect(nums, st[id]);
+      sel.addEventListener("change", function(){
+        st[id] = sel.value; write(cfg.key, st);
+        sel.classList.remove("ok","no");
+      });
+      div.appendChild(p); div.appendChild(sel);
+      host.appendChild(div);
+      rows.push({ sel:sel, ans:String(orig + 1) });
+    });
+
+    actions(host, cfg.btn || "檢查順序", function(p){
+      var right = 0;
+      rows.forEach(function(r){
+        var ok = r.sel.value === r.ans;
+        r.sel.classList.toggle("ok", ok);
+        r.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, rows.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 比較表：head 是欄位標題，rows 每列一個項目 */
+  function table(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    var tb = document.createElement("table");
+    tb.className = "cmp";
+
+    if (cfg.head) {
+      var tr = document.createElement("tr");
+      cfg.head.forEach(function(h, i){
+        var c = document.createElement("th");
+        c.textContent = h;
+        if (i > 0) c.style.width = "auto";
+        tr.appendChild(c);
+      });
+      tb.appendChild(tr);
+    }
+
+    var cells = [];
+    cfg.rows.forEach(function(row, ri){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = row.th;
+      tr.appendChild(th);
+      row.cells.forEach(function(cell, ci){
+        var td = document.createElement("td");
+        if (cell.text) {
+          td.textContent = cell.text;
+        } else {
+          var id = cfg.host + "-" + ri + "-" + ci;
+          var sel = mkSelect(cell.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          td.appendChild(sel);
+          cells.push({ sel:sel, ans:cell.ans });
+        }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    host.appendChild(tb);
+
+    actions(host, cfg.btn, function(p){
+      var right = 0;
+      cells.forEach(function(c){
+        var ok = c.sel.value === c.ans;
+        c.sel.classList.toggle("ok", ok);
+        c.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, cells.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 複選勾選題 */
+  function check(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kchk";
+    var boxes = [];
+    cfg.items.forEach(function(item, i){
+      var div = document.createElement("div");
+      div.className = "row";
+      var inp = document.createElement("input");
+      inp.type = "checkbox";
+      var id = cfg.host + "-" + i;
+      inp.checked = !!st[id];
+      inp.addEventListener("change", function(){
+        st[id] = inp.checked; write(cfg.key, st);
+      });
+      var p = document.createElement("p");
+      p.textContent = item.t;
+      div.appendChild(inp); div.appendChild(p);
+      host.appendChild(div);
+      boxes.push({ inp:inp, ans:!!item.ok, p:p, why:item.why });
+    });
+
+    actions(host, cfg.btn || "對答案", function(p){
+      var right = 0;
+      boxes.forEach(function(b){
+        var ok = b.inp.checked === b.ans;
+        b.p.style.color = ok ? "" : "var(--rose)";
+        if (ok) right++;
+      });
+      verdict(p, right, boxes.length, cfg.ok, cfg.no);
+    });
+  }
+
+  return { fill:fill, order:order, table:table, check:check };
+})();
+</script>
+<script>
+
+(function(){
+  var K = "nature1-c2-2-lab-v1";
+
+  NKit.table({
+    host:"e22var", key:K,
+    head:["變因種類","這個實驗中是什麼"],
+    rows:[
+      { th:"操縱變因", cells:[
+        { opts:["溫度","唾液的來源與量","唾液中酵素的活性","澱粉液的濃度"], ans:"溫度" } ] },
+      { th:"控制變因", cells:[
+        { opts:["溫度","唾液的來源與量、澱粉液與本氏液的濃度與量","唾液中酵素的活性"],
+          ans:"唾液的來源與量、澱粉液與本氏液的濃度與量" } ] },
+      { th:"應變變因", cells:[
+        { opts:["溫度","唾液的來源與量","唾液中酵素的活性（以相同時間內本氏液的顏色變化得知）"],
+          ans:"唾液中酵素的活性（以相同時間內本氏液的顏色變化得知）" } ] }
+    ],
+    ok:"全對。操縱變因是「我故意改變的」，控制變因是「必須一樣的」，應變變因是「我要觀察的結果」。",
+    no:"這個實驗只故意改變一件事——甲試管的唾液先煮沸過，乙試管沒有。那就是操縱變因。"
+  });
+
+  NKit.order({
+    host:"e22ord", key:K,
+    steps:[
+      "裝取唾液：取 2 支試管標上甲、乙，各加入等量的唾液（1～2 毫升，液面高約 1 公分）。",
+      "高溫加熱甲試管：把甲試管放入沸水中隔水加熱 10 分鐘，乙試管則置於室溫中。",
+      "在 2 支試管中各加入 2 毫升澱粉液，搖動試管使液體混合均勻。",
+      "把 2 支試管放入 35～40℃ 的溫水中，等待酵素作用約 15～20 分鐘（每隔 5 分鐘量一次水溫）。",
+      "在 2 支試管中各加入 2 毫升本氏液，搖動混合均勻。",
+      "把 2 支試管放入沸水中隔水加熱，記錄放入沸水前、後的顏色變化。"
+    ],
+    ok:"順序正確。注意兩次加熱的目的完全不同：第一次是要破壞甲管的酵素，最後一次是要讓本氏液顯色。",
+    no:"關鍵在於：一定要「先」把甲管的唾液煮沸，之後才加澱粉液，否則就測不出高溫的影響了。"
+  });
+
+  NKit.fill({
+    host:"e22q", key:K,
+    rows:[
+      { t:"為什麼要把加入澱粉液的 2 支試管放入溫水中？答：唾液中含有酵素，酵素在溫水中的 {} 較佳。",
+        opts:["活性","濃度","溶解度","酸鹼度"], ans:["活性"] },
+      { t:"為什麼要把加入本氏液的 2 支試管放入沸水中？答：為了讓本氏液的作用速率 {} ；若加熱後顏色有改變，即表示試管中含有 {} 。",
+        opts:["加快","變慢","糖","澱粉"], ans:["加快","糖"] },
+      { t:"一般酵素的主要成分是 {} ，其活性容易受到環境溫度影響，超過一定溫度就會失去活性而無法作用。",
+        opts:["蛋白質","醣類","脂質","維生素"], ans:["蛋白質"] }
+    ],
+    ok:"全對。35～40℃ 接近人體體溫，是唾液酵素活性最好的範圍。",
+    no:"酵素是蛋白質，怕高溫；而人體內的酵素最適合在接近體溫的環境中作用。"
+  });
+
+  NKit.table({
+    host:"e22t", key:K,
+    head:["顏色紀錄","甲試管（煮沸過的唾液）","乙試管（室溫）"],
+    opts:["淡藍色","橙紅色","黃褐色","藍黑色"],
+    rows:[
+      { th:"剛加入本氏液時", cells:[{ ans:"淡藍色" }, { ans:"淡藍色" }] },
+      { th:"放入沸水中加熱後", cells:[{ ans:"淡藍色" }, { ans:"橙紅色" }] }
+    ],
+    ok:"全對。只有乙試管變色，代表只有乙試管裡的澱粉被分解成了葡萄糖。",
+    no:"剛加入本氏液時兩管都還是原本的淡藍色，差別要加熱後才看得出來。"
+  });
+
+  NKit.fill({
+    host:"e22r", key:K,
+    rows:[
+      { t:"1. {} 試管的顏色有變化，表示這一管中的澱粉已經被唾液中的酵素分解，產生了 {} 。",
+        opts:["甲","乙","葡萄糖","蛋白質"], ans:["乙","葡萄糖"] },
+      { t:"2. 步驟中的加熱操作，對甲試管的酵素造成的影響是：使酵素 {} ，因此無法分解澱粉。",
+        opts:["失去活性","活性增強","變成葡萄糖","溶解得更快"], ans:["失去活性"] },
+      { t:"實驗結論：超過 50℃ 之高溫環境， {} 影響消化酵素的活性，甚至使酵素失去活性而無法作用。",
+        opts:["會","不會"], ans:["會"] }
+    ],
+    ok:"全對。實驗結果支持了原本的假設。",
+    no:"回頭看實驗紀錄：甲管（煮沸過）加熱後沒變色，代表澱粉還在，酵素沒有發揮作用。"
+  });
+})();
+</script>
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -840,7 +1256,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -893,7 +1311,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -937,8 +1354,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -957,11 +1372,50 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　END ===== -->
 
+<script>
+
+(function(){
+  var K = "nature1-c2-2-lab2-v1";
+
+  NKit.check({
+    host:"e22p1", key:K,
+    items:[
+      { t:"唾液", ok:false },
+      { t:"胃液", ok:true },
+      { t:"胰液", ok:true },
+      { t:"膽汁", ok:false }
+    ],
+    ok:"全對。木瓜酵素分解的是蛋白質，所以和含蛋白質分解酵素的胃液、胰液功用類似。",
+    no:"唾液分解的是澱粉；膽汁只能把脂質乳化，本身不含酵素。"
+  });
+
+  NKit.check({
+    host:"e22p2", key:K,
+    items:[
+      { t:"讓木瓜酵素永久失去活性", ok:false },
+      { t:"讓木瓜酵素的活性暫時降低", ok:true }
+    ],
+    ok:"正確。低溫只是讓酵素的活性降低，回到適溫又會恢復；要「永久」失去活性得靠高溫。",
+    no:"想想實驗 2-2：煮沸才會讓酵素失去活性，冰只是讓它慢下來。"
+  });
+
+  NKit.check({
+    host:"e22p3", key:K,
+    items:[
+      { t:"先將木瓜切成小塊，再打成木瓜牛奶", ok:false },
+      { t:"將木瓜塊放入冰箱冷凍，再打成木瓜牛奶", ok:true },
+      { t:"木瓜塊只加入糖水，打成木瓜汁", ok:true }
+    ],
+    ok:"全對。降溫可以壓低酵素活性；不加牛奶則根本沒有蛋白質可以被分解。",
+    no:"切成小塊只是讓接觸面積變大，反而更快作用、更容易變苦。"
+  });
+})();
+</script>
 </body>
 </html>

@@ -98,6 +98,31 @@
   }
   .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
   footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+  /* ── 實驗紀錄共用元件 ── */
+  .sub{font-family:"Songti TC","Noto Serif TC",serif;font-size:1.03rem;font-weight:700;
+    margin:20px 0 8px;padding-top:14px;border-top:1px dashed var(--rule-soft);color:var(--ink);}
+  .sub:first-child{border-top:none;padding-top:0;margin-top:2px;}
+  .kfill{margin:0;}
+  .kfill .row{padding:9px 0;border-top:1px solid var(--rule-soft);line-height:2.4;}
+  .kfill .row:first-child{border-top:none;}
+  .kfill select{width:auto;min-width:120px;max-width:100%;margin:0 3px;}
+  .kord .row{display:flex;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kord .row:first-child{border-top:none;}
+  .kord .row p{margin:0;flex:1 1 auto;}
+  .kord select{flex:0 0 auto;width:auto;min-width:82px;}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.94rem;margin:6px 0 12px;}
+  table.cmp th,table.cmp td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.cmp th{background:#F3F7F2;font-weight:700;width:46%;}
+  table.cmp td select{width:100%;min-width:0;}
+  .kchk .row{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kchk .row:first-child{border-top:none;}
+  .kchk .row p{margin:0;flex:1 1 auto;}
+  .kchk .row input{margin-top:.5em;flex:0 0 auto;width:18px;height:18px;accent-color:var(--leaf);}
+  .knote{font-size:.9rem;color:var(--ink-soft);margin:.6em 0 0;line-height:1.75;}
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:4px 0 0;}
+  .kgrid .cell{border:1px solid var(--rule-soft);border-radius:10px;padding:10px 12px;background:#FCFDFB;}
+  .kgrid .cell h4{margin:0 0 .25em;font-size:.95rem;}
+  .kgrid .cell p{margin:0;font-size:.86rem;color:var(--ink-soft);line-height:1.65;}
 </style>
 </head>
 <body>
@@ -172,8 +197,33 @@
   <p class="fb" id="stepFb"></p>
 </section>
 
+
 <section class="card">
-  <h2>四、練習題</h2>
+  <h2>四、實驗 2-3：光合作用的探討</h2>
+  <p class="hint">依實驗活動紀錄簿 P.38–40。學校角落少光的地方植物長不好，和光合作用有關嗎？</p>
+
+  <p class="sub">變因設定</p>
+  <div id="e23var"></div>
+
+  <p class="sub">操作順序</p>
+  <div id="e23ord"></div>
+
+  <p class="sub">步驟 Q 與安全提醒</p>
+  <div id="e23q"></div>
+
+  <p class="sub">實驗紀錄：顏色變化</p>
+  <div id="e23t1"></div>
+  <div id="e23t2"></div>
+
+  <p class="sub">結果與討論、實驗結論</p>
+  <div id="e23r"></div>
+  <p class="knote">為什麼可以用碘液代替「有沒有光合作用」？因為光合作用會產生葡萄糖，
+    葡萄糖在植物體內會轉變成<b>澱粉</b>儲存起來，所以「葉片裡有沒有澱粉」就成了
+    光合作用有沒有進行過的證據。</p>
+</section>
+
+<section class="card">
+  <h2>五、練習題</h2>
   <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
   <div id="qs"></div>
   <div class="actions">
@@ -183,7 +233,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 28</b>
+  <span>練習題答對</span><b id="score">0 / 35</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -522,7 +572,44 @@
     { id:"q28", tag:"歷屆經典題", type:"choice",
       text:"甲、乙、丙、丁是裝有池水的四組密閉透明容器，除了內容物不同外其餘條件皆相同：甲只有螺，乙有水草和螺，丙有水草、小蝦和螺，丁有水草、小魚、小蝦和螺。已知照光時水草光合作用的速率大於自身呼吸作用的速率，四組皆持續照光一天且生物仍生長良好，則哪一容器中池水所含的二氧化碳量可能最少？",
       opts:["甲","乙","丙","丁"], ans:1,
-      why:"要二氧化碳少，就要有水草消耗、而且動物越少越好。甲沒有水草只會累積二氧化碳；乙有水草且只有一種動物，消耗最多、產生最少。" }
+      why:"要二氧化碳少，就要有水草消耗、而且動物越少越好。甲沒有水草只會累積二氧化碳；乙有水草且只有一種動物，消耗最多、產生最少。" },
+
+    { id:"y1", tag:"學力養成篇", type:"choice",
+      text:"【題組】葉的構造由上而下依序為上表皮、柵狀組織、海綿組織、下表皮，葉脈（維管束）分布其間，下表皮並有氣孔。請問哪些部位的細胞中含有葉綠體，可行光合作用？",
+      opts:["柵狀組織與海綿組織","上表皮與下表皮","上表皮與柵狀組織","海綿組織與下表皮"], ans:0,
+      why:"柵狀組織和海綿組織合稱葉肉，細胞中含有大量葉綠體，是光合作用的主要場所。表皮細胞透明無葉綠體（只有下表皮的保衛細胞例外）。" },
+    { id:"y2", tag:"學力養成篇", type:"choice",
+      text:"【題組】承上題，行光合作用時，所需的水和二氧化碳，分別會從何處進入葉中？",
+      opts:["都由氣孔進入","都由葉脈送來","水由葉脈送來，二氧化碳由氣孔進入","水由氣孔進入，二氧化碳由葉脈送來"], ans:2,
+      why:"水由根吸收後經木質部（葉脈）送到葉子；二氧化碳是空氣中的氣體，由下表皮的氣孔擴散進入。" },
+    { id:"y3", tag:"學力養成篇", type:"choice",
+      text:"【題組】承上題，光合作用所產生的氧氣由哪個部位釋出？",
+      opts:["上表皮","葉脈","氣孔","柵狀組織"], ans:2,
+      why:"氧氣是氣體，和二氧化碳一樣經由氣孔進出葉片。" },
+    { id:"y4", tag:"學力養成篇", type:"choice",
+      text:"（實驗 2-3）為何實驗中需要將葉片置於沸水中加熱數分鐘？",
+      opts:["為了溶解葉綠素","為了增加葉綠素中酵素的活性","為了提高光合作用的速率","為了軟化葉片表面的角質層"], ans:3,
+      why:"沸水的作用是軟化角質層，讓後面的酒精能夠滲入葉片把葉綠素溶出來。溶解葉綠素的是酒精，不是沸水。" },
+    { id:"y5", tag:"學力養成篇", type:"choice",
+      text:"（實驗 2-3）在此實驗中，將葉片放入酒精中加熱的目的是什麼？",
+      opts:["洗掉葉片上的灰塵，方便觀察顏色變化",
+            "破壞葉片的表皮層，讓碘液可以滲入葉片中",
+            "溶掉葉內的色素，方便觀察顏色變化",
+            "使氣孔打開，讓碘液可以滲入葉片中"], ans:2,
+      why:"葉片是綠的，滴上碘液根本看不出有沒有變藍黑色。用酒精把葉綠素溶掉、葉片褪成黃白色後，顏色變化才看得清楚。" },
+    { id:"y6", tag:"學力養成篇", type:"choice",
+      text:"（實驗 2-3）將處理過的葉片（中間一段以鋁箔包住並照光數日）滴上碘液一段時間後，葉片的顏色會如何變化？",
+      opts:["整片都變成藍黑色","整片都維持黃褐色",
+            "包鋁箔處維持黃褐色、未包鋁箔處變成藍黑色",
+            "包鋁箔處變成藍黑色、未包鋁箔處維持黃褐色"], ans:2,
+      why:"照得到光的部位進行光合作用並把葡萄糖轉成澱粉，碘液變藍黑色；被鋁箔遮住的部位沒有澱粉，碘液維持黃褐色。" },
+    { id:"y7", tag:"學力養成篇", type:"choice",
+      text:"（實驗 2-3）本實驗可以得到下列何種結論？",
+      opts:["水可以分解光合作用所產生的葡萄糖",
+            "氧氣是進行光合作用的產物",
+            "光照是植物進行光合作用的必要條件",
+            "若是沒有葉綠素則無法製造養分"], ans:2,
+      why:"這個實驗唯一操縱的變因就是「有沒有光」，而結果是只有照光處產生澱粉，所以只能推得光照是必要條件。氧氣和葉綠素都不是這個實驗檢測的對象。" }
   ];
 
   var host = document.getElementById("qs");
@@ -619,7 +706,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 22) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先回上面三個練習區確認一次，再回來作答。";
   }
 
@@ -739,10 +826,352 @@
   })();
 })();
 </script>
+<script>
+/* ── 實驗紀錄共用元件（NKit）── */
+window.NKit = (function(){
+  "use strict";
+
+  var mem = {};
+  function read(key){
+    try { var r = localStorage.getItem(key); return r ? JSON.parse(r) : {}; }
+    catch(e){ return mem[key] || {}; }
+  }
+  function write(key, o){
+    mem[key] = o;
+    try { localStorage.setItem(key, JSON.stringify(o)); } catch(e){}
+  }
+
+  function mkSelect(opts, val){
+    var sel = document.createElement("select");
+    var b = document.createElement("option");
+    b.value = ""; b.textContent = "（選）";
+    sel.appendChild(b);
+    opts.forEach(function(o){
+      var op = document.createElement("option");
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    if (val) sel.value = val;
+    return sel;
+  }
+
+  function actions(host, label, run){
+    var wrap = document.createElement("div");
+    wrap.className = "actions";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "act";
+    btn.textContent = label || "檢查";
+    wrap.appendChild(btn);
+    host.parentNode.insertBefore(wrap, host.nextSibling);
+
+    var p = document.createElement("p");
+    p.className = "fb";
+    host.parentNode.insertBefore(p, wrap.nextSibling);
+
+    btn.addEventListener("click", function(){ run(p); });
+    return p;
+  }
+
+  function verdict(p, right, total, ok, no){
+    p.className = "fb show " + (right === total ? "right" : "wrong");
+    p.textContent = right === total
+      ? (ok || "全對。")
+      : ("答對 " + right + " / " + total + "。" + (no || ""));
+  }
+
+  /* 句子填空：t 字串中每個 {} 換成一個下拉選單 */
+  function fill(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kfill";
+    var sels = [];
+
+    cfg.rows.forEach(function(row, ri){
+      var div = document.createElement("div");
+      div.className = "row";
+      var parts = row.t.split("{}");
+      var rowSels = [];
+      parts.forEach(function(txt, i){
+        div.appendChild(document.createTextNode(txt));
+        if (i < parts.length - 1) {
+          var id = cfg.host + "-" + ri + "-" + i;
+          var sel = mkSelect(row.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          div.appendChild(sel);
+          rowSels.push({ sel:sel, id:id });
+        }
+      });
+      if (row.tail) div.appendChild(document.createTextNode(row.tail));
+      sels.push(rowSels);
+      host.appendChild(div);
+    });
+
+    actions(host, cfg.btn, function(p){
+      var right = 0, total = 0;
+      cfg.rows.forEach(function(row, ri){
+        var pool = row.ans.slice();
+        sels[ri].forEach(function(o, i){
+          total++;
+          var ok;
+          if (row.any) {
+            var at = pool.indexOf(o.sel.value);
+            ok = o.sel.value !== "" && at >= 0;
+            if (ok) pool.splice(at, 1);
+          } else {
+            ok = o.sel.value === row.ans[i];
+          }
+          o.sel.classList.toggle("ok", ok);
+          o.sel.classList.toggle("no", !ok);
+          if (ok) right++;
+        });
+      });
+      verdict(p, right, total, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 步驟排序：steps 以正確順序給，畫面上打散，用數字下拉作答 */
+  function order(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kord";
+    var n = cfg.steps.length;
+    var nums = [];
+    for (var i=1;i<=n;i++) nums.push(String(i));
+
+    var idx = cfg.steps.map(function(_, i){ return i; });
+    var seed = 0, c;
+    for (c=0;c<cfg.host.length;c++) seed = (seed * 31 + cfg.host.charCodeAt(c)) % 9973;
+    for (c=idx.length-1;c>0;c--){
+      seed = (seed * 1103515245 + 12345) % 2147483647;
+      var j = seed % (c+1), t = idx[c]; idx[c] = idx[j]; idx[j] = t;
+    }
+
+    var rows = [];
+    idx.forEach(function(orig){
+      var div = document.createElement("div");
+      div.className = "row";
+      var p = document.createElement("p");
+      p.textContent = cfg.steps[orig];
+      var id = cfg.host + "-" + orig;
+      var sel = mkSelect(nums, st[id]);
+      sel.addEventListener("change", function(){
+        st[id] = sel.value; write(cfg.key, st);
+        sel.classList.remove("ok","no");
+      });
+      div.appendChild(p); div.appendChild(sel);
+      host.appendChild(div);
+      rows.push({ sel:sel, ans:String(orig + 1) });
+    });
+
+    actions(host, cfg.btn || "檢查順序", function(p){
+      var right = 0;
+      rows.forEach(function(r){
+        var ok = r.sel.value === r.ans;
+        r.sel.classList.toggle("ok", ok);
+        r.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, rows.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 比較表：head 是欄位標題，rows 每列一個項目 */
+  function table(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    var tb = document.createElement("table");
+    tb.className = "cmp";
+
+    if (cfg.head) {
+      var tr = document.createElement("tr");
+      cfg.head.forEach(function(h, i){
+        var c = document.createElement("th");
+        c.textContent = h;
+        if (i > 0) c.style.width = "auto";
+        tr.appendChild(c);
+      });
+      tb.appendChild(tr);
+    }
+
+    var cells = [];
+    cfg.rows.forEach(function(row, ri){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = row.th;
+      tr.appendChild(th);
+      row.cells.forEach(function(cell, ci){
+        var td = document.createElement("td");
+        if (cell.text) {
+          td.textContent = cell.text;
+        } else {
+          var id = cfg.host + "-" + ri + "-" + ci;
+          var sel = mkSelect(cell.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          td.appendChild(sel);
+          cells.push({ sel:sel, ans:cell.ans });
+        }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    host.appendChild(tb);
+
+    actions(host, cfg.btn, function(p){
+      var right = 0;
+      cells.forEach(function(c){
+        var ok = c.sel.value === c.ans;
+        c.sel.classList.toggle("ok", ok);
+        c.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, cells.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 複選勾選題 */
+  function check(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kchk";
+    var boxes = [];
+    cfg.items.forEach(function(item, i){
+      var div = document.createElement("div");
+      div.className = "row";
+      var inp = document.createElement("input");
+      inp.type = "checkbox";
+      var id = cfg.host + "-" + i;
+      inp.checked = !!st[id];
+      inp.addEventListener("change", function(){
+        st[id] = inp.checked; write(cfg.key, st);
+      });
+      var p = document.createElement("p");
+      p.textContent = item.t;
+      div.appendChild(inp); div.appendChild(p);
+      host.appendChild(div);
+      boxes.push({ inp:inp, ans:!!item.ok, p:p, why:item.why });
+    });
+
+    actions(host, cfg.btn || "對答案", function(p){
+      var right = 0;
+      boxes.forEach(function(b){
+        var ok = b.inp.checked === b.ans;
+        b.p.style.color = ok ? "" : "var(--rose)";
+        if (ok) right++;
+      });
+      verdict(p, right, boxes.length, cfg.ok, cfg.no);
+    });
+  }
+
+  return { fill:fill, order:order, table:table, check:check };
+})();
+</script>
+<script>
+
+(function(){
+  var K = "nature1-c2-3-lab-v1";
+
+  NKit.table({
+    host:"e23var", key:K,
+    head:["變因種類","這個實驗中是什麼"],
+    rows:[
+      { th:"操縱變因", cells:[
+        { opts:["照光","同一葉片","葉片是否有澱粉產生","碘液的濃度與量"], ans:"照光" } ] },
+      { th:"控制變因", cells:[
+        { opts:["照光","同一葉片、碘液的濃度與量","葉片是否有澱粉產生"],
+          ans:"同一葉片、碘液的濃度與量" } ] },
+      { th:"應變變因", cells:[
+        { opts:["照光","同一葉片","葉片是否有澱粉產生（以碘液進行檢測）"],
+          ans:"葉片是否有澱粉產生（以碘液進行檢測）" } ] }
+    ],
+    ok:"全對。用「同一葉片」的遮光處和未遮光處做比較，可以讓環境與植物的生理條件完全一致。",
+    no:"這個實驗故意製造差異的只有一件事：那一段葉片有沒有被鋁箔遮住光線。"
+  });
+
+  NKit.order({
+    host:"e23ord", key:K,
+    steps:[
+      "用長條鋁箔包住植物某一葉片的中間一段，並用迴紋針固定，以阻隔光照，等待 5～7 天。",
+      "摘下葉片並取下鋁箔，放入沸水中加熱數分鐘，使角質層軟化。",
+      "用鑷子取出軟化的葉片，浸入裝有酒精的小燒杯中隔水加熱數分鐘，溶出葉片色素。",
+      "等葉片顏色褪去後，取出葉片放入熱水中漂洗。",
+      "把葉片平放在培養皿內，加入碘液，觀察並記錄葉片的顏色變化。"
+    ],
+    ok:"順序正確。先軟化角質層，酒精才容易進去把葉綠素溶出來。",
+    no:"想一想：如果葉片還是綠的，滴碘液後根本看不出顏色變化，所以一定要先去色。"
+  });
+
+  NKit.fill({
+    host:"e23q", key:K,
+    rows:[
+      { t:"為什麼要去除葉片原有的顏色？答：藉由在酒精中加熱，溶解出葉片中的 {} ，方便觀察用碘液檢測後的顏色變化。",
+        opts:["葉綠素","澱粉","葡萄糖","角質層"], ans:["葉綠素"] },
+      { t:"安全提醒：酒精是易燃物，必須 {} 加熱，不可直接放在火上加熱；燒杯亦 {} 加蓋，以免發生危險。",
+        opts:["隔水","直接","不可","必須"], ans:["隔水","不可"] },
+      { t:"資料查詢：植物行光合作用會產生葡萄糖，而葡萄糖在植物體內會轉變成 {} 儲存，因此可以利用碘液來檢測。",
+        opts:["澱粉","蛋白質","脂質","纖維素"], ans:["澱粉"] }
+    ],
+    ok:"全對。酒精加蓋或直接火烤都可能造成蒸氣爆炸或起火。",
+    no:"酒精易燃，任何時候都只能隔水加熱，而且不能加蓋。"
+  });
+
+  NKit.table({
+    host:"e23t1", key:K,
+    head:["1. 隔水加熱前後的顏色","加熱前","加熱後"],
+    rows:[
+      { th:"葉片的顏色", cells:[
+        { text:"綠色" },
+        { opts:["黃白色","綠色","藍黑色","無色"], ans:"黃白色" } ] },
+      { th:"酒精的顏色", cells:[
+        { text:"無色（透明）" },
+        { opts:["黃白色","綠色","藍黑色","無色"], ans:"綠色" } ] }
+    ],
+    ok:"全對。葉綠素從葉片跑到酒精裡，所以葉片褪色、酒精變綠。",
+    no:"葉綠素是被酒精「溶出來」的，它會從葉片轉移到酒精中。"
+  });
+
+  NKit.table({
+    host:"e23t2", key:K,
+    head:["2. 檢測葉片中是否含有澱粉","實驗前","實驗後：夾鋁箔處","實驗後：未夾鋁箔處"],
+    opts:["黃褐色","藍黑色","綠色","無色"],
+    rows:[
+      { th:"碘液的顏色", cells:[
+        { ans:"黃褐色" }, { ans:"黃褐色" }, { ans:"藍黑色" } ] }
+    ],
+    ok:"全對。被鋁箔遮住的部位照不到光、沒有進行光合作用，所以沒有澱粉，碘液不變色。",
+    no:"沒有澱粉的地方，碘液會維持原本的黃褐色。"
+  });
+
+  NKit.fill({
+    host:"e23r", key:K,
+    rows:[
+      { t:"1. 葉片有鋁箔包住和沒有鋁箔包住的部位，用碘液檢測的結果 {} 。",
+        opts:["相同","不同"], ans:["不同"] },
+      { t:"有鋁箔包住的部位滴加碘液後： {} ，表示該處 {} 澱粉。",
+        opts:["不變色（維持黃褐色）","變成藍黑色","沒有","含有"], ans:["不變色（維持黃褐色）","沒有"] },
+      { t:"沒有鋁箔包住的部位滴加碘液後： {} ，表示該處 {} 澱粉。",
+        opts:["不變色（維持黃褐色）","變成藍黑色","沒有","含有"], ans:["變成藍黑色","含有"] },
+      { t:"實驗結論：植物 {} 光照才能進行光合作用，合成生長所需的養分。",
+        opts:["需要","沒有"], ans:["需要"] }
+    ],
+    ok:"全對。同一片葉子上，只有照到光的地方做出了澱粉，證明光是光合作用的必要條件。",
+    no:"把兩個部位對照著看：唯一的差別是有沒有光，結果卻只有一邊產生澱粉。"
+  });
+})();
+</script>
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -864,7 +1293,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -917,7 +1348,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -961,8 +1391,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -981,7 +1409,7 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>

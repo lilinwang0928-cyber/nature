@@ -98,6 +98,31 @@
   }
   .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
   footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+  /* ── 實驗紀錄共用元件 ── */
+  .sub{font-family:"Songti TC","Noto Serif TC",serif;font-size:1.03rem;font-weight:700;
+    margin:20px 0 8px;padding-top:14px;border-top:1px dashed var(--rule-soft);color:var(--ink);}
+  .sub:first-child{border-top:none;padding-top:0;margin-top:2px;}
+  .kfill{margin:0;}
+  .kfill .row{padding:9px 0;border-top:1px solid var(--rule-soft);line-height:2.4;}
+  .kfill .row:first-child{border-top:none;}
+  .kfill select{width:auto;min-width:120px;max-width:100%;margin:0 3px;}
+  .kord .row{display:flex;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kord .row:first-child{border-top:none;}
+  .kord .row p{margin:0;flex:1 1 auto;}
+  .kord select{flex:0 0 auto;width:auto;min-width:82px;}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.94rem;margin:6px 0 12px;}
+  table.cmp th,table.cmp td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.cmp th{background:#F3F7F2;font-weight:700;width:46%;}
+  table.cmp td select{width:100%;min-width:0;}
+  .kchk .row{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kchk .row:first-child{border-top:none;}
+  .kchk .row p{margin:0;flex:1 1 auto;}
+  .kchk .row input{margin-top:.5em;flex:0 0 auto;width:18px;height:18px;accent-color:var(--leaf);}
+  .knote{font-size:.9rem;color:var(--ink-soft);margin:.6em 0 0;line-height:1.75;}
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:4px 0 0;}
+  .kgrid .cell{border:1px solid var(--rule-soft);border-radius:10px;padding:10px 12px;background:#FCFDFB;}
+  .kgrid .cell h4{margin:0 0 .25em;font-size:.95rem;}
+  .kgrid .cell p{margin:0;font-size:.86rem;color:var(--ink-soft);line-height:1.65;}
 </style>
 </head>
 <body>
@@ -169,8 +194,26 @@
   <p class="fb" id="organFb"></p>
 </section>
 
+
 <section class="card">
-  <h2>四、練習題</h2>
+  <h2>四、動手學：人體器官系統模型</h2>
+  <p class="hint">依實驗活動紀錄簿附件一（P.88–91）。撕下器官圖卡折疊黏貼，做成一個可掀式的人體模型。</p>
+
+  <p class="sub">先認出這些器官</p>
+  <p class="hint">黏貼之前要先在圖卡的空格裡填上器官名稱。看描述，選出對應的器官。</p>
+  <div id="e51org"></div>
+
+  <p class="sub">組裝步驟</p>
+  <div id="e51ord"></div>
+
+  <p class="sub">組裝符號</p>
+  <div id="e51sym"></div>
+  <p class="knote">做完之後翻開肝臟和小腸，就能看到下層器官在人體內的<b>相對位置</b>——
+    這正是模型比平面圖好用的地方：器官其實是前後重疊的，不是攤平排在同一層。</p>
+</section>
+
+<section class="card">
+  <h2>五、練習題</h2>
   <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
   <div id="qs"></div>
   <div class="actions">
@@ -180,7 +223,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 26</b>
+  <span>練習題答對</span><b id="score">0 / 32</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -477,7 +520,40 @@
     { id:"q26", tag:"歷屆經典題", type:"choice",
       text:"小樺在氣溫 27℃ 及 17℃ 時的手部皮膚溫度分別為 33℃ 和 30℃。四種零食開始熔化的溫度為甲 27℃、乙 31℃、丙 35℃、丁 39℃。正常體溫下，若他希望「在兩種氣溫下零食拿在手上都不會熔化，但放入口中卻都會熔化」，則哪一品牌最符合期待？",
       opts:["甲","乙","丙","丁"], ans:2,
-      why:"手上最高 33℃、口中約 37℃，所以熔化溫度要高於 33℃ 又低於 37℃，只有丙的 35℃ 符合。" }
+      why:"手上最高 33℃、口中約 37℃，所以熔化溫度要高於 33℃ 又低於 37℃，只有丙的 35℃ 符合。" },
+
+    { id:"z1", tag:"學力養成篇", type:"choice",
+      text:"下列何者為小軒所表現出的生物恆定性？",
+      opts:["體育課打完籃球，都會喝掉一整罐冰冷的可樂",
+            "每到生物課，都會興趣盎然、特別專心",
+            "到第四節課時，肚子總是咕嚕、咕嚕地叫",
+            "放學時，都會走同一條路回家"], ans:0,
+      why:"恆定性是指生物體內環境維持穩定。打完球流汗使體內水分減少，身體便產生口渴、促使人喝水補回水分——這正是維持水分恆定的表現。其他三項是興趣、習慣或消化道蠕動，與體內環境的穩定無關。" },
+    { id:"z2", tag:"學力養成篇", type:"choice",
+      text:"下列哪些系統和人體恆定性的維持有關？甲、神經系統；乙、內分泌系統；丙、消化系統；丁、呼吸系統；戊、泌尿系統。",
+      opts:["甲","甲乙","丙丁戊","甲乙丙丁戊"], ans:3,
+      why:"五個系統都有份：神經和內分泌負責調節，消化補充養分與水分，呼吸維持氣體恆定，泌尿排除含氮廢物並調節水分。恆定性是整個身體一起維持的。" },
+    { id:"z3", tag:"學力養成篇", type:"choice",
+      text:"人體在運動後休息一段時間，從運動後到休息後的呼吸和脈搏次數有何變化？",
+      opts:["二者皆加快","呼吸次數加快，脈搏次數減慢",
+            "呼吸次數減慢，脈搏次數加快","二者皆減慢"], ans:3,
+      why:"運動時呼吸和心跳都加快以供應氧氣、排出二氧化碳；休息之後身體不再需要那麼多氧氣，兩者就會一起慢下來，回到平常的數值。" },
+    { id:"z4", tag:"學力養成篇", type:"choice",
+      text:"人體在劇烈運動後，呼吸、脈搏次數和血壓的變化，對於維持人體生理作用的恆定性有何意義？",
+      opts:["加速氧氣的提供和二氧化碳的排出",
+            "加速氧氣的提供，減慢二氧化碳的排出",
+            "減慢氧氣的提供，加速二氧化碳的排出",
+            "減慢氧氣的提供和二氧化碳的排出"], ans:0,
+      why:"運動時細胞的呼吸作用旺盛，需要更多氧氣也產生更多二氧化碳。呼吸加快負責進氣排氣，心跳加快與血壓上升負責加速運送，兩者合作維持血液中的氣體恆定。" },
+    { id:"z5", tag:"學力養成篇", type:"choice",
+      text:"下列哪一類動物的體內均有調節體溫的控制系統，可以保持體溫恆定？",
+      opts:["魚類","兩生類","爬蟲類","哺乳類"], ans:3,
+      why:"哺乳類和鳥類屬於內溫動物，能利用本身代謝作用產生的熱量維持體溫恆定。魚類、兩生類、爬蟲類都是外溫動物，體溫會隨環境溫度改變。" },
+    { id:"z6", tag:"學力養成篇", type:"choice",
+      text:"某圖顯示甲動物的體溫始終維持在 40℃ 左右、幾乎不隨氣溫改變；乙動物的體溫則隨著氣溫上升而上升。請推論兩者分別為哪一類？",
+      opts:["甲為內溫動物，乙為外溫動物","甲為外溫動物，乙為內溫動物",
+            "兩者皆為內溫動物","兩者皆為外溫動物"], ans:0,
+      why:"體溫不隨氣溫改變的是內溫動物（利用代謝產熱自行調節）；體溫隨氣溫變動的是外溫動物（從外界環境吸收熱量）。" }
   ];
 
   var host = document.getElementById("qs");
@@ -574,7 +650,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 20) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先回上面三個練習區確認一次，再回來作答。";
   }
 
@@ -697,7 +773,7 @@
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -819,7 +895,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -872,7 +950,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -916,8 +993,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -936,11 +1011,310 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　END ===== -->
 
+<script>
+/* ── 實驗紀錄共用元件（NKit）── */
+window.NKit = (function(){
+  "use strict";
+
+  var mem = {};
+  function read(key){
+    try { var r = localStorage.getItem(key); return r ? JSON.parse(r) : {}; }
+    catch(e){ return mem[key] || {}; }
+  }
+  function write(key, o){
+    mem[key] = o;
+    try { localStorage.setItem(key, JSON.stringify(o)); } catch(e){}
+  }
+
+  function mkSelect(opts, val){
+    var sel = document.createElement("select");
+    var b = document.createElement("option");
+    b.value = ""; b.textContent = "（選）";
+    sel.appendChild(b);
+    opts.forEach(function(o){
+      var op = document.createElement("option");
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    if (val) sel.value = val;
+    return sel;
+  }
+
+  function actions(host, label, run){
+    var wrap = document.createElement("div");
+    wrap.className = "actions";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "act";
+    btn.textContent = label || "檢查";
+    wrap.appendChild(btn);
+    host.parentNode.insertBefore(wrap, host.nextSibling);
+
+    var p = document.createElement("p");
+    p.className = "fb";
+    host.parentNode.insertBefore(p, wrap.nextSibling);
+
+    btn.addEventListener("click", function(){ run(p); });
+    return p;
+  }
+
+  function verdict(p, right, total, ok, no){
+    p.className = "fb show " + (right === total ? "right" : "wrong");
+    p.textContent = right === total
+      ? (ok || "全對。")
+      : ("答對 " + right + " / " + total + "。" + (no || ""));
+  }
+
+  /* 句子填空：t 字串中每個 {} 換成一個下拉選單 */
+  function fill(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kfill";
+    var sels = [];
+
+    cfg.rows.forEach(function(row, ri){
+      var div = document.createElement("div");
+      div.className = "row";
+      var parts = row.t.split("{}");
+      var rowSels = [];
+      parts.forEach(function(txt, i){
+        div.appendChild(document.createTextNode(txt));
+        if (i < parts.length - 1) {
+          var id = cfg.host + "-" + ri + "-" + i;
+          var sel = mkSelect(row.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          div.appendChild(sel);
+          rowSels.push({ sel:sel, id:id });
+        }
+      });
+      if (row.tail) div.appendChild(document.createTextNode(row.tail));
+      sels.push(rowSels);
+      host.appendChild(div);
+    });
+
+    actions(host, cfg.btn, function(p){
+      var right = 0, total = 0;
+      cfg.rows.forEach(function(row, ri){
+        var pool = row.ans.slice();
+        sels[ri].forEach(function(o, i){
+          total++;
+          var ok;
+          if (row.any) {
+            var at = pool.indexOf(o.sel.value);
+            ok = o.sel.value !== "" && at >= 0;
+            if (ok) pool.splice(at, 1);
+          } else {
+            ok = o.sel.value === row.ans[i];
+          }
+          o.sel.classList.toggle("ok", ok);
+          o.sel.classList.toggle("no", !ok);
+          if (ok) right++;
+        });
+      });
+      verdict(p, right, total, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 步驟排序：steps 以正確順序給，畫面上打散，用數字下拉作答 */
+  function order(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kord";
+    var n = cfg.steps.length;
+    var nums = [];
+    for (var i=1;i<=n;i++) nums.push(String(i));
+
+    var idx = cfg.steps.map(function(_, i){ return i; });
+    var seed = 0, c;
+    for (c=0;c<cfg.host.length;c++) seed = (seed * 31 + cfg.host.charCodeAt(c)) % 9973;
+    for (c=idx.length-1;c>0;c--){
+      seed = (seed * 1103515245 + 12345) % 2147483647;
+      var j = seed % (c+1), t = idx[c]; idx[c] = idx[j]; idx[j] = t;
+    }
+
+    var rows = [];
+    idx.forEach(function(orig){
+      var div = document.createElement("div");
+      div.className = "row";
+      var p = document.createElement("p");
+      p.textContent = cfg.steps[orig];
+      var id = cfg.host + "-" + orig;
+      var sel = mkSelect(nums, st[id]);
+      sel.addEventListener("change", function(){
+        st[id] = sel.value; write(cfg.key, st);
+        sel.classList.remove("ok","no");
+      });
+      div.appendChild(p); div.appendChild(sel);
+      host.appendChild(div);
+      rows.push({ sel:sel, ans:String(orig + 1) });
+    });
+
+    actions(host, cfg.btn || "檢查順序", function(p){
+      var right = 0;
+      rows.forEach(function(r){
+        var ok = r.sel.value === r.ans;
+        r.sel.classList.toggle("ok", ok);
+        r.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, rows.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 比較表：head 是欄位標題，rows 每列一個項目 */
+  function table(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    var tb = document.createElement("table");
+    tb.className = "cmp";
+
+    if (cfg.head) {
+      var tr = document.createElement("tr");
+      cfg.head.forEach(function(h, i){
+        var c = document.createElement("th");
+        c.textContent = h;
+        if (i > 0) c.style.width = "auto";
+        tr.appendChild(c);
+      });
+      tb.appendChild(tr);
+    }
+
+    var cells = [];
+    cfg.rows.forEach(function(row, ri){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = row.th;
+      tr.appendChild(th);
+      row.cells.forEach(function(cell, ci){
+        var td = document.createElement("td");
+        if (cell.text) {
+          td.textContent = cell.text;
+        } else {
+          var id = cfg.host + "-" + ri + "-" + ci;
+          var sel = mkSelect(cell.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          td.appendChild(sel);
+          cells.push({ sel:sel, ans:cell.ans });
+        }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    host.appendChild(tb);
+
+    actions(host, cfg.btn, function(p){
+      var right = 0;
+      cells.forEach(function(c){
+        var ok = c.sel.value === c.ans;
+        c.sel.classList.toggle("ok", ok);
+        c.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, cells.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 複選勾選題 */
+  function check(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kchk";
+    var boxes = [];
+    cfg.items.forEach(function(item, i){
+      var div = document.createElement("div");
+      div.className = "row";
+      var inp = document.createElement("input");
+      inp.type = "checkbox";
+      var id = cfg.host + "-" + i;
+      inp.checked = !!st[id];
+      inp.addEventListener("change", function(){
+        st[id] = inp.checked; write(cfg.key, st);
+      });
+      var p = document.createElement("p");
+      p.textContent = item.t;
+      div.appendChild(inp); div.appendChild(p);
+      host.appendChild(div);
+      boxes.push({ inp:inp, ans:!!item.ok, p:p, why:item.why });
+    });
+
+    actions(host, cfg.btn || "對答案", function(p){
+      var right = 0;
+      boxes.forEach(function(b){
+        var ok = b.inp.checked === b.ans;
+        b.p.style.color = ok ? "" : "var(--rose)";
+        if (ok) right++;
+      });
+      verdict(p, right, boxes.length, cfg.ok, cfg.no);
+    });
+  }
+
+  return { fill:fill, order:order, table:table, check:check };
+})();
+</script>
+<script>
+
+(function(){
+  var K = "nature1-c5-1-lab-v1";
+
+  NKit.table({
+    host:"e51org", key:K,
+    head:["器官圖卡上的描述","器官名稱"],
+    opts:["肝臟","肺臟","心臟","胃","小腸","大腸","胰臟","氣管"],
+    rows:[
+      { th:"人體最大的消化腺，暗紅褐色，下方連著一個綠色的膽囊", cells:[{ ans:"肝臟" }] },
+      { th:"左右各一，內部布滿肺泡與微血管，是氣體交換的場所",     cells:[{ ans:"肺臟" }] },
+      { th:"連接喉與支氣管的管道，管壁有軟骨環支撐",               cells:[{ ans:"氣管" }] },
+      { th:"囊袋狀，接在食道下方，內部呈酸性可初步分解蛋白質",     cells:[{ ans:"胃" }] },
+      { th:"細長而盤曲，管壁有絨毛，是養分吸收的主要場所",         cells:[{ ans:"小腸" }] },
+      { th:"較粗、圍在腹腔外圍，主要吸收水分並形成糞便",           cells:[{ ans:"大腸" }] },
+      { th:"位於胃的下方，分泌胰液，也分泌胰島素與升糖素",         cells:[{ ans:"胰臟" }] },
+      { th:"分成四個腔室，是血液循環的動力來源",                   cells:[{ ans:"心臟" }] }
+    ],
+    ok:"全對。這八個器官分屬消化、呼吸和循環系統，卻全部擠在同一個軀幹裡，模型做出來就懂了。",
+    no:"提示：胰臟同時屬於消化系統和內分泌系統，是唯一「兩棲」的器官。"
+  });
+
+  NKit.order({
+    host:"e51ord", key:K,
+    steps:[
+      "於空格中填寫各器官圖卡的器官名稱。",
+      "依虛線撕下各器官模型。",
+      "將撕下的器官模型，依各符號指示折起。",
+      "將底圖撕下折成凹字形。",
+      "找出對應的號碼（例如 ①→❶）相互黏貼，並依照號碼的順序依序黏貼。",
+      "完成可掀式模型，翻開肝臟、小腸可觀察到下層各器官在人體內的相對位置。"
+    ],
+    ok:"順序正確。一定要先寫名稱再撕下來，撕完就找不到原本的位置了。",
+    no:"想一想：哪一步做完之後就沒辦法回頭？那一步就要排在後面。"
+  });
+
+  NKit.fill({
+    host:"e51sym", key:K,
+    rows:[
+      { t:"圖卡上的點線（⋯⋯）是 {} ，要把紙往 {} 折。",
+        opts:["山折線","谷折線","外（凸）","內（凹）"], ans:["山折線","外（凸）"] },
+      { t:"圖卡上的虛線（－－－）是 {} ，要把紙往 {} 折。",
+        opts:["山折線","谷折線","外（凸）","內（凹）"], ans:["谷折線","內（凹）"] }
+    ],
+    ok:"全對。山折凸、谷折凹，和摺紙的規則一樣。",
+    no:"口訣：山是隆起來的（凸），谷是凹下去的（凹）。"
+  });
+})();
+</script>
 </body>
 </html>

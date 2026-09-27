@@ -116,6 +116,60 @@
   }
   .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
   footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+  /* ── 顯微鏡互動構造圖 ── */
+  .scope-tabs{display:flex;gap:8px;margin:0 0 12px;flex-wrap:wrap;}
+  .scope-tab{font:inherit;font-size:.9rem;padding:7px 18px;border-radius:999px;
+    border:1px solid var(--rule);background:var(--paper);color:var(--ink-soft);cursor:pointer;}
+  .scope-tab.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:700;}
+  .scope-stage{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start;}
+  .scope-fig{flex:0 0 290px;max-width:100%;margin:0 auto;}
+  .scope-fig svg{width:100%;height:auto;display:block;}
+  .scope-side{flex:1 1 270px;min-width:230px;}
+  .sk path,.sk rect,.sk circle,.sk ellipse{fill:#CBD7D2;stroke:#5B6F68;stroke-width:2.2;
+    stroke-linejoin:round;stroke-linecap:round;}
+  .sk .dark{fill:#3B4A45;}
+  .sk .warm{fill:#F2E7C6;}
+  .sk .pale{fill:#EFF3EE;}
+  .sk .pt{cursor:pointer;}
+  .sk .pt:hover,.sk .pt:hover > *{stroke:var(--blue);}
+  .sk .pt.sel,.sk .pt.sel > *{stroke:var(--blue);stroke-width:4.5;}
+  .sk .pt.bad,.sk .pt.bad > *{stroke:var(--rose);stroke-width:4.5;}
+  .sk .pt.ok,.sk .pt.ok > *{fill:#BEE2BF;stroke:var(--leaf);}
+  .sk .pt.ok .dark,.sk .pt.ok .warm,.sk .pt.ok .pale{fill:#5E9A63;}
+  .scope-prompt{margin:0 0 10px;font-size:.92rem;color:var(--ink-soft);min-height:1.5em;}
+  .scope-bank{display:flex;flex-wrap:wrap;gap:7px;}
+  .scope-bank button{font:inherit;font-size:.86rem;padding:6px 13px;border-radius:999px;
+    border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer;}
+  .scope-bank button:disabled{opacity:.35;cursor:default;text-decoration:line-through;}
+  .scope-fn{margin:12px 0 0;font-size:.9rem;line-height:1.7;color:var(--ink-soft);
+    border-left:4px solid var(--rule);padding-left:10px;min-height:1.2em;}
+  .scope-count{font-size:.88rem;color:var(--ink-soft);align-self:center;}
+  @media (max-width:560px){ .scope-fig{flex-basis:100%;} }
+  /* ── 實驗紀錄共用元件 ── */
+  .sub{font-family:"Songti TC","Noto Serif TC",serif;font-size:1.03rem;font-weight:700;
+    margin:20px 0 8px;padding-top:14px;border-top:1px dashed var(--rule-soft);color:var(--ink);}
+  .sub:first-child{border-top:none;padding-top:0;margin-top:2px;}
+  .kfill{margin:0;}
+  .kfill .row{padding:9px 0;border-top:1px solid var(--rule-soft);line-height:2.4;}
+  .kfill .row:first-child{border-top:none;}
+  .kfill select{width:auto;min-width:120px;max-width:100%;margin:0 3px;}
+  .kord .row{display:flex;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kord .row:first-child{border-top:none;}
+  .kord .row p{margin:0;flex:1 1 auto;}
+  .kord select{flex:0 0 auto;width:auto;min-width:82px;}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.94rem;margin:6px 0 12px;}
+  table.cmp th,table.cmp td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.cmp th{background:#F3F7F2;font-weight:700;width:46%;}
+  table.cmp td select{width:100%;min-width:0;}
+  .kchk .row{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kchk .row:first-child{border-top:none;}
+  .kchk .row p{margin:0;flex:1 1 auto;}
+  .kchk .row input{margin-top:.5em;flex:0 0 auto;width:18px;height:18px;accent-color:var(--leaf);}
+  .knote{font-size:.9rem;color:var(--ink-soft);margin:.6em 0 0;line-height:1.75;}
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:4px 0 0;}
+  .kgrid .cell{border:1px solid var(--rule-soft);border-radius:10px;padding:10px 12px;background:#FCFDFB;}
+  .kgrid .cell h4{margin:0 0 .25em;font-size:.95rem;}
+  .kgrid .cell p{margin:0;font-size:.86rem;color:var(--ink-soft);line-height:1.65;}
 </style>
 </head>
 <body>
@@ -189,8 +243,134 @@
   <p class="fb" id="mFb"></p>
 </section>
 
+<section class="card" id="scopeCard">
+  <h2>四、顯微鏡構造：點圖作答</h2>
+  <p class="hint">先點圖上的一個構造，再從下方名稱中選出它。答對會變綠色並顯示它的功能。</p>
+
+  <div class="scope-tabs">
+    <button type="button" class="scope-tab on" data-scope="cmp">複式顯微鏡</button>
+    <button type="button" class="scope-tab" data-scope="dis">解剖顯微鏡</button>
+  </div>
+
+  <div class="scope-stage">
+    <div class="scope-fig" data-fig="cmp">
+      <svg viewBox="0 0 400 470" role="img" aria-label="複式顯微鏡構造圖">
+        <g class="sk">
+          <path class="pt" data-k="base"  d="M68 452 L68 412 Q68 396 88 394 L308 394 Q328 396 328 412 L328 452 Z"><title>鏡座</title></path>
+          <path class="pt" data-k="arm"   d="M212 148 L314 148 L314 396 L276 396 L276 186 L212 186 Z"><title>鏡臂</title></path>
+          <rect class="pt" data-k="tube"  x="172" y="84" width="46" height="110" rx="4"><title>鏡筒</title></rect>
+          <g class="pt" data-k="eyepiece"><title>目鏡</title>
+            <path d="M178 88 L178 48 Q178 38 190 38 L206 38 Q218 38 218 48 L218 88 Z"/>
+            <ellipse cx="198" cy="40" rx="20" ry="7" class="dark"/>
+          </g>
+          <path class="pt" data-k="nose"  d="M152 194 L244 194 Q252 194 252 202 Q252 214 232 218 L164 218 Q144 214 144 202 Q144 194 152 194 Z"><title>旋轉盤</title></path>
+          <g class="pt" data-k="obj"><title>物鏡</title>
+            <path d="M166 218 L190 218 L188 232 L184 232 L182 264 L174 264 L172 232 L168 232 Z"/>
+            <path d="M208 218 L232 218 L230 230 L226 230 L224 250 L216 250 L214 230 L210 230 Z"/>
+          </g>
+          <g class="pt" data-k="stage"><title>載物臺</title>
+            <path d="M96 264 L280 264 L280 286 L96 286 Z"/>
+            <ellipse cx="196" cy="270" rx="18" ry="6" class="dark"/>
+          </g>
+          <g class="pt" data-k="clip"><title>玻片夾</title>
+            <path d="M134 246 L168 246 L168 254 L142 254 L142 264 L134 264 Z"/>
+            <path d="M258 246 L224 246 L224 254 L250 254 L250 264 L258 264 Z"/>
+          </g>
+          <g class="pt" data-k="diaph"><title>光圈</title>
+            <path d="M186 286 L206 286 L206 296 L186 296 Z"/>
+            <ellipse cx="196" cy="302" rx="25" ry="9"/>
+            <path d="M221 303 L244 310" stroke-width="3"/>
+          </g>
+          <g class="pt" data-k="lamp"><title>光源</title>
+            <ellipse cx="150" cy="392" rx="30" ry="12"/>
+            <ellipse cx="150" cy="389" rx="18" ry="7" class="warm"/>
+          </g>
+          <circle class="pt" data-k="lampknob" cx="298" cy="428" r="15"><title>光源調整鈕</title></circle>
+          <circle class="pt" data-k="coarse"  cx="295" cy="312" r="33"><title>粗調節輪</title></circle>
+          <circle class="pt" data-k="fine"    cx="295" cy="312" r="16"><title>細調節輪</title></circle>
+        </g>
+      </svg>
+    </div>
+
+    <div class="scope-fig" data-fig="dis" hidden>
+      <svg viewBox="0 0 400 470" role="img" aria-label="解剖顯微鏡構造圖">
+        <g class="sk">
+          <path class="pt" data-k="dbase" d="M62 452 L62 414 Q62 398 82 396 L318 396 Q338 398 338 414 L338 452 Z"><title>鏡座</title></path>
+          <path class="pt" data-k="darm"  d="M292 186 L332 186 L332 400 L292 400 Z"><title>鏡臂</title></path>
+          <g class="pt" data-k="plate"><title>載物板</title>
+            <ellipse cx="192" cy="394" rx="80" ry="26"/>
+            <ellipse cx="192" cy="390" rx="52" ry="16" class="pale"/>
+          </g>
+          <g class="pt" data-k="dclip"><title>固定夾</title>
+            <path d="M140 368 L152 368 L152 392 L146 392 L146 376 L140 376 Z"/>
+            <path d="M244 368 L232 368 L232 392 L238 392 L238 376 L244 376 Z"/>
+          </g>
+          <circle class="pt" data-k="dswitch" cx="306" cy="424" r="14"><title>光源開關</title></circle>
+          <path class="body" d="M148 178 L272 178 Q288 178 288 196 L288 228 Q288 244 272 244 L148 244 Q134 244 134 228 L134 196 Q134 178 148 178 Z"/>
+          <g class="pt" data-k="deye"><title>目鏡</title>
+            <rect x="156" y="116" width="38" height="70" rx="6"/>
+            <rect x="226" y="116" width="38" height="70" rx="6"/>
+          </g>
+          <path class="pt" data-k="diopter" d="M220 126 L270 126 L270 146 L220 146 Z"><title>眼焦調整器</title></path>
+          <path class="pt" data-k="ipd" d="M168 154 L252 154 Q260 154 260 164 L260 184 Q260 192 252 192 L168 192 Q160 192 160 184 L160 164 Q160 154 168 154 Z"><title>眼距調整器</title></path>
+          <g class="pt" data-k="eyeguard"><title>目鏡護罩</title>
+            <ellipse cx="175" cy="114" rx="25" ry="9"/>
+            <ellipse cx="245" cy="114" rx="25" ry="9"/>
+            <ellipse cx="175" cy="113" rx="13" ry="5" class="dark"/>
+            <ellipse cx="245" cy="113" rx="13" ry="5" class="dark"/>
+          </g>
+          <circle class="pt" data-k="zoom" cx="298" cy="212" r="24"><title>倍率調整輪</title></circle>
+          <g class="pt" data-k="dobj"><title>物鏡</title>
+            <path d="M182 244 L238 244 L230 294 L190 294 Z"/>
+            <ellipse cx="210" cy="294" rx="20" ry="7" class="dark"/>
+          </g>
+          <g class="pt" data-k="dlamp"><title>光源</title>
+            <path d="M140 244 L176 244 L176 272 Q176 280 166 280 L150 280 Q140 280 140 272 Z"/>
+            <ellipse cx="158" cy="280" rx="18" ry="6" class="warm"/>
+          </g>
+          <circle class="pt" data-k="focus" cx="312" cy="300" r="30"><title>調節輪</title></circle>
+        </g>
+      </svg>
+    </div>
+
+    <div class="scope-side">
+      <p class="scope-prompt" id="scopePrompt">點圖上任一個構造開始。</p>
+      <div class="scope-bank" id="scopeBank"></div>
+      <p class="scope-fn" id="scopeFn"></p>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="act ghost" id="scopeShow" type="button">顯示答案</button>
+    <button class="act ghost" id="scopeReset" type="button">重做</button>
+    <span class="scope-count" id="scopeCount"></span>
+  </div>
+</section>
+
+
 <section class="card">
-  <h2>四、練習題</h2>
+  <h2>五、實驗 1-1：顯微鏡的使用</h2>
+  <p class="hint">依實驗活動紀錄簿 P.4–10。把步驟排順序、把結果與討論填完整。</p>
+
+  <p class="sub">甲　複式顯微鏡的操作順序</p>
+  <p class="hint">在每一步右邊選出它的順序（1～6）。</p>
+  <div id="e11ord"></div>
+
+  <p class="sub">結果與討論：觀察時遇到狀況怎麼調</p>
+  <div id="e11fill"></div>
+
+  <p class="sub">兩種顯微鏡的影像比較</p>
+  <div id="e11tab"></div>
+
+  <p class="sub">移動玻片時，視野中的影像往哪裡跑？</p>
+  <div id="e11mov"></div>
+  <p class="knote">口訣：複式顯微鏡的影像和實物<b>相反</b>，所以玻片和影像「往相反方向」跑；
+    解剖顯微鏡的影像和實物<b>相同</b>，玻片和影像「往同方向」跑。
+    要把目標物移回視野中央，複式顯微鏡的玻片往影像偏移的<b>同方向</b>推，解剖顯微鏡則往<b>反方向</b>推。</p>
+</section>
+
+<section class="card">
+  <h2>六、練習題</h2>
   <p class="hint">作答後按「對答案」，會顯示解題重點。答題紀錄存在這台裝置。</p>
   <div id="qs"></div>
   <div class="actions">
@@ -200,7 +380,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 11</b>
+  <span>練習題答對</span><b id="score">0 / 20</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -459,7 +639,54 @@
     { id:"p11", tag:"實驗題", type:"choice",
       text:"使用解剖顯微鏡時，若兩眼的視野無法重合成一個畫面，應該調整哪一構造？",
       opts:["倍率調整輪","眼焦調整器","眼距調整器","調節輪"], ans:2,
-      why:"眼距調整器調整兩眼目鏡的間距，使視野重合；眼焦調整器是調左右眼焦距。" }
+      why:"眼距調整器調整兩眼目鏡的間距，使視野重合；眼焦調整器是調左右眼焦距。" },
+
+    { id:"x1", tag:"學力養成篇", type:"choice",
+      text:"下列何者可以表現出生長、繁殖、感應、代謝等現象？",
+      opts:["萌芽的種子","烤雞腿","鑽石","木炭"], ans:0,
+      why:"只有活著的生物才能表現生命現象。烤雞腿、鑽石、木炭都不是生物。" },
+    { id:"x2", tag:"學力養成篇", type:"choice",
+      text:"阿康想觀察百合花葉片細胞中的葉綠體，沛沛想觀察花瓣表面的紋路，兩人最適合使用的顯微鏡分別為何？",
+      opts:["兩人皆為複式顯微鏡","兩人皆為解剖顯微鏡",
+            "阿康為複式顯微鏡，沛沛為解剖顯微鏡","阿康為解剖顯微鏡，沛沛為複式顯微鏡"], ans:2,
+      why:"要看細胞裡的葉綠體，倍率必須夠大，且樣本要薄而透光，所以用複式顯微鏡；花瓣不透光、只看表面紋路，用解剖顯微鏡。" },
+    { id:"x3", tag:"學力養成篇", type:"choice",
+      text:"使用高倍率物鏡觀察玻片標本時，如果視野內的亮度適當，卻仍然看不清楚目標物，應該調整哪一項構造使影像較清晰？",
+      opts:["反光鏡","光圈","粗調節輪","細調節輪"], ans:3,
+      why:"亮度已經夠了，代表問題出在對焦。高倍率下只能轉細調節輪，轉粗調節輪會撞到物鏡鏡頭。" },
+    { id:"x4", tag:"學力養成篇", type:"choice",
+      text:"使用複式顯微鏡時，若目標物向右上方離開視野，應該將載玻片移向何方？",
+      opts:["右上方","右下方","左上方","左下方"], ans:0,
+      why:"複式顯微鏡成像上下顛倒、左右相反，玻片要往影像偏移的「同方向」移動，才會把目標物拉回中央。" },
+    { id:"x5", tag:"學力養成篇", type:"choice",
+      text:"若目鏡的放大倍率為 10 倍，而對準目標物的物鏡之放大倍率也是 10 倍，則使用這臺顯微鏡觀察時，於視野中所看到的影像是原本物體的多少倍？",
+      opts:["1 倍","10 倍","20 倍","100 倍"], ans:3,
+      why:"放大倍率＝目鏡倍率×物鏡倍率＝10×10＝100 倍，是相乘不是相加。" },
+    { id:"x6", tag:"學力養成篇", type:"choice",
+      text:"小明將螞蟻標本置於解剖顯微鏡下觀察，發現影像位在視野的右下方。若他想將螞蟻移至視野中央，應該將標本朝向何處移動？",
+      opts:["右上方","右下方","左上方","左下方"], ans:2,
+      why:"解剖顯微鏡成像方向與實物相同，標本要往影像偏移的「反方向」移動；影像在右下方，標本就往左上方移。" },
+    { id:"x7", tag:"學力養成篇", type:"choice",
+      text:"有關顯微鏡使用方法的敘述，下列何者正確？",
+      opts:["拿取顯微鏡時，僅需以單手緊握住鏡臂即可",
+            "觀察樣本時可閉上一眼，僅以單眼觀察即可",
+            "使用高倍率物鏡時，可轉動細調節輪，使影像清晰",
+            "若光線不足時，可轉換至高倍率物鏡以提高亮度"], ans:2,
+      why:"拿取時要一手握鏡臂、一手托鏡座；觀察時兩眼都要張開，只用其中一眼看；倍率越高視野越暗，換高倍率不會變亮。" },
+    { id:"x8", tag:"閱讀趣", type:"choice",
+      text:"（細胞的發現）下列關於「細胞」的敘述何者正確？",
+      opts:["虎克首先發現活細胞",
+            "虎克觀察到的細胞應該是植物細胞",
+            "細胞內通常有一球狀的構造，稱為粒線體",
+            "所有生物都具有細胞核與細胞壁"], ans:1,
+      why:"虎克觀察的是軟木塞（植物）切片，看到的是死細胞留下的細胞壁；細胞內的球狀構造是細胞核；動物細胞沒有細胞壁。" },
+    { id:"x9", tag:"閱讀趣", type:"choice",
+      text:"（細胞的發現）下列關於細胞發現的歷史，何項敘述錯誤？",
+      opts:["虎克看見的構造是已死亡的細胞",
+            "雷文霍克利用改良的顯微鏡觀察到細菌",
+            "細胞學說的雛型是在魏修之後才形成的",
+            "許旺、許來登認為生物體的基本單位為細胞"], ans:2,
+      why:"許來登（1838）與許旺（1839）先提出細胞學說的雛型，魏修對細胞生長的研究在後，才確立完整的細胞學說。順序不能顛倒。" }
   ];
 
   var host = document.getElementById("qs");
@@ -556,7 +783,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 8) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先回上面的顯微鏡比較表確認一次，再回來作答。";
   }
 
@@ -675,10 +902,527 @@
   })();
 })();
 </script>
+<script>
+/* ── 顯微鏡互動構造圖 ── */
+(function(){
+  "use strict";
+  var card = document.getElementById("scopeCard");
+  if (!card) return;
+
+  var KEY = "nature1-scope-v1";
+  var PARTS = {
+    cmp: [
+      { k:"eyepiece", n:"目鏡",     f:"眼睛由此觀察。放大倍率常見 10X、20X；鏡頭越長，放大倍率越小。" },
+      { k:"tube",     n:"鏡筒",     f:"目鏡和物鏡之間的筒狀構造，內部可放置目鏡。" },
+      { k:"nose",     n:"旋轉盤",   f:"可旋轉以更換物鏡。" },
+      { k:"obj",      n:"物鏡",     f:"靠近玻片樣本的鏡頭，倍率有 4X、10X、40X；鏡頭越長，放大倍率越大。" },
+      { k:"arm",      n:"鏡臂",     f:"支持鏡筒、物鏡及載物臺，也是拿取顯微鏡時手握的部位。" },
+      { k:"coarse",   n:"粗調節輪", f:"調整物鏡與載物臺之間的距離，使影像清晰。" },
+      { k:"fine",     n:"細調節輪", f:"微調物鏡與載物臺的距離，使影像更清晰。" },
+      { k:"clip",     n:"玻片夾",   f:"用以固定載玻片。" },
+      { k:"stage",    n:"載物臺",   f:"放置載玻片的平臺，中央有一個可供光線通過的圓孔。" },
+      { k:"diaph",    n:"光圈",     f:"位於載物臺下方，可以控制通過的光量。" },
+      { k:"lamp",     n:"光源",     f:"提供觀察所需要的光線，有燈泡或反光鏡兩種。" },
+      { k:"lampknob", n:"光源調整鈕", f:"調整燈泡的亮度。" },
+      { k:"base",     n:"鏡座",     f:"固定、支持顯微鏡。" }
+    ],
+    dis: [
+      { k:"eyeguard", n:"目鏡護罩", f:"隔絕自周圍環境射入的光線。" },
+      { k:"deye",     n:"目鏡",     f:"眼睛觀察處，放大倍率通常為 10 倍。" },
+      { k:"ipd",      n:"眼距調整器", f:"調整兩眼目鏡間的距離，使兩眼所觀察的視野合而為一。" },
+      { k:"diopter",  n:"眼焦調整器", f:"可調整該眼焦距，使視力不同的兩眼均能清楚觀察。" },
+      { k:"zoom",     n:"倍率調整輪", f:"可旋轉以調整物鏡倍率。" },
+      { k:"dobj",     n:"物鏡",     f:"觀察樣本的鏡頭，放大倍率多為 2～4 倍。" },
+      { k:"focus",    n:"調節輪",   f:"調整物鏡與載物板之間的距離，使影像更清晰。" },
+      { k:"darm",     n:"鏡臂",     f:"支持目鏡、物鏡，是手拿顯微鏡的部位。" },
+      { k:"plate",    n:"載物板",   f:"可放置樣本，通常有黑色、白色或透明三種可供選用，下方有透射光源。" },
+      { k:"dclip",    n:"固定夾",   f:"固定樣本。" },
+      { k:"dlamp",    n:"光源",     f:"反射光源，供應觀察所需亮度。" },
+      { k:"dswitch",  n:"光源開關", f:"打開或關閉光源。" },
+      { k:"dbase",    n:"鏡座",     f:"固定、支持顯微鏡。" }
+    ]
+  };
+
+  var promptEl = document.getElementById("scopePrompt");
+  var bankEl   = document.getElementById("scopeBank");
+  var fnEl     = document.getElementById("scopeFn");
+  var countEl  = document.getElementById("scopeCount");
+
+  var cur = "cmp";
+  var sel = null;
+  var done = load();
+
+  function load(){
+    try { var r = localStorage.getItem(KEY); return r ? JSON.parse(r) : { cmp:[], dis:[] }; }
+    catch(e){ return { cmp:[], dis:[] }; }
+  }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(done)); } catch(e){} }
+
+  function shuffled(a){
+    var b = a.slice(), i, j, t;
+    for (i=b.length-1;i>0;i--){ j=Math.floor(Math.random()*(i+1)); t=b[i]; b[i]=b[j]; b[j]=t; }
+    return b;
+  }
+
+  function figure(scope){ return card.querySelector('.scope-fig[data-fig="' + scope + '"]'); }
+  function partEl(scope, k){ return figure(scope).querySelector('.pt[data-k="' + k + '"]'); }
+
+  function clearSel(){
+    var s = figure(cur).querySelector(".pt.sel");
+    if (s) s.classList.remove("sel");
+    sel = null;
+  }
+
+  function nameOf(scope, k){
+    var list = PARTS[scope], i;
+    for (i=0;i<list.length;i++) if (list[i].k === k) return list[i];
+    return null;
+  }
+
+  function drawBank(){
+    bankEl.innerHTML = "";
+    var names = {}, order = [];
+    PARTS[cur].forEach(function(p){
+      if (!names[p.n]) { names[p.n] = []; order.push(p.n); }
+      names[p.n].push(p.k);
+    });
+    shuffled(order).forEach(function(n){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = n;
+      b.dataset.n = n;
+      var all = names[n].every(function(k){ return done[cur].indexOf(k) >= 0; });
+      if (all) b.disabled = true;
+      b.addEventListener("click", function(){ answer(n); });
+      bankEl.appendChild(b);
+    });
+  }
+
+  function refreshBank(){
+    Array.prototype.forEach.call(bankEl.children, function(b){
+      var n = b.dataset.n, ok = true;
+      PARTS[cur].forEach(function(p){
+        if (p.n === n && done[cur].indexOf(p.k) < 0) ok = false;
+      });
+      b.disabled = ok;
+    });
+  }
+
+  function updateCount(){
+    countEl.textContent = "已完成 " + done[cur].length + " / " + PARTS[cur].length;
+  }
+
+  function paint(){
+    PARTS[cur].forEach(function(p){
+      var el = partEl(cur, p.k);
+      if (el) el.classList.toggle("ok", done[cur].indexOf(p.k) >= 0);
+    });
+    refreshBank();
+    updateCount();
+  }
+
+  function answer(n){
+    if (!sel) { promptEl.textContent = "請先點圖上的一個構造，再選名稱。"; return; }
+    var p = nameOf(cur, sel);
+    if (!p) return;
+    var el = partEl(cur, sel);
+    if (p.n === n) {
+      if (done[cur].indexOf(p.k) < 0) { done[cur].push(p.k); save(); }
+      el.classList.remove("sel","bad");
+      el.classList.add("ok");
+      promptEl.textContent = "答對了：" + p.n + "。";
+      fnEl.textContent = p.n + "｜" + p.f;
+      sel = null;
+      refreshBank();
+      updateCount();
+      if (done[cur].length === PARTS[cur].length) {
+        promptEl.textContent = (cur === "cmp" ? "複式" : "解剖") + "顯微鏡全部答對，換另一臺試試。";
+      }
+    } else {
+      el.classList.add("bad");
+      promptEl.textContent = "不是這個，再想想這個位置的構造。";
+      fnEl.textContent = "";
+      setTimeout(function(){ el.classList.remove("bad"); }, 700);
+    }
+  }
+
+  card.addEventListener("click", function(e){
+    var pt = e.target.closest ? e.target.closest(".pt") : null;
+    if (!pt || !card.contains(pt)) return;
+    if (pt.classList.contains("ok")) {
+      var got = nameOf(cur, pt.dataset.k);
+      if (got) fnEl.textContent = got.n + "｜" + got.f;
+      return;
+    }
+    clearSel();
+    pt.classList.add("sel");
+    sel = pt.dataset.k;
+    promptEl.textContent = "已選取一個構造，請從下方選出它的名稱。";
+    fnEl.textContent = "";
+  });
+
+  Array.prototype.forEach.call(card.querySelectorAll(".scope-tab"), function(tab){
+    tab.addEventListener("click", function(){
+      Array.prototype.forEach.call(card.querySelectorAll(".scope-tab"), function(t){
+        t.classList.toggle("on", t === tab);
+      });
+      Array.prototype.forEach.call(card.querySelectorAll(".scope-fig"), function(f){
+        f.hidden = f.dataset.fig !== tab.dataset.scope;
+      });
+      clearSel();
+      cur = tab.dataset.scope;
+      promptEl.textContent = "點圖上任一個構造開始。";
+      fnEl.textContent = "";
+      drawBank();
+      paint();
+    });
+  });
+
+  document.getElementById("scopeShow").addEventListener("click", function(){
+    clearSel();
+    done[cur] = PARTS[cur].map(function(p){ return p.k; });
+    save(); paint();
+    promptEl.textContent = "已顯示答案。點圖上的構造可以看它的功能。";
+  });
+
+  document.getElementById("scopeReset").addEventListener("click", function(){
+    clearSel();
+    done[cur] = [];
+    save();
+    PARTS[cur].forEach(function(p){
+      var el = partEl(cur, p.k);
+      if (el) el.classList.remove("ok","bad","sel");
+    });
+    drawBank(); updateCount();
+    promptEl.textContent = "點圖上任一個構造開始。";
+    fnEl.textContent = "";
+  });
+
+  if (!done.cmp) done.cmp = [];
+  if (!done.dis) done.dis = [];
+  drawBank();
+  paint();
+})();
+</script>
+<script>
+/* ── 實驗紀錄共用元件（NKit）── */
+window.NKit = (function(){
+  "use strict";
+
+  var mem = {};
+  function read(key){
+    try { var r = localStorage.getItem(key); return r ? JSON.parse(r) : {}; }
+    catch(e){ return mem[key] || {}; }
+  }
+  function write(key, o){
+    mem[key] = o;
+    try { localStorage.setItem(key, JSON.stringify(o)); } catch(e){}
+  }
+
+  function mkSelect(opts, val){
+    var sel = document.createElement("select");
+    var b = document.createElement("option");
+    b.value = ""; b.textContent = "（選）";
+    sel.appendChild(b);
+    opts.forEach(function(o){
+      var op = document.createElement("option");
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    if (val) sel.value = val;
+    return sel;
+  }
+
+  function actions(host, label, run){
+    var wrap = document.createElement("div");
+    wrap.className = "actions";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "act";
+    btn.textContent = label || "檢查";
+    wrap.appendChild(btn);
+    host.parentNode.insertBefore(wrap, host.nextSibling);
+
+    var p = document.createElement("p");
+    p.className = "fb";
+    host.parentNode.insertBefore(p, wrap.nextSibling);
+
+    btn.addEventListener("click", function(){ run(p); });
+    return p;
+  }
+
+  function verdict(p, right, total, ok, no){
+    p.className = "fb show " + (right === total ? "right" : "wrong");
+    p.textContent = right === total
+      ? (ok || "全對。")
+      : ("答對 " + right + " / " + total + "。" + (no || ""));
+  }
+
+  /* 句子填空：t 字串中每個 {} 換成一個下拉選單 */
+  function fill(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kfill";
+    var sels = [];
+
+    cfg.rows.forEach(function(row, ri){
+      var div = document.createElement("div");
+      div.className = "row";
+      var parts = row.t.split("{}");
+      var rowSels = [];
+      parts.forEach(function(txt, i){
+        div.appendChild(document.createTextNode(txt));
+        if (i < parts.length - 1) {
+          var id = cfg.host + "-" + ri + "-" + i;
+          var sel = mkSelect(row.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          div.appendChild(sel);
+          rowSels.push({ sel:sel, id:id });
+        }
+      });
+      if (row.tail) div.appendChild(document.createTextNode(row.tail));
+      sels.push(rowSels);
+      host.appendChild(div);
+    });
+
+    actions(host, cfg.btn, function(p){
+      var right = 0, total = 0;
+      cfg.rows.forEach(function(row, ri){
+        var pool = row.ans.slice();
+        sels[ri].forEach(function(o, i){
+          total++;
+          var ok;
+          if (row.any) {
+            var at = pool.indexOf(o.sel.value);
+            ok = o.sel.value !== "" && at >= 0;
+            if (ok) pool.splice(at, 1);
+          } else {
+            ok = o.sel.value === row.ans[i];
+          }
+          o.sel.classList.toggle("ok", ok);
+          o.sel.classList.toggle("no", !ok);
+          if (ok) right++;
+        });
+      });
+      verdict(p, right, total, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 步驟排序：steps 以正確順序給，畫面上打散，用數字下拉作答 */
+  function order(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kord";
+    var n = cfg.steps.length;
+    var nums = [];
+    for (var i=1;i<=n;i++) nums.push(String(i));
+
+    var idx = cfg.steps.map(function(_, i){ return i; });
+    var seed = 0, c;
+    for (c=0;c<cfg.host.length;c++) seed = (seed * 31 + cfg.host.charCodeAt(c)) % 9973;
+    for (c=idx.length-1;c>0;c--){
+      seed = (seed * 1103515245 + 12345) % 2147483647;
+      var j = seed % (c+1), t = idx[c]; idx[c] = idx[j]; idx[j] = t;
+    }
+
+    var rows = [];
+    idx.forEach(function(orig){
+      var div = document.createElement("div");
+      div.className = "row";
+      var p = document.createElement("p");
+      p.textContent = cfg.steps[orig];
+      var id = cfg.host + "-" + orig;
+      var sel = mkSelect(nums, st[id]);
+      sel.addEventListener("change", function(){
+        st[id] = sel.value; write(cfg.key, st);
+        sel.classList.remove("ok","no");
+      });
+      div.appendChild(p); div.appendChild(sel);
+      host.appendChild(div);
+      rows.push({ sel:sel, ans:String(orig + 1) });
+    });
+
+    actions(host, cfg.btn || "檢查順序", function(p){
+      var right = 0;
+      rows.forEach(function(r){
+        var ok = r.sel.value === r.ans;
+        r.sel.classList.toggle("ok", ok);
+        r.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, rows.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 比較表：head 是欄位標題，rows 每列一個項目 */
+  function table(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    var tb = document.createElement("table");
+    tb.className = "cmp";
+
+    if (cfg.head) {
+      var tr = document.createElement("tr");
+      cfg.head.forEach(function(h, i){
+        var c = document.createElement("th");
+        c.textContent = h;
+        if (i > 0) c.style.width = "auto";
+        tr.appendChild(c);
+      });
+      tb.appendChild(tr);
+    }
+
+    var cells = [];
+    cfg.rows.forEach(function(row, ri){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = row.th;
+      tr.appendChild(th);
+      row.cells.forEach(function(cell, ci){
+        var td = document.createElement("td");
+        if (cell.text) {
+          td.textContent = cell.text;
+        } else {
+          var id = cfg.host + "-" + ri + "-" + ci;
+          var sel = mkSelect(cell.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          td.appendChild(sel);
+          cells.push({ sel:sel, ans:cell.ans });
+        }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    host.appendChild(tb);
+
+    actions(host, cfg.btn, function(p){
+      var right = 0;
+      cells.forEach(function(c){
+        var ok = c.sel.value === c.ans;
+        c.sel.classList.toggle("ok", ok);
+        c.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, cells.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 複選勾選題 */
+  function check(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kchk";
+    var boxes = [];
+    cfg.items.forEach(function(item, i){
+      var div = document.createElement("div");
+      div.className = "row";
+      var inp = document.createElement("input");
+      inp.type = "checkbox";
+      var id = cfg.host + "-" + i;
+      inp.checked = !!st[id];
+      inp.addEventListener("change", function(){
+        st[id] = inp.checked; write(cfg.key, st);
+      });
+      var p = document.createElement("p");
+      p.textContent = item.t;
+      div.appendChild(inp); div.appendChild(p);
+      host.appendChild(div);
+      boxes.push({ inp:inp, ans:!!item.ok, p:p, why:item.why });
+    });
+
+    actions(host, cfg.btn || "對答案", function(p){
+      var right = 0;
+      boxes.forEach(function(b){
+        var ok = b.inp.checked === b.ans;
+        b.p.style.color = ok ? "" : "var(--rose)";
+        if (ok) right++;
+      });
+      verdict(p, right, boxes.length, cfg.ok, cfg.no);
+    });
+  }
+
+  return { fill:fill, order:order, table:table, check:check };
+})();
+</script>
+<script>
+
+(function(){
+  var K = "nature1-c1-1-lab-v1";
+
+  NKit.order({
+    host:"e11ord", key:K,
+    steps:[
+      "製作字母「DF」水埋玻片標本：載玻片上加一滴水，放上字母紙片，以 45\u00b0 蓋上蓋玻片，再用吸水紙吸去多餘的水分。",
+      "放置玻片標本：確認低倍率物鏡對準載物臺的圓孔，把字母玻片正放並以玻片夾固定。",
+      "調整進光量：調整光源（或反光鏡）及載物臺下方的光圈，使視野亮度適合觀察。",
+      "以低倍率物鏡觀察：先轉動粗調節輪看到字母，再轉動細調節輪使字母更清楚。",
+      "以高倍率物鏡觀察：先把字母移到視野中央，轉動旋轉盤換成高倍率物鏡，此時只轉細調節輪。",
+      "整理器材：把低倍率物鏡旋回對準載物臺的圓孔，鏡頭有髒汙須用拭鏡紙擦拭。"
+    ],
+    ok:"順序正確。關鍵是：一定要先用低倍率找到目標、移到視野中央，再換高倍率；換高倍率後只能轉細調節輪。",
+    no:"想一想：低倍率視野比較亮、範圍比較廣，所以一定先用低倍率找目標。"
+  });
+
+  NKit.fill({
+    host:"e11fill", key:K,
+    opts:["目鏡","物鏡","光圈","光源（或反光鏡）","粗調節輪","細調節輪","載物臺","旋轉盤"],
+    rows:[
+      { t:"(1) 視野太暗：可以調整 {} 或 {} ，使入光量適中。", ans:["光圈","光源（或反光鏡）"], any:true },
+      { t:"(2) 影像模糊：可以轉動 {} 與 {} ，調整物鏡與載物臺之間的距離，使影像清楚。",
+        ans:["粗調節輪","細調節輪"], any:true },
+      { t:"(3) 鏡頭有髒汙：用拭鏡紙把 {} 與 {} 的鏡頭擦拭乾淨。", ans:["目鏡","物鏡"], any:true }
+    ],
+    ok:"全對。亮度找光圈和光源，清晰度找調節輪，髒汙只能用拭鏡紙擦目鏡和物鏡。",
+    no:"亮不亮是「進光量」的問題，清不清楚是「距離」的問題，別混在一起。"
+  });
+
+  NKit.table({
+    host:"e11tab", key:K,
+    head:["影像特性","解剖顯微鏡","複式顯微鏡"],
+    rows:[
+      { th:"影像方向（和原物比較）", cells:[
+        { opts:["與原物相同","與原物相反"], ans:"與原物相同" },
+        { opts:["與原物相同","與原物相反"], ans:"與原物相反" } ] },
+      { th:"放大倍率", cells:[
+        { opts:["較大","較小"], ans:"較小" },
+        { opts:["較大","較小"], ans:"較大" } ] },
+      { th:"影像立體感", cells:[
+        { opts:["較立體","較平面"], ans:"較立體" },
+        { opts:["較立體","較平面"], ans:"較平面" } ] },
+      { th:"可觀察的樣本", cells:[
+        { opts:["玻片標本或實體皆可","只能是薄而透光的玻片標本"], ans:"玻片標本或實體皆可" },
+        { opts:["玻片標本或實體皆可","只能是薄而透光的玻片標本"], ans:"只能是薄而透光的玻片標本" } ] }
+    ],
+    ok:"全對。解剖顯微鏡＝同方向、立體、倍率小、可看不透光的實體；複式顯微鏡剛好相反。",
+    no:"記一句話：解剖顯微鏡是「放大版的放大鏡」，看到的和肉眼一樣，只是變大。"
+  });
+
+  NKit.table({
+    host:"e11mov", key:K,
+    head:["移動玻片的方向","複式顯微鏡視野中的影像","解剖顯微鏡視野中的影像"],
+    opts:["往左方移動","往右方移動","往上方移動","往下方移動"],
+    rows:[
+      { th:"玻片向左方移動", cells:[ { ans:"往右方移動" }, { ans:"往左方移動" } ] },
+      { th:"玻片向下方移動", cells:[ { ans:"往上方移動" }, { ans:"往下方移動" } ] }
+    ],
+    ok:"全對。複式顯微鏡的影像和玻片相反，解剖顯微鏡則相同。",
+    no:"複式顯微鏡把影像轉了 180 度，所以玻片往左、影像就往右。"
+  });
+})();
+</script>
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -800,7 +1544,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -853,7 +1599,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -897,8 +1642,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -917,7 +1660,7 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>

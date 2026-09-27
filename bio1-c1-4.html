@@ -98,6 +98,31 @@
   }
   .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
   footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+  /* ── 實驗紀錄共用元件 ── */
+  .sub{font-family:"Songti TC","Noto Serif TC",serif;font-size:1.03rem;font-weight:700;
+    margin:20px 0 8px;padding-top:14px;border-top:1px dashed var(--rule-soft);color:var(--ink);}
+  .sub:first-child{border-top:none;padding-top:0;margin-top:2px;}
+  .kfill{margin:0;}
+  .kfill .row{padding:9px 0;border-top:1px solid var(--rule-soft);line-height:2.4;}
+  .kfill .row:first-child{border-top:none;}
+  .kfill select{width:auto;min-width:120px;max-width:100%;margin:0 3px;}
+  .kord .row{display:flex;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kord .row:first-child{border-top:none;}
+  .kord .row p{margin:0;flex:1 1 auto;}
+  .kord select{flex:0 0 auto;width:auto;min-width:82px;}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.94rem;margin:6px 0 12px;}
+  table.cmp th,table.cmp td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.cmp th{background:#F3F7F2;font-weight:700;width:46%;}
+  table.cmp td select{width:100%;min-width:0;}
+  .kchk .row{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kchk .row:first-child{border-top:none;}
+  .kchk .row p{margin:0;flex:1 1 auto;}
+  .kchk .row input{margin-top:.5em;flex:0 0 auto;width:18px;height:18px;accent-color:var(--leaf);}
+  .knote{font-size:.9rem;color:var(--ink-soft);margin:.6em 0 0;line-height:1.75;}
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:4px 0 0;}
+  .kgrid .cell{border:1px solid var(--rule-soft);border-radius:10px;padding:10px 12px;background:#FCFDFB;}
+  .kgrid .cell h4{margin:0 0 .25em;font-size:.95rem;}
+  .kgrid .cell p{margin:0;font-size:.86rem;color:var(--ink-soft);line-height:1.65;}
 </style>
 </head>
 <body>
@@ -172,8 +197,50 @@
   <p class="fb" id="dirFb"></p>
 </section>
 
+
 <section class="card">
-  <h2>四、練習題</h2>
+  <h2>四、實驗 1-4：水滴中的生命世界</h2>
+  <p class="hint">依實驗活動紀錄簿 P.15–20。</p>
+
+  <p class="sub">操作順序</p>
+  <div id="e14ord"></div>
+
+  <p class="sub">步驟 Q：怎麼分辨鏡頭下的是生物還是非生物？</p>
+  <div id="e14q"></div>
+
+  <p class="sub">結果與討論</p>
+  <div id="e14r"></div>
+
+  <p class="sub">這些小生物是單細胞還是多細胞？</p>
+  <p class="hint">依附錄「常見的微生物」分類。</p>
+  <div id="e14cls"></div>
+
+  <p class="sub">附錄　常見的微生物小檔案</p>
+  <div class="kgrid">
+    <div class="cell"><h4>藍鼓藻　<small>藍綠菌</small></h4><p>原核生物，長在潮溼的岩石或牆上，細胞分裂迅速，常以群體出現。膠質層厚而明顯。</p></div>
+    <div class="cell"><h4>顫藻　<small>藍綠菌</small></h4><p>群體狀，細胞排列呈長絲狀，在水中會節律地顫動。生命力強，乾旱時也能存活。</p></div>
+    <div class="cell"><h4>葛仙米藻　<small>藍綠菌</small></h4><p>群體狀，細胞排列呈念珠狀的藻絲，多條藻絲再由一個大膠球包圍。</p></div>
+    <div class="cell"><h4>草履蟲　<small>單細胞</small></h4><p>形狀像一支倒放的草鞋，體表密布短纖毛，運動時纖毛呈波狀擺動使蟲體旋轉前進。身體一側有口溝。</p></div>
+    <div class="cell"><h4>變形蟲　<small>單細胞</small></h4><p>身體透明無色，沒有一定的形狀。肉食性，遇到其他小生物時會將其吞入體內形成食泡消化。</p></div>
+    <div class="cell"><h4>眼蟲　<small>單細胞</small></h4><p>介於藻類和原生動物之間。有葉綠體可行光合作用，但沒有細胞壁，藉鞭毛運動，身上有紅色眼點可感光。</p></div>
+    <div class="cell"><h4>扁眼蟲　<small>單細胞</small></h4><p>眼蟲的近親，同樣有葉綠體和紅色眼點，但不具細胞壁；細胞較眼蟲圓、背腹扁平，後端呈尖刺狀。</p></div>
+    <div class="cell"><h4>鐘形蟲　<small>單細胞</small></h4><p>樣子像一個小型的鐘，鐘口朝上，下方由一根具伸縮性的鐘柄支持，常叢生於水生植物的根或莖上。</p></div>
+    <div class="cell"><h4>喇叭蟲　<small>單細胞</small></h4><p>身體前寬後窄、狀似喇叭。胞口在身體前端，四周有纖毛，擺動時形成水流以捕食有機物。受刺激時會收縮成圓桶狀。</p></div>
+    <div class="cell"><h4>腹毛蟲　<small>多細胞</small></h4><p>分布於淡水、海水或潮溼土壤，是草履蟲的主要食物來源。背面隆起、腹面平坦，腹部有多行纖毛。</p></div>
+    <div class="cell"><h4>新月藻　<small>綠藻類</small></h4><p>淡水的單細胞藻類，形狀像月初的月亮。細胞核位於中央，把細胞分成兩半，各含放射狀的葉綠體。</p></div>
+    <div class="cell"><h4>單胞藻　<small>綠藻類</small></h4><p>單細胞綠藻，有眼點、葉綠體和鞭毛。靠鞭毛擺動在水中活動，體內有大型杯狀葉綠體。</p></div>
+    <div class="cell"><h4>團藻　<small>綠藻類</small></h4><p>群體型，細胞彼此交織成群體，由膠質膜狀構造包圍，多可達 2000 個細胞。多數細胞具兩根鞭毛，使團藻轉動。</p></div>
+    <div class="cell"><h4>空球藻　<small>綠藻類</small></h4><p>團藻的一種，由 16、32 或 64 個細胞排列在球面上，中央為充滿液體的空腔，故稱空球藻。</p></div>
+    <div class="cell"><h4>剛毛藻　<small>綠藻類</small></h4><p>黃綠色的絲狀綠藻，外觀粗糙、排列規則且具分枝，以短柄狀附著器附生於底岩或木頭上。</p></div>
+    <div class="cell"><h4>水綿　<small>綠藻類</small></h4><p>淡水中最常見的多細胞綠藻，呈絲狀，細胞中有捲成<b>螺旋狀</b>的帶狀葉綠體，是水綿的重要特徵。</p></div>
+    <div class="cell"><h4>四聯原藻　<small>綠藻類</small></h4><p>群體型綠藻，常見的由 4 個細胞組成群體，像柵欄一般並列，又稱柵藻。</p></div>
+    <div class="cell"><h4>間生藻　<small>綠藻類</small></h4><p>多細胞絲狀綠藻。葉綠體呈<b>網狀</b>（水綿是螺旋狀），這是區分兩者的方法。</p></div>
+    <div class="cell"><h4>矽藻　<small>金黃藻類</small></h4><p>世界上種類最多的單細胞藻類。細胞壁含大量矽質，分上下兩半像肥皂盒。體內黃色色素掩蓋葉綠素，常呈金黃色。</p></div>
+  </div>
+</section>
+
+<section class="card">
+  <h2>五、練習題</h2>
   <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
   <div id="qs"></div>
   <div class="actions">
@@ -183,7 +250,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 20</b>
+  <span>練習題答對</span><b id="score">0 / 25</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -478,7 +545,28 @@
     { id:"q20", tag:"實力養成評量", type:"choice",
       text:"甲.腎臟　乙.氣管　丙.肌肉　丁.血液，下列何者在生物組成層次上屬於「組織」？",
       opts:["甲乙","乙丙","丙丁","甲丁"], ans:2,
-      why:"腎臟和氣管都是由數種組織組成的器官；肌肉和血液則是組織。" }
+      why:"腎臟和氣管都是由數種組織組成的器官；肌肉和血液則是組織。" },
+
+    { id:"x1", tag:"學力養成篇", type:"choice",
+      text:"人類的小腸是屬於下列哪一種組成層次？",
+      opts:["細胞","組織","器官","器官系統"], ans:2,
+      why:"小腸是由多種組織（如皮膜組織、肌肉組織）合作構成、能執行特定功能的構造，屬於器官。消化系統才是器官系統。" },
+    { id:"x2", tag:"學力養成篇", type:"choice",
+      text:"下列何者僅由一個細胞便能完成所有的生命現象？",
+      opts:["非生物","任何生物","多細胞生物","單細胞生物"], ans:3,
+      why:"單細胞生物整個個體只有一個細胞，所有生命現象都在這個細胞內完成；多細胞生物則要靠細胞間分工合作。" },
+    { id:"x3", tag:"學力養成篇", type:"choice",
+      text:"（實驗 1-4）小姿正準備觀察時，卻發現鏡頭髒了，他應該使用何種東西擦拭乾淨？",
+      opts:["衛生紙","拭鏡紙","手帕","抹布"], ans:1,
+      why:"鏡片很怕刮傷，只能用拭鏡紙；衛生紙、手帕、抹布的纖維較粗，會磨損鏡片。" },
+    { id:"x4", tag:"學力養成篇", type:"choice",
+      text:"（實驗 1-4）小姿滴了一滴池塘水於載玻片上，接著蓋上蓋玻片時，卻發現載玻片上溢滿了水，此時應如何處理呢？",
+      opts:["直接把多餘的水倒掉","滴加亞甲藍液","用吸水紙將多餘的水吸乾淨","在酒精燈上加熱"], ans:2,
+      why:"用吸水紙從蓋玻片邊緣把多餘的水吸走即可。直接倒掉會連樣本一起倒掉，加熱則會破壞小生物。" },
+    { id:"x5", tag:"學力養成篇", type:"choice",
+      text:"（實驗 1-4）小姿於視野中發現一隻草履蟲，請問下列何者為草履蟲具有的構造？",
+      opts:["細胞核","葉綠體","細胞壁","大型液泡"], ans:0,
+      why:"草履蟲是單細胞的原生動物，有細胞核，但沒有葉綠體、細胞壁和植物的大型液泡（牠體內的是食泡）。" }
   ];
 
   var host = document.getElementById("qs");
@@ -575,7 +663,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 15) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先回上面三個練習區確認一次，再回來作答。";
   }
 
@@ -695,10 +783,324 @@
   })();
 })();
 </script>
+<script>
+/* ── 實驗紀錄共用元件（NKit）── */
+window.NKit = (function(){
+  "use strict";
+
+  var mem = {};
+  function read(key){
+    try { var r = localStorage.getItem(key); return r ? JSON.parse(r) : {}; }
+    catch(e){ return mem[key] || {}; }
+  }
+  function write(key, o){
+    mem[key] = o;
+    try { localStorage.setItem(key, JSON.stringify(o)); } catch(e){}
+  }
+
+  function mkSelect(opts, val){
+    var sel = document.createElement("select");
+    var b = document.createElement("option");
+    b.value = ""; b.textContent = "（選）";
+    sel.appendChild(b);
+    opts.forEach(function(o){
+      var op = document.createElement("option");
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    if (val) sel.value = val;
+    return sel;
+  }
+
+  function actions(host, label, run){
+    var wrap = document.createElement("div");
+    wrap.className = "actions";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "act";
+    btn.textContent = label || "檢查";
+    wrap.appendChild(btn);
+    host.parentNode.insertBefore(wrap, host.nextSibling);
+
+    var p = document.createElement("p");
+    p.className = "fb";
+    host.parentNode.insertBefore(p, wrap.nextSibling);
+
+    btn.addEventListener("click", function(){ run(p); });
+    return p;
+  }
+
+  function verdict(p, right, total, ok, no){
+    p.className = "fb show " + (right === total ? "right" : "wrong");
+    p.textContent = right === total
+      ? (ok || "全對。")
+      : ("答對 " + right + " / " + total + "。" + (no || ""));
+  }
+
+  /* 句子填空：t 字串中每個 {} 換成一個下拉選單 */
+  function fill(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kfill";
+    var sels = [];
+
+    cfg.rows.forEach(function(row, ri){
+      var div = document.createElement("div");
+      div.className = "row";
+      var parts = row.t.split("{}");
+      var rowSels = [];
+      parts.forEach(function(txt, i){
+        div.appendChild(document.createTextNode(txt));
+        if (i < parts.length - 1) {
+          var id = cfg.host + "-" + ri + "-" + i;
+          var sel = mkSelect(row.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          div.appendChild(sel);
+          rowSels.push({ sel:sel, id:id });
+        }
+      });
+      if (row.tail) div.appendChild(document.createTextNode(row.tail));
+      sels.push(rowSels);
+      host.appendChild(div);
+    });
+
+    actions(host, cfg.btn, function(p){
+      var right = 0, total = 0;
+      cfg.rows.forEach(function(row, ri){
+        var pool = row.ans.slice();
+        sels[ri].forEach(function(o, i){
+          total++;
+          var ok;
+          if (row.any) {
+            var at = pool.indexOf(o.sel.value);
+            ok = o.sel.value !== "" && at >= 0;
+            if (ok) pool.splice(at, 1);
+          } else {
+            ok = o.sel.value === row.ans[i];
+          }
+          o.sel.classList.toggle("ok", ok);
+          o.sel.classList.toggle("no", !ok);
+          if (ok) right++;
+        });
+      });
+      verdict(p, right, total, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 步驟排序：steps 以正確順序給，畫面上打散，用數字下拉作答 */
+  function order(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kord";
+    var n = cfg.steps.length;
+    var nums = [];
+    for (var i=1;i<=n;i++) nums.push(String(i));
+
+    var idx = cfg.steps.map(function(_, i){ return i; });
+    var seed = 0, c;
+    for (c=0;c<cfg.host.length;c++) seed = (seed * 31 + cfg.host.charCodeAt(c)) % 9973;
+    for (c=idx.length-1;c>0;c--){
+      seed = (seed * 1103515245 + 12345) % 2147483647;
+      var j = seed % (c+1), t = idx[c]; idx[c] = idx[j]; idx[j] = t;
+    }
+
+    var rows = [];
+    idx.forEach(function(orig){
+      var div = document.createElement("div");
+      div.className = "row";
+      var p = document.createElement("p");
+      p.textContent = cfg.steps[orig];
+      var id = cfg.host + "-" + orig;
+      var sel = mkSelect(nums, st[id]);
+      sel.addEventListener("change", function(){
+        st[id] = sel.value; write(cfg.key, st);
+        sel.classList.remove("ok","no");
+      });
+      div.appendChild(p); div.appendChild(sel);
+      host.appendChild(div);
+      rows.push({ sel:sel, ans:String(orig + 1) });
+    });
+
+    actions(host, cfg.btn || "檢查順序", function(p){
+      var right = 0;
+      rows.forEach(function(r){
+        var ok = r.sel.value === r.ans;
+        r.sel.classList.toggle("ok", ok);
+        r.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, rows.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 比較表：head 是欄位標題，rows 每列一個項目 */
+  function table(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    var tb = document.createElement("table");
+    tb.className = "cmp";
+
+    if (cfg.head) {
+      var tr = document.createElement("tr");
+      cfg.head.forEach(function(h, i){
+        var c = document.createElement("th");
+        c.textContent = h;
+        if (i > 0) c.style.width = "auto";
+        tr.appendChild(c);
+      });
+      tb.appendChild(tr);
+    }
+
+    var cells = [];
+    cfg.rows.forEach(function(row, ri){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = row.th;
+      tr.appendChild(th);
+      row.cells.forEach(function(cell, ci){
+        var td = document.createElement("td");
+        if (cell.text) {
+          td.textContent = cell.text;
+        } else {
+          var id = cfg.host + "-" + ri + "-" + ci;
+          var sel = mkSelect(cell.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          td.appendChild(sel);
+          cells.push({ sel:sel, ans:cell.ans });
+        }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    host.appendChild(tb);
+
+    actions(host, cfg.btn, function(p){
+      var right = 0;
+      cells.forEach(function(c){
+        var ok = c.sel.value === c.ans;
+        c.sel.classList.toggle("ok", ok);
+        c.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, cells.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 複選勾選題 */
+  function check(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kchk";
+    var boxes = [];
+    cfg.items.forEach(function(item, i){
+      var div = document.createElement("div");
+      div.className = "row";
+      var inp = document.createElement("input");
+      inp.type = "checkbox";
+      var id = cfg.host + "-" + i;
+      inp.checked = !!st[id];
+      inp.addEventListener("change", function(){
+        st[id] = inp.checked; write(cfg.key, st);
+      });
+      var p = document.createElement("p");
+      p.textContent = item.t;
+      div.appendChild(inp); div.appendChild(p);
+      host.appendChild(div);
+      boxes.push({ inp:inp, ans:!!item.ok, p:p, why:item.why });
+    });
+
+    actions(host, cfg.btn || "對答案", function(p){
+      var right = 0;
+      boxes.forEach(function(b){
+        var ok = b.inp.checked === b.ans;
+        b.p.style.color = ok ? "" : "var(--rose)";
+        if (ok) right++;
+      });
+      verdict(p, right, boxes.length, cfg.ok, cfg.no);
+    });
+  }
+
+  return { fill:fill, order:order, table:table, check:check };
+})();
+</script>
+<script>
+
+(function(){
+  var K = "nature1-c1-4-lab-v1";
+
+  NKit.order({
+    host:"e14ord", key:K,
+    steps:[
+      "採集水樣：自池塘（或水溝、水族箱）舀取上層較澄清與接近底部的水樣，取底部水樣可使用長柄杓。",
+      "製作水樣玻片標本：用滴管吸取少許水樣，滴一滴在載玻片中央，並蓋上蓋玻片，再用吸水紙吸去多餘水分。",
+      "以低倍率物鏡尋找水中小生物，先把目標物找出來。",
+      "切換至高倍率物鏡，詳細觀察小生物的特徵與運動行為。",
+      "對照實驗紀錄表，記錄觀察到的小生物，並比較不同水樣所觀察到的生物是否相同。"
+    ],
+    ok:"順序正確。採水時要注意自身安全，底部水樣可以吸取含底泥的水，小生物比較多。",
+    no:"顯微鏡觀察的通則：一定先用低倍率把目標找出來，再換高倍率看細節。"
+  });
+
+  NKit.fill({
+    host:"e14q", key:K,
+    rows:[
+      { t:"一般而言，生物的形狀較 {} ，輪廓較規律。",
+        opts:["完整","破碎"], ans:["完整"] },
+      { t:"如果目標物是動物，應可見其在鏡頭下 {} ；若是植物，常能看到分布於細胞質中的 {} 。",
+        opts:["活動","靜止不動","葉綠體","細胞壁"], ans:["活動","葉綠體"] },
+      { t:"非生物（例如纖維、雜質等）的構造較 {} ，也不會活動；如果是氣泡，則具有較黑的輪廓，且內部缺少生物體所具有的特殊構造。",
+        opts:["不規則","規則"], ans:["不規則"] }
+    ],
+    ok:"全對。判斷三件事：輪廓規不規律、會不會動、有沒有細胞內的構造。",
+    no:"氣泡是最容易誤認的：它輪廓很黑很圓，但裡面空空的，也不會自己跑。"
+  });
+
+  NKit.fill({
+    host:"e14r", key:K,
+    rows:[
+      { t:"1. 視野中的小生物向右上方離開視野時，應將載玻片往 {} 移動，才能讓小生物再回到視野中央。",
+        opts:["右上方","右下方","左上方","左下方"], ans:["右上方"] },
+      { t:"2. 不同水樣中的小生物種類或數量常常不同，最可能的原因是兩處的 {} 不同。",
+        opts:["水質與環境條件","載玻片大小","顯微鏡倍率","觀察時間長短"], ans:["水質與環境條件"] }
+    ],
+    ok:"全對。這裡用的是複式顯微鏡，玻片要往影像偏移的同方向移動。",
+    no:"第 1 題請回想：複式顯微鏡的成像是上下顛倒、左右相反的。"
+  });
+
+  NKit.table({
+    host:"e14cls", key:K,
+    head:["小生物","單細胞或多細胞"],
+    opts:["單細胞生物","多細胞生物"],
+    rows:[
+      { th:"草履蟲",   cells:[{ ans:"單細胞生物" }] },
+      { th:"變形蟲",   cells:[{ ans:"單細胞生物" }] },
+      { th:"眼蟲",     cells:[{ ans:"單細胞生物" }] },
+      { th:"矽藻",     cells:[{ ans:"單細胞生物" }] },
+      { th:"新月藻",   cells:[{ ans:"單細胞生物" }] },
+      { th:"輪蟲",     cells:[{ ans:"多細胞生物" }] },
+      { th:"水蚤",     cells:[{ ans:"多細胞生物" }] },
+      { th:"孑孓",     cells:[{ ans:"多細胞生物" }] },
+      { th:"水綿",     cells:[{ ans:"多細胞生物" }] },
+      { th:"團藻",     cells:[{ ans:"多細胞生物" }] }
+    ],
+    ok:"全對。判斷方法：整隻（整株）只由一個細胞構成的就是單細胞生物，即使它能游、能吃、能行光合作用。",
+    no:"注意藻類：矽藻、新月藻、單胞藻是單細胞；水綿、團藻、剛毛藻則是由許多細胞組成的。"
+  });
+})();
+</script>
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -820,7 +1222,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -873,7 +1277,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -917,8 +1320,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -937,7 +1338,7 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>

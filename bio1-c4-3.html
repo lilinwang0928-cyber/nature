@@ -100,6 +100,31 @@
   footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
 
   .mapnote{font-size:.9rem;color:var(--ink-soft);}
+  /* ── 實驗紀錄共用元件 ── */
+  .sub{font-family:"Songti TC","Noto Serif TC",serif;font-size:1.03rem;font-weight:700;
+    margin:20px 0 8px;padding-top:14px;border-top:1px dashed var(--rule-soft);color:var(--ink);}
+  .sub:first-child{border-top:none;padding-top:0;margin-top:2px;}
+  .kfill{margin:0;}
+  .kfill .row{padding:9px 0;border-top:1px solid var(--rule-soft);line-height:2.4;}
+  .kfill .row:first-child{border-top:none;}
+  .kfill select{width:auto;min-width:120px;max-width:100%;margin:0 3px;}
+  .kord .row{display:flex;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kord .row:first-child{border-top:none;}
+  .kord .row p{margin:0;flex:1 1 auto;}
+  .kord select{flex:0 0 auto;width:auto;min-width:82px;}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.94rem;margin:6px 0 12px;}
+  table.cmp th,table.cmp td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.cmp th{background:#F3F7F2;font-weight:700;width:46%;}
+  table.cmp td select{width:100%;min-width:0;}
+  .kchk .row{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kchk .row:first-child{border-top:none;}
+  .kchk .row p{margin:0;flex:1 1 auto;}
+  .kchk .row input{margin-top:.5em;flex:0 0 auto;width:18px;height:18px;accent-color:var(--leaf);}
+  .knote{font-size:.9rem;color:var(--ink-soft);margin:.6em 0 0;line-height:1.75;}
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:4px 0 0;}
+  .kgrid .cell{border:1px solid var(--rule-soft);border-radius:10px;padding:10px 12px;background:#FCFDFB;}
+  .kgrid .cell h4{margin:0 0 .25em;font-size:.95rem;}
+  .kgrid .cell p{margin:0;font-size:.86rem;color:var(--ink-soft);line-height:1.65;}
 </style>
 </head>
 <body>
@@ -179,8 +204,25 @@
   <p class="fb" id="cmpFb"></p>
 </section>
 
+
 <section class="card">
-  <h2>四、練習題</h2>
+  <h2>四、素養活用：捕蚊招式</h2>
+  <p class="hint">依實驗活動紀錄簿 P.76。打蚊子到底算不算反射動作？</p>
+
+  <p class="sub">Q1　阿康說「我現在打蚊子已變成反射動作了！」這種說法是否正確？</p>
+  <div id="e43q1"></div>
+
+  <p class="sub">Q2　有關毛氈苔與捕蚊燈的敘述，下列何者正確？</p>
+  <div id="e43q2"></div>
+
+  <p class="sub">Q3　去除積水容器能滅蚊的原因為何？</p>
+  <div id="e43q3"></div>
+  <p class="knote">分辨兩個容易混淆的詞：<b>趨性</b>是動物整隻朝向或背離刺激移動（蚊子飛向燈光）；
+    <b>向性</b>是植物身體朝刺激方向<b>生長</b>，需要時間，而且不可恢復原狀。</p>
+</section>
+
+<section class="card">
+  <h2>五、練習題</h2>
   <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
   <div id="qs"></div>
   <div class="actions">
@@ -190,7 +232,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 10</b>
+  <span>練習題答對</span><b id="score">0 / 14</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -397,7 +439,28 @@
         "環境因素的刺激",
         "植物的反射作用"
       ], ans:2,
-      why:"植物沒有神經系統，也沒有反射作用；向性是對光線、接觸、地球引力等環境刺激所產生的生長反應。" }
+      why:"植物沒有神經系統，也沒有反射作用；向性是對光線、接觸、地球引力等環境刺激所產生的生長反應。" },
+
+    { id:"y1", tag:"學力養成篇", type:"choice",
+      text:"許多動物對於環境的刺激，會產生趨向或背離的反應，請問這是什麼現象的表現？",
+      opts:["趨性","向性","反射作用","觸發運動"], ans:0,
+      why:"趨性是動物整個個體朝向或背離刺激移動，例如飛蛾撲火（趨光）。向性和觸發運動都是植物的反應。" },
+    { id:"y2", tag:"學力養成篇", type:"choice",
+      text:"下列為四種植物對於環境刺激的感應，何者從接受刺激到出現反應，所需的時間最長？",
+      opts:["含羞草受外力觸碰後小葉閉合","捕蠅草受昆蟲刺激後葉片閉合",
+            "酢漿草在太陽下山後葉片下垂","朱槿植株受光刺激後向光彎曲"], ans:3,
+      why:"向光性屬於「向性」，必須經過一段時間的生長才能表現出來，所以最慢。前三者都是短時間的感應（觸發運動、睡眠運動），幾秒到幾小時內就能反應。" },
+    { id:"y3", tag:"學力養成篇", type:"choice",
+      text:"下表為植物向性和觸發運動的比較，何項正確？",
+      opts:["刺激種類：向光性是光照，觸發運動是地球引力",
+            "反應速率：向光性較快，觸發運動較慢",
+            "對植物的影響：向光性是朝向光源生長，觸發運動是葉片閉合",
+            "是否可恢復原狀：兩者皆不可"], ans:2,
+      why:"向性是靠生長造成的，慢且不可恢復；觸發運動（如含羞草閉合）快速且可以恢復原狀。觸發運動的刺激是碰觸，不是地球引力。" },
+    { id:"y4", tag:"學力養成篇", type:"choice",
+      text:"將泡過水的苜蓿芽擺放在鋪有溼棉花的培養皿上，使其根尖端朝向中央，再把培養皿垂直放置於暗室中。三天後觀察到所有的根都朝下方彎曲生長。造成這個結果，是因苜蓿芽的生長受到下列何種環境因子的刺激所致？",
+      opts:["光線","地球引力","水分","碰觸的物品"], ans:1,
+      why:"實驗在暗室中進行，排除了光線的影響；棉花均勻溼潤，也排除了水分方向的差異。四顆芽原本的根朝向各不相同，最後卻都朝下，唯一的共同刺激就是地球引力——這是根的正向地性。" }
   ];
 
   var host = document.getElementById("qs");
@@ -494,7 +557,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 8) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先回上面三個練習區確認一次，再回來作答。";
   }
 
@@ -617,7 +680,7 @@
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -739,7 +802,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -792,7 +857,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -836,8 +900,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -856,11 +918,302 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　END ===== -->
 
+<script>
+/* ── 實驗紀錄共用元件（NKit）── */
+window.NKit = (function(){
+  "use strict";
+
+  var mem = {};
+  function read(key){
+    try { var r = localStorage.getItem(key); return r ? JSON.parse(r) : {}; }
+    catch(e){ return mem[key] || {}; }
+  }
+  function write(key, o){
+    mem[key] = o;
+    try { localStorage.setItem(key, JSON.stringify(o)); } catch(e){}
+  }
+
+  function mkSelect(opts, val){
+    var sel = document.createElement("select");
+    var b = document.createElement("option");
+    b.value = ""; b.textContent = "（選）";
+    sel.appendChild(b);
+    opts.forEach(function(o){
+      var op = document.createElement("option");
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    if (val) sel.value = val;
+    return sel;
+  }
+
+  function actions(host, label, run){
+    var wrap = document.createElement("div");
+    wrap.className = "actions";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "act";
+    btn.textContent = label || "檢查";
+    wrap.appendChild(btn);
+    host.parentNode.insertBefore(wrap, host.nextSibling);
+
+    var p = document.createElement("p");
+    p.className = "fb";
+    host.parentNode.insertBefore(p, wrap.nextSibling);
+
+    btn.addEventListener("click", function(){ run(p); });
+    return p;
+  }
+
+  function verdict(p, right, total, ok, no){
+    p.className = "fb show " + (right === total ? "right" : "wrong");
+    p.textContent = right === total
+      ? (ok || "全對。")
+      : ("答對 " + right + " / " + total + "。" + (no || ""));
+  }
+
+  /* 句子填空：t 字串中每個 {} 換成一個下拉選單 */
+  function fill(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kfill";
+    var sels = [];
+
+    cfg.rows.forEach(function(row, ri){
+      var div = document.createElement("div");
+      div.className = "row";
+      var parts = row.t.split("{}");
+      var rowSels = [];
+      parts.forEach(function(txt, i){
+        div.appendChild(document.createTextNode(txt));
+        if (i < parts.length - 1) {
+          var id = cfg.host + "-" + ri + "-" + i;
+          var sel = mkSelect(row.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          div.appendChild(sel);
+          rowSels.push({ sel:sel, id:id });
+        }
+      });
+      if (row.tail) div.appendChild(document.createTextNode(row.tail));
+      sels.push(rowSels);
+      host.appendChild(div);
+    });
+
+    actions(host, cfg.btn, function(p){
+      var right = 0, total = 0;
+      cfg.rows.forEach(function(row, ri){
+        var pool = row.ans.slice();
+        sels[ri].forEach(function(o, i){
+          total++;
+          var ok;
+          if (row.any) {
+            var at = pool.indexOf(o.sel.value);
+            ok = o.sel.value !== "" && at >= 0;
+            if (ok) pool.splice(at, 1);
+          } else {
+            ok = o.sel.value === row.ans[i];
+          }
+          o.sel.classList.toggle("ok", ok);
+          o.sel.classList.toggle("no", !ok);
+          if (ok) right++;
+        });
+      });
+      verdict(p, right, total, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 步驟排序：steps 以正確順序給，畫面上打散，用數字下拉作答 */
+  function order(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kord";
+    var n = cfg.steps.length;
+    var nums = [];
+    for (var i=1;i<=n;i++) nums.push(String(i));
+
+    var idx = cfg.steps.map(function(_, i){ return i; });
+    var seed = 0, c;
+    for (c=0;c<cfg.host.length;c++) seed = (seed * 31 + cfg.host.charCodeAt(c)) % 9973;
+    for (c=idx.length-1;c>0;c--){
+      seed = (seed * 1103515245 + 12345) % 2147483647;
+      var j = seed % (c+1), t = idx[c]; idx[c] = idx[j]; idx[j] = t;
+    }
+
+    var rows = [];
+    idx.forEach(function(orig){
+      var div = document.createElement("div");
+      div.className = "row";
+      var p = document.createElement("p");
+      p.textContent = cfg.steps[orig];
+      var id = cfg.host + "-" + orig;
+      var sel = mkSelect(nums, st[id]);
+      sel.addEventListener("change", function(){
+        st[id] = sel.value; write(cfg.key, st);
+        sel.classList.remove("ok","no");
+      });
+      div.appendChild(p); div.appendChild(sel);
+      host.appendChild(div);
+      rows.push({ sel:sel, ans:String(orig + 1) });
+    });
+
+    actions(host, cfg.btn || "檢查順序", function(p){
+      var right = 0;
+      rows.forEach(function(r){
+        var ok = r.sel.value === r.ans;
+        r.sel.classList.toggle("ok", ok);
+        r.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, rows.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 比較表：head 是欄位標題，rows 每列一個項目 */
+  function table(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    var tb = document.createElement("table");
+    tb.className = "cmp";
+
+    if (cfg.head) {
+      var tr = document.createElement("tr");
+      cfg.head.forEach(function(h, i){
+        var c = document.createElement("th");
+        c.textContent = h;
+        if (i > 0) c.style.width = "auto";
+        tr.appendChild(c);
+      });
+      tb.appendChild(tr);
+    }
+
+    var cells = [];
+    cfg.rows.forEach(function(row, ri){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = row.th;
+      tr.appendChild(th);
+      row.cells.forEach(function(cell, ci){
+        var td = document.createElement("td");
+        if (cell.text) {
+          td.textContent = cell.text;
+        } else {
+          var id = cfg.host + "-" + ri + "-" + ci;
+          var sel = mkSelect(cell.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          td.appendChild(sel);
+          cells.push({ sel:sel, ans:cell.ans });
+        }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    host.appendChild(tb);
+
+    actions(host, cfg.btn, function(p){
+      var right = 0;
+      cells.forEach(function(c){
+        var ok = c.sel.value === c.ans;
+        c.sel.classList.toggle("ok", ok);
+        c.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, cells.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 複選勾選題 */
+  function check(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kchk";
+    var boxes = [];
+    cfg.items.forEach(function(item, i){
+      var div = document.createElement("div");
+      div.className = "row";
+      var inp = document.createElement("input");
+      inp.type = "checkbox";
+      var id = cfg.host + "-" + i;
+      inp.checked = !!st[id];
+      inp.addEventListener("change", function(){
+        st[id] = inp.checked; write(cfg.key, st);
+      });
+      var p = document.createElement("p");
+      p.textContent = item.t;
+      div.appendChild(inp); div.appendChild(p);
+      host.appendChild(div);
+      boxes.push({ inp:inp, ans:!!item.ok, p:p, why:item.why });
+    });
+
+    actions(host, cfg.btn || "對答案", function(p){
+      var right = 0;
+      boxes.forEach(function(b){
+        var ok = b.inp.checked === b.ans;
+        b.p.style.color = ok ? "" : "var(--rose)";
+        if (ok) right++;
+      });
+      verdict(p, right, boxes.length, cfg.ok, cfg.no);
+    });
+  }
+
+  return { fill:fill, order:order, table:table, check:check };
+})();
+</script>
+<script>
+
+(function(){
+  var K = "nature1-c4-3-lab-v1";
+
+  NKit.check({
+    host:"e43q1", key:K,
+    items:[
+      { t:"正確，因為打蚊子的動作需要很快速", ok:false },
+      { t:"正確，因為打蚊子是頸部以下的動作", ok:false },
+      { t:"錯誤，因為打蚊子的動作需經過大腦判斷", ok:true },
+      { t:"錯誤，因為打蚊子的動作需經過脊髓傳遞訊息", ok:false }
+    ],
+    ok:"正確。要先看到或感覺到蚊子、判斷位置再出手，訊息經過大腦，所以是意識行為而不是反射作用。",
+    no:"動作快不等於反射。判斷標準只有一個：訊息有沒有經過大腦。"
+  });
+
+  NKit.fill({
+    host:"e43q2", key:K,
+    rows:[
+      { t:"正確的敘述是： {} ",
+        opts:["毛氈苔葉片接觸昆蟲後會捲起來，稱為向觸性",
+              "毛氈苔葉片捲起來的行為屬於反射動作",
+              "蚊子朝著捕蚊燈聚集的行為，稱為向光性",
+              "蚊子朝著捕蚊燈聚集的行為，稱為趨光行為"],
+        ans:["蚊子朝著捕蚊燈聚集的行為，稱為趨光行為"] }
+    ],
+    ok:"正確。動物整隻朝向刺激移動叫趨性，所以蚊子飛向燈光是趨光行為。",
+    no:"毛氈苔捲葉是不需長時間生長就能表現的觸發運動（不是向觸性，也不是反射）；植物才用「向性」這個詞，動物用「趨性」。"
+  });
+
+  NKit.check({
+    host:"e43q3", key:K,
+    items:[
+      { t:"清除蚊子飲食所需的水源", ok:false },
+      { t:"清除蚊子幼蟲的棲息地", ok:true }
+    ],
+    ok:"正確。蚊子的幼蟲（孑孓）沒有行動能力，只能生活在水面或水中，去除積水就等於斷了牠們的棲息地。",
+    no:"關鍵在沛沛的留言：講的是「幼蟲只能生活在水中」，所以清除的是幼蟲的棲息地。"
+  });
+})();
+</script>
 </body>
 </html>

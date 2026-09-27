@@ -107,6 +107,31 @@
   }
   .scorebar b{font-size:1.2rem;font-variant-numeric:tabular-nums;}
   footer{margin-top:26px;font-size:.85rem;color:var(--ink-soft);}
+  /* ── 實驗紀錄共用元件 ── */
+  .sub{font-family:"Songti TC","Noto Serif TC",serif;font-size:1.03rem;font-weight:700;
+    margin:20px 0 8px;padding-top:14px;border-top:1px dashed var(--rule-soft);color:var(--ink);}
+  .sub:first-child{border-top:none;padding-top:0;margin-top:2px;}
+  .kfill{margin:0;}
+  .kfill .row{padding:9px 0;border-top:1px solid var(--rule-soft);line-height:2.4;}
+  .kfill .row:first-child{border-top:none;}
+  .kfill select{width:auto;min-width:120px;max-width:100%;margin:0 3px;}
+  .kord .row{display:flex;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kord .row:first-child{border-top:none;}
+  .kord .row p{margin:0;flex:1 1 auto;}
+  .kord select{flex:0 0 auto;width:auto;min-width:82px;}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.94rem;margin:6px 0 12px;}
+  table.cmp th,table.cmp td{border:1px solid var(--rule-soft);padding:8px 10px;text-align:left;}
+  table.cmp th{background:#F3F7F2;font-weight:700;width:46%;}
+  table.cmp td select{width:100%;min-width:0;}
+  .kchk .row{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--rule-soft);}
+  .kchk .row:first-child{border-top:none;}
+  .kchk .row p{margin:0;flex:1 1 auto;}
+  .kchk .row input{margin-top:.5em;flex:0 0 auto;width:18px;height:18px;accent-color:var(--leaf);}
+  .knote{font-size:.9rem;color:var(--ink-soft);margin:.6em 0 0;line-height:1.75;}
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:4px 0 0;}
+  .kgrid .cell{border:1px solid var(--rule-soft);border-radius:10px;padding:10px 12px;background:#FCFDFB;}
+  .kgrid .cell h4{margin:0 0 .25em;font-size:.95rem;}
+  .kgrid .cell p{margin:0;font-size:.86rem;color:var(--ink-soft);line-height:1.65;}
 </style>
 </head>
 <body>
@@ -171,8 +196,31 @@
   <div class="actions"><button class="act ghost" id="tfReset" type="button">重做判斷</button></div>
 </section>
 
+
 <section class="card">
-  <h2>三、練習題</h2>
+  <h2>三、實驗 1-2：動、植物細胞的觀察</h2>
+  <p class="hint">依實驗活動紀錄簿 P.11–14。</p>
+
+  <p class="sub">甲　鴨跖草葉片細胞的觀察：操作順序</p>
+  <div id="e12a"></div>
+
+  <p class="sub">乙　口腔皮膜細胞的觀察：操作順序</p>
+  <div id="e12b"></div>
+
+  <p class="sub">步驟 Q：想一想</p>
+  <div id="e12q"></div>
+
+  <p class="sub">結果與討論 1：鴨跖草葉片下表皮的兩種細胞</p>
+  <div id="e12t1"></div>
+
+  <p class="sub">結果與討論 3：植物細胞和動物細胞比一比</p>
+  <div id="e12t2"></div>
+  <p class="knote">鴨跖草表皮細胞排列<b>緊密而規則</b>，這樣的排列讓它能<b>保護</b>植物體、
+    減少水分散失；口腔皮膜細胞同樣扁平且排列緊密，也是負責保護。</p>
+</section>
+
+<section class="card">
+  <h2>四、練習題</h2>
   <p class="hint">作答後按「對答案」，會顯示解題重點；答錯的題目會自動收進總覽頁的錯題本。</p>
   <div id="qs"></div>
   <div class="actions">
@@ -182,7 +230,7 @@
 </section>
 
 <div class="scorebar">
-  <span>練習題答對</span><b id="score">0 / 11</b>
+  <span>練習題答對</span><b id="score">0 / 18</b>
   <span id="scoreNote" style="font-size:.88rem;color:var(--ink-soft);">先作答，再按對答案。</span>
 </div>
 
@@ -401,7 +449,45 @@
         "植物細胞一定比動物細胞多了葉綠體",
         "植物細胞有液泡，動物細胞沒有"
       ], ans:1,
-      why:"葉綠體只有能行光合作用的細胞才有（例如表皮細胞就沒有），液泡動物細胞也有，只是較小較多；細胞壁才是植物細胞一定多出來的構造。" }
+      why:"葉綠體只有能行光合作用的細胞才有（例如表皮細胞就沒有），液泡動物細胞也有，只是較小較多；細胞壁才是植物細胞一定多出來的構造。" },
+
+    { id:"x1", tag:"學力養成篇", type:"choice",
+      text:"下列哪一種構造是細胞的生命中樞，如果失去它，細胞將逐漸死亡？",
+      opts:["細胞核","粒線體","液泡","葉綠體"], ans:0,
+      why:"細胞核裡有遺傳物質，負責指揮細胞的各種活動，是細胞的生命中樞。" },
+    { id:"x2", tag:"學力養成篇", type:"choice",
+      text:"下列何者主要負責產生能量供細胞使用？",
+      opts:["細胞核","粒線體","細胞壁","液泡"], ans:1,
+      why:"粒線體把養分分解並釋放能量，被稱為細胞的發電廠。" },
+    { id:"x3", tag:"學力養成篇", type:"choice",
+      text:"要判斷一個細胞比較可能是動物細胞還是植物細胞，下列哪一個理由最合理？",
+      opts:["動物細胞，因為不具有細胞壁和葉綠體",
+            "動物細胞，因為具有粒線體",
+            "植物細胞，因為具有液泡",
+            "植物細胞，因為細胞形狀為長形"], ans:0,
+      why:"細胞壁和葉綠體是植物細胞才有的構造，最適合用來分辨。粒線體和液泡動植物細胞都有（植物的液泡較大），細胞形狀也不是可靠的依據。" },
+    { id:"x4", tag:"學力養成篇", type:"choice",
+      text:"（實驗 1-2）小薇應該使用何種方法取得口腔皮膜細胞較適合？",
+      opts:["用咖啡攪拌棒的一端，輕刮口腔兩側皮膜",
+            "用牙籤輕刮牙齒表面",
+            "用滴管吸取唾液",
+            "用手指輕摳舌頭"], ans:0,
+      why:"要取的是口腔內壁的皮膜細胞，所以用鈍而乾淨的工具輕刮口腔兩側；牙齒表面刮到的是牙垢，唾液中細胞很少。" },
+    { id:"x5", tag:"學力養成篇", type:"choice",
+      text:"（實驗 1-2）依照實驗觀察結果，關於鴨跖草表皮細胞和口腔皮膜細胞構造的比較，下列敘述何者正確？",
+      opts:["兩者皆具有細胞壁與葉綠體",
+            "兩者皆不具有細胞壁與葉綠體",
+            "鴨跖草表皮細胞有葉綠體",
+            "僅鴨跖草表皮細胞有細胞壁"], ans:3,
+      why:"鴨跖草的表皮細胞有細胞壁但沒有葉綠體（有葉綠體的是保衛細胞）；口腔皮膜細胞兩者都沒有。" },
+    { id:"x6", tag:"學力養成篇", type:"choice",
+      text:"（實驗 1-2）小薇觀察到鴨跖草表皮細胞和口腔皮膜細胞都是扁平狀，這與他們的何種功能有關？",
+      opts:["幫助體內物質的運輸","具有保護的功能","可進行光合作用","具有支持內部構造的作用"], ans:1,
+      why:"兩者都位於生物體的表面，扁平而排列緊密，能像一層皮一樣覆蓋、保護內部。" },
+    { id:"x7", tag:"學力養成篇", type:"choice",
+      text:"（實驗 1-2）觀察鴨跖草的下表皮細胞，除了表皮細胞外還會見到保衛細胞，請問下列哪一項不是保衛細胞的特點？",
+      opts:["呈半月形","具有葉綠體","排列緊密","兩兩成對"], ans:2,
+      why:"排列緊密是表皮細胞的特徵。保衛細胞兩兩成對，中間留下氣孔的開口，並不是緊密相連的。" }
   ];
 
   var host = document.getElementById("qs");
@@ -498,7 +584,7 @@
     document.getElementById("score").textContent = right + " / " + QS.length;
     var note = document.getElementById("scoreNote");
     if (right === QS.length) note.textContent = "全部答對，可以回總覽勾選完成了。";
-    else if (right >= 8) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
+    else if (right >= Math.ceil(QS.length * 0.7)) note.textContent = "大部分都掌握了，錯的題目看一次解題重點。";
     else note.textContent = "先回上面的構造配對與有無判讀確認一次，再回來作答。";
   }
 
@@ -621,10 +707,344 @@
   })();
 })();
 </script>
+<script>
+/* ── 實驗紀錄共用元件（NKit）── */
+window.NKit = (function(){
+  "use strict";
+
+  var mem = {};
+  function read(key){
+    try { var r = localStorage.getItem(key); return r ? JSON.parse(r) : {}; }
+    catch(e){ return mem[key] || {}; }
+  }
+  function write(key, o){
+    mem[key] = o;
+    try { localStorage.setItem(key, JSON.stringify(o)); } catch(e){}
+  }
+
+  function mkSelect(opts, val){
+    var sel = document.createElement("select");
+    var b = document.createElement("option");
+    b.value = ""; b.textContent = "（選）";
+    sel.appendChild(b);
+    opts.forEach(function(o){
+      var op = document.createElement("option");
+      op.value = o; op.textContent = o;
+      sel.appendChild(op);
+    });
+    if (val) sel.value = val;
+    return sel;
+  }
+
+  function actions(host, label, run){
+    var wrap = document.createElement("div");
+    wrap.className = "actions";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "act";
+    btn.textContent = label || "檢查";
+    wrap.appendChild(btn);
+    host.parentNode.insertBefore(wrap, host.nextSibling);
+
+    var p = document.createElement("p");
+    p.className = "fb";
+    host.parentNode.insertBefore(p, wrap.nextSibling);
+
+    btn.addEventListener("click", function(){ run(p); });
+    return p;
+  }
+
+  function verdict(p, right, total, ok, no){
+    p.className = "fb show " + (right === total ? "right" : "wrong");
+    p.textContent = right === total
+      ? (ok || "全對。")
+      : ("答對 " + right + " / " + total + "。" + (no || ""));
+  }
+
+  /* 句子填空：t 字串中每個 {} 換成一個下拉選單 */
+  function fill(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kfill";
+    var sels = [];
+
+    cfg.rows.forEach(function(row, ri){
+      var div = document.createElement("div");
+      div.className = "row";
+      var parts = row.t.split("{}");
+      var rowSels = [];
+      parts.forEach(function(txt, i){
+        div.appendChild(document.createTextNode(txt));
+        if (i < parts.length - 1) {
+          var id = cfg.host + "-" + ri + "-" + i;
+          var sel = mkSelect(row.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          div.appendChild(sel);
+          rowSels.push({ sel:sel, id:id });
+        }
+      });
+      if (row.tail) div.appendChild(document.createTextNode(row.tail));
+      sels.push(rowSels);
+      host.appendChild(div);
+    });
+
+    actions(host, cfg.btn, function(p){
+      var right = 0, total = 0;
+      cfg.rows.forEach(function(row, ri){
+        var pool = row.ans.slice();
+        sels[ri].forEach(function(o, i){
+          total++;
+          var ok;
+          if (row.any) {
+            var at = pool.indexOf(o.sel.value);
+            ok = o.sel.value !== "" && at >= 0;
+            if (ok) pool.splice(at, 1);
+          } else {
+            ok = o.sel.value === row.ans[i];
+          }
+          o.sel.classList.toggle("ok", ok);
+          o.sel.classList.toggle("no", !ok);
+          if (ok) right++;
+        });
+      });
+      verdict(p, right, total, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 步驟排序：steps 以正確順序給，畫面上打散，用數字下拉作答 */
+  function order(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kord";
+    var n = cfg.steps.length;
+    var nums = [];
+    for (var i=1;i<=n;i++) nums.push(String(i));
+
+    var idx = cfg.steps.map(function(_, i){ return i; });
+    var seed = 0, c;
+    for (c=0;c<cfg.host.length;c++) seed = (seed * 31 + cfg.host.charCodeAt(c)) % 9973;
+    for (c=idx.length-1;c>0;c--){
+      seed = (seed * 1103515245 + 12345) % 2147483647;
+      var j = seed % (c+1), t = idx[c]; idx[c] = idx[j]; idx[j] = t;
+    }
+
+    var rows = [];
+    idx.forEach(function(orig){
+      var div = document.createElement("div");
+      div.className = "row";
+      var p = document.createElement("p");
+      p.textContent = cfg.steps[orig];
+      var id = cfg.host + "-" + orig;
+      var sel = mkSelect(nums, st[id]);
+      sel.addEventListener("change", function(){
+        st[id] = sel.value; write(cfg.key, st);
+        sel.classList.remove("ok","no");
+      });
+      div.appendChild(p); div.appendChild(sel);
+      host.appendChild(div);
+      rows.push({ sel:sel, ans:String(orig + 1) });
+    });
+
+    actions(host, cfg.btn || "檢查順序", function(p){
+      var right = 0;
+      rows.forEach(function(r){
+        var ok = r.sel.value === r.ans;
+        r.sel.classList.toggle("ok", ok);
+        r.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, rows.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 比較表：head 是欄位標題，rows 每列一個項目 */
+  function table(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    var tb = document.createElement("table");
+    tb.className = "cmp";
+
+    if (cfg.head) {
+      var tr = document.createElement("tr");
+      cfg.head.forEach(function(h, i){
+        var c = document.createElement("th");
+        c.textContent = h;
+        if (i > 0) c.style.width = "auto";
+        tr.appendChild(c);
+      });
+      tb.appendChild(tr);
+    }
+
+    var cells = [];
+    cfg.rows.forEach(function(row, ri){
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
+      th.textContent = row.th;
+      tr.appendChild(th);
+      row.cells.forEach(function(cell, ci){
+        var td = document.createElement("td");
+        if (cell.text) {
+          td.textContent = cell.text;
+        } else {
+          var id = cfg.host + "-" + ri + "-" + ci;
+          var sel = mkSelect(cell.opts || cfg.opts, st[id]);
+          sel.addEventListener("change", function(){
+            st[id] = sel.value; write(cfg.key, st);
+            sel.classList.remove("ok","no");
+          });
+          td.appendChild(sel);
+          cells.push({ sel:sel, ans:cell.ans });
+        }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    host.appendChild(tb);
+
+    actions(host, cfg.btn, function(p){
+      var right = 0;
+      cells.forEach(function(c){
+        var ok = c.sel.value === c.ans;
+        c.sel.classList.toggle("ok", ok);
+        c.sel.classList.toggle("no", !ok);
+        if (ok) right++;
+      });
+      verdict(p, right, cells.length, cfg.ok, cfg.no);
+    });
+  }
+
+  /* 複選勾選題 */
+  function check(cfg){
+    var host = document.getElementById(cfg.host);
+    if (!host) return;
+    var st = read(cfg.key);
+    host.className = "kchk";
+    var boxes = [];
+    cfg.items.forEach(function(item, i){
+      var div = document.createElement("div");
+      div.className = "row";
+      var inp = document.createElement("input");
+      inp.type = "checkbox";
+      var id = cfg.host + "-" + i;
+      inp.checked = !!st[id];
+      inp.addEventListener("change", function(){
+        st[id] = inp.checked; write(cfg.key, st);
+      });
+      var p = document.createElement("p");
+      p.textContent = item.t;
+      div.appendChild(inp); div.appendChild(p);
+      host.appendChild(div);
+      boxes.push({ inp:inp, ans:!!item.ok, p:p, why:item.why });
+    });
+
+    actions(host, cfg.btn || "對答案", function(p){
+      var right = 0;
+      boxes.forEach(function(b){
+        var ok = b.inp.checked === b.ans;
+        b.p.style.color = ok ? "" : "var(--rose)";
+        if (ok) right++;
+      });
+      verdict(p, right, boxes.length, cfg.ok, cfg.no);
+    });
+  }
+
+  return { fill:fill, order:order, table:table, check:check };
+})();
+</script>
+<script>
+
+(function(){
+  var K = "nature1-c1-2-lab-v1";
+
+  NKit.order({
+    host:"e12a", key:K,
+    steps:[
+      "把鴨跖草葉片拭淨後，將葉的背面朝下折斷。",
+      "在折斷處輕輕撕拉，取下邊緣薄而半透明的薄層（下表皮），再用單面刀片切下一小片表皮。",
+      "在載玻片上滴加一滴水，用鑷子把切下的下表皮放在水滴中央。",
+      "蓋上蓋玻片，並以吸水紙吸去多餘的水分。",
+      "把玻片標本置於複式顯微鏡下，先低倍率、再高倍率觀察細胞形態。"
+    ],
+    ok:"順序正確。撕下表皮是因為下表皮的保衛細胞比較多，容易觀察到氣孔。",
+    no:"想想製作玻片標本的固定流程：先取材 → 再滴水放樣本 → 蓋蓋玻片 → 才上顯微鏡。"
+  });
+
+  NKit.order({
+    host:"e12b", key:K,
+    steps:[
+      "在載玻片中央加一滴亞甲藍液。",
+      "以乾淨的咖啡攪拌棒（或牙籤鈍端）輕輕刮取口腔兩側的皮膜。",
+      "把刮下的皮膜細胞放在載玻片上，與染劑混合均勻使細胞染色。",
+      "蓋上蓋玻片，用吸水紙吸去多餘的染劑。",
+      "把玻片標本置於複式顯微鏡下觀察細胞形態。"
+    ],
+    ok:"順序正確。先滴染劑再刮取，細胞一放上去就能立刻染色。",
+    no:"注意：亞甲藍液是「先」滴在載玻片上的，這樣刮下來的細胞才能馬上混合染色。"
+  });
+
+  NKit.fill({
+    host:"e12q", key:K,
+    rows:[
+      { t:"為什麼要撕鴨跖草的下表皮，而不是上表皮？因為下表皮可以觀察到 {} ，上表皮的這種細胞較少，比較不容易觀察。",
+        opts:["表皮細胞","保衛細胞","葉肉細胞","根毛細胞"], ans:["保衛細胞"] },
+      { t:"加入亞甲藍液這類染劑之後，可以清楚觀察到細胞中的哪一種構造？答： {} 。",
+        opts:["細胞核","細胞壁","葉綠體","粒線體"], ans:["細胞核"] },
+      { t:"觀察口腔皮膜細胞時，要用哪一種工具刮取？答：用乾淨的 {} 輕輕刮取口腔兩側的皮膜。",
+        opts:["咖啡攪拌棒或牙籤鈍端","單面刀片","鑷子尖端","滴管"], ans:["咖啡攪拌棒或牙籤鈍端"] }
+    ],
+    ok:"全對。染劑的功用就是讓原本透明的細胞核顯現出來。",
+    no:"刮取口腔皮膜一定要用鈍的工具，刀片和尖銳物會刮傷口腔。"
+  });
+
+  NKit.table({
+    host:"e12t1", key:K,
+    head:["細胞特徵","表皮細胞","保衛細胞"],
+    rows:[
+      { th:"形狀", cells:[
+        { opts:["規則、扁平","半月形","細長條狀","球形"], ans:"規則、扁平" },
+        { opts:["規則、扁平","半月形","細長條狀","球形"], ans:"半月形" } ] },
+      { th:"有無葉綠體", cells:[
+        { opts:["有","無"], ans:"無" },
+        { opts:["有","無"], ans:"有" } ] },
+      { th:"有無細胞壁", cells:[
+        { opts:["有","無"], ans:"有" },
+        { opts:["有","無"], ans:"有" } ] },
+      { th:"主要功能", cells:[
+        { opts:["保護植物體","控制氣孔的開關"], ans:"保護植物體" },
+        { opts:["保護植物體","控制氣孔的開關"], ans:"控制氣孔的開關" } ] }
+    ],
+    ok:"全對。同樣是植物細胞，都有細胞壁；但只有保衛細胞有葉綠體，而且兩兩成對圍出氣孔。",
+    no:"關鍵差別在葉綠體：表皮細胞是透明的保護層，沒有葉綠體。"
+  });
+
+  NKit.table({
+    host:"e12t2", key:K,
+    head:["細胞特徵","鴨跖草葉片表皮細胞","口腔皮膜細胞"],
+    rows:[
+      { th:"形狀", cells:[
+        { opts:["規則、扁平","不規則、扁平"], ans:"規則、扁平" },
+        { opts:["規則、扁平","不規則、扁平"], ans:"不規則、扁平" } ] },
+      { th:"有無細胞壁", cells:[
+        { opts:["有","無"], ans:"有" },
+        { opts:["有","無"], ans:"無" } ] },
+      { th:"排列方式", cells:[
+        { opts:["排列緊密","零散分布"], ans:"排列緊密" },
+        { opts:["排列緊密","零散分布"], ans:"排列緊密" } ] }
+    ],
+    ok:"全對。有沒有細胞壁，是分辨植物細胞和動物細胞最直接的線索。",
+    no:"植物細胞因為有細胞壁，形狀比較固定、輪廓比較方正；動物細胞則圓潤不規則。"
+  });
+})();
+</script>
 <!-- ===== 生物陪讀家教　李憲緹（粒線體）　START ===== -->
 <style>
   .lxt-fab{position:fixed;right:16px;bottom:16px;z-index:9998;width:58px;height:58px;padding:0;
-    border-radius:50%;border:3px solid #fff;background:#FF5A2B center/cover no-repeat;
+    border-radius:50%;border:3px solid #fff;background:#FF5A2B;
     box-shadow:0 6px 18px rgba(22,48,43,.28);cursor:pointer;overflow:hidden;
     transition:transform .18s ease;}
   .lxt-fab:hover{transform:scale(1.06);}
@@ -746,7 +1166,9 @@
     {t:"未來的你，一定會感謝現在願意努力的自己。"},
     {t:"現在種下知識的種子，未來就會長出夢想的森林。"},
     {t:"學習是一場和自己的浪漫約會，慢慢來，享受它。"},
-    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"}
+    {t:"休息一下，喝口水。粒線體也需要氧氣才產得出 ATP 喔！"},
+    {t:"實驗看不懂沒關係，先問自己：這個實驗想比較的是什麼？"},
+    {t:"把步驟排一次順序，你就會記得為什麼要這樣做。"}
   ];
 
   var fab = document.getElementById("lxtFab");
@@ -799,7 +1221,6 @@
     show();
   }
 
-  /* 右下角頭像：隨時點我打氣 */
   fab.addEventListener("click", function(){
     if (card.classList.contains("show")) { hide(); return; }
     show(null, 13000);
@@ -843,8 +1264,6 @@
     }
   });
 
-  /* 自我介紹 */
-  function openIntro(){ mask.classList.add("show"); }
   function closeIntro(){
     mask.classList.remove("show");
     if (document.getElementById("lxtSkip").checked) { st.skipIntro = 1; }
@@ -863,7 +1282,7 @@
     }, 1400);
     st.lastVisit = Date.now(); save(st);
   } else {
-    setTimeout(openIntro, 500);
+    setTimeout(function(){ mask.classList.add("show"); }, 500);
   }
 })();
 </script>
